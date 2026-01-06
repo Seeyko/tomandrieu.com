@@ -328,9 +328,15 @@ body.loading * {
 }
 
 /* ─── About Card ─── */
+.about-content {
+  width: 100%;
+  max-width: 100%;
+}
+
 .about-card,
 .contact-card {
   position: relative;
+  width: 100%;
 }
 
 .card-body {

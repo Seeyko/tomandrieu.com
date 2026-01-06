@@ -724,7 +724,7 @@ body[data-theme="terminal"] .section-footer {
 
 /* ─── About Section ─── */
 body[data-theme="terminal"] .about-content {
-  max-width: 900px;
+  max-width: 100%;
 }
 
 body[data-theme="terminal"] .about-card {

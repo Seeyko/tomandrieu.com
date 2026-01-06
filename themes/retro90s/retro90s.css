@@ -760,7 +760,7 @@ body[data-theme="retro90s"] .link-icon {
    ═══════════════════════════════════════════════════════════════ */
 
 body[data-theme="retro90s"] .about-content {
-  max-width: 800px;
+  max-width: 100%;
 }
 
 body[data-theme="retro90s"] .about-card {
