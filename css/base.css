@@ -367,3 +367,42 @@ body.loading * {
   }
 }
 
+/* ─── Global Visitor Counter ─── */
+.visitor-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  margin: 1rem auto;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.visitor-counter:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.visitor-icon {
+  font-size: 1.1rem;
+}
+
+.visitor-label {
+  opacity: 0.7;
+}
+
+.visitor-count {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  min-width: 4ch;
+  text-align: center;
+}
+
+.visitor-count.loading {
+  animation: pulse 1.5s infinite;
+}
+

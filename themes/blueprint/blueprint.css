@@ -1107,6 +1107,47 @@ body[data-theme="blueprint"] .footer-copyright {
   }
 }
 
+/* ─── Visitor Counter (Blueprint Style) ─── */
+body[data-theme="blueprint"] .visitor-counter {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px dashed var(--line-white-dim);
+  color: var(--line-white);
+  font-family: var(--font-technical);
+  font-size: 0.85rem;
+  position: relative;
+}
+
+body[data-theme="blueprint"] .visitor-counter::before,
+body[data-theme="blueprint"] .visitor-counter::after {
+  content: '+';
+  position: absolute;
+  font-size: 0.7rem;
+  color: var(--line-white-dim);
+}
+
+body[data-theme="blueprint"] .visitor-counter::before {
+  top: -3px;
+  left: -3px;
+}
+
+body[data-theme="blueprint"] .visitor-counter::after {
+  bottom: -3px;
+  right: -3px;
+}
+
+body[data-theme="blueprint"] .visitor-counter:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--line-white);
+}
+
+body[data-theme="blueprint"] .visitor-icon {
+  opacity: 0.8;
+}
+
+body[data-theme="blueprint"] .visitor-count {
+  color: var(--accent-cyan);
+}
+
 /* ─── Body Loaded State ─── */
 body[data-theme="blueprint"].loaded {
   animation: fadeIn 0.5s ease;

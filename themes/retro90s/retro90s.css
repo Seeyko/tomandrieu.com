@@ -1218,3 +1218,37 @@ body[data-theme="retro90s"] ::-webkit-scrollbar-corner {
 body[data-theme="retro90s"].loaded {
   animation: none;
 }
+
+/* ─── Visitor Counter (90s Style) ─── */
+body[data-theme="retro90s"] .visitor-counter {
+  background: var(--color-black);
+  border: 3px inset var(--bevel-dark);
+  color: var(--color-green);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  margin: 1rem auto;
+  box-shadow:
+    inset 1px 1px 0 var(--bevel-darker),
+    inset -1px -1px 0 var(--bevel-light);
+}
+
+body[data-theme="retro90s"] .visitor-counter:hover {
+  background: #111;
+}
+
+body[data-theme="retro90s"] .visitor-icon {
+  filter: none;
+}
+
+body[data-theme="retro90s"] .visitor-label {
+  color: var(--color-green);
+  opacity: 1;
+}
+
+body[data-theme="retro90s"] .visitor-count {
+  color: var(--color-green);
+  font-weight: normal;
+  text-shadow: 0 0 5px var(--color-green);
+  letter-spacing: 2px;
+}
