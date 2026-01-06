@@ -1,35 +1,104 @@
 /**
  * ═══════════════════════════════════════════════════════════════
- * ARCHITECTURAL BLUEPRINT PORTFOLIO
- * "The Master Plan" Aesthetic - JavaScript Controller
+ * TERMINAL CLI PORTFOLIO
+ * "Cyber-Industrial Hacker" Aesthetic - JavaScript Controller
  * ═══════════════════════════════════════════════════════════════
  */
 
-console.log('%c[BLUEPRINT] Portfolio Initialized', 'color: #00FFFF; font-family: monospace;');
+// ─── Fun ASCII Banner ───
+console.log(`
+%c╔═══════════════════════════════════════════════════════════════╗
+║  ████████╗ ██████╗ ███╗   ███╗   ██████╗ ███████╗██╗   ██╗   ║
+║  ╚══██╔══╝██╔═══██╗████╗ ████║   ██╔══██╗██╔════╝██║   ██║   ║
+║     ██║   ██║   ██║██╔████╔██║   ██║  ██║█████╗  ██║   ██║   ║
+║     ██║   ██║   ██║██║╚██╔╝██║   ██║  ██║██╔══╝  ╚██╗ ██╔╝   ║
+║     ██║   ╚██████╔╝██║ ╚═╝ ██║   ██████╔╝███████╗ ╚████╔╝    ║
+║     ╚═╝    ╚═════╝ ╚═╝     ╚═╝   ╚═════╝ ╚══════╝  ╚═══╝     ║
+╚═══════════════════════════════════════════════════════════════╝
+`, 'color: #33ff00; font-family: monospace;');
+
+console.log('%c[SYSTEM] Terminal initialized...', 'color: #ffb000;');
+console.log('%c[OK] Portfolio v3.0 loaded', 'color: #33ff00;');
+console.log('%c[INFO] Type "help()" for easter eggs 🥚', 'color: #33ff00;');
+
+// ─── Easter Egg Functions ───
+window.help = function() {
+    console.log(`
+%c╔═══════════════════════════════════════╗
+║         AVAILABLE COMMANDS            ║
+╠═══════════════════════════════════════╣
+║  matrix()    - Enter the Matrix       ║
+║  party()     - 🎉 Party mode!         ║
+║  hack()      - Hack the mainframe     ║
+║  coffee()    - ☕ Refill coffee       ║
+║  reset()     - Reset to default       ║
+╚═══════════════════════════════════════╝
+`, 'color: #33ff00; font-family: monospace;');
+};
+
+window.matrix = function() {
+    document.documentElement.style.setProperty('--primary', '#00ff00');
+    document.documentElement.style.setProperty('--secondary', '#003300');
+    console.log('%c[SYSTEM] You are now in the Matrix...', 'color: #00ff00;');
+    console.log('%c"There is no spoon." 🥄', 'color: #00ff00;');
+};
+
+window.party = function() {
+    let colors = ['#ff0000', '#ff7700', '#ffff00', '#00ff00', '#0077ff', '#7700ff'];
+    let i = 0;
+    const partyInterval = setInterval(() => {
+        document.documentElement.style.setProperty('--primary', colors[i % colors.length]);
+        i++;
+        if (i > 30) {
+            clearInterval(partyInterval);
+            document.documentElement.style.setProperty('--primary', '#33ff00');
+        }
+    }, 100);
+    console.log('%c🎉 PARTY MODE ACTIVATED! 🎉', 'color: #ff00ff; font-size: 20px;');
+};
+
+window.hack = function() {
+    console.log('%c[SYSTEM] Initializing hack sequence...', 'color: #ffb000;');
+    console.log('%c[████████████████████] 100%', 'color: #33ff00;');
+    console.log('%c[SUCCESS] Access granted! Just kidding 😄', 'color: #33ff00;');
+};
+
+window.coffee = function() {
+    console.log('%c☕ Coffee level restored to 100%!', 'color: #ffb000; font-size: 16px;');
+    console.log('%c[OK] Developer productivity increased by 200%', 'color: #33ff00;');
+};
+
+window.reset = function() {
+    document.documentElement.style.setProperty('--primary', '#33ff00');
+    document.documentElement.style.setProperty('--secondary', '#ffb000');
+    console.log('%c[SYSTEM] Colors reset to default', 'color: #33ff00;');
+};
 
 // ─── Project Data ───
 let projects = [];
 let loadingProjects = true;
-fetch('./projects.json').then(res => {
-    if (!res.ok) {
-        throw new Error('Failed to fetch projects');
-    }
-    return res.json();
-}).then(data => {
-    projects = data;
-    renderProjects(projects);
-    loadingProjects = false;
-}).catch(err => {
-    console.error(err);
-    loadingProjects = false;
-});
+
+fetch('./projects.json')
+    .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch projects');
+        return res.json();
+    })
+    .then(data => {
+        projects = data;
+        console.log(`%c[OK] Loaded ${projects.length} projects`, 'color: #33ff00;');
+        renderProjects(projects);
+        loadingProjects = false;
+    })
+    .catch(err => {
+        console.error('%c[ERR] ' + err.message, 'color: #ff3333;');
+        loadingProjects = false;
+    });
 
 // ─── DOM Elements ───
-const cursorCrosshair = document.getElementById('cursor-crosshair');
-const coordX = document.getElementById('coord-x');
-const coordY = document.getElementById('coord-y');
+const cursorBlock = document.getElementById('cursor-block');
+const heroTyped = document.getElementById('hero-typed');
 
-// ─── Cursor Crosshair Tracker ───
+// ─── Cursor Block Tracker ───
 class CursorTracker {
     constructor() {
         this.cursorX = 0;
@@ -50,17 +119,11 @@ class CursorTracker {
     }
 
     animate() {
-        // Smooth interpolation
         this.cursorX += (this.targetX - this.cursorX) * 0.15;
         this.cursorY += (this.targetY - this.cursorY) * 0.15;
 
-        if (cursorCrosshair) {
-            cursorCrosshair.style.transform = `translate(${this.cursorX}px, ${this.cursorY}px)`;
-        }
-
-        if (coordX && coordY) {
-            coordX.textContent = Math.round(this.cursorX);
-            coordY.textContent = Math.round(this.cursorY);
+        if (cursorBlock) {
+            cursorBlock.style.transform = `translate(${this.cursorX + 10}px, ${this.cursorY - 10}px)`;
         }
 
         requestAnimationFrame(this.animate.bind(this));
@@ -70,18 +133,73 @@ class CursorTracker {
 // Initialize cursor tracker
 const cursor = new CursorTracker();
 
-// ─── Render Projects ───
-function renderProjects(projectsData) {
-    if (!loadingProjects) {
-        const loading = document.querySelector('.projects-grid-loading');
-        if (loading) {
-            loading.style.display = 'none';
+// ─── Typewriter Effect ───
+class Typewriter {
+    constructor(element, texts, speed = 80) {
+        this.element = element;
+        this.texts = texts;
+        this.speed = speed;
+        this.textIndex = 0;
+        this.charIndex = 0;
+        this.isDeleting = false;
+        this.isPaused = false;
+        
+        if (this.element) {
+            this.type();
         }
     }
 
+    type() {
+        const currentText = this.texts[this.textIndex];
+        
+        if (this.isDeleting) {
+            this.element.textContent = currentText.substring(0, this.charIndex - 1);
+            this.charIndex--;
+        } else {
+            this.element.textContent = currentText.substring(0, this.charIndex + 1);
+            this.charIndex++;
+        }
+
+        let delay = this.isDeleting ? this.speed / 2 : this.speed;
+
+        if (!this.isDeleting && this.charIndex === currentText.length) {
+            delay = 2000; // Pause at end
+            this.isDeleting = true;
+        } else if (this.isDeleting && this.charIndex === 0) {
+            this.isDeleting = false;
+            this.textIndex = (this.textIndex + 1) % this.texts.length;
+            delay = 500; // Pause before next text
+        }
+
+        setTimeout(() => this.type(), delay);
+    }
+}
+
+// Initialize typewriter with fun messages
+const heroMessages = [
+    'echo "Hello, World!"',
+    'npm run create-awesome-stuff',
+    'git commit -m "made it better"',
+    'sudo make me a sandwich',
+    'while(true) { code(); coffee(); }',
+    './build-dreams.sh --with-passion',
+    'grep -r "bugs" . | rm -rf',
+];
+
+// Delay typewriter start
+setTimeout(() => {
+    new Typewriter(heroTyped, heroMessages, 60);
+}, 1000);
+
+// ─── Render Projects ───
+function renderProjects(projectsData) {
     const grid = document.getElementById('projects-grid');
     if (!grid) return;
-    
+
+    // Hide loading
+    const loading = document.querySelector('.projects-grid-loading');
+    if (loading) loading.style.display = 'none';
+
     grid.innerHTML = '';
 
     projectsData.forEach((project, index) => {
@@ -90,20 +208,18 @@ function renderProjects(projectsData) {
         card.href = project.url;
         card.target = '_blank';
         card.rel = 'noopener noreferrer';
-        card.style.animationDelay = `${index * 0.1}s`;
 
         // Create carousel for multiple images
         const carouselId = `carousel-${project.id}`;
         let mediaContent = '';
-        
+
         if (project.images && project.images.length > 1) {
-            // Multiple images - create carousel
             const slidesHTML = project.images.map((img, i) => `
                 <div class="carousel-slide ${i === 0 ? 'active' : ''}" data-index="${i}">
                     <img src="${img}" alt="${project.title} - ${i + 1}" class="project-image">
                 </div>
             `).join('');
-            
+
             const dotsHTML = project.images.map((_, i) => `
                 <span class="carousel-dot ${i === 0 ? 'active' : ''}" data-index="${i}"></span>
             `).join('');
@@ -119,10 +235,8 @@ function renderProjects(projectsData) {
                 </div>
             `;
         } else if (project.images && project.images.length === 1) {
-            // Single image
             mediaContent = `<img src="${project.images[0]}" alt="${project.title}" class="project-image">`;
         } else if (project.video) {
-            // Video
             mediaContent = `
                 <video class="project-video" autoplay muted loop playsinline>
                     <source src="${project.video}" type="video/mp4">
@@ -131,28 +245,28 @@ function renderProjects(projectsData) {
         }
 
         // Create tags
-        const tagsHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+        const tagsHTML = project.tags.map(tag => `<span class="tag">[ ${tag} ]</span>`).join('');
 
         // Format index
         const indexFormatted = String(index + 1).padStart(2, '0');
 
         card.innerHTML = `
-            <div class="project-media-container">
+            <div class="project-card-header">
                 <span class="project-index">PRJ-${indexFormatted}</span>
+                <span class="project-type">// ${project.type}</span>
+            </div>
+            <div class="project-media-container">
                 ${mediaContent}
             </div>
             <div class="project-info">
-                <span class="project-type">${project.type}</span>
-                <h3>${project.title}</h3>
+                <h3>> ${project.title}</h3>
                 <p>${project.description}</p>
                 <div class="tags">${tagsHTML}</div>
                 <div class="project-link">
-                    <span class="link-icon">↗</span>
-                    <span class="link-url">${project.url}</span>
+                    <span class="link-icon">→</span>
+                    <span>${project.url}</span>
                 </div>
             </div>
-            <div class="card-corner-bl"></div>
-            <div class="card-corner-br"></div>
         `;
 
         grid.appendChild(card);
@@ -160,9 +274,11 @@ function renderProjects(projectsData) {
 
     // Initialize carousels
     initCarousels();
-    
-    // Initialize scroll animations after rendering
+
+    // Initialize scroll animations
     initScrollAnimations();
+
+    console.log(`%c[OK] Rendered ${projectsData.length} project cards`, 'color: #33ff00;');
 }
 
 // ─── Initialize Carousels ───
@@ -196,7 +312,6 @@ function initCarousels() {
             showSlide(currentIndex - 1);
         }
 
-        // Button clicks - prevent link navigation
         prevBtn?.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -211,7 +326,6 @@ function initCarousels() {
             resetAutoPlay();
         });
 
-        // Dot clicks
         dots.forEach((dot, i) => {
             dot.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -221,7 +335,6 @@ function initCarousels() {
             });
         });
 
-        // Auto-play
         function startAutoPlay() {
             autoPlayInterval = setInterval(nextSlide, 4000);
         }
@@ -231,7 +344,6 @@ function initCarousels() {
             startAutoPlay();
         }
 
-        // Pause on hover
         carousel.addEventListener('mouseenter', () => {
             clearInterval(autoPlayInterval);
         });
@@ -246,30 +358,24 @@ function initCarousels() {
 
 // ─── Scroll Animations ───
 function initScrollAnimations() {
-    // Register GSAP ScrollTrigger
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
 
         // Animate project cards
         gsap.utils.toArray('.project-card').forEach((card, i) => {
             gsap.fromTo(card,
-                {
-                    opacity: 0,
-                    y: 60,
-                    scale: 0.98
-                },
+                { opacity: 0, y: 50, scale: 0.98 },
                 {
                     scrollTrigger: {
                         trigger: card,
                         start: 'top bottom-=100',
                         end: 'top center',
-                        toggleActions: 'play none none reverse',
-                        scrub: false
+                        toggleActions: 'play none none reverse'
                     },
                     opacity: 1,
                     y: 0,
                     scale: 1,
-                    duration: 0.8,
+                    duration: 0.6,
                     ease: 'power3.out',
                     delay: i * 0.05
                 }
@@ -288,56 +394,39 @@ function initScrollAnimations() {
                     },
                     opacity: 1,
                     x: 0,
-                    duration: 0.6,
+                    duration: 0.5,
                     ease: 'power2.out'
                 }
             );
         });
 
-        // Animate about card
-        const aboutCard = document.querySelector('.about .blueprint-card');
-        if (aboutCard) {
-            gsap.fromTo(aboutCard,
-                { opacity: 0, y: 40 },
+        // Animate terminal windows
+        gsap.utils.toArray('.terminal-window').forEach(window => {
+            gsap.fromTo(window,
+                { opacity: 0, y: 30 },
                 {
                     scrollTrigger: {
-                        trigger: aboutCard,
+                        trigger: window,
                         start: 'top bottom-=100',
                         toggleActions: 'play none none reverse'
                     },
                     opacity: 1,
                     y: 0,
-                    duration: 0.8,
+                    duration: 0.7,
                     ease: 'power3.out'
                 }
             );
-        }
+        });
 
-        // Animate contact frame
-        const contactFrame = document.querySelector('.contact-frame');
-        if (contactFrame) {
-            gsap.fromTo(contactFrame,
-                { opacity: 0, scale: 0.95 },
-                {
-                    scrollTrigger: {
-                        trigger: contactFrame,
-                        start: 'top bottom-=100',
-                        toggleActions: 'play none none reverse'
-                    },
-                    opacity: 1,
-                    scale: 1,
-                    duration: 0.8,
-                    ease: 'power3.out'
-                }
-            );
-        }
     } else {
         // Fallback: simple intersection observer
-        const fadeElements = document.querySelectorAll('.fade-in-up');
+        const fadeElements = document.querySelectorAll('.fade-in-up, .terminal-window');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
         }, { threshold: 0.1 });
@@ -346,23 +435,10 @@ function initScrollAnimations() {
     }
 }
 
-// ─── SVG Line Drawing Animation ───
-function initSVGAnimations() {
-    const svgPaths = document.querySelectorAll('.frame-line, .dim-line');
-    
-    svgPaths.forEach(path => {
-        if (path.getTotalLength) {
-            const length = path.getTotalLength();
-            path.style.strokeDasharray = length;
-            path.style.strokeDashoffset = length;
-        }
-    });
-}
-
 // ─── Smooth Scroll for Navigation ───
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
@@ -375,167 +451,140 @@ function initSmoothScroll() {
     });
 }
 
-// ─── Blueprint Grid Parallax ───
-function initParallax() {
-    const grid = document.querySelector('.blueprint-grid');
-    if (!grid) return;
-
-    let ticking = false;
-
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            requestAnimationFrame(() => {
-                const scrollY = window.scrollY;
-                grid.style.transform = `translateY(${scrollY * 0.1}px)`;
-                ticking = false;
-            });
-            ticking = true;
-        }
-    });
-}
-
 // ─── Header Scroll Effect ───
 function initHeaderEffect() {
     const header = document.querySelector('.header');
     if (!header) return;
 
-    let lastScroll = 0;
-
     window.addEventListener('scroll', () => {
         const currentScroll = window.scrollY;
 
-        if (currentScroll > 100) {
-            header.style.background = 'rgba(0, 34, 68, 0.95)';
-            header.style.backdropFilter = 'blur(10px)';
-            header.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+        if (currentScroll > 50) {
+            header.style.background = 'rgba(10, 10, 10, 0.98)';
+            header.style.borderBottomColor = 'var(--primary)';
+            header.style.boxShadow = '0 0 20px rgba(51, 255, 0, 0.1)';
         } else {
-            header.style.background = 'linear-gradient(to bottom, #003366, transparent)';
-            header.style.backdropFilter = 'blur(5px)';
-            header.style.borderBottom = 'none';
+            header.style.background = 'var(--bg-terminal)';
+            header.style.borderBottomColor = 'var(--border)';
+            header.style.boxShadow = 'none';
         }
-
-        lastScroll = currentScroll;
     });
 }
 
-// ─── Project Card Hover Effects ───
-function initCardEffects() {
-    document.addEventListener('mousemove', (e) => {
-        document.querySelectorAll('.project-card').forEach(card => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            // Check if mouse is near the card
-            const isNear = x >= -50 && x <= rect.width + 50 && 
-                          y >= -50 && y <= rect.height + 50;
-
-            if (isNear) {
-                // Calculate rotation based on mouse position
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = (y - centerY) / 30;
-                const rotateY = (centerX - x) / 30;
-
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
-            } else {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-            }
+// ─── Glitch Effect on Hover ───
+function initGlitchEffect() {
+    document.querySelectorAll('.glitch').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            el.classList.add('glitching');
+        });
+        el.addEventListener('mouseleave', () => {
+            el.classList.remove('glitching');
         });
     });
 }
 
-// ─── Typing Effect for Hero ───
-function initTypingEffect() {
-    const subtitle = document.querySelector('.hero-subtitle');
-    if (!subtitle) return;
+// ─── Random Glitch Effect ───
+function randomGlitch() {
+    const elements = document.querySelectorAll('.glitch');
+    if (elements.length === 0) return;
 
-    const text = subtitle.textContent;
-    subtitle.innerHTML = '';
-
-    // Delay to let other animations finish
-    setTimeout(() => {
-        let i = 0;
-        const interval = setInterval(() => {
-            if (i < text.length) {
-                if (text[i] === '*') {
-                    subtitle.innerHTML += `<span class="annotation-mark">*</span>`;
-                } else {
-                    subtitle.innerHTML += text[i];
-                }
-                i++;
-            } else {
-                clearInterval(interval);
-            }
-        }, 50);
+    setInterval(() => {
+        if (Math.random() > 0.95) { // 5% chance every interval
+            const randomEl = elements[Math.floor(Math.random() * elements.length)];
+            randomEl.classList.add('glitching');
+            setTimeout(() => randomEl.classList.remove('glitching'), 200);
+        }
     }, 2000);
 }
 
-// ─── Add Blueprint Corner Markers ───
-function addCornerMarkers() {
-    document.querySelectorAll('.project-card').forEach(card => {
-        // Create bottom-left corner
-        const blCorner = document.createElement('div');
-        blCorner.className = 'corner-marker bl';
-        blCorner.innerHTML = `
-            <svg width="20" height="20" viewBox="0 0 20 20">
-                <line x1="0" y1="10" x2="20" y2="10" stroke="var(--accent-cyan)" stroke-width="1"/>
-                <line x1="10" y1="0" x2="10" y2="20" stroke="var(--accent-cyan)" stroke-width="1"/>
-            </svg>
-        `;
+// ─── Loading Spinner Animation ───
+function initLoadingSpinner() {
+    const spinner = document.querySelector('.loading-spinner');
+    if (!spinner) return;
 
-        // Create bottom-right corner
-        const brCorner = document.createElement('div');
-        brCorner.className = 'corner-marker br';
-        brCorner.innerHTML = `
-            <svg width="20" height="20" viewBox="0 0 20 20">
-                <line x1="0" y1="10" x2="20" y2="10" stroke="var(--accent-cyan)" stroke-width="1"/>
-                <line x1="10" y1="0" x2="10" y2="20" stroke="var(--accent-cyan)" stroke-width="1"/>
-            </svg>
-        `;
+    const frames = '⣾⣽⣻⢿⡿⣟⣯⣷';
+    let i = 0;
 
-        // Style corner markers
-        [blCorner, brCorner].forEach(corner => {
-            corner.style.cssText = `
-                position: absolute;
-                width: 20px;
-                height: 20px;
-                opacity: 0.6;
-                pointer-events: none;
-            `;
-        });
+    setInterval(() => {
+        spinner.textContent = frames[i];
+        i = (i + 1) % frames.length;
+    }, 100);
+}
 
-        blCorner.style.bottom = '-1px';
-        blCorner.style.left = '-1px';
-        brCorner.style.bottom = '-1px';
-        brCorner.style.right = '-1px';
+// ─── Fun Random Terminal Messages ───
+function initRandomMessages() {
+    const messages = [
+        '[INFO] Coffee break recommended in 30 minutes',
+        '[INFO] Remember to stretch! 🧘',
+        '[OK] All systems nominal',
+        '[INFO] Fun fact: This site runs on creativity',
+        '[INFO] You found a hidden message! 🎉',
+        '[OK] Matrix stability at 100%',
+        '[INFO] Keep being awesome!',
+    ];
 
-        card.appendChild(blCorner);
-        card.appendChild(brCorner);
+    setInterval(() => {
+        if (Math.random() > 0.8) { // 20% chance
+            const msg = messages[Math.floor(Math.random() * messages.length)];
+            console.log(`%c${msg}`, 'color: #33ff00;');
+        }
+    }, 30000); // Every 30 seconds
+}
+
+// ─── Keyboard Shortcuts ───
+function initKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+        // Ctrl/Cmd + K to focus search (easter egg)
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            console.log('%c[SYSTEM] Search not implemented... yet! 🔍', 'color: #ffb000;');
+        }
+
+        // Konami Code
+        handleKonamiCode(e.keyCode);
     });
+}
+
+// ─── Konami Code Easter Egg ───
+let konamiCode = [];
+const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+
+function handleKonamiCode(keyCode) {
+    konamiCode.push(keyCode);
+    if (konamiCode.length > konamiSequence.length) {
+        konamiCode.shift();
+    }
+
+    if (konamiCode.join(',') === konamiSequence.join(',')) {
+        console.log('%c🎮 KONAMI CODE ACTIVATED! 🎮', 'color: #ffb000; font-size: 20px;');
+        document.documentElement.style.setProperty('--primary', '#ffb000');
+        document.documentElement.style.setProperty('--secondary', '#ff3333');
+        
+        // Reset after 5 seconds
+        setTimeout(() => {
+            document.documentElement.style.setProperty('--primary', '#33ff00');
+            document.documentElement.style.setProperty('--secondary', '#ffb000');
+        }, 5000);
+    }
 }
 
 // ─── Initialize Everything ───
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('%c[BLUEPRINT] DOM Ready - Initializing modules...', 'color: #00FFFF;');
-    
-    // Render projects first
-    renderProjects(projects);
-    
-    // Add corner markers to cards
-    addCornerMarkers();
-    
-    // Initialize all modules
+    console.log('%c[SYSTEM] DOM Ready - Initializing modules...', 'color: #ffb000;');
+
     initSmoothScroll();
-    initParallax();
     initHeaderEffect();
-    initCardEffects();
-    initSVGAnimations();
-    
+    initGlitchEffect();
+    initLoadingSpinner();
+    initRandomMessages();
+    initKeyboardShortcuts();
+    randomGlitch();
+
     // Mark body as loaded
     document.body.classList.add('loaded');
-    
-    console.log('%c[BLUEPRINT] All systems operational', 'color: #00FF00;');
+
+    console.log('%c[OK] All systems operational ✓', 'color: #33ff00;');
+    console.log('%c[TIP] Open console and type help() for fun commands!', 'color: #ffb000;');
 });
 
 // ─── Handle Window Resize ───
@@ -543,26 +592,8 @@ let resizeTimeout;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-        // Refresh scroll triggers if GSAP is loaded
         if (typeof ScrollTrigger !== 'undefined') {
             ScrollTrigger.refresh();
         }
     }, 250);
-});
-
-// ─── Easter Egg: Konami Code ───
-let konamiCode = [];
-const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
-
-document.addEventListener('keydown', (e) => {
-    konamiCode.push(e.keyCode);
-    if (konamiCode.length > konamiSequence.length) {
-        konamiCode.shift();
-    }
-    
-    if (konamiCode.join(',') === konamiSequence.join(',')) {
-        document.body.style.setProperty('--accent-cyan', '#FFD700');
-        document.body.style.setProperty('--accent-redline', '#00FF00');
-        console.log('%c🎮 KONAMI CODE ACTIVATED!', 'color: #FFD700; font-size: 20px;');
-    }
 });
