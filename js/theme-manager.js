@@ -23,6 +23,14 @@ const ThemeManager = (function() {
             css: '/themes/blueprint/blueprint.css',
             js: '/themes/blueprint/blueprint.js',
             icon: '📐'
+        },
+        retro90s: {
+            id: 'retro90s',
+            name: 'Retro 90s',
+            description: 'GeoCities Nostalgia Vibes',
+            css: '/themes/retro90s/retro90s.css',
+            js: '/themes/retro90s/retro90s.js',
+            icon: '🌈'
         }
     };
 

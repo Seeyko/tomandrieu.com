@@ -1,0 +1,1220 @@
+/* ═══════════════════════════════════════════════════════════════
+   RETRO 90s / GEOCITIES - Theme Stylesheet
+   "Welcome to 1997" Aesthetic - Bevels, Rainbow Text, Pure Chaos
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Design Tokens ─── */
+:root {
+  /* Windows 95 Palette */
+  --bg-90s: #C0C0C0;
+  --bg-90s-dark: #808080;
+  --bg-90s-light: #DFDFDF;
+  --bg-90s-white: #FFFFFF;
+
+  /* Pure RGB Colors - Maximum Saturation */
+  --color-blue: #0000FF;
+  --color-red: #FF0000;
+  --color-green: #00FF00;
+  --color-green-dark: #00AA00;
+  --color-yellow: #FFFF00;
+  --color-cyan: #00FFFF;
+  --color-magenta: #FF00FF;
+  --color-navy: #000080;
+  --color-navy-light: #1084D0;
+  --color-purple: #800080;
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-panel-yellow: #FFFFCC;
+
+  /* Bevel Colors */
+  --bevel-light: #FFFFFF;
+  --bevel-dark: #808080;
+  --bevel-darker: #404040;
+  --bevel-lighter: #DFDFDF;
+
+  /* Typography */
+  --font-90s: "MS Sans Serif", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --font-heading: "Arial Black", Impact, Haettenschweiler, sans-serif;
+  --font-mono: "Courier New", Courier, monospace;
+  --font-fun: "Comic Sans MS", cursive;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+}
+
+/* ─── Body Theme ─── */
+body[data-theme="retro90s"] {
+  font-family: var(--font-90s);
+  background-color: var(--bg-90s);
+  color: var(--color-black);
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpolygon points='0,0 0,14 4,10 6,14 8,13 6,9 10,9' fill='black'/%3E%3Cpolygon points='1,1 1,12 4,9 6,12 7,12 5,8 9,8' fill='white'/%3E%3C/svg%3E"), auto;
+}
+
+/* Tiled 90s Pattern Background */
+body[data-theme="retro90s"]::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background-color: var(--bg-90s);
+  background-image:
+    linear-gradient(45deg, #b8b8b8 25%, transparent 25%),
+    linear-gradient(-45deg, #b8b8b8 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #b8b8b8 75%),
+    linear-gradient(-45deg, transparent 75%, #b8b8b8 75%);
+  background-size: 4px 4px;
+  background-position: 0 0, 0 2px, 2px -2px, -2px 0px;
+}
+
+/* Selection styling */
+body[data-theme="retro90s"] ::selection {
+  background: var(--color-navy);
+  color: var(--color-white);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SHOW/HIDE THEME-SPECIFIC ELEMENTS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Show 90s-specific elements */
+body[data-theme="retro90s"] .retro-marquee,
+body[data-theme="retro90s"] .hero-title,
+body[data-theme="retro90s"] .hit-counter,
+body[data-theme="retro90s"] .retro-badge,
+body[data-theme="retro90s"] .under-construction,
+body[data-theme="retro90s"] .guestbook-cta,
+body[data-theme="retro90s"] .color-squares {
+  display: block;
+}
+
+body[data-theme="retro90s"] .hero-title {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hide Terminal-specific elements */
+body[data-theme="retro90s"] .hero-ascii,
+body[data-theme="retro90s"] .hero-terminal,
+body[data-theme="retro90s"] .hero-stats,
+body[data-theme="retro90s"] .section-prompt,
+body[data-theme="retro90s"] .section-divider,
+body[data-theme="retro90s"] .code-comment,
+body[data-theme="retro90s"] .email-prefix,
+body[data-theme="retro90s"] .cursor-blink,
+body[data-theme="retro90s"] .contact-prompt,
+body[data-theme="retro90s"] .footer-line,
+body[data-theme="retro90s"] .footer-exit,
+body[data-theme="retro90s"] .project-card-header {
+  display: none !important;
+}
+
+/* Hide Blueprint-specific elements */
+body[data-theme="retro90s"] .hero-blueprint-svg,
+body[data-theme="retro90s"] .contact-blueprint-svg,
+body[data-theme="retro90s"] .hero-annotation,
+body[data-theme="retro90s"] .redline-note,
+body[data-theme="retro90s"] .stamp,
+body[data-theme="retro90s"] .coord-marker,
+body[data-theme="retro90s"] .footer-scale,
+body[data-theme="retro90s"] .cursor-coord,
+body[data-theme="retro90s"] .section-number {
+  display: none !important;
+}
+
+/* ─── Hide Custom Cursor (use native retro cursor) ─── */
+body[data-theme="retro90s"] .theme-overlay {
+  display: none;
+}
+
+body[data-theme="retro90s"] .custom-cursor {
+  display: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   3D BEVEL UTILITIES
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Outset (Raised) Button/Container */
+.bevel-outset {
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  box-shadow:
+    inset -1px -1px 0 var(--bevel-darker),
+    inset 1px 1px 0 var(--bevel-lighter);
+}
+
+/* Inset (Sunken) Container */
+.bevel-inset {
+  border: 2px solid;
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+  box-shadow:
+    inset 1px 1px 0 var(--bevel-darker),
+    inset -1px -1px 0 var(--bevel-lighter);
+}
+
+/* ─── Header ─── */
+body[data-theme="retro90s"] .header {
+  padding: 0;
+  background: linear-gradient(to right, var(--color-navy), var(--color-navy-light));
+  border-bottom: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  z-index: 1000;
+}
+
+body[data-theme="retro90s"] .header-brand {
+  padding: 4px 8px;
+  color: var(--color-white);
+  font-family: var(--font-90s);
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+body[data-theme="retro90s"] .brand-prefix::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, var(--color-red) 25%, var(--color-green) 25%, var(--color-green) 50%, var(--color-blue) 50%, var(--color-blue) 75%, var(--color-yellow) 75%);
+  margin-right: 4px;
+  border: 1px solid var(--color-black);
+}
+
+body[data-theme="retro90s"] .brand-name {
+  text-shadow: 1px 1px 0 var(--color-black);
+}
+
+body[data-theme="retro90s"] .brand-suffix::after {
+  content: ' - Portfolio 97';
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+body[data-theme="retro90s"] .nav {
+  padding-right: 8px;
+  gap: 4px;
+}
+
+body[data-theme="retro90s"] .nav-link {
+  background: var(--bg-90s);
+  color: var(--color-black);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  box-shadow:
+    inset -1px -1px 0 var(--bevel-darker),
+    inset 1px 1px 0 var(--bevel-lighter);
+  transition: none;
+}
+
+body[data-theme="retro90s"] .nav-prefix {
+  display: none;
+}
+
+body[data-theme="retro90s"] .nav-link:hover {
+  background: var(--bg-90s-light);
+}
+
+body[data-theme="retro90s"] .nav-link:active {
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+  box-shadow:
+    inset 1px 1px 0 var(--bevel-darker),
+    inset -1px -1px 0 var(--bevel-lighter);
+  transform: translate(1px, 1px);
+}
+
+body[data-theme="retro90s"] .nav-link:focus-visible {
+  outline: 2px dotted var(--color-black);
+  outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MARQUEE BANNER
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="retro90s"] .retro-marquee {
+  background: var(--color-navy);
+  padding: 8px 0;
+  border-bottom: 2px solid var(--color-black);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+body[data-theme="retro90s"] .retro-marquee .marquee-content {
+  display: inline-block;
+  animation: marquee-scroll 20s linear infinite;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+}
+
+body[data-theme="retro90s"] .retro-marquee .marquee-content:hover {
+  animation-play-state: paused;
+}
+
+body[data-theme="retro90s"] .marquee-text {
+  display: inline;
+  padding: 0 2rem;
+}
+
+body[data-theme="retro90s"] .marquee-text.red { color: var(--color-red); }
+body[data-theme="retro90s"] .marquee-text.yellow { color: var(--color-yellow); }
+body[data-theme="retro90s"] .marquee-text.green { color: var(--color-green); }
+body[data-theme="retro90s"] .marquee-text.cyan { color: var(--color-cyan); }
+body[data-theme="retro90s"] .marquee-text.magenta { color: var(--color-magenta); }
+body[data-theme="retro90s"] .marquee-text.white { color: var(--color-white); }
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO SECTION
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="retro90s"] .hero {
+  padding: var(--spacing-lg) var(--spacing-md);
+  padding-top: calc(var(--spacing-lg) + 100px);
+  background: var(--bg-90s);
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+body[data-theme="retro90s"] .hero-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+/* Rainbow Animated Title */
+body[data-theme="retro90s"] .hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 12vw, 7rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  text-shadow:
+    3px 3px 0 var(--color-black),
+    -1px -1px 0 var(--color-white);
+}
+
+body[data-theme="retro90s"] .title-line {
+  display: block;
+  animation: rainbow-text 4s linear infinite;
+}
+
+body[data-theme="retro90s"] .title-line:nth-child(2) {
+  animation-delay: -2s;
+}
+
+@keyframes rainbow-text {
+  0% { color: #ff0000; }
+  17% { color: #ff8000; }
+  33% { color: #ffff00; }
+  50% { color: #00ff00; }
+  67% { color: #0080ff; }
+  83% { color: #8000ff; }
+  100% { color: #ff0000; }
+}
+
+body[data-theme="retro90s"] .hero-subtitle {
+  font-family: var(--font-fun);
+  font-size: clamp(1rem, 3vw, 1.8rem);
+  color: var(--color-navy);
+  margin-bottom: var(--spacing-md);
+  text-shadow: 1px 1px 0 var(--color-white);
+}
+
+body[data-theme="retro90s"] .hero-subtitle .annotation-mark {
+  display: none;
+}
+
+/* Hit Counter */
+body[data-theme="retro90s"] .hit-counter {
+  display: inline-block;
+  background: var(--color-black);
+  padding: 8px 16px;
+  border: 2px solid;
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+  box-shadow: inset 2px 2px 4px rgba(0,0,0,0.5);
+  margin: var(--spacing-sm) auto;
+}
+
+body[data-theme="retro90s"] .hit-counter-text {
+  font-family: var(--font-mono);
+  color: var(--color-green);
+  font-size: 0.9rem;
+  text-shadow: 0 0 5px var(--color-green);
+}
+
+body[data-theme="retro90s"] .hit-counter-number {
+  font-size: 1.2rem;
+  letter-spacing: 0.2em;
+}
+
+/* Under Construction Badge */
+body[data-theme="retro90s"] .under-construction {
+  display: inline-block;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--color-yellow),
+    var(--color-yellow) 10px,
+    var(--color-black) 10px,
+    var(--color-black) 20px
+  );
+  padding: 4px;
+  margin: var(--spacing-sm) auto;
+  animation: pulse-badge 1.5s ease-in-out infinite;
+}
+
+body[data-theme="retro90s"] .under-construction-inner {
+  background: var(--color-yellow);
+  padding: 8px 24px;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--color-black);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@keyframes pulse-badge {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Scroll Indicator */
+body[data-theme="retro90s"] .scroll-indicator {
+  position: absolute;
+  bottom: var(--spacing-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+body[data-theme="retro90s"] .scroll-text {
+  font-family: var(--font-fun);
+  font-size: 0.9rem;
+  color: var(--color-navy);
+}
+
+body[data-theme="retro90s"] .scroll-arrow {
+  font-size: 2rem;
+  color: var(--color-blue);
+  animation: bounce-arrow 1.5s infinite;
+}
+
+@keyframes bounce-arrow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HORIZONTAL RULE DIVIDER (Groove Effect)
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="retro90s"] .hr-groove {
+  border: none;
+  height: 4px;
+  background: linear-gradient(
+    to bottom,
+    var(--bevel-dark) 0%, var(--bevel-dark) 50%,
+    var(--bevel-light) 50%, var(--bevel-light) 100%
+  );
+  margin: var(--spacing-md) 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION STYLES
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="retro90s"] .projects,
+body[data-theme="retro90s"] .about,
+body[data-theme="retro90s"] .contact {
+  padding: var(--spacing-md);
+  position: relative;
+  z-index: 1;
+}
+
+body[data-theme="retro90s"] .section-header {
+  margin-bottom: var(--spacing-sm);
+}
+
+body[data-theme="retro90s"] .section-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+body[data-theme="retro90s"] .section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: var(--color-navy);
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0 var(--bevel-dark);
+  position: relative;
+}
+
+body[data-theme="retro90s"] .section-title::before {
+  content: none;
+}
+
+/* NEW badge for sections */
+body[data-theme="retro90s"] .retro-badge {
+  display: inline-block;
+  background: var(--color-red);
+  color: var(--color-white);
+  font-family: var(--font-90s);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  margin-left: 8px;
+  animation: blink-badge 1s step-end infinite;
+  border: 1px solid var(--color-black);
+  vertical-align: middle;
+}
+
+@keyframes blink-badge {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Section Footer */
+body[data-theme="retro90s"] .section-footer {
+  margin-top: var(--spacing-md);
+  text-align: center;
+}
+
+body[data-theme="retro90s"] .footer-info {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--bevel-dark);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PROJECTS GRID
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="retro90s"] .projects-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-sm);
+}
+
+body[data-theme="retro90s"] .projects-grid-loading {
+  grid-column: 1 / -1;
+  background: var(--color-white);
+  padding: var(--spacing-md);
+  border: 2px solid;
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+  text-align: center;
+}
+
+body[data-theme="retro90s"] .loading-text {
+  font-family: var(--font-fun);
+  color: var(--color-navy);
+}
+
+body[data-theme="retro90s"] .loading-spinner {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--color-navy);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PROJECT CARD - Windows 95 Style Window
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="retro90s"] .project-card {
+  background: var(--bg-90s);
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  box-shadow:
+    inset -1px -1px 0 var(--bevel-darker),
+    inset 1px 1px 0 var(--bevel-lighter),
+    4px 4px 0 rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.1s ease;
+}
+
+body[data-theme="retro90s"] .project-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow:
+    inset -1px -1px 0 var(--bevel-darker),
+    inset 1px 1px 0 var(--bevel-lighter),
+    6px 6px 0 rgba(0,0,0,0.4);
+}
+
+body[data-theme="retro90s"] .project-card:active {
+  transform: translate(1px, 1px);
+  box-shadow:
+    inset -1px -1px 0 var(--bevel-darker),
+    inset 1px 1px 0 var(--bevel-lighter),
+    2px 2px 0 rgba(0,0,0,0.2);
+}
+
+/* Project Title Bar (Windows 95 style) */
+body[data-theme="retro90s"] .project-card .project-titlebar {
+  background: linear-gradient(to right, var(--color-navy), var(--color-navy-light));
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body[data-theme="retro90s"] .project-card .project-titlebar-text {
+  color: var(--color-white);
+  font-family: var(--font-90s);
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+body[data-theme="retro90s"] .project-card .project-titlebar-buttons {
+  display: flex;
+  gap: 2px;
+}
+
+body[data-theme="retro90s"] .project-card .titlebar-btn {
+  width: 16px;
+  height: 14px;
+  background: var(--bg-90s);
+  border: 1px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  font-size: 10px;
+  line-height: 10px;
+  text-align: center;
+  color: var(--color-black);
+}
+
+/* Project Media */
+body[data-theme="retro90s"] .project-media-container {
+  border: 2px solid;
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+  margin: 4px;
+  position: relative;
+}
+
+body[data-theme="retro90s"] .project-index {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  background: var(--color-yellow);
+  color: var(--color-black);
+  font-family: var(--font-90s);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border: 1px solid var(--color-black);
+  z-index: 10;
+}
+
+body[data-theme="retro90s"] .project-image,
+body[data-theme="retro90s"] .project-video {
+  transition: none;
+}
+
+/* Carousel */
+body[data-theme="retro90s"] .carousel-btn {
+  background: var(--bg-90s);
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  color: var(--color-black);
+  width: 24px;
+  height: 24px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+body[data-theme="retro90s"] .carousel-btn:hover {
+  background: var(--bg-90s-light);
+}
+
+body[data-theme="retro90s"] .carousel-btn:active {
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+  transform: translate(1px, 1px);
+}
+
+body[data-theme="retro90s"] .carousel-dots {
+  gap: 4px;
+}
+
+body[data-theme="retro90s"] .carousel-dot {
+  width: 12px;
+  height: 12px;
+  background: var(--bg-90s);
+  border: 2px solid;
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+}
+
+body[data-theme="retro90s"] .carousel-dot.active {
+  background: var(--color-navy);
+}
+
+/* Project Info */
+body[data-theme="retro90s"] .project-info {
+  padding: 8px;
+  background: var(--color-panel-yellow);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-top: 2px solid;
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+}
+
+body[data-theme="retro90s"] .project-type {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--bevel-dark);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+body[data-theme="retro90s"] .project-info h3 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--color-navy);
+  margin-bottom: 4px;
+}
+
+body[data-theme="retro90s"] .project-info p {
+  font-family: var(--font-90s);
+  font-size: 0.8rem;
+  color: var(--color-black);
+  line-height: 1.4;
+  flex: 1;
+}
+
+body[data-theme="retro90s"] .tags {
+  gap: 4px;
+  margin-top: 8px;
+}
+
+body[data-theme="retro90s"] .tag {
+  font-family: var(--font-90s);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--color-white);
+  background: var(--color-navy);
+  padding: 2px 6px;
+  border: 1px solid var(--color-black);
+}
+
+body[data-theme="retro90s"] .tag:nth-child(2n) {
+  background: var(--color-green-dark);
+}
+
+body[data-theme="retro90s"] .tag:nth-child(3n) {
+  background: var(--color-purple);
+}
+
+body[data-theme="retro90s"] .project-link {
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid var(--bevel-dark);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-blue);
+  text-decoration: underline;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+body[data-theme="retro90s"] .project-link:hover {
+  color: var(--color-red);
+}
+
+body[data-theme="retro90s"] .link-icon {
+  font-size: 0.9rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ABOUT SECTION
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="retro90s"] .about-content {
+  max-width: 800px;
+}
+
+body[data-theme="retro90s"] .about-card {
+  background: var(--bg-90s);
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+}
+
+body[data-theme="retro90s"] .card-header {
+  background: linear-gradient(to right, var(--color-navy), var(--color-navy-light));
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body[data-theme="retro90s"] .card-title {
+  color: var(--color-white);
+  font-family: var(--font-90s);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+body[data-theme="retro90s"] .card-title::before,
+body[data-theme="retro90s"] .card-title::after {
+  content: none;
+}
+
+body[data-theme="retro90s"] .card-body {
+  background: var(--color-white);
+  padding: var(--spacing-sm);
+  border: 2px solid;
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+  margin: 4px;
+}
+
+body[data-theme="retro90s"] .about-text {
+  margin-bottom: var(--spacing-sm);
+}
+
+body[data-theme="retro90s"] .about-main {
+  font-family: var(--font-90s);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--color-black);
+  margin-bottom: var(--spacing-xs);
+}
+
+body[data-theme="retro90s"] .about-main .highlight {
+  background: var(--color-yellow);
+  color: var(--color-black);
+  padding: 0 4px;
+  font-weight: 700;
+}
+
+body[data-theme="retro90s"] .about-detail {
+  font-family: var(--font-90s);
+  font-size: 0.95rem;
+  color: var(--bevel-dark);
+  line-height: 1.6;
+}
+
+/* About Specs Table */
+body[data-theme="retro90s"] .about-specs,
+body[data-theme="retro90s"] #about-specs {
+  background: var(--color-white);
+  border: 2px solid;
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+  padding: 8px;
+  margin-bottom: var(--spacing-sm);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+}
+
+body[data-theme="retro90s"] .spec-row {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  background: var(--color-panel-yellow);
+  border: 1px solid var(--bevel-dark);
+}
+
+body[data-theme="retro90s"] .spec-key {
+  font-family: var(--font-90s);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  text-transform: uppercase;
+}
+
+body[data-theme="retro90s"] .spec-val {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--color-black);
+}
+
+body[data-theme="retro90s"] .spec-val::before,
+body[data-theme="retro90s"] .spec-val::after {
+  content: none;
+}
+
+/* Tech Stack */
+body[data-theme="retro90s"] .tech-stack {
+  margin-top: var(--spacing-sm);
+}
+
+body[data-theme="retro90s"] .tech-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+body[data-theme="retro90s"] .tech-tag {
+  font-family: var(--font-90s);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-black);
+  background: var(--bg-90s);
+  padding: 4px 12px;
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  cursor: pointer;
+  transition: none;
+}
+
+body[data-theme="retro90s"] .tech-tag::before,
+body[data-theme="retro90s"] .tech-tag::after {
+  content: none;
+}
+
+body[data-theme="retro90s"] .tech-tag:hover {
+  background: var(--color-yellow);
+}
+
+body[data-theme="retro90s"] .tech-tag:active {
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+  transform: translate(1px, 1px);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTACT SECTION
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="retro90s"] .contact-content {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+body[data-theme="retro90s"] .contact-card {
+  background: var(--bg-90s);
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+}
+
+body[data-theme="retro90s"] .contact-card .card-body {
+  text-align: center;
+}
+
+/* Email Link - Big Hyperlink Style */
+body[data-theme="retro90s"] .email-link {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 4vw, 2rem);
+  color: var(--color-blue);
+  text-decoration: underline;
+  padding: var(--spacing-sm);
+  background: var(--color-white);
+  border: 2px solid;
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+  margin-bottom: var(--spacing-sm);
+}
+
+body[data-theme="retro90s"] .email-link:hover {
+  color: var(--color-red);
+  background: var(--color-panel-yellow);
+}
+
+body[data-theme="retro90s"] .email-link:visited .email-text {
+  color: var(--color-purple);
+}
+
+/* Social Links */
+body[data-theme="retro90s"] .social-links {
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: var(--spacing-sm);
+}
+
+body[data-theme="retro90s"] .social-btn {
+  font-family: var(--font-90s);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-black);
+  background: var(--bg-90s);
+  padding: 6px 16px;
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  box-shadow:
+    inset -1px -1px 0 var(--bevel-darker),
+    inset 1px 1px 0 var(--bevel-lighter);
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+body[data-theme="retro90s"] .link-bracket {
+  display: none;
+}
+
+body[data-theme="retro90s"] .social-btn:hover {
+  background: var(--bg-90s-light);
+}
+
+body[data-theme="retro90s"] .social-btn:active {
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+  box-shadow:
+    inset 1px 1px 0 var(--bevel-darker),
+    inset -1px -1px 0 var(--bevel-lighter);
+  transform: translate(1px, 1px);
+}
+
+/* Guestbook CTA */
+body[data-theme="retro90s"] .guestbook-cta {
+  margin-top: var(--spacing-md);
+  font-family: var(--font-fun);
+  color: var(--color-magenta);
+  font-size: 1rem;
+}
+
+/* Color Squares Decoration */
+body[data-theme="retro90s"] .color-squares {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: var(--spacing-md);
+}
+
+body[data-theme="retro90s"] .color-square {
+  width: 24px;
+  height: 24px;
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+}
+
+body[data-theme="retro90s"] .color-square.red { background: var(--color-red); }
+body[data-theme="retro90s"] .color-square.green { background: var(--color-green); }
+body[data-theme="retro90s"] .color-square.blue { background: var(--color-blue); }
+body[data-theme="retro90s"] .color-square.yellow { background: var(--color-yellow); }
+body[data-theme="retro90s"] .color-square.magenta { background: var(--color-magenta); }
+body[data-theme="retro90s"] .color-square.cyan { background: var(--color-cyan); }
+
+/* ═══════════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="retro90s"] .footer {
+  background: var(--color-navy);
+  padding: var(--spacing-md);
+  position: relative;
+  z-index: 1;
+}
+
+body[data-theme="retro90s"] .footer-content {
+  text-align: center;
+}
+
+body[data-theme="retro90s"] .footer-info-row {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  flex-wrap: wrap;
+}
+
+body[data-theme="retro90s"] .footer-sep {
+  color: var(--color-magenta);
+}
+
+body[data-theme="retro90s"] .footer-session::before,
+body[data-theme="retro90s"] .footer-version::before {
+  content: none;
+}
+
+body[data-theme="retro90s"] .footer-copyright {
+  color: var(--color-yellow);
+  font-family: var(--font-fun);
+  font-size: 0.9rem;
+}
+
+body[data-theme="retro90s"] .footer-copyright::before,
+body[data-theme="retro90s"] .footer-copyright::after {
+  content: none;
+}
+
+/* Best viewed badge */
+body[data-theme="retro90s"] .best-viewed {
+  margin-top: var(--spacing-sm);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-white);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FOCUS STATES (Accessibility)
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="retro90s"] :focus-visible {
+  outline: 2px dotted var(--color-black);
+  outline-offset: 2px;
+}
+
+body[data-theme="retro90s"] .nav-link:focus-visible,
+body[data-theme="retro90s"] .social-btn:focus-visible,
+body[data-theme="retro90s"] .tech-tag:focus-visible {
+  outline: 2px dotted var(--color-black);
+  outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CUSTOM SCROLLBAR
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="retro90s"] ::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+body[data-theme="retro90s"] ::-webkit-scrollbar-track {
+  background: var(--bg-90s);
+  border: 1px solid var(--bevel-dark);
+}
+
+body[data-theme="retro90s"] ::-webkit-scrollbar-thumb {
+  background: var(--bg-90s);
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+}
+
+body[data-theme="retro90s"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--bg-90s-light);
+}
+
+body[data-theme="retro90s"] ::-webkit-scrollbar-corner {
+  background: var(--bg-90s);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  body[data-theme="retro90s"] .header {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 4px;
+  }
+
+  body[data-theme="retro90s"] .header-brand {
+    width: 100%;
+    justify-content: center;
+    padding: 2px 4px;
+  }
+
+  body[data-theme="retro90s"] .brand-suffix::after {
+    display: none;
+  }
+
+  body[data-theme="retro90s"] .nav {
+    width: 100%;
+    justify-content: center;
+    padding: 0;
+    gap: 2px;
+  }
+
+  body[data-theme="retro90s"] .nav-link {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+
+  body[data-theme="retro90s"] .hero {
+    padding-top: calc(var(--spacing-lg) + 80px);
+  }
+
+  body[data-theme="retro90s"] .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-theme="retro90s"] .hit-counter {
+    transform: scale(0.9);
+  }
+
+  body[data-theme="retro90s"] .retro-marquee .marquee-content {
+    font-size: 0.8rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════════════════════════ */
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-theme="retro90s"] .title-line {
+    animation: none;
+    color: var(--color-blue);
+  }
+
+  body[data-theme="retro90s"] .retro-badge {
+    animation: none;
+  }
+
+  body[data-theme="retro90s"] .under-construction {
+    animation: none;
+  }
+
+  body[data-theme="retro90s"] .retro-marquee .marquee-content {
+    animation: none;
+  }
+
+  body[data-theme="retro90s"] .scroll-indicator {
+    animation: none;
+  }
+
+  body[data-theme="retro90s"] .loading-spinner {
+    animation: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BODY LOADED STATE
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="retro90s"].loaded {
+  animation: none;
+}
