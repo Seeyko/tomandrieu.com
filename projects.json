@@ -1,0 +1,56 @@
+[
+    {
+        "id": "ride-my-park",
+        "title": "Ride My Park",
+        "description": "Find nearby spots among 30K skateparks, street spots & pumptracks for BMX, Skateboard, Aggressive Inline, Freestyle Scooter on Ride My Park.",
+        "type": "WEB APPLICATION",
+        "url": "https://ridemypark.com",
+        "images": [
+            "assets/ridemypark-mobile-store-wallpaper.jpg",
+            "assets/ridemypark-landing-page.png",
+            "assets/ridemypark-messaging.png"
+        ],
+        "tags": ["Wordpress", "Voxel", "Flutter", "Maps", "Community"]
+    },
+    {
+        "id": "skoolbook",
+        "title": "Skoolbook",
+        "description": "Skoolbook est une plateforme que j'ai conçu, avec ma conjointe institutrice, pour optimiser la gestion des bibliothèques scolaires. Elle offre une interface intuitive pour les enseignants, facilite le suivi des emprunts de livres et encourage l'autonomie des élèves.",
+        "type": "WEB APPLICATION",
+        "url": "https://skoolbook.fr",
+        "images": [
+            "assets/skoolbook-landing-page.png",
+            "assets/skoolbook-class-books.png",
+            "assets/skoolbook-class-bookings.png"
+        ],
+        "video": "assets/skoolbook-demo.mp4",
+        "tags": ["Voxel", "Wordpress", "Education"]
+    },
+    {
+        "id": "teach-tools",
+        "title": "Teach Tools",
+        "description": "Un assistant pédagogique numérique, des outils innovants pour simplifier le travail des enseignants au quotidien. Permet de générer des exercices et des images grâce à l'IA.",
+        "type": "AI TOOL",
+        "url": "https://teach-tools.com",
+        "images": [
+            "assets/teach-tools-exercise-generation.png",
+            "assets/teach-tools-image-generation.png",
+            "assets/teach-tools-generation-limits.png"
+        ],
+        "video": "assets/teach-tools-demo-generate-exercise.mp4",
+        "tags": ["AI/ML", "Next.js", "Education"]
+    },
+    {
+        "id": "gyrodex",
+        "title": "GyroDex",
+        "description": "Un pokedex pour Animal Crossing. Liste et permet de sauvegarder quelles créatures d'Animal Crossing vous avez collecté, avec des amis. Full vibe coder pour m'amuser avec l'IA.",
+        "type": "WEB APP",
+        "url": "https://v0-animal-crossing-gyroides.vercel.app",
+        "images": [
+            "assets/girodex-gyroide-collection.png",
+            "assets/girodex-fish-collection.png",
+            "assets/girodex-friends-dashboard.png"
+        ],
+        "tags": ["Next.js", "Vercel", "Gaming"]
+    }
+]
