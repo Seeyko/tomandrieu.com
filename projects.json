@@ -6,9 +6,9 @@
         "type": "WEB APPLICATION",
         "url": "https://ridemypark.com",
         "images": [
-            "assets/ridemypark-mobile-store-wallpaper.jpg",
-            "assets/ridemypark-landing-page.png",
-            "assets/ridemypark-messaging.png"
+            "/assets/ridemypark-mobile-store-wallpaper.jpg",
+            "/assets/ridemypark-landing-page.png",
+            "/assets/ridemypark-messaging.png"
         ],
         "tags": ["Wordpress", "Voxel", "Flutter", "Maps", "Community"]
     },
@@ -19,11 +19,11 @@
         "type": "WEB APPLICATION",
         "url": "https://skoolbook.fr",
         "images": [
-            "assets/skoolbook-landing-page.png",
-            "assets/skoolbook-class-books.png",
-            "assets/skoolbook-class-bookings.png"
+            "/assets/skoolbook-landing-page.png",
+            "/assets/skoolbook-class-books.png",
+            "/assets/skoolbook-class-bookings.png"
         ],
-        "video": "assets/skoolbook-demo.mp4",
+        "video": "/assets/skoolbook-demo.mp4",
         "tags": ["Voxel", "Wordpress", "Education"]
     },
     {
@@ -33,11 +33,11 @@
         "type": "AI TOOL",
         "url": "https://teach-tools.com",
         "images": [
-            "assets/teach-tools-exercise-generation.png",
-            "assets/teach-tools-image-generation.png",
-            "assets/teach-tools-generation-limits.png"
+            "/assets/teach-tools-exercise-generation.png",
+            "/assets/teach-tools-image-generation.png",
+            "/assets/teach-tools-generation-limits.png"
         ],
-        "video": "assets/teach-tools-demo-generate-exercise.mp4",
+        "video": "/assets/teach-tools-demo-generate-exercise.mp4",
         "tags": ["AI/ML", "Next.js", "Education"]
     },
     {
@@ -47,9 +47,9 @@
         "type": "WEB APP",
         "url": "https://v0-animal-crossing-gyroides.vercel.app",
         "images": [
-            "assets/girodex-gyroide-collection.png",
-            "assets/girodex-fish-collection.png",
-            "assets/girodex-friends-dashboard.png"
+            "/assets/girodex-gyroide-collection.png",
+            "/assets/girodex-fish-collection.png",
+            "/assets/girodex-friends-dashboard.png"
         ],
         "tags": ["Next.js", "Vercel", "Gaming"]
     }

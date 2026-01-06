@@ -1,0 +1,1113 @@
+/* ═══════════════════════════════════════════════════════════════
+   ARCHITECTURAL BLUEPRINT - Theme Stylesheet
+   "The Master Plan" Aesthetic
+   Works with unified HTML structure
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Design Tokens ─── */
+:root {
+  /* Cyanotype Palette */
+  --bg-blueprint: #003366;
+  --bg-blueprint-dark: #002244;
+  --bg-blueprint-light: #004488;
+  
+  /* Lines & Strokes */
+  --line-white: rgba(255, 255, 255, 0.8);
+  --line-white-dim: rgba(255, 255, 255, 0.3);
+  --line-white-faint: rgba(255, 255, 255, 0.1);
+  
+  /* Accents */
+  --accent-redline: #FF3333;
+  --accent-cyan: #00FFFF;
+  --accent-yellow: #FFD700;
+  
+  /* Typography */
+  --font-technical: 'Roboto Mono', monospace;
+  --font-handwritten: 'Architects Daughter', cursive;
+  
+  /* Spacing */
+  --grid-unit: 20px;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 8rem;
+}
+
+/* ─── Body Theme ─── */
+body[data-theme="blueprint"] {
+  font-family: var(--font-technical);
+  background-color: var(--bg-blueprint);
+  color: var(--line-white);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SHOW/HIDE THEME-SPECIFIC ELEMENTS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Show Blueprint-specific elements */
+body[data-theme="blueprint"] .hero-blueprint-svg,
+body[data-theme="blueprint"] .contact-blueprint-svg,
+body[data-theme="blueprint"] .hero-annotation,
+body[data-theme="blueprint"] .section-number,
+body[data-theme="blueprint"] .redline-note,
+body[data-theme="blueprint"] .stamp,
+body[data-theme="blueprint"] .coord-marker,
+body[data-theme="blueprint"] .footer-scale,
+body[data-theme="blueprint"] .cursor-coord,
+body[data-theme="blueprint"] .hero-title {
+  display: block;
+}
+
+body[data-theme="blueprint"] .hero-title {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hide Terminal-specific elements */
+body[data-theme="blueprint"] .hero-ascii,
+body[data-theme="blueprint"] .hero-terminal,
+body[data-theme="blueprint"] .hero-stats,
+body[data-theme="blueprint"] .section-prompt,
+body[data-theme="blueprint"] .section-divider,
+body[data-theme="blueprint"] .code-comment,
+body[data-theme="blueprint"] .email-prefix,
+body[data-theme="blueprint"] .cursor-blink,
+body[data-theme="blueprint"] .contact-prompt,
+body[data-theme="blueprint"] .footer-line,
+body[data-theme="blueprint"] .footer-exit,
+body[data-theme="blueprint"] .project-card-header,
+body[data-theme="blueprint"] .footer-info-row .footer-sep:nth-child(2) {
+  display: none !important;
+}
+
+/* ─── Theme Overlay (Blueprint Grid) ─── */
+body[data-theme="blueprint"] .theme-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    /* Major grid lines */
+    linear-gradient(var(--line-white-faint) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-white-faint) 1px, transparent 1px),
+    /* Minor grid lines */
+    linear-gradient(var(--line-white-dim) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-white-dim) 1px, transparent 1px);
+  background-size:
+    100px 100px,
+    100px 100px,
+    20px 20px,
+    20px 20px;
+  background-position: -1px -1px;
+}
+
+body[data-theme="blueprint"] .theme-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse at center, transparent 0%, var(--bg-blueprint) 70%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* ─── Custom Cursor (Crosshair) ─── */
+body[data-theme="blueprint"] .custom-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+body[data-theme="blueprint"]:hover .custom-cursor {
+  opacity: 1;
+}
+
+body[data-theme="blueprint"] .cursor-icon::before,
+body[data-theme="blueprint"] .cursor-icon::after {
+  content: '';
+  position: absolute;
+  background: var(--accent-cyan);
+}
+
+body[data-theme="blueprint"] .cursor-icon::before {
+  width: 40px;
+  height: 1px;
+  left: -20px;
+  top: 0;
+}
+
+body[data-theme="blueprint"] .cursor-icon::after {
+  width: 1px;
+  height: 40px;
+  left: 0;
+  top: -20px;
+}
+
+body[data-theme="blueprint"] .cursor-coord {
+  position: absolute;
+  top: 25px;
+  left: 10px;
+  font-family: var(--font-technical);
+  font-size: 10px;
+  color: var(--accent-cyan);
+  white-space: nowrap;
+  background: var(--bg-blueprint-dark);
+  padding: 2px 6px;
+  border: 1px solid var(--accent-cyan);
+}
+
+/* ─── Header ─── */
+body[data-theme="blueprint"] .header {
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: linear-gradient(to bottom, var(--bg-blueprint), transparent);
+  backdrop-filter: blur(5px);
+}
+
+body[data-theme="blueprint"] .header-brand {
+  font-family: var(--font-technical);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+body[data-theme="blueprint"] .brand-prefix::before {
+  content: '[';
+  color: var(--accent-cyan);
+  font-weight: 300;
+}
+
+body[data-theme="blueprint"] .brand-name {
+  color: var(--line-white);
+}
+
+body[data-theme="blueprint"] .brand-suffix::before {
+  content: ']';
+  color: var(--accent-cyan);
+  font-weight: 300;
+}
+
+body[data-theme="blueprint"] .brand-suffix::after {
+  content: ' // SN-2024-001';
+  font-size: 0.6rem;
+  color: var(--line-white-dim);
+  font-weight: 300;
+  margin-left: 0.5rem;
+}
+
+body[data-theme="blueprint"] .nav {
+  gap: 3rem;
+}
+
+body[data-theme="blueprint"] .nav-link {
+  color: var(--line-white-dim);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  position: relative;
+}
+
+body[data-theme="blueprint"] .nav-link .nav-prefix {
+  display: none;
+}
+
+body[data-theme="blueprint"] .nav-link::before {
+  content: attr(data-section);
+  position: absolute;
+  left: -1.5rem;
+  font-size: 0.6rem;
+  color: var(--accent-cyan);
+  opacity: 0.6;
+}
+
+body[data-theme="blueprint"] .nav-link .nav-text {
+  text-transform: uppercase;
+}
+
+body[data-theme="blueprint"] .nav-link:hover {
+  color: var(--line-white);
+}
+
+body[data-theme="blueprint"] .nav-link:hover::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent-cyan);
+  animation: drawLine 0.3s ease forwards;
+}
+
+@keyframes drawLine {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* ─── Hero Section ─── */
+body[data-theme="blueprint"] .hero {
+  padding: var(--spacing-xl) var(--spacing-lg);
+  min-height: 100vh;
+}
+
+body[data-theme="blueprint"] .hero-decoration {
+  position: relative;
+}
+
+body[data-theme="blueprint"] .hero-blueprint-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 1200px;
+  height: auto;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+body[data-theme="blueprint"] .frame-line {
+  stroke: var(--line-white);
+  stroke-width: 1;
+  fill: none;
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: drawStroke 2s ease forwards;
+  animation-delay: 0.5s;
+}
+
+body[data-theme="blueprint"] .corner-mark line {
+  stroke: var(--accent-cyan);
+  stroke-width: 1;
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  animation: drawStroke 0.5s ease forwards;
+  animation-delay: 1.5s;
+}
+
+body[data-theme="blueprint"] .dim-line {
+  stroke: var(--accent-cyan);
+  stroke-width: 0.5;
+  stroke-dasharray: 4 2;
+}
+
+body[data-theme="blueprint"] .dimensions line {
+  stroke: var(--accent-cyan);
+  stroke-width: 0.5;
+}
+
+body[data-theme="blueprint"] .dim-text {
+  fill: var(--accent-cyan);
+  font-family: var(--font-technical);
+  font-size: 12px;
+  text-anchor: middle;
+}
+
+@keyframes drawStroke {
+  to { stroke-dashoffset: 0; }
+}
+
+body[data-theme="blueprint"] .hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+}
+
+body[data-theme="blueprint"] .hero-title {
+  font-family: var(--font-technical);
+  font-size: clamp(3rem, 10vw, 8rem);
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  align-items: center;
+}
+
+body[data-theme="blueprint"] .title-line {
+  display: block;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.8s ease forwards;
+}
+
+body[data-theme="blueprint"] .title-line:nth-child(1) { animation-delay: 1s; }
+body[data-theme="blueprint"] .title-line:nth-child(2) { animation-delay: 1.2s; }
+
+body[data-theme="blueprint"] .hero-subtitle {
+  font-size: 0.9rem;
+  color: var(--accent-cyan);
+  letter-spacing: 0.5em;
+  margin-top: var(--spacing-md);
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  animation-delay: 1.5s;
+}
+
+body[data-theme="blueprint"] .annotation-mark {
+  color: var(--accent-redline);
+}
+
+body[data-theme="blueprint"] .annotation-mark::before {
+  content: '*';
+}
+
+/* Hero Annotation (Handwritten) */
+body[data-theme="blueprint"] .hero-annotation {
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  transform: rotate(-5deg);
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+  animation-delay: 2.5s;
+  font-family: var(--font-handwritten);
+  color: var(--accent-redline);
+  font-size: 1.1rem;
+}
+
+/* Scroll Indicator */
+body[data-theme="blueprint"] .scroll-indicator {
+  position: absolute;
+  bottom: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards, pulse 2s infinite;
+  animation-delay: 3s, 3s;
+}
+
+body[data-theme="blueprint"] .scroll-text {
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--line-white-dim);
+}
+
+body[data-theme="blueprint"] .scroll-arrow {
+  color: var(--accent-cyan);
+  animation: bounce 1.5s infinite;
+}
+
+body[data-theme="blueprint"] .scroll-arrow svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ─── Section Styles ─── */
+body[data-theme="blueprint"] .projects,
+body[data-theme="blueprint"] .about,
+body[data-theme="blueprint"] .contact {
+  padding: var(--spacing-md) var(--spacing-lg);
+}
+
+body[data-theme="blueprint"] .section-header {
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+body[data-theme="blueprint"] .section-label {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-md);
+}
+
+body[data-theme="blueprint"] .section-number {
+  font-size: 0.7rem;
+  color: var(--accent-cyan);
+  border: 1px solid var(--accent-cyan);
+  padding: 0.3rem 0.6rem;
+}
+
+body[data-theme="blueprint"] .section-title {
+  font-family: var(--font-technical);
+  font-size: 0; /* Hide original text */
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+body[data-theme="blueprint"] .section-title::before {
+  font-size: clamp(1.2rem, 3vw, 1.8rem); /* Restore font size for pseudo-element */
+}
+
+body[data-theme="blueprint"] #projects .section-title::before {
+  content: 'SELECTED WORKS';
+}
+
+body[data-theme="blueprint"] #about .section-title::before {
+  content: 'SPECIFICATIONS';
+}
+
+body[data-theme="blueprint"] #contact .section-title::before {
+  content: 'ESTABLISH CONNECTION';
+}
+
+/* Section Footer */
+body[data-theme="blueprint"] .section-footer {
+  margin-top: var(--spacing-md);
+  font-size: 0.65rem;
+  color: var(--line-white-dim);
+  display: flex;
+  justify-content: space-between;
+}
+
+body[data-theme="blueprint"] .footer-info {
+  display: none;
+}
+
+body[data-theme="blueprint"] .coord-marker {
+  color: var(--accent-cyan);
+}
+
+/* ─── Projects Grid ─── */
+body[data-theme="blueprint"] .projects-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: minmax(320px, auto);
+  gap: var(--spacing-sm);
+}
+
+body[data-theme="blueprint"] .projects-grid-loading {
+  height: 100%;
+  grid-column: 1 / -1;
+}
+
+body[data-theme="blueprint"] .loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--accent-cyan);
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* ─── Project Card ─── */
+body[data-theme="blueprint"] .project-card {
+  background: rgba(0, 34, 68, 0.8);
+  border: 1px solid var(--line-white-dim);
+  padding: var(--spacing-sm);
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card Corner Crosshairs */
+body[data-theme="blueprint"] .project-card .card-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+body[data-theme="blueprint"] .project-card .card-corner.tl {
+  top: -1px;
+  left: -1px;
+  border-top: 1px solid var(--accent-cyan);
+  border-left: 1px solid var(--accent-cyan);
+}
+
+body[data-theme="blueprint"] .project-card .card-corner.tr {
+  top: -1px;
+  right: -1px;
+  border-top: 1px solid var(--accent-cyan);
+  border-right: 1px solid var(--accent-cyan);
+}
+
+body[data-theme="blueprint"] .project-card .card-corner.bl {
+  bottom: -1px;
+  left: -1px;
+  border-bottom: 1px solid var(--accent-cyan);
+  border-left: 1px solid var(--accent-cyan);
+}
+
+body[data-theme="blueprint"] .project-card .card-corner.br {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1px solid var(--accent-cyan);
+  border-right: 1px solid var(--accent-cyan);
+}
+
+body[data-theme="blueprint"] .project-card:hover {
+  border-color: var(--line-white);
+  box-shadow: 
+    0 0 30px rgba(0, 255, 255, 0.1),
+    inset 0 0 60px rgba(0, 255, 255, 0.03);
+  transform: translateY(-5px);
+}
+
+body[data-theme="blueprint"] .project-card:hover .card-corner {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 10px var(--accent-cyan);
+}
+
+/* Project Media */
+body[data-theme="blueprint"] .project-media-container {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  border: 1px solid var(--line-white-dim);
+  margin-bottom: var(--spacing-sm);
+}
+
+body[data-theme="blueprint"] .project-index {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  font-size: 0.6rem;
+  color: var(--accent-cyan);
+  background: var(--bg-blueprint-dark);
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--accent-cyan);
+  z-index: 10;
+}
+
+body[data-theme="blueprint"] .project-image,
+body[data-theme="blueprint"] .project-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+body[data-theme="blueprint"] .project-card:hover .project-image,
+body[data-theme="blueprint"] .project-card:hover .project-video {
+  transform: scale(1.05);
+}
+
+/* Project Carousel */
+body[data-theme="blueprint"] .project-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+body[data-theme="blueprint"] .carousel-slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+body[data-theme="blueprint"] .carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+body[data-theme="blueprint"] .carousel-slide.active {
+  opacity: 1;
+}
+
+body[data-theme="blueprint"] .carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--bg-blueprint-dark);
+  border: 1px solid var(--accent-cyan);
+  color: var(--accent-cyan);
+  width: 28px;
+  height: 28px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body[data-theme="blueprint"] .carousel-btn.prev { left: 0.5rem; }
+body[data-theme="blueprint"] .carousel-btn.next { right: 0.5rem; }
+
+body[data-theme="blueprint"] .project-card:hover .carousel-btn {
+  opacity: 1;
+}
+
+body[data-theme="blueprint"] .carousel-btn:hover {
+  background: var(--accent-cyan);
+  color: var(--bg-blueprint-dark);
+}
+
+body[data-theme="blueprint"] .carousel-dots {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+
+body[data-theme="blueprint"] .carousel-dot {
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--accent-cyan);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+body[data-theme="blueprint"] .carousel-dot.active,
+body[data-theme="blueprint"] .carousel-dot:hover {
+  background: var(--accent-cyan);
+}
+
+/* Project Info */
+body[data-theme="blueprint"] .project-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+body[data-theme="blueprint"] .project-type {
+  font-size: 0.6rem;
+  color: var(--accent-cyan);
+  letter-spacing: 0.15em;
+  margin-bottom: 0.3rem;
+}
+
+body[data-theme="blueprint"] .project-info h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+body[data-theme="blueprint"] .project-info p {
+  font-size: 0.75rem;
+  color: var(--line-white-dim);
+  line-height: 1.6;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+body[data-theme="blueprint"] .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.5rem 0;
+}
+
+body[data-theme="blueprint"] .tag {
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  color: var(--line-white-dim);
+  border: 1px solid var(--line-white-dim);
+  padding: 0.2rem 0.5rem;
+  background: transparent;
+}
+
+body[data-theme="blueprint"] .project-card:hover .tag {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+
+body[data-theme="blueprint"] .project-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--line-white-dim);
+  font-size: 0.65rem;
+  color: var(--line-white-dim);
+}
+
+body[data-theme="blueprint"] .link-icon {
+  color: var(--accent-cyan);
+  transition: transform 0.3s ease;
+}
+
+body[data-theme="blueprint"] .project-card:hover .link-icon {
+  transform: translate(3px, -3px);
+}
+
+body[data-theme="blueprint"] .project-card:hover .project-link {
+  color: var(--line-white);
+}
+
+/* ─── About Section ─── */
+body[data-theme="blueprint"] .about-content {
+  max-width: 900px;
+}
+
+body[data-theme="blueprint"] .about-card {
+  background: rgba(0, 34, 68, 0.8);
+  border: 1px solid var(--line-white-dim);
+  padding: var(--spacing-md);
+  position: relative;
+}
+
+body[data-theme="blueprint"] .card-header {
+  display: none;
+}
+
+body[data-theme="blueprint"] .about-text {
+  margin-bottom: var(--spacing-md);
+}
+
+body[data-theme="blueprint"] .about-main {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: var(--spacing-sm);
+}
+
+body[data-theme="blueprint"] .about-main .highlight {
+  color: var(--accent-cyan);
+}
+
+body[data-theme="blueprint"] .about-detail {
+  font-size: 0.9rem;
+  color: var(--line-white-dim);
+  line-height: 1.7;
+}
+
+body[data-theme="blueprint"] .about-specs,
+body[data-theme="blueprint"] #about-specs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) 0;
+  border-top: 1px dashed var(--line-white-dim);
+  margin-bottom: var(--spacing-md);
+}
+
+body[data-theme="blueprint"] .spec-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+body[data-theme="blueprint"] .spec-key {
+  font-size: 0.65rem;
+  color: var(--line-white-dim);
+  letter-spacing: 0.1em;
+}
+
+body[data-theme="blueprint"] .spec-val {
+  font-size: 0.9rem;
+  color: var(--line-white);
+}
+
+body[data-theme="blueprint"] .tech-stack {
+  margin-top: var(--spacing-md);
+}
+
+body[data-theme="blueprint"] .tech-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+body[data-theme="blueprint"] .tech-tag {
+  font-size: 0.7rem;
+  color: var(--line-white-dim);
+  border: 1px solid var(--line-white-dim);
+  padding: 0.4rem 0.8rem;
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+body[data-theme="blueprint"] .tech-tag:hover {
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+}
+
+body[data-theme="blueprint"] .redline-note {
+  position: absolute;
+  bottom: -1.5rem;
+  right: 1rem;
+  font-family: var(--font-handwritten);
+  color: var(--accent-redline);
+  font-size: 0.9rem;
+  transform: rotate(-3deg);
+}
+
+/* ─── Contact Section ─── */
+body[data-theme="blueprint"] .contact-content {
+  text-align: center;
+  padding: var(--spacing-md) 0;
+}
+
+/* Hide terminal-specific elements (but NOT the card container) */
+body[data-theme="blueprint"] .contact-card .card-header,
+body[data-theme="blueprint"] .contact-card .card-title,
+body[data-theme="blueprint"] .contact-prompt,
+body[data-theme="blueprint"] .output-line,
+body[data-theme="blueprint"] .email-prefix,
+body[data-theme="blueprint"] .cursor-blink {
+  display: none;
+}
+
+/* Contact card becomes the frame */
+body[data-theme="blueprint"] .contact-card {
+  position: relative;
+  display: inline-block;
+  background: transparent;
+  border: none;
+  padding: var(--spacing-lg) var(--spacing-xl);
+}
+
+body[data-theme="blueprint"] .contact-card .card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Blueprint SVG Frame - positioned around the email */
+body[data-theme="blueprint"] .contact-blueprint-svg {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+body[data-theme="blueprint"] .contact-border {
+  fill: none;
+  stroke: var(--line-white-dim);
+  stroke-width: 1;
+}
+
+body[data-theme="blueprint"] .corner-mark line {
+  stroke: var(--accent-cyan);
+  stroke-width: 1;
+}
+
+/* Email link - the star of the show */
+body[data-theme="blueprint"] .email-link {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* The "APPROVED" stamp */
+body[data-theme="blueprint"] .stamp {
+  font-family: var(--font-technical);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--accent-redline);
+  border: 2px solid var(--accent-redline);
+  padding: 0.4rem 1rem;
+  transform: rotate(-5deg);
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+/* Email text */
+body[data-theme="blueprint"] .email-text {
+  font-family: var(--font-technical);
+  font-size: clamp(1.2rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--line-white);
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+}
+
+body[data-theme="blueprint"] .email-link:hover .email-text {
+  color: var(--accent-cyan);
+  text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+body[data-theme="blueprint"] .email-link:hover .stamp {
+  opacity: 1;
+  transform: rotate(-5deg) scale(1.05);
+}
+
+/* Social Links */
+body[data-theme="blueprint"] .social-links {
+  margin-top: var(--spacing-lg);
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+}
+
+body[data-theme="blueprint"] .social-btn {
+  font-size: 0.8rem;
+  color: var(--line-white-dim);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+body[data-theme="blueprint"] .link-bracket {
+  color: var(--accent-cyan);
+  transition: transform 0.3s ease;
+}
+
+body[data-theme="blueprint"] .social-btn:hover {
+  color: var(--line-white);
+}
+
+body[data-theme="blueprint"] .social-btn:hover .link-bracket:first-child {
+  transform: translateX(-3px);
+}
+
+body[data-theme="blueprint"] .social-btn:hover .link-bracket:last-child {
+  transform: translateX(3px);
+}
+
+/* ─── Footer ─── */
+body[data-theme="blueprint"] .footer {
+  padding: var(--spacing-md) var(--spacing-lg);
+  text-align: center;
+}
+
+body[data-theme="blueprint"] .footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+body[data-theme="blueprint"] .footer-info-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: 0.7rem;
+  color: var(--line-white-dim);
+}
+
+body[data-theme="blueprint"] .footer-session::before {
+  content: 'DRAWING NO. ';
+}
+
+body[data-theme="blueprint"] .footer-version::before {
+  content: 'REV. ';
+}
+
+body[data-theme="blueprint"] .footer-scale::before {
+  content: 'SCALE: ';
+}
+
+body[data-theme="blueprint"] .footer-copyright {
+  font-size: 0.7rem;
+  color: var(--line-white-dim);
+}
+
+/* ─── Animations ─── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  body[data-theme="blueprint"] {
+    --spacing-lg: 2rem;
+    --spacing-xl: 4rem;
+  }
+
+  body[data-theme="blueprint"] .header {
+    padding: var(--spacing-sm) var(--spacing-sm);
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  body[data-theme="blueprint"] .brand-suffix::after {
+    display: none;
+  }
+
+  body[data-theme="blueprint"] .nav {
+    gap: var(--spacing-md);
+  }
+
+  body[data-theme="blueprint"] .hero {
+    padding: var(--spacing-lg) var(--spacing-sm);
+  }
+
+  body[data-theme="blueprint"] .hero-blueprint-svg {
+    display: none;
+  }
+
+  body[data-theme="blueprint"] .hero-annotation {
+    display: none !important;
+  }
+
+  body[data-theme="blueprint"] .projects,
+  body[data-theme="blueprint"] .about,
+  body[data-theme="blueprint"] .contact {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  body[data-theme="blueprint"] .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-theme="blueprint"] .about-specs,
+  body[data-theme="blueprint"] #about-specs {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  body[data-theme="blueprint"] .footer-info-row {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  body[data-theme="blueprint"] .footer-sep {
+    display: none;
+  }
+}
+
+/* ─── Body Loaded State ─── */
+body[data-theme="blueprint"].loaded {
+  animation: fadeIn 0.5s ease;
+}

@@ -3,52 +3,64 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TOM ANDRIEU // TERMINAL v3.0</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Tom Andrieu - Creative Developer Portfolio</title>
+    <meta name="description" content="Full-stack creative developer crafting digital experiences with motion, interaction, and visual storytelling." />
+    
+    <!-- Base Styles (always loaded) -->
+    <link rel="stylesheet" href="/css/base.css" />
+    
+    <!-- Theme CSS (dynamically loaded) -->
+    <link id="theme-css" rel="stylesheet" href="" />
 
-    <!-- Terminal Fonts -->
+    <!-- Google Fonts - Common for all themes -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=VT323&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <!-- CRT Scanline Overlay -->
-    <div class="crt-overlay"></div>
     
-    <!-- Terminal Cursor -->
-    <div id="cursor-block" class="cursor-block">█</div>
+    <!-- Terminal Theme Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=VT323&display=swap" rel="stylesheet" />
+    <!-- Blueprint Theme Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class="loading" data-theme="terminal">
+    <!-- Theme Overlay (CRT/Blueprint grid - styled by theme CSS) -->
+    <div id="theme-overlay" class="theme-overlay"></div>
+    
+    <!-- Custom Cursor (styled by theme CSS) -->
+    <div id="custom-cursor" class="custom-cursor">
+      <span class="cursor-icon"></span>
+      <span class="cursor-coord">x: <span id="coord-x">0</span>, y: <span id="coord-y">0</span></span>
+    </div>
 
     <main id="main-content">
-      <!-- Header / Terminal Bar -->
+      <!-- Header -->
       <header class="header">
-        <div class="terminal-bar">
-          <div class="terminal-buttons">
-            <span class="btn-close"></span>
-            <span class="btn-min"></span>
-            <span class="btn-max"></span>
-          </div>
-          <span class="terminal-title">tom@portfolio:~</span>
+        <div class="header-brand">
+          <span class="brand-prefix"></span>
+          <span class="brand-name" data-content="meta.name">TOM ANDRIEU</span>
+          <span class="brand-suffix"></span>
         </div>
         <nav class="nav">
-          <a href="#projects" class="nav-link">
-            <span class="nav-prefix">$</span> cd ./projects
+          <a href="#projects" class="nav-link" data-section="01">
+            <span class="nav-prefix"></span>
+            <span class="nav-text">Projects</span>
           </a>
-          <a href="#about" class="nav-link">
-            <span class="nav-prefix">$</span> cat about.txt
+          <a href="#about" class="nav-link" data-section="02">
+            <span class="nav-prefix"></span>
+            <span class="nav-text">About</span>
           </a>
-          <a href="#contact" class="nav-link">
-            <span class="nav-prefix">$</span> ./contact.sh
+          <a href="#contact" class="nav-link" data-section="03">
+            <span class="nav-prefix"></span>
+            <span class="nav-text">Contact</span>
           </a>
         </nav>
       </header>
 
       <!-- Hero Section -->
       <section class="hero">
-        <div class="hero-content">
-          <pre class="ascii-art">
+        <!-- Theme-specific hero decoration (SVG for blueprint, ASCII for terminal) -->
+        <div class="hero-decoration">
+          <!-- Terminal ASCII art -->
+          <pre class="hero-ascii">
 ████████╗ ██████╗ ███╗   ███╗
 ╚══██╔══╝██╔═══██╗████╗ ████║
    ██║   ██║   ██║██╔████╔██║
@@ -56,6 +68,38 @@
    ██║   ╚██████╔╝██║ ╚═╝ ██║
    ╚═╝    ╚═════╝ ╚═╝     ╚═╝
           </pre>
+          
+          <!-- Blueprint SVG frame -->
+          <svg class="hero-blueprint-svg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet">
+            <g class="hero-frame">
+              <line x1="100" y1="200" x2="1100" y2="200" class="frame-line"/>
+              <line x1="100" y1="400" x2="1100" y2="400" class="frame-line"/>
+              <line x1="100" y1="200" x2="100" y2="400" class="frame-line"/>
+              <line x1="1100" y1="200" x2="1100" y2="400" class="frame-line"/>
+              <g class="corner-mark" transform="translate(100, 200)">
+                <line x1="-15" y1="0" x2="15" y2="0"/><line x1="0" y1="-15" x2="0" y2="15"/>
+              </g>
+              <g class="corner-mark" transform="translate(1100, 200)">
+                <line x1="-15" y1="0" x2="15" y2="0"/><line x1="0" y1="-15" x2="0" y2="15"/>
+              </g>
+              <g class="corner-mark" transform="translate(100, 400)">
+                <line x1="-15" y1="0" x2="15" y2="0"/><line x1="0" y1="-15" x2="0" y2="15"/>
+              </g>
+              <g class="corner-mark" transform="translate(1100, 400)">
+                <line x1="-15" y1="0" x2="15" y2="0"/><line x1="0" y1="-15" x2="0" y2="15"/>
+              </g>
+            </g>
+            <g class="dimensions">
+              <line x1="100" y1="170" x2="1100" y2="170" class="dim-line"/>
+              <line x1="100" y1="165" x2="100" y2="175"/>
+              <line x1="1100" y1="165" x2="1100" y2="175"/>
+              <text x="600" y="160" class="dim-text">1000px</text>
+            </g>
+          </svg>
+        </div>
+        
+        <div class="hero-content">
+          <!-- Terminal-specific typewriter -->
           <div class="hero-terminal">
             <div class="terminal-line">
               <span class="prompt">tom@dev:~$</span>
@@ -68,11 +112,19 @@
               <p class="output-line">[<span class="status-ok">OK</span>] Ready to build awesome stuff!</p>
             </div>
           </div>
+
+          <h1 class="hero-title">
+            <span class="title-line" data-content="hero.title.0">CREATIVE</span>
+            <span class="title-line" data-content="hero.title.1">DEVELOPER</span>
+          </h1>
           
-          <div class="hero-subtitle">
-            <span class="blink-fast">></span> CREATIVE DEVELOPER <span class="blink-fast"><</span>
-          </div>
+          <p class="hero-subtitle" data-content="hero.subtitle">
+            <span class="annotation-mark"></span>
+            BUILDING DIGITAL EXPERIENCES
+            <span class="annotation-mark"></span>
+          </p>
           
+          <!-- Terminal stats bars -->
           <div class="hero-stats">
             <div class="stat-bar">
               <span class="stat-label">CREATIVITY</span>
@@ -88,9 +140,14 @@
             </div>
           </div>
         </div>
+
+        <!-- Blueprint annotation -->
+        <div class="hero-annotation">
+          <span class="annotation-text">revision needed →</span>
+        </div>
         
         <div class="scroll-indicator">
-          <span class="scroll-text">// SCROLL DOWN FOR MORE</span>
+          <span class="scroll-text">SCROLL TO EXPLORE</span>
           <div class="scroll-arrow">▼</div>
         </div>
       </section>
@@ -98,11 +155,12 @@
       <!-- Projects Section -->
       <section id="projects" class="projects">
         <div class="section-header">
-          <div class="section-title-row">
-            <span class="prompt-symbol">$</span>
-            <h2 class="glitch" data-text="ls -la ./projects">ls -la ./projects</h2>
+          <div class="section-label">
+            <span class="section-number">01</span>
+            <span class="section-prompt">$</span>
+            <h2 class="section-title" data-glitch="PROJECTS">PROJECTS</h2>
           </div>
-          <div class="divider">═══════════════════════════════════════════════════════</div>
+          <div class="section-divider">═══════════════════════════════════════════════════════</div>
         </div>
         
         <div id="projects-grid" class="projects-grid">
@@ -114,69 +172,56 @@
         
         <div class="section-footer">
           <span class="footer-info">total 4 projects | drwxr-xr-x</span>
+          <span class="coord-marker">x: 0, y: 1200</span>
         </div>
       </section>
 
       <!-- About Section -->
       <section id="about" class="about">
         <div class="section-header">
-          <div class="section-title-row">
-            <span class="prompt-symbol">$</span>
-            <h2 class="glitch" data-text="cat about.txt">cat about.txt</h2>
+          <div class="section-label">
+            <span class="section-number">02</span>
+            <span class="section-prompt">$</span>
+            <h2 class="section-title" data-glitch="ABOUT">ABOUT</h2>
           </div>
-          <div class="divider">═══════════════════════════════════════════════════════</div>
+          <div class="section-divider">═══════════════════════════════════════════════════════</div>
         </div>
         
         <div class="about-content">
-          <div class="terminal-window">
-            <div class="window-header">
-              <span class="window-title">+─── SYSTEM STATUS ───+</span>
+          <div class="about-card">
+            <div class="card-header">
+              <span class="card-title">SYSTEM STATUS</span>
             </div>
-            <div class="window-body">
+            <div class="card-body">
               <div class="about-text">
                 <p class="code-comment">/* Who am I? */</p>
-                <p class="about-main">
+                <p class="about-main" data-content="about.intro">
                   I craft <span class="highlight">digital experiences</span> with a focus on 
                   <span class="highlight">motion</span>, <span class="highlight">interaction</span>, 
                   and <span class="highlight">visual storytelling</span>.
                 </p>
                 <p class="code-comment">/* Skills loaded */</p>
-                <p class="about-detail">
+                <p class="about-detail" data-content="about.detail">
                   With expertise spanning front-end development, UI/UX design, and creative coding, 
                   I transform complex ideas into elegant, functional solutions.
                 </p>
               </div>
               
-              <div class="about-specs">
-                <div class="spec-row">
-                  <span class="spec-key">LOCATION:</span>
-                  <span class="spec-val">"FRANCE"</span>
-                </div>
-                <div class="spec-row">
-                  <span class="spec-key">EXPERIENCE:</span>
-                  <span class="spec-val">"5+ YEARS"</span>
-                </div>
-                <div class="spec-row">
-                  <span class="spec-key">FOCUS:</span>
-                  <span class="spec-val">"FULL-STACK"</span>
-                </div>
-                <div class="spec-row">
-                  <span class="spec-key">STATUS:</span>
-                  <span class="spec-val status-available">[ AVAILABLE FOR PROJECTS ]</span>
-                </div>
+              <div class="about-specs" id="about-specs">
+                <!-- Populated from content.json -->
               </div>
               
               <div class="tech-stack">
                 <p class="code-comment">/* Tech stack */</p>
-                <div class="tech-grid">
-                  <span class="tech-tag">[ NEXT.JS ]</span>
-                  <span class="tech-tag">[ REACT ]</span>
-                  <span class="tech-tag">[ TYPESCRIPT ]</span>
-                  <span class="tech-tag">[ NODE.JS ]</span>
-                  <span class="tech-tag">[ FLUTTER ]</span>
-                  <span class="tech-tag">[ AI/ML ]</span>
+                <div class="tech-grid" id="tech-grid">
+                  <!-- Populated from content.json -->
                 </div>
               </div>
+            </div>
+            
+            <!-- Blueprint redline note -->
+            <div class="redline-note">
+              <span>↳ available for projects</span>
             </div>
           </div>
         </div>
@@ -185,37 +230,51 @@
       <!-- Contact Section -->
       <section id="contact" class="contact">
         <div class="section-header">
-          <div class="section-title-row">
-            <span class="prompt-symbol">$</span>
-            <h2 class="glitch" data-text="./contact.sh">./contact.sh</h2>
+          <div class="section-label">
+            <span class="section-number">03</span>
+            <span class="section-prompt">$</span>
+            <h2 class="section-title" data-glitch="CONTACT">CONTACT</h2>
           </div>
-          <div class="divider">═══════════════════════════════════════════════════════</div>
+          <div class="section-divider">═══════════════════════════════════════════════════════</div>
         </div>
         
         <div class="contact-content">
-          <div class="terminal-window contact-window">
-            <div class="window-header">
-              <span class="window-title">+─── ESTABLISH CONNECTION ───+</span>
+          <div class="contact-card">
+            <div class="card-header">
+              <span class="card-title">ESTABLISH CONNECTION</span>
             </div>
-            <div class="window-body">
+            <div class="card-body">
               <div class="contact-prompt">
                 <p class="output-line">> Initiating contact protocol...</p>
                 <p class="output-line">[<span class="status-ok">OK</span>] Email channel ready</p>
               </div>
               
-              <a href="mailto:contact@tomandrieu.com" class="email-link">
+              <!-- Blueprint SVG frame -->
+              <svg class="contact-blueprint-svg" viewBox="0 0 600 200">
+                <rect x="10" y="10" width="580" height="180" class="contact-border" rx="0"/>
+                <g class="corner-mark" transform="translate(10, 10)">
+                  <line x1="-10" y1="0" x2="20" y2="0"/><line x1="0" y1="-10" x2="0" y2="20"/>
+                </g>
+                <g class="corner-mark" transform="translate(590, 10)">
+                  <line x1="-20" y1="0" x2="10" y2="0"/><line x1="0" y1="-10" x2="0" y2="20"/>
+                </g>
+                <g class="corner-mark" transform="translate(10, 190)">
+                  <line x1="-10" y1="0" x2="20" y2="0"/><line x1="0" y1="-20" x2="0" y2="10"/>
+                </g>
+                <g class="corner-mark" transform="translate(590, 190)">
+                  <line x1="-20" y1="0" x2="10" y2="0"/><line x1="0" y1="-20" x2="0" y2="10"/>
+                </g>
+              </svg>
+              
+              <a href="mailto:contact@tomandrieu.com" class="email-link" id="email-link">
                 <span class="email-prefix">>> </span>
-                <span class="email-text">CONTACT@TOMANDRIEU.COM</span>
+                <span class="stamp">APPROVED</span>
+                <span class="email-text" data-content="contact.email">CONTACT@TOMANDRIEU.COM</span>
                 <span class="cursor-blink">_</span>
               </a>
               
-              <div class="social-links">
-                <a href="https://github.com/tomandrieu" class="social-btn" target="_blank">
-                  [ GITHUB ]
-                </a>
-                <a href="https://linkedin.com/in/tomandrieu" class="social-btn" target="_blank">
-                  [ LINKEDIN ]
-                </a>
+              <div class="social-links" id="social-links">
+                <!-- Populated from content.json -->
               </div>
             </div>
           </div>
@@ -227,14 +286,14 @@
         <div class="footer-content">
           <div class="footer-line">────────────────────────────────────────────────────────────────</div>
           <div class="footer-info-row">
-            <span>SESSION: TOM-2024-PORTFOLIO</span>
-            <span>|</span>
-            <span>VERSION: 3.0</span>
-            <span>|</span>
-            <span>PID: 1337</span>
+            <span class="footer-session" data-content="footer.sessionId">SESSION: TOM-2024-PORTFOLIO</span>
+            <span class="footer-sep">|</span>
+            <span class="footer-version" data-content="footer.version">VERSION: 3.0</span>
+            <span class="footer-sep">|</span>
+            <span class="footer-scale">SCALE: 1:1</span>
           </div>
-          <div class="footer-copyright">
-            <span class="prompt-symbol">$</span> echo "© 2024 TOM ANDRIEU — ALL RIGHTS RESERVED"
+          <div class="footer-copyright" data-content="footer.copyright">
+            © 2024 TOM ANDRIEU — ALL RIGHTS RESERVED
           </div>
           <div class="footer-exit">
             <span class="blink-slow">[Press any key to continue...]</span>
@@ -243,8 +302,15 @@
       </footer>
     </main>
 
+    <!-- GSAP for animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="script.js"></script>
+    
+    <!-- Core Scripts -->
+    <script src="/js/theme-manager.js"></script>
+    <script src="/js/base.js"></script>
+    
+    <!-- Theme JS (dynamically loaded) -->
+    <script id="theme-js" src=""></script>
   </body>
 </html>

@@ -1,0 +1,355 @@
+/* ═══════════════════════════════════════════════════════════════
+   BASE STYLES - Shared across all themes
+   Reset, Typography Base, Layout, Animations Core
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Reset & Base ─── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* ─── Base Layout ─── */
+#main-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Section Base ─── */
+.projects, .about, .contact {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+}
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* ─── Header Base ─── */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.nav {
+  display: flex;
+}
+
+.nav a {
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* ─── Projects Grid Base ─── */
+.projects-grid {
+  display: grid;
+}
+
+.projects-grid-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ─── Project Card Base ─── */
+.project-card {
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: all 0.4s ease;
+}
+
+.project-media-container {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.project-image,
+.project-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.5s ease;
+}
+
+/* ─── Carousel Base ─── */
+.project-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carousel-slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+}
+
+.carousel-slide .project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+.project-card:hover .carousel-btn {
+  opacity: 1;
+}
+
+.carousel-btn.prev { left: 8px; }
+.carousel-btn.next { right: 8px; }
+
+.carousel-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  z-index: 10;
+}
+
+.carousel-dot {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* ─── Tags Base ─── */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag {
+  transition: all 0.3s ease;
+}
+
+/* ─── Contact Base ─── */
+.email-link {
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.social-links {
+  display: flex;
+}
+
+.social-links a {
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* ─── Footer Base ─── */
+.footer {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+}
+
+/* ─── Focus States (Accessibility) ─── */
+:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* ─── Hover States ─── */
+a, button {
+  cursor: pointer;
+}
+
+/* ─── Base Animations ─── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Loading State ─── */
+body.loading * {
+  animation-play-state: paused !important;
+}
+
+/* ─── Base Responsive ─── */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .social-links {
+    flex-direction: column;
+  }
+}
+
+/* ─── Custom Scrollbar Base ─── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* ─── Theme-specific elements: hidden by default ─── */
+.hero-ascii,
+.hero-terminal,
+.hero-stats,
+.hero-blueprint-svg,
+.contact-blueprint-svg,
+.hero-annotation,
+.section-number,
+.section-prompt,
+.section-divider,
+.code-comment,
+.email-prefix,
+.cursor-blink,
+.contact-prompt,
+.footer-line,
+.footer-exit,
+.redline-note,
+.stamp,
+.coord-marker,
+.footer-scale,
+.cursor-coord {
+  display: none;
+}
+
+/* ─── About Card ─── */
+.about-card,
+.contact-card {
+  position: relative;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+/* ─── Section Header ─── */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* ─── Tech Grid ─── */
+.tech-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* ─── Responsive social links fix ─── */
+@media (max-width: 768px) {
+  .social-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
+
