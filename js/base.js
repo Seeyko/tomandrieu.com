@@ -431,42 +431,9 @@ async function initBase() {
     document.body.classList.add('loaded');
 }
 
-// ─── Visitor Counter Integration ───
-const VISITOR_STORAGE_KEY = 'portfolio_visitor_id';
+// ─── Visitor Counter Integration with PostHog ───
+const VISITOR_COUNTED_KEY = 'portfolio_visitor_counted_posthog';
 const VISITOR_COUNT_KEY = 'portfolio_visitor_count';
-const VISITOR_COUNT_TIMESTAMP = 'portfolio_visitor_count_ts';
-
-/**
- * Generate a unique visitor ID
- */
-function generateVisitorId() {
-    return 'v_' + Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
-}
-
-/**
- * Check if this is a unique visitor
- */
-function isNewVisitor() {
-    const existingId = localStorage.getItem(VISITOR_STORAGE_KEY);
-    if (!existingId) {
-        const newId = generateVisitorId();
-        localStorage.setItem(VISITOR_STORAGE_KEY, newId);
-        return true;
-    }
-    return false;
-}
-
-/**
- * Get visitor ID
- */
-function getVisitorId() {
-    let id = localStorage.getItem(VISITOR_STORAGE_KEY);
-    if (!id) {
-        id = generateVisitorId();
-        localStorage.setItem(VISITOR_STORAGE_KEY, id);
-    }
-    return id;
-}
 
 /**
  * Format number with leading zeros (90s style)
@@ -505,7 +472,46 @@ function animateCount(element, targetCount) {
 }
 
 /**
- * Initialize visitor counter
+ * Get PostHog distinct_id for unique visitor tracking
+ */
+function getPostHogDistinctId() {
+    if (typeof posthog !== 'undefined' && posthog.get_distinct_id) {
+        return posthog.get_distinct_id();
+    }
+    return null;
+}
+
+/**
+ * Check if this visitor has already been counted using PostHog distinct_id
+ */
+function hasVisitorBeenCounted() {
+    const distinctId = getPostHogDistinctId();
+    if (distinctId) {
+        const countedIds = JSON.parse(localStorage.getItem(VISITOR_COUNTED_KEY) || '[]');
+        return countedIds.includes(distinctId);
+    }
+    // Fallback: check simple flag
+    return localStorage.getItem('portfolio_has_counted') === 'true';
+}
+
+/**
+ * Mark visitor as counted using PostHog distinct_id
+ */
+function markVisitorCounted() {
+    const distinctId = getPostHogDistinctId();
+    if (distinctId) {
+        const countedIds = JSON.parse(localStorage.getItem(VISITOR_COUNTED_KEY) || '[]');
+        if (!countedIds.includes(distinctId)) {
+            countedIds.push(distinctId);
+            localStorage.setItem(VISITOR_COUNTED_KEY, JSON.stringify(countedIds));
+        }
+    }
+    localStorage.setItem('portfolio_has_counted', 'true');
+}
+
+/**
+ * Initialize visitor counter with PostHog tracking
+ * Uses localStorage for display, PostHog captures real analytics
  */
 async function initVisitorCounter() {
     const countElement = document.getElementById('visitor-count');
@@ -513,66 +519,49 @@ async function initVisitorCounter() {
 
     countElement.classList.add('loading');
 
-    // Check if new visitor and track with PostHog
-    const isNew = isNewVisitor();
+    // Wait a moment for PostHog to initialize
+    await new Promise(resolve => setTimeout(resolve, 100));
 
-    if (isNew && typeof posthog !== 'undefined') {
-        // Track unique visitor event in PostHog
-        posthog.capture('unique_visitor', {
-            visitor_id: getVisitorId(),
-            timestamp: new Date().toISOString()
-        });
-    }
+    const isNewVisitor = !hasVisitorBeenCounted();
 
-    // Get stored count or fetch from PostHog API
-    let visitorCount = await fetchVisitorCount();
-
-    // Update display with animation
-    setTimeout(() => {
-        animateCount(countElement, visitorCount);
-    }, 500);
-}
-
-/**
- * Fetch visitor count - tries PostHog API first, falls back to localStorage
- */
-async function fetchVisitorCount() {
-    // First try to get from PostHog via a public query (if configured)
-    // For now, use localStorage-based counting with PostHog event sync
-
+    // Real count - starts at 0
     let count = parseInt(localStorage.getItem(VISITOR_COUNT_KEY) || '0', 10);
-    const lastUpdate = parseInt(localStorage.getItem(VISITOR_COUNT_TIMESTAMP) || '0', 10);
-    const now = Date.now();
 
-    // If this is a new visitor, increment count
-    const visitorId = localStorage.getItem(VISITOR_STORAGE_KEY);
-    const hasCountedKey = `portfolio_counted_${visitorId}`;
-
-    if (!localStorage.getItem(hasCountedKey)) {
+    if (isNewVisitor) {
+        // Increment count
         count++;
         localStorage.setItem(VISITOR_COUNT_KEY, count.toString());
-        localStorage.setItem(VISITOR_COUNT_TIMESTAMP, now.toString());
-        localStorage.setItem(hasCountedKey, 'true');
+
+        // Mark as counted
+        markVisitorCounted();
+
+        // Track in PostHog - this is the real analytics data
+        if (typeof posthog !== 'undefined') {
+            posthog.capture('visitor_counted', {
+                visitor_number: count,
+                is_new_visitor: true,
+                distinct_id: getPostHogDistinctId()
+            });
+        }
+
+        console.log('%c[OK] New visitor counted: #' + count, 'color: #33ff00;');
+    } else {
+        console.log('%c[OK] Returning visitor, count: ' + count, 'color: #33ff00;');
     }
 
-    // Ensure minimum count for better UX (simulates existing traffic)
-    if (count < 1) {
-        count = 1;
-        localStorage.setItem(VISITOR_COUNT_KEY, count.toString());
-    }
-
-    return count;
+    // Display with animation
+    setTimeout(() => {
+        animateCount(countElement, count);
+    }, 300);
 }
 
 /**
- * Update visitor count from external source (for future PostHog API integration)
+ * Update visitor count display
  */
 function updateVisitorCount(count) {
     const countElement = document.getElementById('visitor-count');
     if (countElement) {
         animateCount(countElement, count);
-        localStorage.setItem(VISITOR_COUNT_KEY, count.toString());
-        localStorage.setItem(VISITOR_COUNT_TIMESTAMP, Date.now().toString());
     }
 }
 

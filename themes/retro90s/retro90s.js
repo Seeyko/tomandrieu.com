@@ -1,45 +1,117 @@
 /**
  * ═══════════════════════════════════════════════════════════════
  * RETRO 90s / GEOCITIES PORTFOLIO - Theme JavaScript
- * "Welcome to 1997" - Playful interactions and authentic effects
+ * "Welcome to 1997" - MAXIMUM PLAYFULNESS EDITION
+ * Now with 500% more interactions!
  * ═══════════════════════════════════════════════════════════════
  */
 
 console.log('%c[RETRO 90s] Welcome to 1997!', 'color: #FF00FF; font-size: 20px; font-family: "Comic Sans MS", cursive; text-shadow: 2px 2px 0 #FFFF00;');
 console.log('%c♦♦♦ Best viewed with Netscape Navigator 4.0 at 800x600 ♦♦♦', 'color: #00FF00; font-size: 12px;');
 
-// ─── Hit Counter ───
+// ─── Hit Counter with PostHog tracking ───
 class HitCounter {
     constructor() {
-        this.storageKey = 'retro_hit_counter';
-        this.count = this.getCount();
-        this.increment();
-        this.render();
+        this.storageKey = 'retro_hit_counter_posthog';
+        this.countedKey = 'retro_hit_counted';
+        this.localCountKey = 'retro_visitor_count';
+        this.count = 0;
+        this.init();
     }
 
-    getCount() {
-        try {
-            return parseInt(localStorage.getItem(this.storageKey) || '1234', 10);
-        } catch {
-            return 1234;
+    getPostHogDistinctId() {
+        if (typeof posthog !== 'undefined' && posthog.get_distinct_id) {
+            return posthog.get_distinct_id();
         }
+        return null;
     }
 
-    increment() {
-        this.count++;
-        try {
-            localStorage.setItem(this.storageKey, this.count.toString());
-        } catch {
-            // localStorage not available
+    hasBeenCounted() {
+        const distinctId = this.getPostHogDistinctId();
+        if (distinctId) {
+            const countedIds = JSON.parse(localStorage.getItem(this.storageKey) || '[]');
+            return countedIds.includes(distinctId);
         }
+        return localStorage.getItem(this.countedKey) === 'true';
     }
 
-    render() {
+    markAsCounted() {
+        const distinctId = this.getPostHogDistinctId();
+        if (distinctId) {
+            const countedIds = JSON.parse(localStorage.getItem(this.storageKey) || '[]');
+            if (!countedIds.includes(distinctId)) {
+                countedIds.push(distinctId);
+                localStorage.setItem(this.storageKey, JSON.stringify(countedIds));
+            }
+        }
+        localStorage.setItem(this.countedKey, 'true');
+    }
+
+    async init() {
         const counterEl = document.querySelector('.hit-counter-number');
-        if (counterEl) {
-            // Pad to 7 digits for that authentic look
-            counterEl.textContent = String(this.count).padStart(7, '0');
+        if (!counterEl) return;
+
+        // Show loading state
+        counterEl.textContent = '0000000';
+        counterEl.classList.add('loading');
+
+        // Wait for PostHog to initialize
+        await new Promise(resolve => setTimeout(resolve, 150));
+
+        const isNewVisitor = !this.hasBeenCounted();
+
+        // Get current count from localStorage - starts at 0 for real tracking
+        let storedCount = parseInt(localStorage.getItem(this.localCountKey) || '0', 10);
+
+        if (isNewVisitor) {
+            // Increment count
+            storedCount++;
+            localStorage.setItem(this.localCountKey, storedCount.toString());
+
+            // Mark as counted
+            this.markAsCounted();
+
+            // Track in PostHog - this is the real analytics
+            if (typeof posthog !== 'undefined') {
+                posthog.capture('retro_hit_counter', {
+                    visitor_number: storedCount,
+                    is_new_visitor: true,
+                    distinct_id: this.getPostHogDistinctId()
+                });
+            }
+
+            console.log('%c[RETRO] New visitor counted: #' + storedCount, 'color: #FF00FF;');
+        } else {
+            console.log('%c[RETRO] Returning visitor, count: ' + storedCount, 'color: #00FF00;');
         }
+
+        this.count = storedCount;
+
+        // Animate the counter
+        this.animateCount(counterEl, this.count);
+    }
+
+    animateCount(element, target) {
+        const duration = 1500;
+        const startTime = performance.now();
+
+        const update = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            const current = Math.floor(target * easeOut);
+
+            element.textContent = String(current).padStart(7, '0');
+
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            } else {
+                element.textContent = String(target).padStart(7, '0');
+                element.classList.remove('loading');
+            }
+        };
+
+        requestAnimationFrame(update);
     }
 }
 
@@ -60,6 +132,7 @@ function renderRetroCard(project, index) {
     card.href = project.url;
     card.target = '_blank';
     card.rel = 'noopener noreferrer';
+    card.setAttribute('data-tooltip', `Click to visit ${project.title}!`);
 
     const carouselId = `carousel-${project.id}`;
     const mediaContent = PortfolioBase.createMediaContent(project, carouselId);
@@ -70,9 +143,9 @@ function renderRetroCard(project, index) {
         <div class="project-titlebar">
             <span class="project-titlebar-text">${project.title}.exe</span>
             <div class="project-titlebar-buttons">
-                <span class="titlebar-btn">_</span>
-                <span class="titlebar-btn">□</span>
-                <span class="titlebar-btn">×</span>
+                <span class="titlebar-btn" data-action="minimize">_</span>
+                <span class="titlebar-btn" data-action="maximize">□</span>
+                <span class="titlebar-btn" data-action="close">×</span>
             </div>
         </div>
         <div class="project-media-container">
@@ -93,21 +166,39 @@ function renderRetroCard(project, index) {
 
     // Add hover sound effect simulation (visual feedback)
     card.addEventListener('mouseenter', () => {
-        card.style.cursor = 'pointer';
+        playVisualClick();
     });
 
     return card;
 }
 
-// ─── Cursor Trail Effect ───
+// ─── Visual Click Feedback (simulates sound) ───
+function playVisualClick() {
+    const flash = document.createElement('div');
+    flash.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.05);
+        pointer-events: none;
+        z-index: 99998;
+    `;
+    document.body.appendChild(flash);
+    setTimeout(() => flash.remove(), 50);
+}
+
+// ─── Rainbow Cursor Trail Effect ───
 class CursorTrail {
     constructor() {
         this.trails = [];
-        this.maxTrails = 10;
+        this.maxTrails = 12;
         this.colors = ['#FF0000', '#FF8000', '#FFFF00', '#00FF00', '#00FFFF', '#0080FF', '#FF00FF'];
         this.colorIndex = 0;
         this.lastX = 0;
         this.lastY = 0;
+        this.shapes = ['■', '●', '★', '♦', '▲'];
         this.init();
     }
 
@@ -120,12 +211,13 @@ class CursorTrail {
                 position: fixed;
                 pointer-events: none;
                 z-index: 9999;
-                width: 8px;
-                height: 8px;
-                border-radius: 0;
+                font-size: 12px;
+                font-family: Arial, sans-serif;
                 opacity: 0;
-                transition: none;
+                text-shadow: 1px 1px 0 #000;
+                transform: translate(-50%, -50%);
             `;
+            trail.textContent = this.shapes[i % this.shapes.length];
             document.body.appendChild(trail);
             this.trails.push({
                 el: trail,
@@ -158,20 +250,17 @@ class CursorTrail {
         // Update trail positions and colors
         this.trails.forEach((trail, i) => {
             const opacity = 1 - (i / this.maxTrails);
-            const size = 8 - (i * 0.5);
-            const colorIndex = (this.colorIndex + i) % this.colors.length;
+            const colorIndex = Math.floor(this.colorIndex + i) % this.colors.length;
 
             trail.el.style.left = trail.x + 'px';
             trail.el.style.top = trail.y + 'px';
-            trail.el.style.width = size + 'px';
-            trail.el.style.height = size + 'px';
-            trail.el.style.opacity = opacity * 0.7;
-            trail.el.style.backgroundColor = this.colors[colorIndex];
-            trail.el.style.boxShadow = `0 0 ${size}px ${this.colors[colorIndex]}`;
+            trail.el.style.opacity = opacity * 0.8;
+            trail.el.style.color = this.colors[colorIndex];
+            trail.el.style.transform = `translate(-50%, -50%) scale(${1 - i * 0.05}) rotate(${i * 15}deg)`;
         });
 
         // Cycle colors
-        this.colorIndex = (this.colorIndex + 0.1) % this.colors.length;
+        this.colorIndex = (this.colorIndex + 0.05) % this.colors.length;
 
         requestAnimationFrame(this.animate.bind(this));
     }
@@ -188,37 +277,222 @@ class SparkleEffect {
     }
 
     createSparkle(e) {
-        const colors = ['#FFFF00', '#FF00FF', '#00FFFF', '#FF0000', '#00FF00'];
-        const sparkleCount = 8;
+        const colors = ['#FFFF00', '#FF00FF', '#00FFFF', '#FF0000', '#00FF00', '#FF8000'];
+        const sparkleCount = 12;
+        const shapes = ['★', '✦', '♦', '●', '■'];
 
         for (let i = 0; i < sparkleCount; i++) {
             const sparkle = document.createElement('div');
+            const shape = shapes[Math.floor(Math.random() * shapes.length)];
             sparkle.className = 'sparkle';
+            sparkle.textContent = shape;
             sparkle.style.cssText = `
                 position: fixed;
                 pointer-events: none;
                 z-index: 10000;
                 left: ${e.clientX}px;
                 top: ${e.clientY}px;
-                width: 6px;
-                height: 6px;
-                background: ${colors[Math.floor(Math.random() * colors.length)]};
-                border: 1px solid #000;
+                font-size: ${10 + Math.random() * 10}px;
+                color: ${colors[Math.floor(Math.random() * colors.length)]};
+                text-shadow: 1px 1px 0 #000;
             `;
             document.body.appendChild(sparkle);
 
             const angle = (i / sparkleCount) * Math.PI * 2;
-            const velocity = 100 + Math.random() * 100;
+            const velocity = 80 + Math.random() * 120;
             const endX = Math.cos(angle) * velocity;
             const endY = Math.sin(angle) * velocity;
+            const rotation = Math.random() * 720 - 360;
 
             sparkle.animate([
-                { transform: 'translate(0, 0) scale(1)', opacity: 1 },
-                { transform: `translate(${endX}px, ${endY}px) scale(0)`, opacity: 0 }
+                { transform: 'translate(-50%, -50%) scale(1) rotate(0deg)', opacity: 1 },
+                { transform: `translate(calc(-50% + ${endX}px), calc(-50% + ${endY}px)) scale(0) rotate(${rotation}deg)`, opacity: 0 }
             ], {
-                duration: 500,
-                easing: 'ease-out'
+                duration: 600 + Math.random() * 400,
+                easing: 'cubic-bezier(0, 0.5, 0.5, 1)'
             }).onfinish = () => sparkle.remove();
+        }
+    }
+}
+
+// ─── Flying Geometric Shapes ───
+class FlyingShapes {
+    constructor() {
+        this.shapes = ['■', '●', '▲', '★', '♦', '◆'];
+        this.colors = ['#FF0000', '#FFFF00', '#00FF00', '#00FFFF', '#FF00FF', '#0000FF'];
+        this.init();
+    }
+
+    init() {
+        // Create initial shapes
+        for (let i = 0; i < 6; i++) {
+            this.createShape(i * 3);
+        }
+    }
+
+    createShape(delay = 0) {
+        const shape = document.createElement('div');
+        shape.className = 'flying-shape';
+        const shapeChar = this.shapes[Math.floor(Math.random() * this.shapes.length)];
+        const color = this.colors[Math.floor(Math.random() * this.colors.length)];
+        const size = 16 + Math.random() * 24;
+        const startY = Math.random() * 80 + 10;
+
+        shape.textContent = shapeChar;
+        shape.style.cssText = `
+            position: fixed;
+            top: ${startY}vh;
+            left: -50px;
+            font-size: ${size}px;
+            color: ${color};
+            pointer-events: none;
+            z-index: 0;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+            animation: fly-across ${15 + Math.random() * 15}s linear infinite;
+            animation-delay: ${delay}s;
+        `;
+
+        document.body.appendChild(shape);
+
+        // Remove and recreate after animation
+        setTimeout(() => {
+            shape.remove();
+            this.createShape();
+        }, (15 + delay) * 1000);
+    }
+}
+
+// ─── Windows 95 Style Tooltips ───
+class RetroTooltips {
+    constructor() {
+        this.tooltip = null;
+        this.init();
+    }
+
+    init() {
+        this.tooltip = document.createElement('div');
+        this.tooltip.className = 'retro-tooltip';
+        document.body.appendChild(this.tooltip);
+
+        document.addEventListener('mouseover', this.handleMouseOver.bind(this));
+        document.addEventListener('mouseout', this.handleMouseOut.bind(this));
+        document.addEventListener('mousemove', this.handleMouseMove.bind(this));
+    }
+
+    handleMouseOver(e) {
+        const target = e.target.closest('[data-tooltip]');
+        if (target) {
+            this.tooltip.textContent = target.dataset.tooltip;
+            this.tooltip.classList.add('visible');
+        }
+    }
+
+    handleMouseOut(e) {
+        const target = e.target.closest('[data-tooltip]');
+        if (target) {
+            this.tooltip.classList.remove('visible');
+        }
+    }
+
+    handleMouseMove(e) {
+        if (this.tooltip.classList.contains('visible')) {
+            this.tooltip.style.left = e.clientX + 15 + 'px';
+            this.tooltip.style.top = e.clientY + 15 + 'px';
+        }
+    }
+}
+
+// ─── Clippy Helper ───
+class ClippyHelper {
+    constructor() {
+        this.messages = [
+            "It looks like you're browsing a portfolio! Need help?",
+            "Wow, these projects look amazing!",
+            "Have you tried clicking on a project?",
+            "Don't forget to sign the guestbook!",
+            "This site is best viewed at 800x600!",
+            "Press ↑↑↓↓←→←→BA for a surprise!",
+            "Remember to bookmark this page!",
+            "Did you know? This site uses JavaScript!",
+            "Try hovering over the tech tags!",
+            "The colors! The bevels! So 90s!",
+            "Have you checked out the About section?",
+            "Links turn red when you hover. Cool, right?"
+        ];
+        this.currentMessage = 0;
+        this.isVisible = true;
+        this.container = null;
+        this.init();
+    }
+
+    init() {
+        this.container = document.createElement('div');
+        this.container.className = 'retro-clippy show-speech';
+        this.container.innerHTML = `
+            <div class="clippy-container">
+                <div class="clippy-speech">
+                    <span class="clippy-message">${this.messages[0]}</span>
+                    <button class="clippy-dismiss">OK</button>
+                </div>
+                <div class="clippy-body">
+                    <div class="clippy-brows">
+                        <div class="clippy-brow"></div>
+                        <div class="clippy-brow"></div>
+                    </div>
+                    <div class="clippy-eyes">
+                        <div class="clippy-eye"></div>
+                        <div class="clippy-eye"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(this.container);
+
+        // Dismiss button
+        this.container.querySelector('.clippy-dismiss').addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.container.classList.remove('show-speech');
+            setTimeout(() => this.showNextMessage(), 15000);
+        });
+
+        // Click on Clippy to show speech
+        this.container.querySelector('.clippy-body').addEventListener('click', () => {
+            if (!this.container.classList.contains('show-speech')) {
+                this.showNextMessage();
+                this.container.classList.add('show-speech');
+            }
+        });
+
+        // Auto-cycle messages
+        this.startMessageCycle();
+    }
+
+    showNextMessage() {
+        this.currentMessage = (this.currentMessage + 1) % this.messages.length;
+        const messageEl = this.container.querySelector('.clippy-message');
+        if (messageEl) {
+            messageEl.textContent = this.messages[this.currentMessage];
+        }
+    }
+
+    startMessageCycle() {
+        setInterval(() => {
+            if (this.container.classList.contains('show-speech')) {
+                this.showNextMessage();
+            }
+        }, 8000);
+    }
+
+    hide() {
+        if (this.container) {
+            this.container.style.display = 'none';
+        }
+    }
+
+    show() {
+        if (this.container) {
+            this.container.style.display = 'block';
         }
     }
 }
@@ -262,21 +536,41 @@ function initConstructionWobble() {
     setInterval(() => {
         construction.style.transform = `rotate(${Math.random() * 6 - 3}deg)`;
     }, 2000);
+
+    // Add click to toggle message
+    construction.addEventListener('click', () => {
+        const inner = construction.querySelector('.under-construction-inner');
+        if (inner) {
+            const messages = [
+                'SITE UNDER CONSTRUCTION!',
+                'COMING SOON!',
+                'WORK IN PROGRESS!',
+                'PARDON OUR DUST!',
+                'MORE FEATURES COMING!'
+            ];
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            inner.textContent = randomMessage;
+        }
+    });
 }
 
 // ─── Tech Tag Color Cycling ───
 function initTechTagColors() {
-    const colors = ['#0000FF', '#00AA00', '#800080', '#FF0000', '#008080'];
+    const colors = ['#0000FF', '#00AA00', '#800080', '#FF0000', '#008080', '#FF8000'];
     const tags = document.querySelectorAll('.tech-tag');
 
     tags.forEach((tag, i) => {
+        tag.setAttribute('data-tooltip', `I know ${tag.textContent}!`);
+
         tag.addEventListener('mouseenter', () => {
             tag.style.background = colors[i % colors.length];
             tag.style.color = '#FFFFFF';
+            tag.style.textShadow = '1px 1px 0 #000';
         });
         tag.addEventListener('mouseleave', () => {
             tag.style.background = '';
             tag.style.color = '';
+            tag.style.textShadow = '';
         });
     });
 }
@@ -299,39 +593,44 @@ function handleKonami() {
         padding: 0;
         box-shadow: 4px 4px 0 rgba(0,0,0,0.5);
         font-family: "MS Sans Serif", Tahoma, sans-serif;
-        min-width: 300px;
+        min-width: 350px;
     `;
 
     alertBox.innerHTML = `
-        <div style="background: linear-gradient(to right, #000080, #1084D0); color: white; padding: 4px 8px; font-weight: bold; font-size: 12px;">
-            Secret Message
+        <div style="background: linear-gradient(to right, #000080, #1084D0); color: white; padding: 4px 8px; font-weight: bold; font-size: 12px; display: flex; justify-content: space-between; align-items: center;">
+            <span>🎮 Secret Message</span>
+            <span style="cursor: pointer;" id="close-secret">×</span>
         </div>
-        <div style="padding: 16px; text-align: center;">
+        <div style="padding: 20px; text-align: center;">
             <p style="font-size: 14px; margin-bottom: 16px;">
-                🎉 You found the secret! 🎉<br><br>
-                <span style="font-family: 'Comic Sans MS', cursive; color: #FF00FF;">
-                    Thanks for visiting my portfolio!
+                🎉 CONGRATULATIONS! 🎉<br><br>
+                <span style="font-family: 'Comic Sans MS', cursive; color: #FF00FF; font-size: 16px;">
+                    You found the secret!
+                </span><br><br>
+                <span style="font-size: 12px; color: #808080;">
+                    Enjoy the rainbow mode for 10 seconds!
                 </span>
             </p>
             <button id="retro-alert-ok" style="
                 background: #C0C0C0;
                 border: 2px solid;
                 border-color: #FFFFFF #808080 #808080 #FFFFFF;
-                padding: 4px 24px;
+                padding: 6px 32px;
                 font-family: inherit;
                 cursor: pointer;
                 font-weight: bold;
-            ">OK</button>
+                font-size: 12px;
+            ">COOL!</button>
         </div>
     `;
 
     document.body.appendChild(alertBox);
 
-    document.getElementById('retro-alert-ok').addEventListener('click', () => {
-        alertBox.remove();
-    });
+    const closeAlert = () => alertBox.remove();
+    document.getElementById('retro-alert-ok').addEventListener('click', closeAlert);
+    document.getElementById('close-secret').addEventListener('click', closeAlert);
 
-    // Add rainbow mode temporarily
+    // Add rainbow mode
     document.body.style.animation = 'rainbow-bg 2s linear infinite';
     const rainbowStyle = document.createElement('style');
     rainbowStyle.id = 'konami-rainbow';
@@ -365,11 +664,37 @@ function initTitlebarButtons() {
             e.preventDefault();
             e.stopPropagation();
 
+            const action = btn.dataset.action;
+            const card = btn.closest('.project-card');
+
             // Create a mini flash effect
             btn.style.background = '#FFFFFF';
             setTimeout(() => {
                 btn.style.background = '';
             }, 100);
+
+            // Fun actions based on button
+            if (action === 'close' && card) {
+                card.style.transition = 'transform 0.3s, opacity 0.3s';
+                card.style.transform = 'scale(0.9)';
+                card.style.opacity = '0.5';
+                setTimeout(() => {
+                    card.style.transform = '';
+                    card.style.opacity = '';
+                }, 500);
+            } else if (action === 'maximize' && card) {
+                card.style.transition = 'transform 0.2s';
+                card.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 200);
+            } else if (action === 'minimize' && card) {
+                card.style.transition = 'transform 0.2s';
+                card.style.transform = 'scaleY(0.1)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 300);
+            }
         });
     });
 }
@@ -377,7 +702,11 @@ function initTitlebarButtons() {
 // ─── Animate Color Squares ───
 function initColorSquares() {
     const squares = document.querySelectorAll('.color-square');
+    const sounds = ['boop!', 'beep!', 'click!', 'pop!', 'ding!', 'wow!'];
+
     squares.forEach((square, i) => {
+        square.setAttribute('data-tooltip', sounds[i] || 'click!');
+
         square.addEventListener('mouseenter', () => {
             square.style.transform = 'scale(1.3) rotate(10deg)';
             square.style.zIndex = '10';
@@ -385,6 +714,31 @@ function initColorSquares() {
         square.addEventListener('mouseleave', () => {
             square.style.transform = '';
             square.style.zIndex = '';
+        });
+        square.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Create a burst of that color
+            for (let j = 0; j < 6; j++) {
+                const burst = document.createElement('div');
+                burst.style.cssText = `
+                    position: fixed;
+                    left: ${e.clientX}px;
+                    top: ${e.clientY}px;
+                    width: 10px;
+                    height: 10px;
+                    background: ${getComputedStyle(square).backgroundColor};
+                    pointer-events: none;
+                    z-index: 10000;
+                `;
+                document.body.appendChild(burst);
+
+                const angle = (j / 6) * Math.PI * 2;
+                const velocity = 60;
+                burst.animate([
+                    { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
+                    { transform: `translate(calc(-50% + ${Math.cos(angle) * velocity}px), calc(-50% + ${Math.sin(angle) * velocity}px)) scale(0)`, opacity: 0 }
+                ], { duration: 400 }).onfinish = () => burst.remove();
+            }
         });
     });
 }
@@ -401,6 +755,7 @@ function initScrollProgress() {
         background: linear-gradient(to right, #FF0000, #FF8000, #FFFF00, #00FF00, #00FFFF, #0080FF, #FF00FF);
         z-index: 10001;
         transition: width 0.1s linear;
+        box-shadow: 0 0 5px currentColor;
     `;
     document.body.appendChild(progressBar);
 
@@ -421,7 +776,7 @@ function initStatusBar() {
         bottom: 0;
         left: 0;
         right: 0;
-        height: 24px;
+        height: 26px;
         background: #C0C0C0;
         border-top: 2px solid;
         border-color: #FFFFFF #808080 #808080 #FFFFFF;
@@ -434,8 +789,8 @@ function initStatusBar() {
         z-index: 1000;
     `;
 
-    const statusPanel = (content, flex = 0) => `
-        <div style="
+    const statusPanel = (content, flex = 0, id = '') => `
+        <div ${id ? `id="${id}"` : ''} style="
             background: #C0C0C0;
             border: 1px solid;
             border-color: #808080 #FFFFFF #FFFFFF #808080;
@@ -444,6 +799,9 @@ function initStatusBar() {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            height: 18px;
+            display: flex;
+            align-items: center;
         ">${content}</div>
     `;
 
@@ -451,9 +809,9 @@ function initStatusBar() {
     const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 
     statusBar.innerHTML = `
-        ${statusPanel('Ready', 1)}
+        ${statusPanel('Ready', 1, 'status-message')}
         ${statusPanel('<span id="status-coords">x: 0, y: 0</span>')}
-        ${statusPanel(time)}
+        ${statusPanel('<span id="status-time">${time}</span>')}
     `;
 
     document.body.appendChild(statusBar);
@@ -466,8 +824,36 @@ function initStatusBar() {
         }
     });
 
+    // Update time every minute
+    setInterval(() => {
+        const timeEl = document.getElementById('status-time');
+        if (timeEl) {
+            const now = new Date();
+            timeEl.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        }
+    }, 60000);
+
+    // Update status message on section scroll
+    const sections = ['hero', 'projects', 'about', 'contact'];
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const messageEl = document.getElementById('status-message');
+                if (messageEl) {
+                    const sectionName = entry.target.id || entry.target.className.split(' ')[0];
+                    messageEl.innerHTML = `Viewing: ${sectionName.toUpperCase()}`;
+                }
+            }
+        });
+    }, { threshold: 0.5 });
+
+    sections.forEach(section => {
+        const el = document.getElementById(section) || document.querySelector(`.${section}`);
+        if (el) observer.observe(el);
+    });
+
     // Add padding to body for status bar
-    document.body.style.paddingBottom = '24px';
+    document.body.style.paddingBottom = '26px';
 }
 
 // ─── "You Are Visitor #" Animation ───
@@ -499,6 +885,105 @@ function animateHitCounter() {
     setTimeout(() => requestAnimationFrame(animate), 500);
 }
 
+// ─── Add Awards Badges ───
+function initAwardsBadges() {
+    const contactCard = document.querySelector('.contact-card .card-body');
+    if (!contactCard) return;
+
+    const awards = document.createElement('div');
+    awards.className = 'retro-awards';
+    awards.innerHTML = `
+        <div class="award-badge" data-tooltip="Best Site of 1997!">
+            <span class="award-icon">🏆</span>
+            <span>Best Site 1997</span>
+        </div>
+        <div class="award-badge" data-tooltip="5 Star Rating!">
+            <span class="award-icon">⭐</span>
+            <span>5 Star Site</span>
+        </div>
+        <div class="award-badge" data-tooltip="Hot Pick of the Week!">
+            <span class="award-icon">🔥</span>
+            <span>Hot Pick</span>
+        </div>
+        <div class="award-badge" data-tooltip="Cool Site Award!">
+            <span class="award-icon">❄️</span>
+            <span>Cool Site</span>
+        </div>
+    `;
+
+    contactCard.appendChild(awards);
+}
+
+// ─── Add Webring Navigation ───
+function initWebring() {
+    const footer = document.querySelector('.footer-content');
+    if (!footer) return;
+
+    const webring = document.createElement('div');
+    webring.className = 'retro-webring';
+    webring.innerHTML = `
+        <button class="webring-btn" data-tooltip="Previous site in the ring">◄ Prev</button>
+        <div class="webring-text">
+            <span class="webring-logo">🌐</span>
+            Creative Dev WebRing
+        </div>
+        <button class="webring-btn" data-tooltip="Next site in the ring">Next ►</button>
+    `;
+
+    // Insert before footer info
+    const footerInfo = footer.querySelector('.footer-info-row');
+    if (footerInfo) {
+        footer.insertBefore(webring, footerInfo);
+    } else {
+        footer.insertBefore(webring, footer.firstChild);
+    }
+
+    // Add click handlers with fun messages
+    webring.querySelectorAll('.webring-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const messages = [
+                "There's only one site in this webring... this one!",
+                "You've reached the end of the internet!",
+                "404: More sites not found!",
+                "Coming soon: More awesome sites!",
+                "This is the best site in the ring!"
+            ];
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            const statusEl = document.getElementById('status-message');
+            if (statusEl) {
+                statusEl.innerHTML = randomMessage;
+            }
+        });
+    });
+}
+
+// ─── Secret Double-Click Easter Egg ───
+function initSecretDoubleClick() {
+    const heroTitle = document.querySelector('.hero-title');
+    if (!heroTitle) return;
+
+    heroTitle.addEventListener('dblclick', () => {
+        // Make the title do a flip
+        heroTitle.style.transition = 'transform 0.6s ease-in-out';
+        heroTitle.style.transform = 'rotateY(360deg)';
+        setTimeout(() => {
+            heroTitle.style.transform = '';
+        }, 600);
+    });
+}
+
+// ─── Hover Effects on Section Titles ───
+function initSectionTitleEffects() {
+    document.querySelectorAll('.section-title').forEach(title => {
+        title.addEventListener('mouseenter', () => {
+            title.classList.add('fire-text');
+        });
+        title.addEventListener('mouseleave', () => {
+            title.classList.remove('fire-text');
+        });
+    });
+}
+
 // ─── Initialize Retro Theme ───
 async function initRetroTheme() {
     console.log('%c[RETRO 90s] Initializing radical effects...', 'color: #00FF00;');
@@ -512,9 +997,8 @@ async function initRetroTheme() {
         initTitlebarButtons();
     });
 
-    // Initialize hit counter
+    // Initialize hit counter (HitCounter handles its own animation)
     new HitCounter();
-    animateHitCounter();
 
     // Setup marquee
     setupMarquee();
@@ -522,6 +1006,9 @@ async function initRetroTheme() {
     // Initialize visual effects
     new CursorTrail();
     new SparkleEffect();
+    new FlyingShapes();
+    new RetroTooltips();
+    new ClippyHelper();
 
     // Initialize animations
     initBounceOnScroll();
@@ -531,11 +1018,16 @@ async function initRetroTheme() {
     initColorSquares();
     initScrollProgress();
     initStatusBar();
+    initAwardsBadges();
+    initWebring();
+    initSecretDoubleClick();
+    initSectionTitleEffects();
 
     // Initialize konami code
     PortfolioBase.initKonamiCode(handleKonami);
 
     console.log('%c[RETRO 90s] All systems GO! 🚀', 'color: #FFFF00; font-size: 16px;');
+    console.log('%c[TIP] Try the Konami Code: ↑↑↓↓←→←→BA', 'color: #00FFFF;');
 }
 
 // Run when DOM is ready
