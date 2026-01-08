@@ -9,112 +9,6 @@
 console.log('%c[RETRO 90s] Welcome to 1997!', 'color: #FF00FF; font-size: 20px; font-family: "Comic Sans MS", cursive; text-shadow: 2px 2px 0 #FFFF00;');
 console.log('%c♦♦♦ Best viewed with Netscape Navigator 4.0 at 800x600 ♦♦♦', 'color: #00FF00; font-size: 12px;');
 
-// ─── Hit Counter with PostHog tracking ───
-class HitCounter {
-    constructor() {
-        this.storageKey = 'retro_hit_counter_posthog';
-        this.countedKey = 'retro_hit_counted';
-        this.localCountKey = 'retro_visitor_count';
-        this.count = 0;
-        this.init();
-    }
-
-    getPostHogDistinctId() {
-        if (typeof posthog !== 'undefined' && posthog.get_distinct_id) {
-            return posthog.get_distinct_id();
-        }
-        return null;
-    }
-
-    hasBeenCounted() {
-        const distinctId = this.getPostHogDistinctId();
-        if (distinctId) {
-            const countedIds = JSON.parse(localStorage.getItem(this.storageKey) || '[]');
-            return countedIds.includes(distinctId);
-        }
-        return localStorage.getItem(this.countedKey) === 'true';
-    }
-
-    markAsCounted() {
-        const distinctId = this.getPostHogDistinctId();
-        if (distinctId) {
-            const countedIds = JSON.parse(localStorage.getItem(this.storageKey) || '[]');
-            if (!countedIds.includes(distinctId)) {
-                countedIds.push(distinctId);
-                localStorage.setItem(this.storageKey, JSON.stringify(countedIds));
-            }
-        }
-        localStorage.setItem(this.countedKey, 'true');
-    }
-
-    async init() {
-        const counterEl = document.querySelector('.hit-counter-number');
-        if (!counterEl) return;
-
-        // Show loading state
-        counterEl.textContent = '0000000';
-        counterEl.classList.add('loading');
-
-        // Wait for PostHog to initialize
-        await new Promise(resolve => setTimeout(resolve, 150));
-
-        const isNewVisitor = !this.hasBeenCounted();
-
-        // Get current count from localStorage - starts at 0 for real tracking
-        let storedCount = parseInt(localStorage.getItem(this.localCountKey) || '0', 10);
-
-        if (isNewVisitor) {
-            // Increment count
-            storedCount++;
-            localStorage.setItem(this.localCountKey, storedCount.toString());
-
-            // Mark as counted
-            this.markAsCounted();
-
-            // Track in PostHog - this is the real analytics
-            if (typeof posthog !== 'undefined') {
-                posthog.capture('retro_hit_counter', {
-                    visitor_number: storedCount,
-                    is_new_visitor: true,
-                    distinct_id: this.getPostHogDistinctId()
-                });
-            }
-
-            console.log('%c[RETRO] New visitor counted: #' + storedCount, 'color: #FF00FF;');
-        } else {
-            console.log('%c[RETRO] Returning visitor, count: ' + storedCount, 'color: #00FF00;');
-        }
-
-        this.count = storedCount;
-
-        // Animate the counter
-        this.animateCount(counterEl, this.count);
-    }
-
-    animateCount(element, target) {
-        const duration = 1500;
-        const startTime = performance.now();
-
-        const update = (currentTime) => {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const easeOut = 1 - Math.pow(1 - progress, 3);
-            const current = Math.floor(target * easeOut);
-
-            element.textContent = String(current).padStart(7, '0');
-
-            if (progress < 1) {
-                requestAnimationFrame(update);
-            } else {
-                element.textContent = String(target).padStart(7, '0');
-                element.classList.remove('loading');
-            }
-        };
-
-        requestAnimationFrame(update);
-    }
-}
-
 // ─── Marquee Setup ───
 function setupMarquee() {
     const marquee = document.querySelector('.retro-marquee .marquee-content');
@@ -856,35 +750,6 @@ function initStatusBar() {
     document.body.style.paddingBottom = '26px';
 }
 
-// ─── "You Are Visitor #" Animation ───
-function animateHitCounter() {
-    const counter = document.querySelector('.hit-counter-number');
-    if (!counter) return;
-
-    const finalValue = parseInt(counter.textContent, 10);
-    let currentValue = 0;
-    const duration = 2000;
-    const startTime = performance.now();
-
-    function animate(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        // Easing function for more dramatic effect
-        const easeOut = 1 - Math.pow(1 - progress, 3);
-
-        currentValue = Math.floor(easeOut * finalValue);
-        counter.textContent = String(currentValue).padStart(7, '0');
-
-        if (progress < 1) {
-            requestAnimationFrame(animate);
-        }
-    }
-
-    // Start animation after a delay
-    setTimeout(() => requestAnimationFrame(animate), 500);
-}
-
 // ─── Add Awards Badges ───
 function initAwardsBadges() {
     const contactCard = document.querySelector('.contact-card .card-body');
@@ -996,9 +861,6 @@ async function initRetroTheme() {
         PortfolioBase.renderProjects(projects, renderRetroCard);
         initTitlebarButtons();
     });
-
-    // Initialize hit counter (HitCounter handles its own animation)
-    new HitCounter();
 
     // Setup marquee
     setupMarquee();

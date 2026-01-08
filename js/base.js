@@ -426,143 +426,8 @@ async function initBase() {
 
     initSmoothScroll();
     initResizeHandler();
-    initVisitorCounter();
     document.body.classList.remove('loading');
     document.body.classList.add('loaded');
-}
-
-// ─── Visitor Counter Integration with PostHog ───
-const VISITOR_COUNTED_KEY = 'portfolio_visitor_counted_posthog';
-const VISITOR_COUNT_KEY = 'portfolio_visitor_count';
-
-/**
- * Format number with leading zeros (90s style)
- */
-function formatVisitorCount(count, digits = 7) {
-    return String(count).padStart(digits, '0');
-}
-
-/**
- * Animate count display
- */
-function animateCount(element, targetCount) {
-    const duration = 1500;
-    const start = 0;
-    const startTime = performance.now();
-
-    function update(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        // Ease out cubic
-        const easeOut = 1 - Math.pow(1 - progress, 3);
-        const currentCount = Math.floor(start + (targetCount - start) * easeOut);
-
-        element.textContent = formatVisitorCount(currentCount);
-
-        if (progress < 1) {
-            requestAnimationFrame(update);
-        } else {
-            element.textContent = formatVisitorCount(targetCount);
-            element.classList.remove('loading');
-        }
-    }
-
-    requestAnimationFrame(update);
-}
-
-/**
- * Get PostHog distinct_id for unique visitor tracking
- */
-function getPostHogDistinctId() {
-    if (typeof posthog !== 'undefined' && posthog.get_distinct_id) {
-        return posthog.get_distinct_id();
-    }
-    return null;
-}
-
-/**
- * Check if this visitor has already been counted using PostHog distinct_id
- */
-function hasVisitorBeenCounted() {
-    const distinctId = getPostHogDistinctId();
-    if (distinctId) {
-        const countedIds = JSON.parse(localStorage.getItem(VISITOR_COUNTED_KEY) || '[]');
-        return countedIds.includes(distinctId);
-    }
-    // Fallback: check simple flag
-    return localStorage.getItem('portfolio_has_counted') === 'true';
-}
-
-/**
- * Mark visitor as counted using PostHog distinct_id
- */
-function markVisitorCounted() {
-    const distinctId = getPostHogDistinctId();
-    if (distinctId) {
-        const countedIds = JSON.parse(localStorage.getItem(VISITOR_COUNTED_KEY) || '[]');
-        if (!countedIds.includes(distinctId)) {
-            countedIds.push(distinctId);
-            localStorage.setItem(VISITOR_COUNTED_KEY, JSON.stringify(countedIds));
-        }
-    }
-    localStorage.setItem('portfolio_has_counted', 'true');
-}
-
-/**
- * Initialize visitor counter with PostHog tracking
- * Uses localStorage for display, PostHog captures real analytics
- */
-async function initVisitorCounter() {
-    const countElement = document.getElementById('visitor-count');
-    if (!countElement) return;
-
-    countElement.classList.add('loading');
-
-    // Wait a moment for PostHog to initialize
-    await new Promise(resolve => setTimeout(resolve, 100));
-
-    const isNewVisitor = !hasVisitorBeenCounted();
-
-    // Real count - starts at 0
-    let count = parseInt(localStorage.getItem(VISITOR_COUNT_KEY) || '0', 10);
-
-    if (isNewVisitor) {
-        // Increment count
-        count++;
-        localStorage.setItem(VISITOR_COUNT_KEY, count.toString());
-
-        // Mark as counted
-        markVisitorCounted();
-
-        // Track in PostHog - this is the real analytics data
-        if (typeof posthog !== 'undefined') {
-            posthog.capture('visitor_counted', {
-                visitor_number: count,
-                is_new_visitor: true,
-                distinct_id: getPostHogDistinctId()
-            });
-        }
-
-        console.log('%c[OK] New visitor counted: #' + count, 'color: #33ff00;');
-    } else {
-        console.log('%c[OK] Returning visitor, count: ' + count, 'color: #33ff00;');
-    }
-
-    // Display with animation
-    setTimeout(() => {
-        animateCount(countElement, count);
-    }, 300);
-}
-
-/**
- * Update visitor count display
- */
-function updateVisitorCount(count) {
-    const countElement = document.getElementById('visitor-count');
-    if (countElement) {
-        animateCount(countElement, count);
-    }
 }
 
 // Export for use in theme scripts
@@ -577,8 +442,6 @@ window.PortfolioBase = {
     initKonamiCode,
     initBase,
     createMediaContent,
-    initVisitorCounter,
-    updateVisitorCount,
     get projects() { return projects; },
     get content() { return siteContent; }
 };
