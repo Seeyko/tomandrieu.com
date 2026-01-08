@@ -14,12 +14,26 @@
         api_host: 'https://eu.i.posthog.com',
         person_profiles: 'identified_only',
         capture_pageview: true,
-        capture_pageleave: true
+        capture_pageleave: true,
+        autocapture: true,
+        capture_scroll_depth: true,
+        persistence: 'localStorage+cookie'
       });
+
+      // Track referrer for conversion attribution
+      if (document.referrer) {
+        posthog.capture('page_view_with_referrer', {
+          referrer: document.referrer,
+          landing_page: window.location.href
+        });
+      }
     </script>
 
     <!-- Base Styles (always loaded) -->
     <link rel="stylesheet" href="/css/base.css" />
+
+    <!-- CRO Styles (conversion optimization) -->
+    <link rel="stylesheet" href="/css/cro.css" />
     
     <!-- Theme CSS (dynamically loaded) -->
     <link id="theme-css" rel="stylesheet" href="" />
@@ -41,6 +55,31 @@
     <div id="custom-cursor" class="custom-cursor">
       <span class="cursor-icon"></span>
       <span class="cursor-coord">x: <span id="coord-x">0</span>, y: <span id="coord-y">0</span></span>
+    </div>
+
+    <!-- CRO: Scroll Progress Bar -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <!-- CRO: Floating CTA Button -->
+    <a href="#contact" class="floating-cta" id="floating-cta" aria-label="Get in touch">
+      <span class="floating-cta-icon">&#9993;</span>
+      <span class="floating-cta-text">Let's Talk</span>
+      <span class="floating-cta-pulse"></span>
+    </a>
+
+    <!-- CRO: Exit Intent Modal -->
+    <div class="exit-modal" id="exit-modal" aria-hidden="true">
+      <div class="exit-modal-content">
+        <button class="exit-modal-close" id="exit-modal-close" aria-label="Close">&times;</button>
+        <div class="exit-modal-icon">&#128075;</div>
+        <h3 class="exit-modal-title">Wait! Let's Connect</h3>
+        <p class="exit-modal-text">Have a project in mind? I'd love to hear about it.</p>
+        <a href="mailto:contact@tomandrieu.com" class="exit-modal-cta" id="exit-modal-cta">
+          <span>Get In Touch</span>
+          <span class="exit-modal-arrow">&rarr;</span>
+        </a>
+        <button class="exit-modal-dismiss" id="exit-modal-dismiss">Maybe later</button>
+      </div>
     </div>
 
     <main id="main-content">
@@ -170,6 +209,28 @@
               <span class="stat-value">[██████████████████░░] 90%</span>
             </div>
           </div>
+
+          <!-- CRO: Hero CTA -->
+          <a href="#contact" class="hero-cta" id="hero-cta">
+            <span>Start a Project</span>
+            <span class="hero-cta-arrow">&rarr;</span>
+          </a>
+
+          <!-- CRO: Social Proof Stats -->
+          <div class="social-proof">
+            <div class="proof-stat">
+              <span class="proof-number">5+</span>
+              <span class="proof-label">Years Experience</span>
+            </div>
+            <div class="proof-stat">
+              <span class="proof-number">30K+</span>
+              <span class="proof-label">Users Reached</span>
+            </div>
+            <div class="proof-stat">
+              <span class="proof-number">4</span>
+              <span class="proof-label">Live Products</span>
+            </div>
+          </div>
         </div>
 
         <!-- Blueprint annotation -->
@@ -275,6 +336,18 @@
               <span class="card-title">ESTABLISH CONNECTION</span>
             </div>
             <div class="card-body">
+              <!-- CRO: Availability Badge -->
+              <div class="availability-badge">
+                <span class="availability-dot"></span>
+                <span>Available for Projects</span>
+              </div>
+
+              <!-- CRO: Urgency Banner -->
+              <div class="contact-urgency">
+                <span class="urgency-icon">&#9889;</span>
+                <span>Currently accepting new clients for Q1 2025</span>
+              </div>
+
               <div class="contact-prompt">
                 <p class="output-line">> Initiating contact protocol...</p>
                 <p class="output-line">[<span class="status-ok">OK</span>] Email channel ready</p>
@@ -303,7 +376,13 @@
                 <span class="email-text" data-content="contact.email">CONTACT@TOMANDRIEU.COM</span>
                 <span class="cursor-blink">_</span>
               </a>
-              
+
+              <!-- CRO: Response Time -->
+              <div class="response-time">
+                <span class="response-icon">&#9200;</span>
+                <span>Typically responds within 24 hours</span>
+              </div>
+
               <div class="social-links" id="social-links">
                 <!-- Populated from content.json -->
               </div>
@@ -359,7 +438,10 @@
     <!-- Core Scripts -->
     <script src="/js/theme-manager.js"></script>
     <script src="/js/base.js"></script>
-    
+
+    <!-- CRO Scripts (conversion optimization) -->
+    <script src="/js/cro.js"></script>
+
     <!-- Theme JS (dynamically loaded) -->
     <script id="theme-js" src=""></script>
   </body>

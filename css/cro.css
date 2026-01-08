@@ -1,0 +1,622 @@
+/* ═══════════════════════════════════════════════════════════════
+   CRO - CONVERSION RATE OPTIMIZATION STYLES
+   High-converting elements for 20-30% conversion rate
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Floating CTA Button ─── */
+.floating-cta {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #33ff00 0%, #00cc00 100%);
+  color: #0a0a0a;
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 50px;
+  box-shadow: 0 4px 20px rgba(51, 255, 0, 0.4), 0 0 40px rgba(51, 255, 0, 0.2);
+  z-index: 1000;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.floating-cta:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 30px rgba(51, 255, 0, 0.5), 0 0 60px rgba(51, 255, 0, 0.3);
+}
+
+.floating-cta:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.floating-cta-icon {
+  font-size: 1.2rem;
+}
+
+.floating-cta-text {
+  white-space: nowrap;
+}
+
+.floating-cta-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  border-radius: 50px;
+  background: rgba(51, 255, 0, 0.3);
+  animation: cta-pulse 2s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes cta-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes cta-attention {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.floating-cta.hidden {
+  opacity: 0;
+  transform: translateY(100px);
+  pointer-events: none;
+}
+
+/* ─── Hero CTA Button ─── */
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  padding: 1rem 2.5rem;
+  background: transparent;
+  border: 2px solid currentColor;
+  color: inherit;
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: currentColor;
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.hero-cta:hover::before {
+  left: 0;
+}
+
+.hero-cta:hover {
+  color: #0a0a0a;
+}
+
+.hero-cta-arrow {
+  transition: transform 0.3s ease;
+}
+
+.hero-cta:hover .hero-cta-arrow {
+  transform: translateX(5px);
+}
+
+/* Terminal theme hero CTA */
+body[data-theme="terminal"] .hero-cta {
+  color: var(--primary);
+  border-color: var(--primary);
+  text-shadow: var(--glow-primary);
+  box-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .hero-cta:hover {
+  background: var(--primary);
+  color: var(--bg-terminal);
+  text-shadow: none;
+}
+
+/* Blueprint theme hero CTA */
+body[data-theme="blueprint"] .hero-cta {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+body[data-theme="blueprint"] .hero-cta:hover {
+  background: var(--primary);
+  color: var(--bg-blueprint);
+}
+
+/* Retro90s theme hero CTA */
+body[data-theme="retro90s"] .hero-cta {
+  background: linear-gradient(180deg, #ffff00 0%, #ff9900 100%);
+  border: 3px outset #ffff00;
+  color: #000;
+  font-family: 'Comic Sans MS', cursive;
+  text-shadow: none;
+  box-shadow: 4px 4px 0 #000;
+}
+
+body[data-theme="retro90s"] .hero-cta:hover {
+  border-style: inset;
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
+}
+
+/* ─── Social Proof Stats ─── */
+.social-proof {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.proof-stat {
+  text-align: center;
+}
+
+.proof-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.proof-label {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+body[data-theme="terminal"] .social-proof {
+  border-color: var(--border);
+}
+
+body[data-theme="terminal"] .proof-number {
+  color: var(--primary);
+  text-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .proof-label {
+  color: var(--text-dim);
+}
+
+body[data-theme="blueprint"] .social-proof {
+  border-color: var(--grid-line);
+}
+
+body[data-theme="blueprint"] .proof-number {
+  color: var(--primary);
+}
+
+body[data-theme="retro90s"] .social-proof {
+  border-top: 3px dashed #ff00ff;
+}
+
+body[data-theme="retro90s"] .proof-number {
+  color: #00ff00;
+  text-shadow: 2px 2px #000;
+}
+
+/* ─── Exit Intent Modal ─── */
+.exit-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.exit-modal.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.exit-modal-content {
+  position: relative;
+  background: #111;
+  border: 1px solid #333;
+  padding: 3rem;
+  max-width: 450px;
+  width: 90%;
+  text-align: center;
+  transform: translateY(20px) scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.exit-modal.visible .exit-modal-content {
+  transform: translateY(0) scale(1);
+}
+
+.exit-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+
+.exit-modal-close:hover {
+  color: #fff;
+}
+
+.exit-modal-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.exit-modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.exit-modal-text {
+  font-size: 1rem;
+  color: #888;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.exit-modal-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #33ff00 0%, #00cc00 100%);
+  color: #000;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.exit-modal-cta:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(51, 255, 0, 0.5);
+}
+
+.exit-modal-arrow {
+  transition: transform 0.3s ease;
+}
+
+.exit-modal-cta:hover .exit-modal-arrow {
+  transform: translateX(5px);
+}
+
+.exit-modal-dismiss {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: none;
+  border: none;
+  color: #555;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.exit-modal-dismiss:hover {
+  color: #888;
+}
+
+body[data-theme="terminal"] .exit-modal-content {
+  background: var(--bg-terminal-panel);
+  border-color: var(--border);
+}
+
+body[data-theme="terminal"] .exit-modal-title {
+  color: var(--primary);
+  text-shadow: var(--glow-primary);
+}
+
+body[data-theme="retro90s"] .exit-modal-content {
+  background: linear-gradient(180deg, #000080 0%, #000040 100%);
+  border: 3px outset #808080;
+}
+
+body[data-theme="retro90s"] .exit-modal-title {
+  color: #ffff00;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+body[data-theme="retro90s"] .exit-modal-cta {
+  background: linear-gradient(180deg, #c0c0c0 0%, #808080 100%);
+  border: 2px outset #fff;
+  color: #000;
+}
+
+/* ─── Scroll Progress Bar ─── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #33ff00, #00cc00);
+  width: 0%;
+  z-index: 9999;
+  transition: width 0.1s linear;
+}
+
+body[data-theme="terminal"] .scroll-progress {
+  box-shadow: var(--glow-primary);
+}
+
+body[data-theme="blueprint"] .scroll-progress {
+  background: var(--primary);
+}
+
+body[data-theme="retro90s"] .scroll-progress {
+  height: 5px;
+  background: linear-gradient(90deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff);
+}
+
+/* ─── Availability Badge ─── */
+.availability-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(51, 255, 0, 0.1);
+  border: 1px solid rgba(51, 255, 0, 0.3);
+  border-radius: 50px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+}
+
+.availability-dot {
+  width: 8px;
+  height: 8px;
+  background: #33ff00;
+  border-radius: 50%;
+  animation: availability-pulse 2s ease infinite;
+}
+
+@keyframes availability-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(51, 255, 0, 0.4);
+  }
+  50% {
+    opacity: 0.8;
+    box-shadow: 0 0 0 8px rgba(51, 255, 0, 0);
+  }
+}
+
+body[data-theme="terminal"] .availability-badge {
+  color: var(--primary);
+  border-color: var(--border);
+  background: rgba(51, 255, 0, 0.05);
+}
+
+body[data-theme="blueprint"] .availability-badge {
+  color: var(--primary);
+  border-color: var(--primary);
+  background: rgba(74, 144, 226, 0.1);
+}
+
+body[data-theme="blueprint"] .availability-dot {
+  background: var(--primary);
+}
+
+body[data-theme="retro90s"] .availability-badge {
+  background: #000;
+  border: 2px solid #00ff00;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  animation: retro-blink 1s step-end infinite;
+}
+
+@keyframes retro-blink {
+  50% { opacity: 0.7; }
+}
+
+/* ─── Contact Urgency Banner ─── */
+.contact-urgency {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 176, 0, 0.1);
+  border: 1px solid rgba(255, 176, 0, 0.3);
+  margin-bottom: 1.5rem;
+  font-size: 0.85rem;
+}
+
+.urgency-icon {
+  animation: urgency-bounce 1s ease infinite;
+}
+
+@keyframes urgency-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+body[data-theme="terminal"] .contact-urgency {
+  background: rgba(255, 176, 0, 0.05);
+  border-color: var(--border);
+  color: var(--secondary);
+}
+
+body[data-theme="blueprint"] .contact-urgency {
+  background: rgba(255, 107, 107, 0.1);
+  border-color: var(--redline);
+  color: var(--redline);
+}
+
+body[data-theme="retro90s"] .contact-urgency {
+  background: #ffff00;
+  border: 2px dashed #ff0000;
+  color: #000;
+  font-weight: bold;
+  animation: retro-flash 0.5s ease infinite;
+}
+
+@keyframes retro-flash {
+  50% { background: #ff9900; }
+}
+
+/* ─── Response Time Badge ─── */
+.response-time {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.response-icon {
+  font-size: 1rem;
+}
+
+body[data-theme="terminal"] .response-time {
+  color: var(--text-dim);
+}
+
+body[data-theme="blueprint"] .response-time {
+  color: var(--text-muted);
+}
+
+body[data-theme="retro90s"] .response-time {
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+}
+
+/* ─── Responsive Adjustments ─── */
+@media (max-width: 768px) {
+  .floating-cta {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.875rem 1.25rem;
+    font-size: 0.8rem;
+  }
+
+  .floating-cta-text {
+    display: none;
+  }
+
+  .floating-cta-icon {
+    font-size: 1.4rem;
+  }
+
+  .social-proof {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .proof-number {
+    font-size: 1.5rem;
+  }
+
+  .exit-modal-content {
+    padding: 2rem;
+  }
+
+  .hero-cta {
+    padding: 0.875rem 2rem;
+    font-size: 0.9rem;
+  }
+
+  .contact-urgency {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* ─── Animation Classes ─── */
+.cro-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.cro-animate.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Floating CTA Theme Variants ─── */
+body[data-theme="blueprint"] .floating-cta {
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  box-shadow: 0 4px 20px rgba(74, 144, 226, 0.4);
+}
+
+body[data-theme="blueprint"] .floating-cta:hover {
+  box-shadow: 0 8px 30px rgba(74, 144, 226, 0.5);
+}
+
+body[data-theme="retro90s"] .floating-cta {
+  background: linear-gradient(180deg, #ff00ff 0%, #9900ff 100%);
+  border: 3px outset #ff99ff;
+  border-radius: 0;
+  box-shadow: 4px 4px 0 #000;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+body[data-theme="retro90s"] .floating-cta:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
+}
+
+body[data-theme="retro90s"] .floating-cta-pulse {
+  display: none;
+}

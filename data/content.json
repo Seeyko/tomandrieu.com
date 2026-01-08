@@ -13,18 +13,21 @@
     "detail": "With expertise spanning front-end development, UI/UX design, and creative coding, I transform complex ideas into elegant, functional solutions.",
     "specs": {
       "location": "FRANCE",
-      "experience": "5+ YEARS",
+      "experience": "7+ YEARS",
       "focus": "FULL-STACK",
       "status": "AVAILABLE FOR PROJECTS"
     }
   },
   "techStack": [
+    "AI/ML",
     "NEXT.JS",
-    "REACT",
+    "ANGULAR",
     "TYPESCRIPT",
     "NODE.JS",
+    "NESTJS",
     "FLUTTER",
-    "AI/ML"
+    "WORDPRESS",
+    "VOXEL"
   ],
   "contact": {
     "email": "CONTACT@TOMANDRIEU.COM",
