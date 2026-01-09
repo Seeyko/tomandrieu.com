@@ -3,13 +3,13 @@ FROM nginx:alpine AS production
 # Copy nginx config
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
-# Copy only necessary static files
-COPY assets/ /usr/share/nginx/html/assets/
-COPY css/ /usr/share/nginx/html/css/
-COPY data/ /usr/share/nginx/html/data/
-COPY js/ /usr/share/nginx/html/js/
-COPY themes/ /usr/share/nginx/html/themes/
-COPY index.html /usr/share/nginx/html/
+# Copy frontend static files
+COPY frontend/assets/ /usr/share/nginx/html/assets/
+COPY frontend/css/ /usr/share/nginx/html/css/
+COPY frontend/data/ /usr/share/nginx/html/data/
+COPY frontend/js/ /usr/share/nginx/html/js/
+COPY frontend/themes/ /usr/share/nginx/html/themes/
+COPY frontend/index.html /usr/share/nginx/html/
 
 EXPOSE 4200
 
