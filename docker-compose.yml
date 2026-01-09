@@ -1,0 +1,25 @@
+services:
+  frontend:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    image: ${CI_REGISTRY_IMAGE}/frontend:${APP_VERSION:-latest}
+    expose:
+      - ${FRONTEND_PORT:-4200}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tomandrieu-frontend.rule=Host(`tomandrieu.com`)"
+      - "traefik.http.routers.tomandrieu-frontend.entrypoints=websecure"
+      - "traefik.http.routers.tomandrieu-frontend.tls.certResolver=letsencrypt"
+      - "traefik.http.services.tomandrieu-frontend.loadbalancer.server.port=4200"
+      - "traefik.http.routers.tomandrieu-frontend.priority=1"
+    networks:
+      - dokploy-network
+
+
+networks:
+  dokploy-network:
+    external: true
