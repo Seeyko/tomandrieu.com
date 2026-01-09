@@ -5,8 +5,9 @@
       "Bash(timeout:*)",
       "Bash(git checkout:*)",
       "Bash(git add:*)",
-      "Bash(git commit -m \"$\\(cat <<''EOF''\nRefactor Docker setup with external nginx config\n\nMove nginx configuration to dedicated nginx/default.conf file and\nupdate Dockerfile to copy only necessary static assets instead of\nthe entire project directory.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(move:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
