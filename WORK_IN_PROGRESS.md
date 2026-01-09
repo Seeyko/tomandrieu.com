@@ -4,6 +4,28 @@ This file tracks ongoing work by Claude agents to prevent conflicts. Check this 
 
 ## Current Work
 
+### 2025-01-10T00:20 - Git Workflow Update
+**Status**: in_progress
+**Branch**: `docs/update-git-workflow`
+**Working on**: Updating git workflow to use branches and merge requests (production is now live)
+
+**Files modified**:
+- CLAUDE.md (updated git workflow section)
+
+**Progress**:
+- [x] Update CLAUDE.md with branch workflow
+- [x] Create feature branch
+- [ ] Commit and push
+- [ ] Create merge request
+
+**Notes/Discoveries**:
+- `main` branch is now production - never push directly
+- All work must go through merge requests
+
+---
+
+## Completed Work
+
 ### 2025-01-10T00:12 - Frontend Restructuring
 **Status**: completed
 **Working on**: Moving frontend files to /frontend folder for monorepo structure
@@ -13,22 +35,9 @@ This file tracks ongoing work by Claude agents to prevent conflicts. Check this 
 - CLAUDE.md (updated documentation with new structure and agent collaboration guidelines)
 - Created /frontend folder with all static assets
 
-**Progress**:
-- [x] Create /frontend folder
-- [x] Move assets, css, data, js, themes, index.html to /frontend
-- [x] Update Dockerfile paths
-- [x] Update CLAUDE.md documentation
-- [x] Add agent collaboration guidelines
-
 **Notes/Discoveries**:
-- docker-compose.yml and nginx/default.conf did not need changes (context and serving paths remain valid)
+- docker-compose.yml and nginx/default.conf did not need changes
 - Project now ready for backend addition
-
----
-
-## Completed Work
-
-(Move completed entries here for reference)
 
 ---
 
