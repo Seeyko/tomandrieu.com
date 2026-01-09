@@ -14,30 +14,38 @@ This is a personal portfolio website (tomandrieu.com) with a monorepo structure:
 
 ### Work Progress Tracking
 
-1. Before starting work, check `WORK_IN_PROGRESS.md` to see what other agents are working on
-2. Write your plan and current progress to `WORK_IN_PROGRESS.md` before making changes
-3. Update the file as you progress, even if work is incomplete
-4. Push the file regularly so other agents know what you're working on
-5. When discovering new patterns, conventions, or important information, document them in this file
+Each agent creates their own work file in `/.claude/work/` to avoid merge conflicts:
 
-### WORK_IN_PROGRESS.md Format
+1. Before starting work, check `/.claude/work/` for other agents' files
+2. Create your own file: `/.claude/work/{timestamp}-{description}.md`
+3. Update your file as you progress, even if work is incomplete
+4. Push your file regularly so other agents know what you're working on
+5. Delete your file when work is merged (or mark as completed)
+
+### Work File Format
+
+Filename: `YYYY-MM-DD-HHMMSS-short-description.md`
 
 ```markdown
-## Current Work
+# {Short Description}
 
-### [Agent Session ID or Timestamp]
 **Status**: in_progress | completed | blocked
-**Working on**: Brief description
-**Files being modified**:
+**Branch**: `feature/branch-name`
+**Started**: YYYY-MM-DD HH:MM
+
+## Task
+Brief description of what you're working on.
+
+## Files Being Modified
 - file1.js
 - file2.css
 
-**Progress**:
+## Progress
 - [x] Step 1
 - [ ] Step 2
 
-**Notes/Discoveries**:
-- Any important findings
+## Notes/Discoveries
+- Any important findings for other agents
 ```
 
 ## Running Locally
@@ -63,6 +71,8 @@ Then open `http://localhost:8000` (or `http://localhost:8000?theme=blueprint` to
 
 ```
 /
+├── .claude/
+│   └── work/           # Agent work-in-progress files
 ├── frontend/           # Static frontend files
 │   ├── assets/         # Images, fonts, etc.
 │   ├── css/            # Stylesheets
