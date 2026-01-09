@@ -1,27 +1,16 @@
 FROM nginx:alpine AS production
 
-# Copy static files to nginx html directory
-COPY . /usr/share/nginx/html
+# Copy nginx config
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
-# Remove unnecessary files from the image
-RUN rm -rf /usr/share/nginx/html/Dockerfile \
-    /usr/share/nginx/html/docker-compose.yml \
-    /usr/share/nginx/html/.git \
-    /usr/share/nginx/html/.idea
-
-# Custom nginx config for SPA-friendly routing
-RUN echo 'server { \
-    listen 4200; \
-    root /usr/share/nginx/html; \
-    index index.html; \
-    location / { \
-        try_files $uri $uri/ /index.html; \
-    } \
-    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2)$ { \
-        expires 1y; \
-        add_header Cache-Control "public, immutable"; \
-    } \
-}' > /etc/nginx/conf.d/default.conf
+# Copy only necessary static files
+COPY assets/ /usr/share/nginx/html/assets/
+COPY css/ /usr/share/nginx/html/css/
+COPY data/ /usr/share/nginx/html/data/
+COPY js/ /usr/share/nginx/html/js/
+COPY themes/ /usr/share/nginx/html/themes/
+COPY index.html /usr/share/nginx/html/
+COPY projects.json /usr/share/nginx/html/
 
 EXPOSE 4200
 
