@@ -4,7 +4,7 @@ services:
       - .env
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: frontend/Dockerfile
       target: production
     image: ${CI_REGISTRY_IMAGE}/frontend:${APP_VERSION:-latest}
     expose:
