@@ -10,7 +10,6 @@ COPY data/ /usr/share/nginx/html/data/
 COPY js/ /usr/share/nginx/html/js/
 COPY themes/ /usr/share/nginx/html/themes/
 COPY index.html /usr/share/nginx/html/
-COPY projects.json /usr/share/nginx/html/
 
 EXPOSE 4200
 
