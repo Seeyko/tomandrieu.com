@@ -61,3 +61,9 @@ Each theme has its own directory under `/themes/{theme-name}/` containing:
 - Content elements use `data-content="path.to.value"` attributes for dynamic population from content.json
 - GSAP + ScrollTrigger handles scroll animations (loaded from CDN)
 - Carousels auto-initialize for any element with `.project-carousel` class
+
+## Git Workflow
+
+- Always commit and push directly to the `main` branch
+- Never create feature branches or custom branches
+- Do not create pull requests; push commits directly to main
