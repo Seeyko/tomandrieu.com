@@ -117,6 +117,25 @@ Each theme has its own directory under `/frontend/themes/{theme-name}/` containi
 
 ## Git Workflow
 
-- Always commit and push directly to the `main` branch
-- Never create feature branches or custom branches
-- Do not create pull requests; push commits directly to main
+**CRITICAL: `main` branch is production. NEVER push directly to `main`.**
+
+### Branch Workflow
+
+1. Always create a feature branch for your work:
+   ```bash
+   git checkout -b feature/short-description
+   ```
+2. Make commits on your feature branch
+3. Push your branch to remote:
+   ```bash
+   git push -u origin feature/short-description
+   ```
+4. Create a merge request (pull request) when work is complete
+5. Wait for review and approval before merging
+
+### Branch Naming
+
+- `feature/` - New features (e.g., `feature/add-backend-api`)
+- `fix/` - Bug fixes (e.g., `fix/carousel-animation`)
+- `refactor/` - Code refactoring (e.g., `refactor/theme-system`)
+- `docs/` - Documentation updates (e.g., `docs/update-readme`)
