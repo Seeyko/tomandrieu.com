@@ -112,7 +112,7 @@ function getNestedValue(obj, path) {
  */
 async function loadProjects() {
     try {
-        const response = await fetch('/projects.json');
+        const response = await fetch('/data/projects.json');
         if (!response.ok) throw new Error('Failed to fetch projects');
         projects = await response.json();
         

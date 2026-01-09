@@ -44,7 +44,7 @@ Each theme has its own directory under `/themes/{theme-name}/` containing:
 
 ### Data Files
 
-- `/projects.json` - Array of portfolio projects with id, title, description, type, url, images, video, tags
+- `/data/projects.json` - Array of portfolio projects with id, title, description, type, url, images, video, tags
 - `/data/content.json` - Site metadata, hero text, about section specs, tech stack, contact/social links
 
 ### Adding a New Theme
