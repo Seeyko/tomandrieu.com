@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(npx serve:*)",
-      "Bash(timeout:*)"
+      "Bash(timeout:*)",
+      "Bash(git checkout:*)"
     ]
   }
 }
