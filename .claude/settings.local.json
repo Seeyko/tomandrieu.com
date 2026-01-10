@@ -7,7 +7,15 @@
       "Bash(git add:*)",
       "Bash(git push:*)",
       "Bash(move:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(gh pr create:*)",
+      "Bash(where gh:*)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)",
+      "Bash(python -m http.server:*)",
+      "Bash(curl:*)",
+      "Bash(where:*)",
+      "Bash(cmd.exe /c \"where gh\")"
     ]
   }
 }
