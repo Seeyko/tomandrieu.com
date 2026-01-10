@@ -10,12 +10,14 @@
   --bg-blueprint: #003366;
   --bg-blueprint-dark: #002244;
   --bg-blueprint-light: #004488;
-  
+
   /* Lines & Strokes */
   --line-white: rgba(255, 255, 255, 0.8);
   --line-white-dim: rgba(255, 255, 255, 0.3);
   --line-white-faint: rgba(255, 255, 255, 0.1);
-  
+
+  --primary: var(--line-white);
+
   /* Accents */
   --accent-redline: #FF3333;
   --accent-cyan: #00FFFF;
@@ -865,13 +867,29 @@ body[data-theme="blueprint"] .contact-card {
   display: inline-block;
   background: transparent;
   border: none;
-  padding: var(--spacing-lg) var(--spacing-xl);
 }
 
 body[data-theme="blueprint"] .contact-card .card-body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  z-index: 1;
+  padding: var(--spacing-lg) var(--spacing-xl);
+}
+
+/* Ensure CRO elements fit within the frame */
+body[data-theme="blueprint"] .availability-badge {
+  margin-bottom: var(--spacing-sm);
+}
+
+body[data-theme="blueprint"] .contact-urgency {
+  margin-bottom: var(--spacing-sm);
+}
+
+body[data-theme="blueprint"] .response-time {
+  margin-top: var(--spacing-xs);
+  margin-bottom: var(--spacing-xs);
 }
 
 /* Blueprint SVG Frame - positioned around the email */
@@ -883,6 +901,7 @@ body[data-theme="blueprint"] .contact-blueprint-svg {
   width: 100%;
   height: 100%;
   pointer-events: none;
+  overflow: visible;
 }
 
 body[data-theme="blueprint"] .contact-border {
@@ -943,7 +962,7 @@ body[data-theme="blueprint"] .email-link:hover .stamp {
 
 /* Social Links */
 body[data-theme="blueprint"] .social-links {
-  margin-top: var(--spacing-lg);
+  margin-top: var(--spacing-sm);
   display: flex;
   justify-content: center;
   gap: var(--spacing-md);
