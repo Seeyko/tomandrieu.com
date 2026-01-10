@@ -200,7 +200,7 @@ body[data-theme="blueprint"] .brand-suffix::before {
 }
 
 body[data-theme="blueprint"] .brand-suffix::after {
-  content: ' // SN-2024-001';
+  content: ' // SN-2026-001';
   font-size: 0.6rem;
   color: var(--line-white-dim);
   font-weight: 300;
