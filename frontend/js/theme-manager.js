@@ -106,12 +106,41 @@ const ThemeManager = (function() {
 
     /**
      * Load theme CSS
+     * Returns a Promise that resolves when CSS is loaded
      */
     function loadThemeCSS(theme) {
-        const cssLink = document.getElementById('theme-css');
-        if (cssLink) {
+        return new Promise((resolve, reject) => {
+            const cssLink = document.getElementById('theme-css');
+            if (!cssLink) {
+                reject(new Error('Theme CSS link element not found'));
+                return;
+            }
+
+            // If already loaded with same href, resolve immediately
+            if (cssLink.href && cssLink.href.endsWith(theme.css)) {
+                resolve();
+                return;
+            }
+
+            cssLink.onload = () => resolve();
+            cssLink.onerror = () => reject(new Error(`Failed to load CSS: ${theme.css}`));
             cssLink.href = theme.css;
+        });
+    }
+
+    /**
+     * Hide loading screen and reveal content
+     */
+    function hideLoadingScreen() {
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen) {
+            loadingScreen.classList.add('hidden');
+            // Remove from DOM after transition
+            setTimeout(() => {
+                loadingScreen.remove();
+            }, 500);
         }
+        document.body.classList.remove('loading');
     }
 
     /**
@@ -141,6 +170,7 @@ const ThemeManager = (function() {
         const theme = getTheme(themeId);
         if (!theme) {
             console.error(`Theme "${themeId}" not found`);
+            hideLoadingScreen();
             return;
         }
 
@@ -148,15 +178,16 @@ const ThemeManager = (function() {
         document.body.dataset.theme = themeId;
         currentThemeId = themeId;
 
-        // Load theme CSS
-        loadThemeCSS(theme);
-
-        // Load theme JS
         try {
+            // Load theme CSS and wait for it
+            await loadThemeCSS(theme);
+            console.log(`%c[THEME] CSS loaded: ${theme.css}`, 'color: #33ff00;');
+
+            // Load theme JS
             await loadThemeJS(theme);
             console.log(`%c[THEME] Loaded: ${theme.name}`, 'color: #33ff00;');
         } catch (e) {
-            console.error(`Failed to load theme JS: ${e}`);
+            console.error(`Failed to load theme: ${e}`);
         }
 
         // Update URL
@@ -164,6 +195,9 @@ const ThemeManager = (function() {
 
         // Save preference
         saveTheme(themeId);
+
+        // Hide loading screen and reveal content
+        hideLoadingScreen();
     }
 
     /**
@@ -336,6 +370,12 @@ const ThemeManager = (function() {
      * Initialize theme manager
      */
     function init() {
+        // Fallback timeout to hide loading screen in case of errors (3 seconds max)
+        const loadingTimeout = setTimeout(() => {
+            console.warn('[THEME] Loading timeout reached, forcing reveal');
+            hideLoadingScreen();
+        }, 3000);
+
         // Determine which theme to use (URL param > localStorage > default)
         const urlTheme = getThemeFromURL();
         const savedTheme = getSavedTheme();
@@ -344,8 +384,10 @@ const ThemeManager = (function() {
         // Validate theme
         const validTheme = THEMES[themeToLoad] ? themeToLoad : DEFAULT_THEME;
 
-        // Apply theme
-        applyTheme(validTheme);
+        // Apply theme (this will hide loading screen when done)
+        applyTheme(validTheme).then(() => {
+            clearTimeout(loadingTimeout);
+        });
 
         // Create UI
         injectStyles();

@@ -48,6 +48,19 @@ Brief description of what you're working on.
 - Any important findings for other agents
 ```
 
+## Testing Requirements
+
+**CRITICAL: ALWAYS test code changes in the browser before considering work complete.**
+
+After making any frontend changes:
+1. Start a local server (see commands below)
+2. Open Chrome browser using the Claude in Chrome plugin
+3. Navigate to `http://localhost:8000` and visually verify changes work
+4. Test different themes if theme-related changes were made (`?theme=terminal`, `?theme=blueprint`, `?theme=retro90s`)
+5. Check the browser console for any JavaScript errors
+
+Never rely solely on code review - always verify visually in the browser.
+
 ## Running Locally
 
 ```bash
