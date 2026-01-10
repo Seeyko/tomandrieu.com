@@ -162,3 +162,7 @@ Each theme has its own directory under `/frontend/themes/{theme-name}/` containi
 - `fix/` - Bug fixes (e.g., `fix/carousel-animation`)
 - `refactor/` - Code refactoring (e.g., `refactor/theme-system`)
 - `docs/` - Documentation updates (e.g., `docs/update-readme`)
+
+### Commit Messages
+
+**IMPORTANT: Do NOT add Claude signature or Co-Authored-By lines to commits.** This breaks the user's commit signature verification.
