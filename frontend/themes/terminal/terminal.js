@@ -31,6 +31,7 @@ window.help = function() {
 ║  party()     - 🎉 Party mode!         ║
 ║  hack()      - Hack the mainframe     ║
 ║  coffee()    - ☕ Refill coffee       ║
+║  enderman()  - 👾 Summon an Enderman  ║
 ║  reset()     - Reset to default       ║
 ╚═══════════════════════════════════════╝
 `, 'color: #33ff00; font-family: monospace;');
@@ -66,6 +67,36 @@ window.hack = function() {
 window.coffee = function() {
     console.log('%c☕ Coffee level restored to 100%!', 'color: #ffb000; font-size: 16px;');
     console.log('%c[OK] Developer productivity increased by 200%', 'color: #33ff00;');
+};
+
+window.enderman = function() {
+    console.log(`
+%c      ▄██████▄
+      █ %c▓▓%c  %c▓▓%c █
+      █      █
+      ▀██████▀
+         ██
+       ██████
+      ██ ██ ██
+     ██  ██  ██
+         ██
+        ████
+       ██  ██
+      ██    ██
+%c[ENTITY] Enderman spotted... Don't look directly at it!
+`, 'color: #1a1a1a; background: #0a0a0a;', 'color: #ff00ff;', 'color: #1a1a1a;', 'color: #ff00ff;', 'color: #1a1a1a;', 'color: #ff00ff;');
+
+    // Trigger visual effect on page
+    const endermanEl = document.querySelector('.enderman-ascii');
+    if (endermanEl) {
+        endermanEl.classList.add('visible');
+        setTimeout(() => {
+            endermanEl.classList.add('teleport');
+            setTimeout(() => {
+                endermanEl.classList.remove('visible', 'teleport');
+            }, 500);
+        }, 3000);
+    }
 };
 
 window.reset = function() {
@@ -259,6 +290,7 @@ function initRandomMessages() {
         '[INFO] You found a hidden message! 🎉',
         '[OK] Matrix stability at 100%',
         '[INFO] Keep being awesome!',
+        '[WARN] Enderman detected in sector 7...',
     ];
 
     setInterval(() => {
@@ -289,6 +321,25 @@ function handleKonami() {
         document.documentElement.style.setProperty('--primary', '#33ff00');
         document.documentElement.style.setProperty('--secondary', '#ffb000');
     }, 5000);
+}
+
+// ─── Create Enderman Element ───
+function createEndermanElement() {
+    const enderman = document.createElement('div');
+    enderman.className = 'enderman-ascii';
+    enderman.innerHTML = `<pre>      ▄██████▄
+      █ <span class="enderman-eyes">▓▓</span>  <span class="enderman-eyes">▓▓</span> █
+      █      █
+      ▀██████▀
+         ██
+       ██████
+      ██ ██ ██
+     ██  ██  ██
+         ██
+        ████
+       ██  ██
+      ██    ██</pre>`;
+    document.body.appendChild(enderman);
 }
 
 // ─── Initialize Terminal Theme ───
@@ -328,6 +379,9 @@ async function initTerminalTheme() {
     initRandomMessages();
     initKeyboardShortcuts();
     randomGlitch();
+
+    // Create Enderman easter egg element
+    createEndermanElement();
 
     // Initialize konami code
     PortfolioBase.initKonamiCode(handleKonami);

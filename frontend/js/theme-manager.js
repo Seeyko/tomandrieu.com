@@ -286,6 +286,7 @@ const ThemeManager = (function() {
             }
 
             .theme-switcher-toggle {
+                line-height: 1px;
                 width: 50px;
                 height: 50px;
                 border-radius: 50%;
@@ -303,6 +304,7 @@ const ThemeManager = (function() {
 
             .theme-switcher-toggle:hover {
                 transform: scale(1.1);
+                line-height: 2px;
                 box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
             }
 
