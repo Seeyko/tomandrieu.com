@@ -1,25 +1,74 @@
 services:
   frontend:
-    env_file:
-      - .env
     build:
       context: .
       dockerfile: frontend/Dockerfile
       target: production
-    image: ${CI_REGISTRY_IMAGE}/frontend:${APP_VERSION:-latest}
     expose:
-      - ${FRONTEND_PORT:-4200}
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.tomandrieu-frontend.rule=Host(`tomandrieu.com`)"
-      - "traefik.http.routers.tomandrieu-frontend.entrypoints=websecure"
-      - "traefik.http.routers.tomandrieu-frontend.tls.certResolver=letsencrypt"
-      - "traefik.http.services.tomandrieu-frontend.loadbalancer.server.port=4200"
-      - "traefik.http.routers.tomandrieu-frontend.priority=1"
+      - 4200
     networks:
-      - dokploy-network
+      - app-network
 
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/booking?schema=public
+      - JWT_SECRET=${JWT_SECRET:-dev-secret-change-me}
+      - ADMIN_EMAIL=${ADMIN_EMAIL:-admin@localhost}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin123}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-}
+      - GOOGLE_REDIRECT_URI=http://localhost/api/calendar/google/callback
+      - FRONTEND_URL=http://localhost
+      - DEFAULT_TIMEZONE=${DEFAULT_TIMEZONE:-Europe/Paris}
+    expose:
+      - 3000
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-network
+      - internal
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/local.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - backend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - app-network
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_DB=booking
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d booking"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internal
+
+volumes:
+  postgres_data:
 
 networks:
-  dokploy-network:
-    external: true
+  app-network:
+    driver: bridge
+  internal:
+    driver: bridge
