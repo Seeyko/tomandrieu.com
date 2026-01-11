@@ -1,0 +1,78 @@
+services:
+  frontend:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      target: production
+    image: ${CI_REGISTRY_IMAGE}/frontend:${APP_VERSION:-latest}
+    expose:
+      - ${FRONTEND_PORT:-4200}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tomandrieu-frontend.rule=Host(`tomandrieu.com`) && !PathPrefix(`/api`)"
+      - "traefik.http.routers.tomandrieu-frontend.entrypoints=websecure"
+      - "traefik.http.routers.tomandrieu-frontend.tls.certResolver=letsencrypt"
+      - "traefik.http.services.tomandrieu-frontend.loadbalancer.server.port=4200"
+      - "traefik.http.routers.tomandrieu-frontend.priority=1"
+    networks:
+      - dokploy-network
+
+  backend:
+    env_file:
+      - .env
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: ${CI_REGISTRY_IMAGE}/backend:${APP_VERSION:-latest}
+    environment:
+      - DATABASE_URL=postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@db:5432/${DB_NAME:-booking}?schema=public
+      - JWT_SECRET=${JWT_SECRET}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - GOOGLE_REDIRECT_URI=https://tomandrieu.com/api/calendar/google/callback
+      - FRONTEND_URL=https://tomandrieu.com
+      - DEFAULT_TIMEZONE=${DEFAULT_TIMEZONE:-Europe/Paris}
+    expose:
+      - 3000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tomandrieu-backend.rule=Host(`tomandrieu.com`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.tomandrieu-backend.entrypoints=websecure"
+      - "traefik.http.routers.tomandrieu-backend.tls.certResolver=letsencrypt"
+      - "traefik.http.services.tomandrieu-backend.loadbalancer.server.port=3000"
+      - "traefik.http.routers.tomandrieu-backend.priority=10"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - dokploy-network
+      - internal
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_DB=${DB_NAME:-booking}
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-booking}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internal
+
+volumes:
+  postgres_data:
+
+networks:
+  dokploy-network:
+    external: true
+  internal:
+    driver: bridge

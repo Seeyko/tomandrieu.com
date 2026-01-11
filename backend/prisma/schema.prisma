@@ -1,0 +1,124 @@
+// Prisma schema for Calendar Booking System
+// https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Admin users for dashboard access
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("users")
+}
+
+// Weekly recurring availability rules
+model AvailabilityRule {
+  id        String   @id @default(cuid())
+  dayOfWeek Int      // 0 = Sunday, 1 = Monday, ... 6 = Saturday
+  startTime String   // HH:mm format, e.g., "09:00"
+  endTime   String   // HH:mm format, e.g., "17:00"
+  timezone  String   @default("Europe/Paris")
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("availability_rules")
+}
+
+// Exception dates (holidays, vacations, specific blocked times)
+model BlockedDate {
+  id        String    @id @default(cuid())
+  date      DateTime  @db.Date // The specific date blocked
+  startTime String?   // Optional: block only specific time range
+  endTime   String?   // Optional: block only specific time range
+  reason    String?
+  createdAt DateTime  @default(now())
+
+  @@map("blocked_dates")
+}
+
+// Visitor bookings
+model Booking {
+  id                String        @id @default(cuid())
+  visitorName       String
+  visitorEmail      String
+  startTime         DateTime
+  endTime           DateTime
+  duration          Int           // Duration in minutes (15, 30, 60)
+  timezone          String        // Visitor's timezone
+  status            BookingStatus @default(PENDING)
+  meetingUrl        String?       // Video call URL if applicable
+  notes             String?       // Visitor's notes/reason for meeting
+  externalEventId   String?       // ID of event in external calendar (Google/Apple)
+  reminderSent      Boolean       @default(false)
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@index([startTime])
+  @@index([status])
+  @@map("bookings")
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+// OAuth tokens and credentials for calendar sync
+model CalendarConnection {
+  id           String           @id @default(cuid())
+  provider     CalendarProvider
+  email        String           // Calendar account email
+  accessToken  String?          // Encrypted OAuth access token
+  refreshToken String?          // Encrypted OAuth refresh token
+  tokenExpiry  DateTime?        // When access token expires
+  calendarId   String?          // Specific calendar ID to sync with
+  // For CalDAV (Apple)
+  serverUrl    String?          // CalDAV server URL
+  username     String?          // CalDAV username
+  password     String?          // Encrypted app-specific password
+  isActive     Boolean          @default(true)
+  lastSyncAt   DateTime?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  @@unique([provider, email])
+  @@map("calendar_connections")
+}
+
+enum CalendarProvider {
+  GOOGLE
+  APPLE
+}
+
+// Settings for the booking system
+model Settings {
+  id                    String   @id @default("default")
+  defaultDuration       Int      @default(30)      // Default meeting duration in minutes
+  minNoticeHours        Int      @default(24)      // Minimum hours notice for booking
+  bufferMinutes         Int      @default(15)      // Buffer time between meetings
+  maxAdvanceDays        Int      @default(60)      // How far in advance bookings allowed
+  allowedDurations      Int[]    @default([15, 30, 60]) // Allowed durations
+  defaultTimezone       String   @default("Europe/Paris")
+  confirmationEmailEnabled Boolean @default(true)
+  reminderEmailEnabled  Boolean  @default(true)
+  reminderHoursBefore   Int      @default(24)
+  meetingTitle          String   @default("Meeting with {visitor}")
+  meetingDescription    String?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  @@map("settings")
+}
