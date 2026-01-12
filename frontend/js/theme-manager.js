@@ -267,7 +267,19 @@ const ThemeManager = (function() {
             menu.classList.remove('open');
         });
 
-        document.body.appendChild(container);
+        // Insert after nav in header
+        const nav = document.querySelector('.header .nav');
+        if (nav) {
+            nav.after(container);
+        } else {
+            // Fallback to header or body
+            const header = document.querySelector('.header');
+            if (header) {
+                header.appendChild(container);
+            } else {
+                document.body.appendChild(container);
+            }
+        }
     }
 
     /**
@@ -278,40 +290,33 @@ const ThemeManager = (function() {
         styles.id = 'theme-switcher-styles';
         styles.textContent = `
             .theme-switcher {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
+                position: relative;
                 z-index: 9999;
-                font-family: system-ui, -apple-system, sans-serif;
+                font-family: inherit;
+                margin-left: 1.5rem;
             }
 
             .theme-switcher-toggle {
-                line-height: 1px;
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                border: 2px solid currentColor;
-                background: rgba(0, 0, 0, 0.8);
-                color: white;
-                font-size: 1.5rem;
+                background: none;
+                border: none;
+                color: inherit;
+                font-size: 1.1rem;
                 cursor: pointer;
-                transition: all 0.3s ease;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+                padding: 0.5rem;
+                opacity: 0.7;
+                transition: opacity 0.2s ease;
+                line-height: 1;
             }
 
             .theme-switcher-toggle:hover {
-                transform: scale(1.1);
-                line-height: 2px;
-                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+                opacity: 1;
             }
 
             .theme-switcher-menu {
                 position: absolute;
-                bottom: 60px;
+                top: 100%;
                 right: 0;
+                margin-top: 8px;
                 background: rgba(0, 0, 0, 0.95);
                 border: 1px solid rgba(255, 255, 255, 0.2);
                 border-radius: 8px;
@@ -325,11 +330,11 @@ const ThemeManager = (function() {
 
             .theme-switcher-menu.open {
                 display: flex;
-                animation: slideUp 0.2s ease;
+                animation: slideDown 0.2s ease;
             }
 
-            @keyframes slideUp {
-                from { opacity: 0; transform: translateY(10px); }
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
                 to { opacity: 1; transform: translateY(0); }
             }
 

@@ -325,6 +325,13 @@ function handleKonami() {
 
 // ─── Create Enderman Element ───
 function createEndermanElement() {
+    // Create the hidden eyes that trigger the enderman
+    const eyes = document.createElement('div');
+    eyes.className = 'enderman-hidden-eyes';
+    eyes.innerHTML = '<span class="eye">▓▓</span><span class="eye">▓▓</span>';
+    document.body.appendChild(eyes);
+
+    // Create the full enderman (hidden by default)
     const enderman = document.createElement('div');
     enderman.className = 'enderman-ascii';
     enderman.innerHTML = `<pre>      ▄██████▄
@@ -340,6 +347,36 @@ function createEndermanElement() {
        ██  ██
       ██    ██</pre>`;
     document.body.appendChild(enderman);
+
+    // Hover detection for eyes
+    let hoverTimer = null;
+
+    eyes.addEventListener('mouseenter', () => {
+        eyes.classList.add('watching');
+        hoverTimer = setTimeout(() => {
+            // Trigger enderman appearance
+            eyes.classList.add('triggered');
+            enderman.classList.add('visible');
+            console.log('%c[ENTITY] You looked at it for too long...', 'color: #ff00ff;');
+
+            // Teleport away after 3 seconds
+            setTimeout(() => {
+                enderman.classList.add('teleport');
+                setTimeout(() => {
+                    enderman.classList.remove('visible', 'teleport');
+                    eyes.classList.remove('triggered');
+                }, 500);
+            }, 3000);
+        }, 2000);
+    });
+
+    eyes.addEventListener('mouseleave', () => {
+        eyes.classList.remove('watching');
+        if (hoverTimer) {
+            clearTimeout(hoverTimer);
+            hoverTimer = null;
+        }
+    });
 }
 
 // ─── Initialize Terminal Theme ───
