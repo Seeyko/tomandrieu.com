@@ -1,204 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tom Andrieu - Creative Developer Portfolio</title>
-    <meta name="description" content="Full-stack creative developer crafting digital experiences with motion, interaction, and visual storytelling." />
-    
-    <!-- PostHog Analytics -->
-    <script>
-      !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tom Andrieu - Creative Developer Portfolio</title>
+  <meta name="description" content="Full-stack creative developer crafting digital experiences with motion, interaction, and visual storytelling." />
 
-      posthog.init('phc_g723Z9AuntlH7WCgvweh0aRYNpDvWQbRTkYEFlwajiz', {
-        api_host: 'https://eu.i.posthog.com',
-        person_profiles: 'identified_only',
-        capture_pageview: true,
-        capture_pageleave: true,
-        autocapture: true,
-        capture_scroll_depth: true,
-        persistence: 'localStorage+cookie'
+  <!-- PostHog Analytics -->
+  <script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+
+    posthog.init('phc_g723Z9AuntlH7WCgvweh0aRYNpDvWQbRTkYEFlwajiz', {
+      api_host: 'https://eu.i.posthog.com',
+      person_profiles: 'identified_only',
+      capture_pageview: true,
+      capture_pageleave: true,
+      autocapture: true,
+      capture_scroll_depth: true,
+      persistence: 'localStorage+cookie'
+    });
+
+    // Track referrer for conversion attribution
+    if (document.referrer) {
+      posthog.capture('page_view_with_referrer', {
+        referrer: document.referrer,
+        landing_page: window.location.href
       });
+    }
+  </script>
 
-      // Track referrer for conversion attribution
-      if (document.referrer) {
-        posthog.capture('page_view_with_referrer', {
-          referrer: document.referrer,
-          landing_page: window.location.href
-        });
-      }
-    </script>
+  <!-- Base Styles (always loaded) -->
+  <link rel="stylesheet" href="/css/base.css" />
 
-    <!-- Base Styles (always loaded) -->
-    <link rel="stylesheet" href="/css/base.css" />
+  <!-- CRO Styles (conversion optimization) -->
+  <link rel="stylesheet" href="/css/cro.css" />
 
-    <!-- CRO Styles (conversion optimization) -->
-    <link rel="stylesheet" href="/css/cro.css" />
-    
-    <!-- Theme CSS (dynamically loaded) -->
-    <link id="theme-css" rel="stylesheet" href="" />
+  <!-- Theme CSS (dynamically loaded) -->
+  <link id="theme-css" rel="stylesheet" href="" />
 
-    <!-- Google Fonts - Common for all themes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    
-    <!-- Terminal Theme Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=VT323&display=swap" rel="stylesheet" />
-    <!-- Blueprint Theme Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <!-- Google Fonts - Common for all themes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Critical CSS: Prevent FOUC with loading screen -->
-    <style id="critical-css">
-      /* Hide content until styles are ready */
-      body.loading #main-content,
-      body.loading .theme-overlay,
-      body.loading .custom-cursor,
-      body.loading .floating-cta,
-      body.loading .scroll-progress,
-      body.loading .exit-modal,
-      body.loading .theme-switcher {
-        opacity: 0 !important;
-        visibility: hidden !important;
-      }
+  <!-- Terminal Theme Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=VT323&display=swap" rel="stylesheet" />
+  <!-- Blueprint Theme Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" />
 
-      /* Loading screen */
-      #loading-screen {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #0a0a0a;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        z-index: 99999;
-        transition: opacity 0.4s ease, visibility 0.4s ease;
-      }
+  <!-- Critical CSS: Prevent FOUC with loading screen -->
+  <style id="critical-css">
+    /* Hide content until styles are ready */
+    body.loading #main-content,
+    body.loading .theme-overlay,
+    body.loading .custom-cursor,
+    body.loading .floating-cta,
+    body.loading .scroll-progress,
+    body.loading .exit-modal,
+    body.loading .theme-switcher {
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
 
-      #loading-screen.hidden {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-      }
+    /* Loading screen */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0a0a0a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
 
-      .loading-spinner {
-        width: 40px;
-        height: 40px;
-        border: 3px solid rgba(51, 255, 0, 0.2);
-        border-top-color: #33ff00;
-        border-radius: 50%;
-        animation: spin 0.8s linear infinite;
-      }
+    #loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
 
-      .loading-text {
-        margin-top: 1rem;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.875rem;
-        color: #33ff00;
-        letter-spacing: 0.1em;
-      }
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(51, 255, 0, 0.2);
+      border-top-color: #33ff00;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
 
-      @keyframes spin {
-        to { transform: rotate(360deg); }
-      }
+    .loading-text {
+      margin-top: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      color: #33ff00;
+      letter-spacing: 0.1em;
+    }
 
-      /* Smooth reveal transition */
-      body:not(.loading) #main-content,
-      body:not(.loading) .theme-overlay,
-      body:not(.loading) .custom-cursor,
-      body:not(.loading) .floating-cta,
-      body:not(.loading) .scroll-progress,
-      body:not(.loading) .theme-switcher {
-        opacity: 1;
-        visibility: visible;
-        transition: opacity 0.4s ease;
-      }
-    </style>
-  </head>
-  <body class="loading" data-theme="terminal">
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-      <div class="loading-spinner"></div>
-      <div class="loading-text">LOADING...</div>
-    </div>
-    <!-- Theme Overlay (CRT/Blueprint grid - styled by theme CSS) -->
-    <div id="theme-overlay" class="theme-overlay"></div>
-    
-    <!-- Custom Cursor (styled by theme CSS) -->
-    <div id="custom-cursor" class="custom-cursor">
-      <span class="cursor-icon"></span>
-      <span class="cursor-coord">x: <span id="coord-x">0</span>, y: <span id="coord-y">0</span></span>
-    </div>
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
 
-    <!-- CRO: Scroll Progress Bar -->
-    <div class="scroll-progress" id="scroll-progress"></div>
+    /* Smooth reveal transition */
+    body:not(.loading) #main-content,
+    body:not(.loading) .theme-overlay,
+    body:not(.loading) .custom-cursor,
+    body:not(.loading) .floating-cta,
+    body:not(.loading) .scroll-progress,
+    body:not(.loading) .theme-switcher {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.4s ease;
+    }
+  </style>
+</head>
+<body class="loading" data-theme="terminal">
+<!-- Loading Screen -->
+<div id="loading-screen">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">LOADING...</div>
+</div>
+<!-- Theme Overlay (CRT/Blueprint grid - styled by theme CSS) -->
+<div id="theme-overlay" class="theme-overlay"></div>
 
-    <!-- CRO: Floating CTA Button -->
-    <a href="#contact" class="floating-cta" id="floating-cta" aria-label="Get in touch">
-      <span class="floating-cta-icon">&#9993;</span>
-      <span class="floating-cta-text">Let's Talk</span>
-      <span class="floating-cta-pulse"></span>
+<!-- Custom Cursor (styled by theme CSS) -->
+<div id="custom-cursor" class="custom-cursor">
+  <span class="cursor-icon"></span>
+  <span class="cursor-coord">x: <span id="coord-x">0</span>, y: <span id="coord-y">0</span></span>
+</div>
+
+<!-- CRO: Scroll Progress Bar -->
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<!-- CRO: Floating CTA Button -->
+<a href="#contact" class="floating-cta" id="floating-cta" aria-label="Get in touch">
+  <span class="floating-cta-icon">&#9993;</span>
+  <span class="floating-cta-text">Let's Talk</span>
+  <span class="floating-cta-pulse"></span>
+</a>
+
+<!-- CRO: Exit Intent Modal -->
+<div class="exit-modal" id="exit-modal" aria-hidden="true">
+  <div class="exit-modal-content">
+    <button class="exit-modal-close" id="exit-modal-close" aria-label="Close">&times;</button>
+    <div class="exit-modal-icon">&#128075;</div>
+    <h3 class="exit-modal-title">Wait! Let's Connect</h3>
+    <p class="exit-modal-text">Have a project in mind? I'd love to hear about it.</p>
+    <a href="mailto:contact@tomandrieu.com" class="exit-modal-cta" id="exit-modal-cta">
+      <span>Get In Touch</span>
+      <span class="exit-modal-arrow">&rarr;</span>
     </a>
+    <button class="exit-modal-dismiss" id="exit-modal-dismiss">Maybe later</button>
+  </div>
+</div>
 
-    <!-- CRO: Exit Intent Modal -->
-    <div class="exit-modal" id="exit-modal" aria-hidden="true">
-      <div class="exit-modal-content">
-        <button class="exit-modal-close" id="exit-modal-close" aria-label="Close">&times;</button>
-        <div class="exit-modal-icon">&#128075;</div>
-        <h3 class="exit-modal-title">Wait! Let's Connect</h3>
-        <p class="exit-modal-text">Have a project in mind? I'd love to hear about it.</p>
-        <a href="mailto:contact@tomandrieu.com" class="exit-modal-cta" id="exit-modal-cta">
-          <span>Get In Touch</span>
-          <span class="exit-modal-arrow">&rarr;</span>
-        </a>
-        <button class="exit-modal-dismiss" id="exit-modal-dismiss">Maybe later</button>
-      </div>
+<main id="main-content">
+  <!-- Header -->
+  <header class="header">
+    <div class="header-brand">
+      <span class="brand-prefix"></span>
+      <span class="brand-name" data-content="meta.name">TOM ANDRIEU</span>
+      <span class="brand-suffix"></span>
     </div>
+    <nav class="nav">
+      <a href="#projects" class="nav-link" data-section="01">
+        <span class="nav-prefix"></span>
+        <span class="nav-text">Projects</span>
+      </a>
+      <a href="#about" class="nav-link" data-section="02">
+        <span class="nav-prefix"></span>
+        <span class="nav-text">About</span>
+      </a>
+      <a href="#contact" class="nav-link" data-section="03">
+        <span class="nav-prefix"></span>
+        <span class="nav-text">Contact</span>
+      </a>
+    </nav>
+  </header>
 
-    <main id="main-content">
-      <!-- Header -->
-      <header class="header">
-        <div class="header-brand">
-          <span class="brand-prefix"></span>
-          <span class="brand-name" data-content="meta.name">TOM ANDRIEU</span>
-          <span class="brand-suffix"></span>
-        </div>
-        <nav class="nav">
-          <a href="#projects" class="nav-link" data-section="01">
-            <span class="nav-prefix"></span>
-            <span class="nav-text">Projects</span>
-          </a>
-          <a href="#about" class="nav-link" data-section="02">
-            <span class="nav-prefix"></span>
-            <span class="nav-text">About</span>
-          </a>
-          <a href="#contact" class="nav-link" data-section="03">
-            <span class="nav-prefix"></span>
-            <span class="nav-text">Contact</span>
-          </a>
-        </nav>
-      </header>
+  <!-- 90s Marquee Banner (hidden by default, shown by retro90s theme) -->
+  <div class="retro-marquee">
+    <div class="marquee-content">
+      <span class="marquee-text red">*** WELCOME TO MY PORTFOLIO ***</span>
+      <span class="marquee-text yellow">*** UNDER CONSTRUCTION ***</span>
+      <span class="marquee-text green">*** BEST VIEWED AT 800x600 ***</span>
+      <span class="marquee-text cyan">*** JAVASCRIPT REQUIRED ***</span>
+      <span class="marquee-text magenta">*** SIGN MY GUESTBOOK! ***</span>
+      <span class="marquee-text white">*** YOU ARE VISITOR #001337 ***</span>
+    </div>
+  </div>
 
-      <!-- 90s Marquee Banner (hidden by default, shown by retro90s theme) -->
-      <div class="retro-marquee">
-        <div class="marquee-content">
-          <span class="marquee-text red">*** WELCOME TO MY PORTFOLIO ***</span>
-          <span class="marquee-text yellow">*** UNDER CONSTRUCTION ***</span>
-          <span class="marquee-text green">*** BEST VIEWED AT 800x600 ***</span>
-          <span class="marquee-text cyan">*** JAVASCRIPT REQUIRED ***</span>
-          <span class="marquee-text magenta">*** SIGN MY GUESTBOOK! ***</span>
-          <span class="marquee-text white">*** YOU ARE VISITOR #001337 ***</span>
-        </div>
-      </div>
-
-      <!-- Hero Section -->
-      <section class="hero">
-        <!-- Theme-specific hero decoration (SVG for blueprint, ASCII for terminal) -->
-        <div class="hero-decoration">
-          <!-- Terminal ASCII art -->
-          <pre class="hero-ascii">
+  <!-- Hero Section -->
+  <section class="hero">
+    <!-- Theme-specific hero decoration (SVG for blueprint, ASCII for terminal) -->
+    <div class="hero-decoration">
+      <!-- Terminal ASCII art -->
+      <pre class="hero-ascii">
 ████████╗ ██████╗ ███╗   ███╗
 ╚══██╔══╝██╔═══██╗████╗ ████║
    ██║   ██║   ██║██╔████╔██║
@@ -206,316 +206,316 @@
    ██║   ╚██████╔╝██║ ╚═╝ ██║
    ╚═╝    ╚═════╝ ╚═╝     ╚═╝
           </pre>
-          
+
+      <!-- Blueprint SVG frame -->
+      <svg class="hero-blueprint-svg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet">
+        <g class="hero-frame">
+          <line x1="100" y1="200" x2="1100" y2="200" class="frame-line"/>
+          <line x1="100" y1="400" x2="1100" y2="400" class="frame-line"/>
+          <line x1="100" y1="200" x2="100" y2="400" class="frame-line"/>
+          <line x1="1100" y1="200" x2="1100" y2="400" class="frame-line"/>
+          <g class="corner-mark" transform="translate(100, 200)">
+            <line x1="-15" y1="0" x2="15" y2="0"/><line x1="0" y1="-15" x2="0" y2="15"/>
+          </g>
+          <g class="corner-mark" transform="translate(1100, 200)">
+            <line x1="-15" y1="0" x2="15" y2="0"/><line x1="0" y1="-15" x2="0" y2="15"/>
+          </g>
+          <g class="corner-mark" transform="translate(100, 400)">
+            <line x1="-15" y1="0" x2="15" y2="0"/><line x1="0" y1="-15" x2="0" y2="15"/>
+          </g>
+          <g class="corner-mark" transform="translate(1100, 400)">
+            <line x1="-15" y1="0" x2="15" y2="0"/><line x1="0" y1="-15" x2="0" y2="15"/>
+          </g>
+        </g>
+        <g class="dimensions">
+          <line x1="100" y1="170" x2="1100" y2="170" class="dim-line"/>
+          <line x1="100" y1="165" x2="100" y2="175"/>
+          <line x1="1100" y1="165" x2="1100" y2="175"/>
+          <text x="600" y="160" class="dim-text">1000px</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="hero-content">
+      <!-- Terminal-specific typewriter -->
+      <div class="hero-terminal">
+        <div class="terminal-line">
+          <span class="prompt">tom@dev:~$</span>
+          <span class="typed-text" id="hero-typed"></span>
+          <span class="cursor-blink">_</span>
+        </div>
+        <div class="terminal-output">
+          <p class="output-line">[<span class="status-ok">OK</span>] Loading creative modules...</p>
+          <p class="output-line">[<span class="status-ok">OK</span>] Full-stack developer initialized</p>
+          <p class="output-line">[<span class="status-ok">OK</span>] Ready to build awesome stuff!</p>
+        </div>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="title-line" data-content="hero.title.0">CREATIVE</span>
+        <span class="title-line" data-content="hero.title.1">DEVELOPER</span>
+      </h1>
+
+      <p class="hero-subtitle" data-content="hero.subtitle">
+        <span class="annotation-mark"></span>
+        BUILDING DIGITAL EXPERIENCES
+        <span class="annotation-mark"></span>
+      </p>
+
+      <!-- 90s Under Construction Badge -->
+      <div class="under-construction">
+        <div class="under-construction-inner">
+          SITE UNDER CONSTRUCTION!
+        </div>
+      </div>
+
+      <!-- Terminal stats bars -->
+      <div class="hero-stats">
+        <div class="stat-bar">
+          <span class="stat-label">CREATIVITY</span>
+          <span class="stat-value">[████████████████████] 100%</span>
+        </div>
+        <div class="stat-bar">
+          <span class="stat-label">COFFEE_LVL</span>
+          <span class="stat-value">[██████████████░░░░░░] 70%</span>
+        </div>
+        <div class="stat-bar">
+          <span class="stat-label">CODE_SKILL</span>
+          <span class="stat-value">[██████████████████░░] 90%</span>
+        </div>
+      </div>
+
+      <!-- CRO: Hero CTA -->
+      <a href="#contact" class="hero-cta" id="hero-cta">
+        <span>Start a Project</span>
+        <span class="hero-cta-arrow">&rarr;</span>
+      </a>
+
+      <!-- CRO: Social Proof Stats -->
+      <div class="social-proof">
+        <div class="proof-stat">
+          <span class="proof-number">5+</span>
+          <span class="proof-label">Years Experience</span>
+        </div>
+        <div class="proof-stat">
+          <span class="proof-number">30K+</span>
+          <span class="proof-label">Users Reached</span>
+        </div>
+        <div class="proof-stat">
+          <span class="proof-number">4</span>
+          <span class="proof-label">Live Products</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blueprint annotation -->
+    <div class="hero-annotation">
+      <span class="annotation-text">revision needed →</span>
+    </div>
+
+    <div class="scroll-indicator">
+      <span class="scroll-text">SCROLL TO EXPLORE</span>
+      <div class="scroll-arrow">▼</div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects">
+    <div class="section-header">
+      <div class="section-label">
+        <span class="section-number">01</span>
+        <span class="section-prompt">$</span>
+        <h2 class="section-title" data-glitch="PROJECTS">PROJECTS</h2><span class="retro-badge">NEW!</span>
+      </div>
+      <div class="section-divider">═══════════════════════════════════════════════════════</div>
+    </div>
+
+    <div id="projects-grid" class="projects-grid">
+      <div class="projects-grid-loading">
+        <span class="loading-text">Loading projects...</span>
+        <span class="loading-spinner">⣾⣽⣻⢿⡿⣟⣯⣷</span>
+      </div>
+    </div>
+
+    <div class="section-footer">
+      <span class="footer-info">total 4 projects | drwxr-xr-x</span>
+      <span class="coord-marker">x: 0, y: 1200</span>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="section-header">
+      <div class="section-label">
+        <span class="section-number">02</span>
+        <span class="section-prompt">$</span>
+        <h2 class="section-title" data-glitch="ABOUT">ABOUT</h2>
+      </div>
+      <div class="section-divider">═══════════════════════════════════════════════════════</div>
+    </div>
+
+    <div class="about-content">
+      <div class="about-card">
+        <div class="card-header">
+          <span class="card-title">SYSTEM STATUS</span>
+        </div>
+        <div class="card-body">
+          <div class="about-text">
+            <p class="code-comment">/* Who am I? */</p>
+            <p class="about-main" data-content="about.intro">
+              I craft <span class="highlight">digital experiences</span> with a focus on
+              <span class="highlight">motion</span>, <span class="highlight">interaction</span>,
+              and <span class="highlight">visual storytelling</span>.
+            </p>
+            <p class="code-comment">/* Skills loaded */</p>
+            <p class="about-detail" data-content="about.detail">
+              With expertise spanning front-end development, UI/UX design, and creative coding,
+              I transform complex ideas into elegant, functional solutions.
+            </p>
+          </div>
+
+          <div class="about-specs" id="about-specs">
+            <!-- Populated from content.json -->
+          </div>
+
+          <div class="tech-stack">
+            <p class="code-comment">/* Tech stack */</p>
+            <div class="tech-grid" id="tech-grid">
+              <!-- Populated from content.json -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Blueprint redline note -->
+        <div class="redline-note">
+          <span>↳ available for projects</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <div class="section-header">
+      <div class="section-label">
+        <span class="section-number">03</span>
+        <span class="section-prompt">$</span>
+        <h2 class="section-title" data-glitch="CONTACT">CONTACT</h2>
+      </div>
+      <div class="section-divider">═══════════════════════════════════════════════════════</div>
+    </div>
+
+    <div class="contact-content">
+      <div class="contact-card">
+        <div class="card-header">
+          <span class="card-title">ESTABLISH CONNECTION</span>
+        </div>
+        <div class="card-body">
+          <!-- CRO: Availability Badge -->
+          <div class="availability-badge">
+            <span class="availability-dot"></span>
+            <span>Available for Projects</span>
+          </div>
+
+          <!-- CRO: Urgency Banner -->
+          <div class="contact-urgency">
+            <span>Currently accepting new clients for Q1 2025</span>
+          </div>
+
+          <div class="contact-prompt">
+            <p class="output-line">> Initiating contact protocol...</p>
+            <p class="output-line">[<span class="status-ok">OK</span>] Email channel ready</p>
+          </div>
+
           <!-- Blueprint SVG frame -->
-          <svg class="hero-blueprint-svg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet">
-            <g class="hero-frame">
-              <line x1="100" y1="200" x2="1100" y2="200" class="frame-line"/>
-              <line x1="100" y1="400" x2="1100" y2="400" class="frame-line"/>
-              <line x1="100" y1="200" x2="100" y2="400" class="frame-line"/>
-              <line x1="1100" y1="200" x2="1100" y2="400" class="frame-line"/>
-              <g class="corner-mark" transform="translate(100, 200)">
-                <line x1="-15" y1="0" x2="15" y2="0"/><line x1="0" y1="-15" x2="0" y2="15"/>
-              </g>
-              <g class="corner-mark" transform="translate(1100, 200)">
-                <line x1="-15" y1="0" x2="15" y2="0"/><line x1="0" y1="-15" x2="0" y2="15"/>
-              </g>
-              <g class="corner-mark" transform="translate(100, 400)">
-                <line x1="-15" y1="0" x2="15" y2="0"/><line x1="0" y1="-15" x2="0" y2="15"/>
-              </g>
-              <g class="corner-mark" transform="translate(1100, 400)">
-                <line x1="-15" y1="0" x2="15" y2="0"/><line x1="0" y1="-15" x2="0" y2="15"/>
-              </g>
+          <svg class="contact-blueprint-svg" viewBox="0 0 600 200" preserveAspectRatio="none">
+            <rect x="5" y="5" width="590" height="190" class="contact-border" rx="0"/>
+            <g class="corner-mark" transform="translate(5, 5)">
+              <line x1="-10" y1="0" x2="20" y2="0"/><line x1="0" y1="-10" x2="0" y2="20"/>
             </g>
-            <g class="dimensions">
-              <line x1="100" y1="170" x2="1100" y2="170" class="dim-line"/>
-              <line x1="100" y1="165" x2="100" y2="175"/>
-              <line x1="1100" y1="165" x2="1100" y2="175"/>
-              <text x="600" y="160" class="dim-text">1000px</text>
+            <g class="corner-mark" transform="translate(595, 5)">
+              <line x1="-20" y1="0" x2="10" y2="0"/><line x1="0" y1="-10" x2="0" y2="20"/>
+            </g>
+            <g class="corner-mark" transform="translate(5, 195)">
+              <line x1="-10" y1="0" x2="20" y2="0"/><line x1="0" y1="-20" x2="0" y2="10"/>
+            </g>
+            <g class="corner-mark" transform="translate(595, 195)">
+              <line x1="-20" y1="0" x2="10" y2="0"/><line x1="0" y1="-20" x2="0" y2="10"/>
             </g>
           </svg>
-        </div>
-        
-        <div class="hero-content">
-          <!-- Terminal-specific typewriter -->
-          <div class="hero-terminal">
-            <div class="terminal-line">
-              <span class="prompt">tom@dev:~$</span>
-              <span class="typed-text" id="hero-typed"></span>
-              <span class="cursor-blink">_</span>
-            </div>
-            <div class="terminal-output">
-              <p class="output-line">[<span class="status-ok">OK</span>] Loading creative modules...</p>
-              <p class="output-line">[<span class="status-ok">OK</span>] Full-stack developer initialized</p>
-              <p class="output-line">[<span class="status-ok">OK</span>] Ready to build awesome stuff!</p>
-            </div>
-          </div>
 
-          <h1 class="hero-title">
-            <span class="title-line" data-content="hero.title.0">CREATIVE</span>
-            <span class="title-line" data-content="hero.title.1">DEVELOPER</span>
-          </h1>
-          
-          <p class="hero-subtitle" data-content="hero.subtitle">
-            <span class="annotation-mark"></span>
-            BUILDING DIGITAL EXPERIENCES
-            <span class="annotation-mark"></span>
-          </p>
-          
-          <!-- 90s Under Construction Badge -->
-          <div class="under-construction">
-            <div class="under-construction-inner">
-              SITE UNDER CONSTRUCTION!
-            </div>
-          </div>
-
-          <!-- Terminal stats bars -->
-          <div class="hero-stats">
-            <div class="stat-bar">
-              <span class="stat-label">CREATIVITY</span>
-              <span class="stat-value">[████████████████████] 100%</span>
-            </div>
-            <div class="stat-bar">
-              <span class="stat-label">COFFEE_LVL</span>
-              <span class="stat-value">[██████████████░░░░░░] 70%</span>
-            </div>
-            <div class="stat-bar">
-              <span class="stat-label">CODE_SKILL</span>
-              <span class="stat-value">[██████████████████░░] 90%</span>
-            </div>
-          </div>
-
-          <!-- CRO: Hero CTA -->
-          <a href="#contact" class="hero-cta" id="hero-cta">
-            <span>Start a Project</span>
-            <span class="hero-cta-arrow">&rarr;</span>
+          <a href="mailto:contact@tomandrieu.com" class="email-link" id="email-link">
+            <span class="email-prefix">>> </span>
+            <span class="stamp">APPROVED</span>
+            <span class="email-text" data-content="contact.email">CONTACT@TOMANDRIEU.COM</span>
+            <span class="cursor-blink">_</span>
           </a>
 
-          <!-- CRO: Social Proof Stats -->
-          <div class="social-proof">
-            <div class="proof-stat">
-              <span class="proof-number">5+</span>
-              <span class="proof-label">Years Experience</span>
-            </div>
-            <div class="proof-stat">
-              <span class="proof-number">30K+</span>
-              <span class="proof-label">Users Reached</span>
-            </div>
-            <div class="proof-stat">
-              <span class="proof-number">4</span>
-              <span class="proof-label">Live Products</span>
-            </div>
+          <!-- CRO: Response Time -->
+          <div class="response-time">
+            <span>Typically responds within 24 hours</span>
+          </div>
+
+          <div class="social-links" id="social-links">
+            <!-- Populated from content.json -->
+          </div>
+
+          <!-- 90s Guestbook CTA (hidden by default) -->
+          <div class="guestbook-cta">
+            Please sign my guestbook before you leave!
+          </div>
+
+          <!-- 90s Color Squares Decoration (hidden by default) -->
+          <div class="color-squares">
+            <div class="color-square red"></div>
+            <div class="color-square green"></div>
+            <div class="color-square blue"></div>
+            <div class="color-square yellow"></div>
+            <div class="color-square magenta"></div>
+            <div class="color-square cyan"></div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- Blueprint annotation -->
-        <div class="hero-annotation">
-          <span class="annotation-text">revision needed →</span>
-        </div>
-        
-        <div class="scroll-indicator">
-          <span class="scroll-text">SCROLL TO EXPLORE</span>
-          <div class="scroll-arrow">▼</div>
-        </div>
-      </section>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-line">────────────────────────────────────────────────────────────────</div>
+      <div class="footer-info-row">
+        <span class="footer-session" data-content="footer.sessionId">SESSION: TOM-2026-PORTFOLIO</span>
+        <span class="footer-sep">|</span>
+        <span class="footer-version" data-content="footer.version">VERSION: 3.0</span>
+        <span class="footer-sep">|</span>
+        <span class="footer-scale">SCALE: 1:1</span>
+      </div>
+      <div class="footer-copyright" data-content="footer.copyright">
+        © 2026 TOM ANDRIEU — ALL RIGHTS RESERVED
+      </div>
+      <div class="footer-exit">
+        <span class="blink-slow">[Press any key to continue...]</span>
+      </div>
+      <!-- 90s Best Viewed Badge (hidden by default) -->
+      <div class="best-viewed">
+        Best viewed with Netscape Navigator 4.0 at 800x600 resolution
+      </div>
+    </div>
+  </footer>
+</main>
 
-      <!-- Projects Section -->
-      <section id="projects" class="projects">
-        <div class="section-header">
-          <div class="section-label">
-            <span class="section-number">01</span>
-            <span class="section-prompt">$</span>
-            <h2 class="section-title" data-glitch="PROJECTS">PROJECTS</h2><span class="retro-badge">NEW!</span>
-          </div>
-          <div class="section-divider">═══════════════════════════════════════════════════════</div>
-        </div>
-        
-        <div id="projects-grid" class="projects-grid">
-          <div class="projects-grid-loading">
-            <span class="loading-text">Loading projects...</span>
-            <span class="loading-spinner">⣾⣽⣻⢿⡿⣟⣯⣷</span>
-          </div>
-        </div>
-        
-        <div class="section-footer">
-          <span class="footer-info">total 4 projects | drwxr-xr-x</span>
-          <span class="coord-marker">x: 0, y: 1200</span>
-        </div>
-      </section>
+<!-- GSAP for animations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-      <!-- About Section -->
-      <section id="about" class="about">
-        <div class="section-header">
-          <div class="section-label">
-            <span class="section-number">02</span>
-            <span class="section-prompt">$</span>
-            <h2 class="section-title" data-glitch="ABOUT">ABOUT</h2>
-          </div>
-          <div class="section-divider">═══════════════════════════════════════════════════════</div>
-        </div>
-        
-        <div class="about-content">
-          <div class="about-card">
-            <div class="card-header">
-              <span class="card-title">SYSTEM STATUS</span>
-            </div>
-            <div class="card-body">
-              <div class="about-text">
-                <p class="code-comment">/* Who am I? */</p>
-                <p class="about-main" data-content="about.intro">
-                  I craft <span class="highlight">digital experiences</span> with a focus on 
-                  <span class="highlight">motion</span>, <span class="highlight">interaction</span>, 
-                  and <span class="highlight">visual storytelling</span>.
-                </p>
-                <p class="code-comment">/* Skills loaded */</p>
-                <p class="about-detail" data-content="about.detail">
-                  With expertise spanning front-end development, UI/UX design, and creative coding, 
-                  I transform complex ideas into elegant, functional solutions.
-                </p>
-              </div>
-              
-              <div class="about-specs" id="about-specs">
-                <!-- Populated from content.json -->
-              </div>
-              
-              <div class="tech-stack">
-                <p class="code-comment">/* Tech stack */</p>
-                <div class="tech-grid" id="tech-grid">
-                  <!-- Populated from content.json -->
-                </div>
-              </div>
-            </div>
-            
-            <!-- Blueprint redline note -->
-            <div class="redline-note">
-              <span>↳ available for projects</span>
-            </div>
-          </div>
-        </div>
-      </section>
+<!-- Core Scripts -->
+<script src="/js/theme-manager.js"></script>
+<script src="/js/base.js"></script>
 
-      <!-- Contact Section -->
-      <section id="contact" class="contact">
-        <div class="section-header">
-          <div class="section-label">
-            <span class="section-number">03</span>
-            <span class="section-prompt">$</span>
-            <h2 class="section-title" data-glitch="CONTACT">CONTACT</h2>
-          </div>
-          <div class="section-divider">═══════════════════════════════════════════════════════</div>
-        </div>
-        
-        <div class="contact-content">
-          <div class="contact-card">
-            <div class="card-header">
-              <span class="card-title">ESTABLISH CONNECTION</span>
-            </div>
-            <div class="card-body">
-              <!-- CRO: Availability Badge -->
-              <div class="availability-badge">
-                <span class="availability-dot"></span>
-                <span>Available for Projects</span>
-              </div>
+<!-- CRO Scripts (conversion optimization) -->
+<script src="/js/cro.js"></script>
 
-              <!-- CRO: Urgency Banner -->
-              <div class="contact-urgency">
-                <span>Currently accepting new clients for Q1 2025</span>
-              </div>
-
-              <div class="contact-prompt">
-                <p class="output-line">> Initiating contact protocol...</p>
-                <p class="output-line">[<span class="status-ok">OK</span>] Email channel ready</p>
-              </div>
-              
-              <!-- Blueprint SVG frame -->
-              <svg class="contact-blueprint-svg" viewBox="0 0 600 200" preserveAspectRatio="none">
-                <rect x="5" y="5" width="590" height="190" class="contact-border" rx="0"/>
-                <g class="corner-mark" transform="translate(5, 5)">
-                  <line x1="-10" y1="0" x2="20" y2="0"/><line x1="0" y1="-10" x2="0" y2="20"/>
-                </g>
-                <g class="corner-mark" transform="translate(595, 5)">
-                  <line x1="-20" y1="0" x2="10" y2="0"/><line x1="0" y1="-10" x2="0" y2="20"/>
-                </g>
-                <g class="corner-mark" transform="translate(5, 195)">
-                  <line x1="-10" y1="0" x2="20" y2="0"/><line x1="0" y1="-20" x2="0" y2="10"/>
-                </g>
-                <g class="corner-mark" transform="translate(595, 195)">
-                  <line x1="-20" y1="0" x2="10" y2="0"/><line x1="0" y1="-20" x2="0" y2="10"/>
-                </g>
-              </svg>
-              
-              <a href="mailto:contact@tomandrieu.com" class="email-link" id="email-link">
-                <span class="email-prefix">>> </span>
-                <span class="stamp">APPROVED</span>
-                <span class="email-text" data-content="contact.email">CONTACT@TOMANDRIEU.COM</span>
-                <span class="cursor-blink">_</span>
-              </a>
-
-              <!-- CRO: Response Time -->
-              <div class="response-time">
-                <span>Typically responds within 24 hours</span>
-              </div>
-
-              <div class="social-links" id="social-links">
-                <!-- Populated from content.json -->
-              </div>
-
-              <!-- 90s Guestbook CTA (hidden by default) -->
-              <div class="guestbook-cta">
-                Please sign my guestbook before you leave!
-              </div>
-
-              <!-- 90s Color Squares Decoration (hidden by default) -->
-              <div class="color-squares">
-                <div class="color-square red"></div>
-                <div class="color-square green"></div>
-                <div class="color-square blue"></div>
-                <div class="color-square yellow"></div>
-                <div class="color-square magenta"></div>
-                <div class="color-square cyan"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Footer -->
-      <footer class="footer">
-        <div class="footer-content">
-          <div class="footer-line">────────────────────────────────────────────────────────────────</div>
-          <div class="footer-info-row">
-            <span class="footer-session" data-content="footer.sessionId">SESSION: TOM-2026-PORTFOLIO</span>
-            <span class="footer-sep">|</span>
-            <span class="footer-version" data-content="footer.version">VERSION: 3.0</span>
-            <span class="footer-sep">|</span>
-            <span class="footer-scale">SCALE: 1:1</span>
-          </div>
-          <div class="footer-copyright" data-content="footer.copyright">
-            © 2026 TOM ANDRIEU — ALL RIGHTS RESERVED
-          </div>
-          <div class="footer-exit">
-            <span class="blink-slow">[Press any key to continue...]</span>
-          </div>
-          <!-- 90s Best Viewed Badge (hidden by default) -->
-          <div class="best-viewed">
-            Best viewed with Netscape Navigator 4.0 at 800x600 resolution
-          </div>
-        </div>
-      </footer>
-    </main>
-
-    <!-- GSAP for animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    
-    <!-- Core Scripts -->
-    <script src="/js/theme-manager.js"></script>
-    <script src="/js/base.js"></script>
-
-    <!-- CRO Scripts (conversion optimization) -->
-    <script src="/js/cro.js"></script>
-
-    <!-- Theme JS (dynamically loaded) -->
-    <script id="theme-js" src=""></script>
-  </body>
+<!-- Theme JS (dynamically loaded) -->
+<script id="theme-js" src=""></script>
+</body>
 </html>
