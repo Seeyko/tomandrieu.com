@@ -540,14 +540,15 @@ body[data-theme="retro90s"] .under-construction-inner::after {
 
 /* Scroll Indicator */
 body[data-theme="retro90s"] .scroll-indicator {
-  position: absolute;
-  bottom: var(--spacing-lg);
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
+  bottom: auto;
+  left: auto;
+  transform: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+  margin-top: var(--spacing-lg);
 }
 
 body[data-theme="retro90s"] .scroll-text {
