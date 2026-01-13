@@ -1516,7 +1516,7 @@ body[data-theme="retro90s"] .webring-logo {
 
 body[data-theme="retro90s"] .retro-clippy {
   position: fixed;
-  bottom: 40px;
+  bottom: 120px;
   right: 20px;
   z-index: 9999;
   cursor: pointer;
@@ -1529,82 +1529,67 @@ body[data-theme="retro90s"] .clippy-container {
 
 body[data-theme="retro90s"] .clippy-body {
   width: 60px;
-  height: 80px;
-  background: var(--color-yellow);
-  border: 3px solid var(--color-black);
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  height: 100px;
   position: relative;
-  box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+  cursor: pointer;
+  filter: drop-shadow(3px 3px 2px rgba(0,0,0,0.3));
+  transition: transform 0.2s ease;
 }
 
-body[data-theme="retro90s"] .clippy-eyes {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 12px;
+body[data-theme="retro90s"] .clippy-body:hover {
+  transform: scale(1.05);
 }
 
-body[data-theme="retro90s"] .clippy-eye {
-  width: 14px;
-  height: 14px;
-  background: var(--color-white);
-  border: 2px solid var(--color-black);
-  border-radius: 50%;
-  position: relative;
+body[data-theme="retro90s"] .clippy-svg {
+  width: 100%;
+  height: 100%;
 }
 
-body[data-theme="retro90s"] .clippy-eye::after {
-  content: '';
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: var(--color-black);
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: clippy-look 4s ease-in-out infinite;
+body[data-theme="retro90s"] .clippy-wire {
+  stroke: #666666;
 }
 
-@keyframes clippy-look {
-  0%, 100% { transform: translate(-50%, -50%); }
-  25% { transform: translate(-20%, -50%); }
-  50% { transform: translate(-50%, -20%); }
-  75% { transform: translate(-80%, -50%); }
+body[data-theme="retro90s"] .clippy-wire-inner {
+  stroke: #B0B0B0;
 }
 
-body[data-theme="retro90s"] .clippy-brows {
-  position: absolute;
-  top: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
+body[data-theme="retro90s"] .clippy-body:hover .clippy-wire {
+  stroke: #555555;
 }
 
-body[data-theme="retro90s"] .clippy-brow {
-  width: 16px;
-  height: 4px;
-  background: var(--color-black);
-  border-radius: 2px;
+body[data-theme="retro90s"] .clippy-body:hover .clippy-wire-inner {
+  stroke: #C0C0C0;
+}
+
+/* Animation keyframes for Clippy */
+@keyframes clippy-excited {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.1) rotate(-5deg); }
+  50% { transform: scale(1.1) rotate(5deg); }
+  75% { transform: scale(1.1) rotate(-5deg); }
+}
+
+@keyframes clippy-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 body[data-theme="retro90s"] .clippy-speech {
   position: absolute;
-  bottom: 90px;
+  bottom: 110px;
   right: 0;
   background: var(--color-white);
   border: 2px solid var(--color-black);
-  padding: 8px 12px;
+  padding: 10px 12px;
   font-family: var(--font-90s);
   font-size: 0.75rem;
   max-width: 180px;
+  min-width: 150px;
   box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
 }
 
 body[data-theme="retro90s"] .clippy-speech::after {
@@ -1631,21 +1616,63 @@ body[data-theme="retro90s"] .retro-clippy:hover .clippy-speech,
 body[data-theme="retro90s"] .retro-clippy.show-speech .clippy-speech {
   opacity: 1;
   transform: translateY(0);
+  pointer-events: auto;
+}
+
+body[data-theme="retro90s"] .clippy-message {
+  display: block;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+body[data-theme="retro90s"] .clippy-buttons {
+  display: flex;
+  gap: 6px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body[data-theme="retro90s"] .clippy-action {
+  flex: 1;
+  background: linear-gradient(180deg, var(--color-cyan) 0%, var(--color-blue) 100%);
+  border: 2px outset var(--bevel-light);
+  padding: 4px 8px;
+  font-family: var(--font-90s);
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: var(--color-white);
+  cursor: pointer;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+}
+
+body[data-theme="retro90s"] .clippy-action:hover {
+  background: linear-gradient(180deg, var(--color-blue) 0%, var(--color-navy) 100%);
+  border-style: inset;
+}
+
+body[data-theme="retro90s"] .clippy-action:active {
+  border-style: inset;
+  transform: translateY(1px);
 }
 
 body[data-theme="retro90s"] .clippy-dismiss {
-  display: block;
-  margin-top: 8px;
   background: var(--bg-90s);
-  border: 1px solid var(--color-black);
-  padding: 2px 8px;
+  border: 2px outset var(--bevel-light);
+  padding: 4px 8px;
   font-family: var(--font-90s);
-  font-size: 0.65rem;
+  font-size: 0.8rem;
+  font-weight: bold;
   cursor: pointer;
+  line-height: 1;
 }
 
 body[data-theme="retro90s"] .clippy-dismiss:hover {
-  background: var(--color-yellow);
+  background: var(--color-red);
+  color: var(--color-white);
+}
+
+body[data-theme="retro90s"] .clippy-dismiss:active {
+  border-style: inset;
 }
 
 @keyframes clippy-bounce {
@@ -1865,7 +1892,7 @@ body[data-theme="retro90s"] ::-webkit-scrollbar-button:hover {
 
   body[data-theme="retro90s"] .retro-clippy {
     transform: scale(0.8);
-    bottom: 30px;
+    bottom: 100px;
     right: 10px;
   }
 
@@ -1949,7 +1976,7 @@ body[data-theme="retro90s"] .flying-shape {
     animation: none;
   }
 
-  body[data-theme="retro90s"] .clippy-eye::after {
+  body[data-theme="retro90s"] .clippy-body {
     animation: none;
   }
 
