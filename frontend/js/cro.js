@@ -10,7 +10,7 @@
 
   // ─── Configuration ───
   const CRO_CONFIG = {
-    exitIntentDelay: 5000,        // Wait 5s before enabling exit intent
+    exitIntentDelay: 120000,      // Wait 2 minutes before enabling exit intent
     scrollTriggerPercent: 60,     // Trigger attention at 60% scroll
     floatingCtaHideDistance: 400, // Hide floating CTA 400px from contact
     engagementThresholds: [30, 60, 120], // Seconds to track engagement
