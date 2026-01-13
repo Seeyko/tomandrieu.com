@@ -300,22 +300,23 @@ class RetroTooltips {
 class ClippyHelper {
     constructor() {
         this.messages = [
-            "It looks like you're browsing a portfolio! Need help?",
-            "Wow, these projects look amazing!",
-            "Have you tried clicking on a project?",
-            "Don't forget to sign the guestbook!",
-            "This site is best viewed at 800x600!",
-            "Press ↑↑↓↓←→←→BA for a surprise!",
-            "Remember to bookmark this page!",
-            "Did you know? This site uses JavaScript!",
-            "Try hovering over the tech tags!",
-            "The colors! The bevels! So 90s!",
-            "Have you checked out the About section?",
-            "Links turn red when you hover. Cool, right?"
+            { text: "It looks like you're browsing a portfolio! Need help?", action: "contact" },
+            { text: "Wow, these projects look amazing!", action: "projects" },
+            { text: "Have you tried clicking on a project?", action: "projects" },
+            { text: "Want to get in touch? Click below!", action: "contact" },
+            { text: "This site is best viewed at 800x600!", action: null },
+            { text: "Press ↑↑↓↓←→←→BA for a surprise!", action: null },
+            { text: "Remember to bookmark this page!", action: null },
+            { text: "Did you know? This site uses JavaScript!", action: null },
+            { text: "Check out what I can do!", action: "about" },
+            { text: "The colors! The bevels! So 90s!", action: null },
+            { text: "Want to learn more about me?", action: "about" },
+            { text: "Links turn red when you hover. Cool, right?", action: null }
         ];
         this.currentMessage = 0;
         this.isVisible = true;
         this.container = null;
+        this.clickCount = 0;
         this.init();
     }
 
@@ -325,23 +326,55 @@ class ClippyHelper {
         this.container.innerHTML = `
             <div class="clippy-container">
                 <div class="clippy-speech">
-                    <span class="clippy-message">${this.messages[0]}</span>
-                    <button class="clippy-dismiss">OK</button>
+                    <span class="clippy-message">${this.messages[0].text}</span>
+                    <div class="clippy-buttons">
+                        <button class="clippy-action">Let's go!</button>
+                        <button class="clippy-dismiss">×</button>
+                    </div>
                 </div>
                 <div class="clippy-body">
-                    <div class="clippy-brows">
-                        <div class="clippy-brow"></div>
-                        <div class="clippy-brow"></div>
-                    </div>
-                    <div class="clippy-eyes">
-                        <div class="clippy-eye"></div>
-                        <div class="clippy-eye"></div>
-                    </div>
+                    <svg class="clippy-svg" viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Paperclip body -->
+                        <path class="clippy-wire" d="M30 95 L30 75 Q30 55 15 55 Q5 55 5 45 L5 20 Q5 5 20 5 L40 5 Q55 5 55 20 L55 60 Q55 75 40 75 L35 75"
+                              fill="none" stroke="#666" stroke-width="6" stroke-linecap="round"/>
+                        <path class="clippy-wire-inner" d="M30 95 L30 75 Q30 55 15 55 Q5 55 5 45 L5 20 Q5 5 20 5 L40 5 Q55 5 55 20 L55 60 Q55 75 40 75 L35 75"
+                              fill="none" stroke="#999" stroke-width="4" stroke-linecap="round"/>
+                        <!-- Eyes -->
+                        <ellipse class="clippy-eye-bg" cx="20" cy="30" rx="8" ry="10" fill="white" stroke="#333" stroke-width="1"/>
+                        <ellipse class="clippy-eye-bg" cx="44" cy="30" rx="8" ry="10" fill="white" stroke="#333" stroke-width="1"/>
+                        <circle class="clippy-pupil clippy-pupil-left" cx="22" cy="32" r="4" fill="#333"/>
+                        <circle class="clippy-pupil clippy-pupil-right" cx="46" cy="32" r="4" fill="#333"/>
+                        <!-- Eyebrows -->
+                        <path class="clippy-eyebrow" d="M12 20 Q20 16 28 20" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+                        <path class="clippy-eyebrow" d="M36 20 Q44 16 52 20" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                 </div>
             </div>
         `;
 
         document.body.appendChild(this.container);
+
+        // Action button - scrolls to relevant section
+        this.container.querySelector('.clippy-action').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const currentMsg = this.messages[this.currentMessage];
+            if (currentMsg.action) {
+                const section = document.getElementById(currentMsg.action);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                    this.showExcitedAnimation();
+                }
+            } else {
+                // Default action: scroll to contact
+                const contact = document.getElementById('contact');
+                if (contact) {
+                    contact.scrollIntoView({ behavior: 'smooth' });
+                    this.showExcitedAnimation();
+                }
+            }
+            this.container.classList.remove('show-speech');
+            setTimeout(() => this.showNextMessage(), 3000);
+        });
 
         // Dismiss button
         this.container.querySelector('.clippy-dismiss').addEventListener('click', (e) => {
@@ -350,9 +383,15 @@ class ClippyHelper {
             setTimeout(() => this.showNextMessage(), 15000);
         });
 
-        // Click on Clippy to show speech
+        // Click on Clippy body for easter egg
         this.container.querySelector('.clippy-body').addEventListener('click', () => {
-            if (!this.container.classList.contains('show-speech')) {
+            this.clickCount++;
+
+            if (this.clickCount >= 5) {
+                // Easter egg: Clippy does a spin!
+                this.showEasterEgg();
+                this.clickCount = 0;
+            } else if (!this.container.classList.contains('show-speech')) {
                 this.showNextMessage();
                 this.container.classList.add('show-speech');
             }
@@ -360,14 +399,78 @@ class ClippyHelper {
 
         // Auto-cycle messages
         this.startMessageCycle();
+
+        // Add eye tracking
+        this.initEyeTracking();
     }
 
     showNextMessage() {
         this.currentMessage = (this.currentMessage + 1) % this.messages.length;
         const messageEl = this.container.querySelector('.clippy-message');
+        const actionBtn = this.container.querySelector('.clippy-action');
+        const currentMsg = this.messages[this.currentMessage];
+
         if (messageEl) {
-            messageEl.textContent = this.messages[this.currentMessage];
+            messageEl.textContent = currentMsg.text;
         }
+
+        // Update button text based on action
+        if (actionBtn) {
+            if (currentMsg.action === 'contact') {
+                actionBtn.textContent = "Let's talk!";
+            } else if (currentMsg.action === 'projects') {
+                actionBtn.textContent = "Show me!";
+            } else if (currentMsg.action === 'about') {
+                actionBtn.textContent = "Tell me more!";
+            } else {
+                actionBtn.textContent = "Cool!";
+            }
+        }
+    }
+
+    showExcitedAnimation() {
+        const body = this.container.querySelector('.clippy-body');
+        body.style.animation = 'none';
+        body.offsetHeight; // Trigger reflow
+        body.style.animation = 'clippy-excited 0.5s ease-in-out';
+    }
+
+    showEasterEgg() {
+        const body = this.container.querySelector('.clippy-body');
+        body.style.animation = 'none';
+        body.offsetHeight; // Trigger reflow
+        body.style.animation = 'clippy-spin 1s ease-in-out';
+
+        // Show special message
+        const messageEl = this.container.querySelector('.clippy-message');
+        if (messageEl) {
+            messageEl.textContent = "Wheee! You found a secret! 🎉";
+        }
+        this.container.classList.add('show-speech');
+    }
+
+    initEyeTracking() {
+        document.addEventListener('mousemove', (e) => {
+            const leftPupil = this.container.querySelector('.clippy-pupil-left');
+            const rightPupil = this.container.querySelector('.clippy-pupil-right');
+
+            if (!leftPupil || !rightPupil) return;
+
+            const rect = this.container.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
+            const distance = Math.min(2, Math.hypot(e.clientX - centerX, e.clientY - centerY) / 100);
+
+            const offsetX = Math.cos(angle) * distance;
+            const offsetY = Math.sin(angle) * distance;
+
+            leftPupil.setAttribute('cx', 22 + offsetX);
+            leftPupil.setAttribute('cy', 32 + offsetY);
+            rightPupil.setAttribute('cx', 46 + offsetX);
+            rightPupil.setAttribute('cy', 32 + offsetY);
+        });
     }
 
     startMessageCycle() {
