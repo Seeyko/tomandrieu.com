@@ -1,20 +1,20 @@
 {
   "meta": {
     "name": "Tom Andrieu",
-    "title": "Creative Developer",
-    "description": "Full-stack creative developer crafting digital experiences with motion, interaction, and visual storytelling."
+    "title": "Product Engineer",
+    "description": "Product engineer who builds meaningful products, iterates with purpose, and helps teams do their best work."
   },
   "hero": {
-    "title": ["CREATIVE", "DEVELOPER"],
-    "subtitle": "BUILDING DIGITAL EXPERIENCES"
+    "title": ["PRODUCT", "ENGINEER"],
+    "subtitle": "BUILDING THINGS THAT MATTER"
   },
   "about": {
-    "intro": "I craft digital experiences with a focus on <highlight>MOTION</highlight>, <highlight>INTERACTION</highlight>, and <highlight>VISUAL STORYTELLING</highlight>.",
-    "detail": "With expertise spanning front-end development, UI/UX design, and creative coding, I transform complex ideas into elegant, functional solutions.",
+    "intro": "I build <highlight>MEANINGFUL</highlight> products and help small teams do their <highlight>BEST WORK</highlight>.",
+    "detail": "I care about craft and iteration. I'd rather enable others than micromanage them. Working with AI has made me even more optimistic about what focused teams can create.",
     "specs": {
       "location": "FRANCE",
       "experience": "7+ YEARS",
-      "focus": "FULL-STACK",
+      "focus": "PRODUCT ENGINEERING",
       "status": "AVAILABLE FOR PROJECTS"
     }
   },

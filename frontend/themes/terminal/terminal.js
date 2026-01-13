@@ -30,7 +30,7 @@ window.help = function() {
 ║  matrix()    - Enter the Matrix       ║
 ║  party()     - 🎉 Party mode!         ║
 ║  hack()      - Hack the mainframe     ║
-║  coffee()    - ☕ Refill coffee       ║
+║  ship()      - 🚀 Ship it now!        ║
 ║  enderman()  - 👾 Summon an Enderman  ║
 ║  reset()     - Reset to default       ║
 ╚═══════════════════════════════════════╝
@@ -64,9 +64,9 @@ window.hack = function() {
     console.log('%c[SUCCESS] Access granted! Just kidding 😄', 'color: #33ff00;');
 };
 
-window.coffee = function() {
-    console.log('%c☕ Coffee level restored to 100%!', 'color: #ffb000; font-size: 16px;');
-    console.log('%c[OK] Developer productivity increased by 200%', 'color: #33ff00;');
+window.ship = function() {
+    console.log('%c🚀 Another iteration deployed!', 'color: #ffb000; font-size: 16px;');
+    console.log('%c[OK] Small steps, meaningful progress.', 'color: #33ff00;');
 };
 
 window.enderman = function() {
@@ -283,7 +283,7 @@ function initLoadingSpinner() {
 // ─── Fun Random Terminal Messages ───
 function initRandomMessages() {
     const messages = [
-        '[INFO] Coffee break recommended in 30 minutes',
+        '[INFO] Good things take time and iteration',
         '[INFO] Remember to stretch! 🧘',
         '[OK] All systems nominal',
         '[INFO] Fun fact: This site runs on creativity',
@@ -391,10 +391,10 @@ async function initTerminalTheme() {
         'echo "Hello, World!"',
         'npm run create-awesome-stuff',
         'git commit -m "made it better"',
-        'sudo make me a sandwich',
-        'while(true) { code(); coffee(); }',
+        'sudo let me surf more',
+        'iterate() until meaningful(product)',
         './build-dreams.sh --with-passion',
-        'grep -r "bugs" . | rm -rf',
+        'grep -r "bugs" . | ./fix-them-with-ai-pipelines.sh',
     ];
 
     setTimeout(() => {
