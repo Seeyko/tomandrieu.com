@@ -169,6 +169,12 @@ body[data-theme="retro90s"] .hero-cta:hover {
   border-style: inset;
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0 #000;
+  background: linear-gradient(180deg, #ffcc00 0%, #ff6600 100%);
+  color: #000;
+}
+
+body[data-theme="retro90s"] .hero-cta::before {
+  display: none;
 }
 
 /* ─── Social Proof Stats ─── */
