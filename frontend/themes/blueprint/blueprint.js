@@ -53,7 +53,8 @@ class CursorTracker {
 
         // Visual cursor stays at viewport position
         if (customCursor) {
-            customCursor.style.transform = `translate(${this.viewportX}px, ${this.viewportY}px)`;
+            customCursor.style.left = `${this.viewportX}px`;
+            customCursor.style.top = `${this.viewportY}px`;
         }
 
         // Coordinates display full page position
