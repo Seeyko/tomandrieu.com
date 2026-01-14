@@ -1231,7 +1231,6 @@ body[data-theme="terminal"] .enderman-ascii.teleport {
     opacity: 0.8;
     transform: scale(1.2);
     filter: blur(2px);
-    box-shadow: 0 0 30px #8800ff;
   }
   100% {
     opacity: 0;
