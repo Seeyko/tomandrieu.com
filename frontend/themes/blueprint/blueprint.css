@@ -128,8 +128,8 @@ body[data-theme="blueprint"] .custom-cursor {
   transition: opacity 0.3s ease;
 }
 
-body[data-theme="blueprint"]:hover .custom-cursor {
-  opacity: 0.3;
+body[data-theme="blueprint"]:hover .cursor-icon {
+  opacity: 0.25;
 }
 
 body[data-theme="blueprint"] .cursor-icon::before,
@@ -143,13 +143,11 @@ body[data-theme="blueprint"] .cursor-icon::before {
   width: 100vw;
   height: 1px;
   left: 0;
-  top: 0;
 }
 
 body[data-theme="blueprint"] .cursor-icon::after {
   width: 1px;
   height: 100vh;
-  left: 0;
   top: 0;
 }
 
