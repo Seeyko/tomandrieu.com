@@ -1118,6 +1118,196 @@ body[data-theme="terminal"].loaded {
   animation: fadeIn 0.5s ease;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   CRO - CONVERSION RATE OPTIMIZATION (Terminal Theme)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Hero CTA */
+body[data-theme="terminal"] .hero-cta {
+  color: var(--primary);
+  border-color: var(--primary);
+  text-shadow: var(--glow-primary);
+  box-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .hero-cta:hover {
+  background: var(--primary);
+  color: var(--bg-terminal);
+  text-shadow: none;
+}
+
+/* Social Proof */
+body[data-theme="terminal"] .social-proof {
+  border-color: var(--border);
+}
+
+body[data-theme="terminal"] .proof-number {
+  color: var(--primary);
+  text-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .proof-label {
+  color: var(--text-dim);
+}
+
+/* Exit Modal */
+body[data-theme="terminal"] .exit-modal-content {
+  background: var(--bg-terminal-panel);
+  border-color: var(--border);
+}
+
+body[data-theme="terminal"] .exit-modal-title {
+  color: var(--primary);
+  text-shadow: var(--glow-primary);
+}
+
+/* Scroll Progress */
+body[data-theme="terminal"] .scroll-progress {
+  box-shadow: var(--glow-primary);
+}
+
+/* Availability Badge */
+body[data-theme="terminal"] .availability-badge {
+  color: var(--primary);
+  border-color: var(--border);
+  background: rgba(51, 255, 0, 0.05);
+}
+
+/* Contact Urgency */
+body[data-theme="terminal"] .contact-urgency {
+  background: rgba(255, 176, 0, 0.05);
+  border-color: var(--border);
+  color: var(--secondary);
+}
+
+/* Response Time */
+body[data-theme="terminal"] .response-time {
+  color: var(--text-dim);
+}
+
+/* Floating CTA */
+body[data-theme="terminal"] .floating-cta {
+  background: var(--bg-terminal-panel);
+  color: var(--primary);
+  border: 1px solid var(--border);
+  border-radius: 0;
+}
+
+body[data-theme="terminal"] .floating-cta:hover {
+  background: var(--primary);
+  color: var(--bg-terminal);
+  border-color: var(--primary);
+  box-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .floating-cta-pulse {
+  background: rgba(51, 255, 0, 0.3);
+  animation: terminal-cta-pulse 2s ease-in-out infinite;
+}
+
+@keyframes terminal-cta-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Exit Modal */
+body[data-theme="terminal"] .exit-modal {
+  background: rgba(10, 10, 10, 0.9);
+}
+
+body[data-theme="terminal"] .exit-modal-content {
+  background: var(--bg-terminal-panel);
+  border: 1px solid var(--border);
+  border-radius: 0;
+}
+
+body[data-theme="terminal"] .exit-modal-close {
+  color: var(--text-dim);
+}
+
+body[data-theme="terminal"] .exit-modal-close:hover {
+  color: var(--primary);
+  text-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .exit-modal-icon {
+  color: var(--secondary);
+}
+
+body[data-theme="terminal"] .exit-modal-text {
+  color: var(--text-dim);
+}
+
+body[data-theme="terminal"] .exit-modal-cta {
+  background: var(--bg-terminal);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 0;
+}
+
+body[data-theme="terminal"] .exit-modal-cta:hover {
+  background: var(--primary);
+  color: var(--bg-terminal);
+  box-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .exit-modal-dismiss {
+  color: var(--text-comment);
+}
+
+body[data-theme="terminal"] .exit-modal-dismiss:hover {
+  color: var(--text-dim);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   THEME SWITCHER - Terminal Theme Styling
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="terminal"] .theme-switcher-toggle {
+  color: var(--text-dim);
+}
+
+body[data-theme="terminal"] .theme-switcher-toggle:hover {
+  color: var(--primary);
+  text-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .theme-switcher-menu {
+  background: var(--bg-terminal-panel);
+  border: 1px solid var(--border);
+  border-radius: 0;
+}
+
+body[data-theme="terminal"] .theme-option {
+  color: var(--text-dim);
+  border-radius: 0;
+  font-family: var(--font-terminal);
+}
+
+body[data-theme="terminal"] .theme-option:hover {
+  background: rgba(51, 255, 0, 0.1);
+  color: var(--primary);
+}
+
+body[data-theme="terminal"] .theme-option.active {
+  background: rgba(51, 255, 0, 0.15);
+  color: var(--primary);
+  border-left: 2px solid var(--primary);
+  text-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .theme-name {
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 /* ─── Enderman Easter Egg ─── */
 
 /* Hidden eyes that watch you */

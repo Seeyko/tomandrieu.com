@@ -2055,3 +2055,207 @@ body[data-theme="retro90s"] .construction-bg-inner {
   background: var(--bg-90s);
   padding: var(--spacing-md);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   CRO - CONVERSION RATE OPTIMIZATION (Retro90s Theme)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Hero CTA */
+body[data-theme="retro90s"] .hero-cta {
+  background: linear-gradient(180deg, #ffff00 0%, #ff9900 100%);
+  border: 3px outset #ffff00;
+  color: #000;
+  font-family: 'Comic Sans MS', cursive;
+  text-shadow: none;
+  box-shadow: 4px 4px 0 #000;
+}
+
+body[data-theme="retro90s"] .hero-cta:hover {
+  border-style: inset;
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
+  background: linear-gradient(180deg, #ffcc00 0%, #ff6600 100%);
+  color: #000;
+}
+
+body[data-theme="retro90s"] .hero-cta::before {
+  display: none;
+}
+
+/* Social Proof */
+body[data-theme="retro90s"] .social-proof {
+  border-top: 3px dashed #ff00ff;
+}
+
+body[data-theme="retro90s"] .proof-number {
+  color: #00ff00;
+  text-shadow: 2px 2px #000;
+}
+
+/* Exit Modal */
+body[data-theme="retro90s"] .exit-modal {
+  background: rgba(0, 0, 128, 0.8);
+}
+
+body[data-theme="retro90s"] .exit-modal-content {
+  background: linear-gradient(180deg, #000080 0%, #000040 100%);
+  border: 3px outset #808080;
+  border-radius: 0;
+}
+
+body[data-theme="retro90s"] .exit-modal-close {
+  color: #ffffff;
+  background: var(--bg-90s);
+  border: 2px outset var(--bevel-light);
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+body[data-theme="retro90s"] .exit-modal-close:hover {
+  background: #ff0000;
+  color: #ffffff;
+}
+
+body[data-theme="retro90s"] .exit-modal-icon {
+  color: #ffff00;
+  text-shadow: 2px 2px 0 #000;
+}
+
+body[data-theme="retro90s"] .exit-modal-title {
+  color: #ffff00;
+  font-family: 'Comic Sans MS', cursive;
+  text-shadow: 2px 2px 0 #000;
+}
+
+body[data-theme="retro90s"] .exit-modal-text {
+  color: #ffffff;
+  font-family: var(--font-90s);
+}
+
+body[data-theme="retro90s"] .exit-modal-cta {
+  background: linear-gradient(180deg, #c0c0c0 0%, #808080 100%);
+  border: 2px outset #fff;
+  border-radius: 0;
+  color: #000;
+  font-family: var(--font-90s);
+  font-weight: 700;
+}
+
+body[data-theme="retro90s"] .exit-modal-cta:hover {
+  background: linear-gradient(180deg, #ffff00 0%, #ff9900 100%);
+  border-style: inset;
+}
+
+body[data-theme="retro90s"] .exit-modal-dismiss {
+  color: #aaaaaa;
+  font-family: var(--font-90s);
+}
+
+body[data-theme="retro90s"] .exit-modal-dismiss:hover {
+  color: #ffffff;
+}
+
+/* Scroll Progress */
+body[data-theme="retro90s"] .scroll-progress {
+  height: 5px;
+  background: linear-gradient(90deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff);
+}
+
+/* Availability Badge */
+body[data-theme="retro90s"] .availability-badge {
+  background: #000;
+  border: 2px solid #00ff00;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  animation: retro-blink 1s step-end infinite;
+}
+
+@keyframes retro-blink {
+  50% { opacity: 0.7; }
+}
+
+/* Contact Urgency */
+body[data-theme="retro90s"] .contact-urgency {
+  background: #ffff00;
+  border: 2px dashed #ff0000;
+  color: #000;
+  font-weight: bold;
+  animation: retro-flash 0.5s ease infinite;
+}
+
+@keyframes retro-flash {
+  50% { background: #ff9900; }
+}
+
+/* Response Time */
+body[data-theme="retro90s"] .response-time {
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+}
+
+/* Floating CTA */
+body[data-theme="retro90s"] .floating-cta {
+  background: linear-gradient(180deg, #ff00ff 0%, #9900ff 100%);
+  color: #ffffff;
+  border: 3px outset #ff99ff;
+  border-radius: 0;
+  box-shadow: 4px 4px 0 #000;
+  font-family: 'Comic Sans MS', cursive;
+  text-shadow: 1px 1px 0 #000;
+}
+
+body[data-theme="retro90s"] .floating-cta:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
+  border-style: inset;
+}
+
+body[data-theme="retro90s"] .floating-cta-pulse {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   THEME SWITCHER - Retro 90s Theme Styling
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="retro90s"] .theme-switcher-toggle {
+  color: var(--color-white);
+}
+
+body[data-theme="retro90s"] .theme-switcher-toggle:hover {
+  color: var(--color-yellow);
+}
+
+body[data-theme="retro90s"] .theme-switcher-menu {
+  background: var(--color-navy);
+  border: 3px outset var(--bevel-light);
+  border-radius: 0;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+body[data-theme="retro90s"] .theme-option {
+  color: var(--color-white);
+  border-radius: 0;
+  font-family: var(--font-90s);
+  border: none;
+  background: transparent;
+}
+
+body[data-theme="retro90s"] .theme-option:hover {
+  background: var(--color-navy-light);
+  color: var(--color-yellow);
+}
+
+body[data-theme="retro90s"] .theme-option.active {
+  background: var(--color-navy-light);
+  color: var(--color-yellow);
+  border-left: 3px solid var(--color-yellow);
+}
+
+body[data-theme="retro90s"] .theme-name {
+  font-weight: 700;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+}

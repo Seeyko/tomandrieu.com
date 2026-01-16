@@ -291,97 +291,6 @@ const ThemeManager = (function() {
     }
 
     /**
-     * Inject theme switcher styles
-     */
-    function injectStyles() {
-        const styles = document.createElement('style');
-        styles.id = 'theme-switcher-styles';
-        styles.textContent = `
-            .theme-switcher {
-                position: relative;
-                z-index: 9999;
-                font-family: inherit;
-                margin-left: 1.5rem;
-            }
-
-            .theme-switcher-toggle {
-                background: none;
-                border: none;
-                color: inherit;
-                font-size: 1.1rem;
-                cursor: pointer;
-                padding: 0.5rem;
-                opacity: 0.7;
-                transition: opacity 0.2s ease;
-                line-height: 1;
-            }
-
-            .theme-switcher-toggle:hover {
-                opacity: 1;
-            }
-
-            .theme-switcher-menu {
-                position: absolute;
-                top: 100%;
-                right: 0;
-                margin-top: 8px;
-                background: rgba(0, 0, 0, 0.95);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                border-radius: 8px;
-                padding: 8px;
-                display: none;
-                flex-direction: column;
-                gap: 4px;
-                min-width: 220px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            }
-
-            .theme-switcher-menu.open {
-                display: flex;
-                animation: slideDown 0.2s ease;
-            }
-
-            @keyframes slideDown {
-                from { opacity: 0; transform: translateY(-10px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-
-            .theme-option {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                padding: 12px 15px;
-                border: none;
-                background: transparent;
-                color: white;
-                cursor: pointer;
-                border-radius: 6px;
-                transition: all 0.2s ease;
-                text-align: left;
-            }
-
-            .theme-option:hover {
-                background: rgba(255, 255, 255, 0.1);
-            }
-
-            .theme-option.active {
-                background: rgba(255, 255, 255, 0.15);
-                border-left: 3px solid #33ff00;
-            }
-
-            .theme-icon {
-                font-size: 1.3rem;
-            }
-
-            .theme-name {
-                font-size: 0.95rem;
-                font-weight: 500;
-            }
-        `;
-        document.head.appendChild(styles);
-    }
-
-    /**
      * Initialize theme manager
      */
     function init() {
@@ -404,8 +313,7 @@ const ThemeManager = (function() {
             clearTimeout(loadingTimeout);
         });
 
-        // Create UI
-        injectStyles();
+        // Create theme switcher UI
         createThemeSwitcher();
 
         console.log(`%c[THEME MANAGER] Initialized with theme: ${validTheme}`, 'color: #00FFFF;');

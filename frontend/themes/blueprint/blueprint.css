@@ -1169,3 +1169,163 @@ body[data-theme="blueprint"] .visitor-count {
 body[data-theme="blueprint"].loaded {
   animation: fadeIn 0.5s ease;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   CRO - CONVERSION RATE OPTIMIZATION (Blueprint Theme)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Hero CTA */
+body[data-theme="blueprint"] .hero-cta {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+body[data-theme="blueprint"] .hero-cta:hover {
+  background: var(--primary);
+  color: var(--bg-blueprint);
+}
+
+/* Social Proof */
+body[data-theme="blueprint"] .social-proof {
+  border-color: var(--line-white-dim);
+}
+
+body[data-theme="blueprint"] .proof-number {
+  color: var(--accent-cyan);
+}
+
+/* Scroll Progress */
+body[data-theme="blueprint"] .scroll-progress {
+  background: var(--accent-cyan);
+}
+
+/* Availability Badge */
+body[data-theme="blueprint"] .availability-badge {
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+  background: rgba(74, 144, 226, 0.1);
+}
+
+body[data-theme="blueprint"] .availability-dot {
+  background: var(--accent-cyan);
+}
+
+/* Contact Urgency */
+body[data-theme="blueprint"] .contact-urgency {
+  background: rgba(255, 107, 107, 0.1);
+  border-color: var(--accent-redline);
+  color: var(--accent-redline);
+}
+
+/* Response Time */
+body[data-theme="blueprint"] .response-time {
+  color: var(--line-white-dim);
+}
+
+/* Floating CTA */
+body[data-theme="blueprint"] .floating-cta {
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  color: var(--color-white);
+  border-radius: 0;
+  box-shadow: 0 4px 20px rgba(74, 144, 226, 0.4);
+}
+
+body[data-theme="blueprint"] .floating-cta:hover {
+  box-shadow: 0 8px 30px rgba(74, 144, 226, 0.5);
+  transform: translateY(-2px);
+}
+
+body[data-theme="blueprint"] .floating-cta-pulse {
+  background: rgba(0, 255, 255, 0.2);
+}
+
+/* Exit Modal */
+body[data-theme="blueprint"] .exit-modal {
+  background: rgba(0, 34, 68, 0.9);
+}
+
+body[data-theme="blueprint"] .exit-modal-content {
+  background: var(--bg-blueprint-dark);
+  border: 1px solid var(--accent-cyan);
+  border-radius: 0;
+}
+
+body[data-theme="blueprint"] .exit-modal-close {
+  color: var(--line-white-dim);
+}
+
+body[data-theme="blueprint"] .exit-modal-close:hover {
+  color: var(--line-white);
+}
+
+body[data-theme="blueprint"] .exit-modal-icon {
+  color: var(--accent-cyan);
+}
+
+body[data-theme="blueprint"] .exit-modal-title {
+  color: var(--line-white);
+}
+
+body[data-theme="blueprint"] .exit-modal-text {
+  color: var(--line-white-dim);
+}
+
+body[data-theme="blueprint"] .exit-modal-cta {
+  background: transparent;
+  color: var(--accent-cyan);
+  border: 1px solid var(--accent-cyan);
+  border-radius: 0;
+}
+
+body[data-theme="blueprint"] .exit-modal-cta:hover {
+  background: var(--accent-cyan);
+  color: var(--bg-blueprint-dark);
+}
+
+body[data-theme="blueprint"] .exit-modal-dismiss {
+  color: var(--line-white-dim);
+}
+
+body[data-theme="blueprint"] .exit-modal-dismiss:hover {
+  color: var(--line-white);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   THEME SWITCHER - Blueprint Theme Styling
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="blueprint"] .theme-switcher-toggle {
+  color: var(--line-white-dim);
+}
+
+body[data-theme="blueprint"] .theme-switcher-toggle:hover {
+  color: var(--line-white);
+}
+
+body[data-theme="blueprint"] .theme-switcher-menu {
+  background: var(--bg-blueprint-dark);
+  border: 1px solid var(--accent-cyan);
+  border-radius: 0;
+}
+
+body[data-theme="blueprint"] .theme-option {
+  color: var(--line-white-dim);
+  border-radius: 0;
+  font-family: var(--font-technical);
+}
+
+body[data-theme="blueprint"] .theme-option:hover {
+  background: rgba(0, 255, 255, 0.1);
+  color: var(--line-white);
+}
+
+body[data-theme="blueprint"] .theme-option.active {
+  background: rgba(0, 255, 255, 0.15);
+  color: var(--accent-cyan);
+  border-left-color: var(--accent-cyan);
+}
+
+body[data-theme="blueprint"] .theme-name {
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}

@@ -85,7 +85,7 @@ body[data-theme="default"]::before {
   pointer-events: none;
   z-index: 9997;
   opacity: 0.35;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
 
 /* Selection */
@@ -98,38 +98,9 @@ body[data-theme="default"] ::selection {
    SHOW/HIDE THEME-SPECIFIC ELEMENTS
    ═══════════════════════════════════════════════════════════════ */
 
-/* Hide all theme-specific decorations */
-body[data-theme="default"] .hero-ascii,
-body[data-theme="default"] .hero-terminal,
-body[data-theme="default"] .hero-stats,
-body[data-theme="default"] .hero-blueprint-svg,
-body[data-theme="default"] .contact-blueprint-svg,
-body[data-theme="default"] .hero-annotation,
-body[data-theme="default"] .section-number,
-body[data-theme="default"] .section-prompt,
-body[data-theme="default"] .section-divider,
-body[data-theme="default"] .code-comment,
-body[data-theme="default"] .email-prefix,
-body[data-theme="default"] .cursor-blink,
-body[data-theme="default"] .contact-prompt,
-body[data-theme="default"] .footer-line,
-body[data-theme="default"] .footer-exit,
-body[data-theme="default"] .redline-note,
-body[data-theme="default"] .stamp,
-body[data-theme="default"] .coord-marker,
-body[data-theme="default"] .footer-scale,
-body[data-theme="default"] .cursor-coord,
-body[data-theme="default"] .theme-overlay,
-body[data-theme="default"] .custom-cursor,
-body[data-theme="default"] .retro-marquee,
-body[data-theme="default"] .hit-counter,
-body[data-theme="default"] .under-construction,
-body[data-theme="default"] .retro-badge,
-body[data-theme="default"] .guestbook-cta,
-body[data-theme="default"] .color-squares,
-body[data-theme="default"] .best-viewed {
-  display: none !important;
-}
+/* NOTE: All theme-specific elements are hidden by default in base.css.
+   Default theme only needs to show its specific elements.
+   Other themes explicitly show their elements and hide others as needed. */
 
 /* Show hero title for default theme */
 body[data-theme="default"] .hero-title {
