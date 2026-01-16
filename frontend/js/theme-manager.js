@@ -8,6 +8,14 @@
 const ThemeManager = (function() {
     // Available themes configuration
     const THEMES = {
+        default: {
+            id: 'default',
+            name: 'Default',
+            description: 'Clean & Minimal',
+            css: '/themes/default/default.css',
+            js: '/themes/default/default.js',
+            icon: '✦'
+        },
         terminal: {
             id: 'terminal',
             name: 'Terminal CLI',
@@ -35,7 +43,7 @@ const ThemeManager = (function() {
     };
 
     // Default theme
-    const DEFAULT_THEME = 'terminal';
+    const DEFAULT_THEME = 'default';
     
     // Storage key for persisting theme preference
     const STORAGE_KEY = 'portfolio_theme';
