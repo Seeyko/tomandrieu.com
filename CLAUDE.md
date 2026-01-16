@@ -166,3 +166,46 @@ Each theme has its own directory under `/frontend/themes/{theme-name}/` containi
 ### Commit Messages
 
 **IMPORTANT: Do NOT add Claude signature or Co-Authored-By lines to commits.** This breaks the user's commit signature verification.
+
+## Autonomous Development
+
+Claude is configured for autonomous development with browser testing capabilities.
+
+### Available Agents
+
+Located in `/.claude/agents/`:
+
+- **test-validator.md**: Browser testing agent that validates changes in Chrome
+- **code-reviewer.md**: Code review agent for security and quality checks
+
+### Browser Testing URLs
+
+| Environment | URL |
+|-------------|-----|
+| Local Dev | `http://localhost:8000` |
+| Production | `https://tomandrieu.com` |
+
+Theme-specific testing:
+- Terminal: `http://localhost:8000?theme=terminal`
+- Blueprint: `http://localhost:8000?theme=blueprint`
+- Retro90s: `http://localhost:8000?theme=retro90s`
+
+### Development Workflow
+
+1. **Before coding**: Read relevant files, understand existing patterns
+2. **While coding**: Follow existing code style, no over-engineering
+3. **After coding**:
+   - Start local server: `python -m http.server 8000` (from /frontend)
+   - Test in browser using Claude in Chrome
+   - Check console for errors
+   - Test all themes if theme-related
+4. **Before committing**: Run code review checks
+5. **Create PR**: Never push directly to main
+
+### Permissions Configured
+
+The following are pre-approved in `.claude/settings.local.json`:
+- Git operations (checkout, add, commit, push, branch, etc.)
+- Local server commands (python http.server, npx serve)
+- GitHub CLI (gh)
+- Chrome browser automation (mcp__claude-in-chrome__*)
