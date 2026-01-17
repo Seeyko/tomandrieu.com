@@ -111,6 +111,12 @@ body {
   transition: all 0.3s ease;
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .nav {
   display: flex;
 }
@@ -326,6 +332,12 @@ body.loading * {
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .header-right {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .nav {

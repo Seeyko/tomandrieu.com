@@ -154,24 +154,27 @@
       <span class="brand-name" data-content="meta.name">TOM ANDRIEU</span>
       <span class="brand-suffix"></span>
     </div>
-    <nav class="nav">
-      <a href="#projects" class="nav-link" data-section="01">
-        <span class="nav-prefix"></span>
-        <span class="nav-text" data-i18n="nav.projects">Projects</span>
-      </a>
-      <a href="#about" class="nav-link" data-section="02">
-        <span class="nav-prefix"></span>
-        <span class="nav-text" data-i18n="nav.about">About</span>
-      </a>
-      <a href="#blog" class="nav-link" data-section="04">
-        <span class="nav-prefix"></span>
-        <span class="nav-text" data-i18n="nav.blog">Blog</span>
-      </a>
-      <a href="#contact" class="nav-link" data-section="05">
-        <span class="nav-prefix"></span>
-        <span class="nav-text" data-i18n="nav.contact">Contact</span>
-      </a>
-    </nav>
+    <div class="header-right">
+      <nav class="nav">
+        <a href="#projects" class="nav-link" data-section="01">
+          <span class="nav-prefix"></span>
+          <span class="nav-text" data-i18n="nav.projects">Projects</span>
+        </a>
+        <a href="#about" class="nav-link" data-section="02">
+          <span class="nav-prefix"></span>
+          <span class="nav-text" data-i18n="nav.about">About</span>
+        </a>
+        <a href="#blog" class="nav-link" data-section="04">
+          <span class="nav-prefix"></span>
+          <span class="nav-text" data-i18n="nav.blog">Blog</span>
+        </a>
+        <a href="#contact" class="nav-link" data-section="05">
+          <span class="nav-prefix"></span>
+          <span class="nav-text" data-i18n="nav.contact">Contact</span>
+        </a>
+      </nav>
+      <!-- Theme and language switchers will be inserted here by JS -->
+    </div>
   </header>
 
   <!-- 90s Marquee Banner (hidden by default, shown by retro90s theme) -->
@@ -543,12 +546,14 @@
 <script src="/js/core/effects/konami.js"></script>
 <script src="/js/core/theme-init.js"></script>
 
-<!-- i18n / Language Manager (must load before theme manager) -->
+<!-- i18n / Language Manager -->
 <script src="/i18n/language-manager.js"></script>
-<script src="/i18n/language-switcher.js"></script>
 
-<!-- Theme Manager -->
+<!-- Theme Manager (loads before language-switcher for correct order) -->
 <script src="/js/theme-manager.js"></script>
+
+<!-- Language Switcher UI -->
+<script src="/i18n/language-switcher.js"></script>
 
 <!-- CRO Scripts (conversion optimization) -->
 <script src="/js/cro.js"></script>

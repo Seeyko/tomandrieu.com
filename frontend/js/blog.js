@@ -17,8 +17,9 @@ function getViewFromURL() {
 
 async function fetchArticle(slug) {
     const apiBase = Utils.getApiBaseUrl();
+    const lang = window.LanguageManager?.currentLang || 'fr';
     try {
-        const response = await fetch(`${apiBase}/api/articles/${slug}`);
+        const response = await fetch(`${apiBase}/api/articles/${slug}?lang=${lang}`);
         if (!response.ok) return response.status === 404 ? null : null;
         const data = await response.json();
         if (data.article?.coverImage) {
@@ -57,7 +58,8 @@ function renderArticleList(articles) {
     if (loading) loading.style.display = 'none';
 
     if (!articles?.length) {
-        container.innerHTML = '<p class="no-articles">No articles yet. Check back soon!</p>';
+        const noArticlesText = window.LanguageManager?.t('ui.noArticles') || 'No articles yet. Check back soon!';
+        container.innerHTML = `<p class="no-articles">${noArticlesText}</p>`;
         return;
     }
 

@@ -83,6 +83,7 @@
     "liveProducts": "Produits en Ligne"
   },
   "blog": {
+    "subtitle": "Reflexions sur le product engineering, la creation de produits significatifs et la technologie.",
     "minRead": "min de lecture",
     "newBadge": "NOUVEAU !",
     "articleNotFound": "Article Introuvable",

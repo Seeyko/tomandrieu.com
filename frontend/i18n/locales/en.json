@@ -83,6 +83,7 @@
     "liveProducts": "Live Products"
   },
   "blog": {
+    "subtitle": "Thoughts on product engineering, building meaningful products, and technology.",
     "minRead": "min read",
     "newBadge": "NEW!",
     "articleNotFound": "Article Not Found",

@@ -5,11 +5,23 @@
 const LanguageSwitcher = (() => {
     let container = null;
 
+    function detectLang() {
+        // Check URL first, then LanguageManager, then localStorage, then default
+        const urlLang = new URLSearchParams(window.location.search).get('lang');
+        if (urlLang && ['en', 'fr'].includes(urlLang)) return urlLang;
+        if (window.LanguageManager?.isLoaded) return LanguageManager.currentLang;
+        try {
+            const saved = localStorage.getItem('portfolio_lang');
+            if (saved && ['en', 'fr'].includes(saved)) return saved;
+        } catch {}
+        return 'fr';
+    }
+
     function create() {
         if (document.getElementById('language-switcher')) return;
 
-        const lang = LanguageManager.currentLang;
-        const langs = LanguageManager.SUPPORTED_LANGS;
+        const lang = detectLang();
+        const langs = window.LanguageManager?.SUPPORTED_LANGS || ['en', 'fr'];
 
         container = document.createElement('div');
         container.id = 'language-switcher';
@@ -49,9 +61,9 @@ const LanguageSwitcher = (() => {
 
         document.addEventListener('click', () => menu.classList.remove('open'));
 
-        // Insert next to theme switcher or in header
-        const target = document.getElementById('theme-switcher-container') || document.querySelector('.header');
-        target ? target.after?.(container) || target.appendChild(container) : document.body.appendChild(container);
+        // Insert into header-right container after theme switcher
+        const target = document.querySelector('.header-right') || document.querySelector('.header');
+        target ? target.appendChild(container) : document.body.appendChild(container);
     }
 
     function init() {
@@ -70,3 +82,8 @@ const LanguageSwitcher = (() => {
 })();
 
 window.LanguageSwitcher = LanguageSwitcher;
+
+// Auto-initialize on DOMContentLoaded
+document.readyState === 'loading'
+    ? document.addEventListener('DOMContentLoaded', LanguageSwitcher.init)
+    : LanguageSwitcher.init();

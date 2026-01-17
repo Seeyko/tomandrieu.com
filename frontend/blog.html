@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,6 +17,9 @@
 
   <!-- Theme Switcher UI Styles -->
   <link rel="stylesheet" href="/css/theme-switcher.css" />
+
+  <!-- Language Switcher UI Styles -->
+  <link rel="stylesheet" href="/css/language-switcher.css" />
 
   <!-- Blog Styles -->
   <link rel="stylesheet" href="/css/blog.css" />
@@ -105,30 +108,39 @@
   <header class="header blog-header">
     <div class="header-brand">
       <a href="/" class="brand-link">
-        <span class="brand-name">TOM ANDRIEU</span>
+        <span class="brand-prefix"></span>
+        <span class="brand-name" data-content="meta.name">TOM ANDRIEU</span>
+        <span class="brand-suffix"></span>
       </a>
     </div>
-    <nav class="nav">
-      <a href="/#projects" class="nav-link">
-        <span class="nav-text">Projects</span>
-      </a>
-      <a href="/#about" class="nav-link">
-        <span class="nav-text">About</span>
-      </a>
-      <a href="/blog/" class="nav-link active">
-        <span class="nav-text">Blog</span>
-      </a>
-      <a href="/#contact" class="nav-link">
-        <span class="nav-text">Contact</span>
-      </a>
-    </nav>
+    <div class="header-right">
+      <nav class="nav">
+        <a href="/#projects" class="nav-link" data-section="01">
+          <span class="nav-prefix"></span>
+          <span class="nav-text" data-i18n="nav.projects">Projects</span>
+        </a>
+        <a href="/#about" class="nav-link" data-section="02">
+          <span class="nav-prefix"></span>
+          <span class="nav-text" data-i18n="nav.about">About</span>
+        </a>
+        <a href="/blog/" class="nav-link active" data-section="04">
+          <span class="nav-prefix"></span>
+          <span class="nav-text" data-i18n="nav.blog">Blog</span>
+        </a>
+        <a href="/#contact" class="nav-link" data-section="05">
+          <span class="nav-prefix"></span>
+          <span class="nav-text" data-i18n="nav.contact">Contact</span>
+        </a>
+      </nav>
+      <!-- Theme and language switchers will be inserted here by JS -->
+    </div>
   </header>
 
   <!-- Blog Listing View -->
   <section id="blog-listing" class="blog-page">
     <div class="blog-page-header">
-      <h1 class="blog-page-title">BLOG</h1>
-      <p class="blog-page-subtitle">Thoughts on product engineering, building meaningful products, and technology.</p>
+      <h1 class="blog-page-title" data-i18n="sections.blog">BLOG</h1>
+      <p class="blog-page-subtitle" data-i18n="blog.subtitle">Thoughts on product engineering, building meaningful products, and technology.</p>
     </div>
 
     <div id="blog-list" class="blog-list">
@@ -200,8 +212,11 @@
 <!-- i18n / Language Manager -->
 <script src="/i18n/language-manager.js"></script>
 
-<!-- Theme Manager -->
+<!-- Theme Manager (loads before language-switcher for correct order) -->
 <script src="/js/theme-manager.js"></script>
+
+<!-- Language Switcher UI -->
+<script src="/i18n/language-switcher.js"></script>
 
 <!-- Blog Scripts -->
 <script>

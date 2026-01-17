@@ -92,8 +92,8 @@ const ThemeManager = (() => {
         container.querySelectorAll('.theme-option').forEach(o => o.addEventListener('click', e => { e.stopPropagation(); switchTheme(o.dataset.theme); }));
         document.addEventListener('click', () => menu.classList.remove('open'));
 
-        const target = document.querySelector('.header .nav') || document.querySelector('.header');
-        target ? target.after?.(container) || target.appendChild(container) : document.body.appendChild(container);
+        const target = document.querySelector('.header-right') || document.querySelector('.header');
+        target ? target.appendChild(container) : document.body.appendChild(container);
     }
 
     function init() {
