@@ -2,15 +2,15 @@
   "meta": {
     "name": "Tom Andrieu",
     "title": "Product Engineer",
-    "description": "Product Engineer. Je conçois et construis des produits de bout en bout. Du code jusqu'à l'impact utilisateur."
+    "description": "Product Engineer. Je construis des produits de A à Z, je parle aux users, j'itère vite, et j'aide les équipes à faire du bon boulot."
   },
   "hero": {
     "title": ["PRODUCT", "ENGINEER"],
-    "subtitle": "UNE NOUVELLE FACON DE TRAVAILLER"
+    "subtitle": "BUILD. REFINE. OWN THE OUTCOME."
   },
   "about": {
-    "intro": "Je construis des <highlight>PRODUITS</highlight> et j'aide les petites équipes à faire du <highlight>BON BOULOT</highlight>.",
-    "detail": "Le savoir-faire et l'itération, c'est ce qui compte. Je préfère rendre les gens autonomes plutôt que de les micro-manager. Bosser avec l'IA m'a rendu optimiste sur ce que des équipes focus peuvent créer.",
+    "intro": "Je construis des produits pour de <highlight>VRAIS USERS</highlight> et j'aide les petites équipes à <highlight>AVANCER VITE</highlight>.",
+    "detail": "Je parle aux utilisateurs, je gère les problèmes de bout en bout, et j'itère jusqu'à ce que ça marche. Je préfère construire un truc petit qui compte plutôt que planifier un machin énorme qui marchera jamais. Bosser avec l'IA m'a rendu optimiste sur ce que des équipes focus peuvent créer.",
     "specs": {
       "location": "FRANCE",
       "experience": "7+ ANS",

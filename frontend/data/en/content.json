@@ -2,15 +2,15 @@
   "meta": {
     "name": "Tom Andrieu",
     "title": "Product Engineer",
-    "description": "Product engineer who builds meaningful products, iterates with purpose, and helps teams do their best work."
+    "description": "Product Engineer. I build products end-to-end, talk to users, iterate fast, and help teams do their best work."
   },
   "hero": {
     "title": ["PRODUCT", "ENGINEER"],
-    "subtitle": "BUILDING THINGS THAT MATTER"
+    "subtitle": "BUILD. REFINE. OWN THE OUTCOME."
   },
   "about": {
-    "intro": "I build <highlight>MEANINGFUL</highlight> products and help small teams do their <highlight>BEST WORK</highlight>.",
-    "detail": "I care about craft and iteration. I'd rather enable others than micromanage them. Working with AI has made me even more optimistic about what focused teams can create.",
+    "intro": "I build products for <highlight>REAL USERS</highlight> and help small teams <highlight>MOVE FAST</highlight>.",
+    "detail": "I talk to users, own problems end-to-end, and iterate until it works. I'd rather build something small that matters than plan something big that doesn't. Working with AI has made me even more optimistic about what focused teams can create.",
     "specs": {
       "location": "FRANCE",
       "experience": "7+ YEARS",
