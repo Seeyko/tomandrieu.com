@@ -1,21 +1,21 @@
 {
   "meta": {
     "name": "Tom Andrieu",
-    "title": "Ingenieur Produit",
-    "description": "Ingenieur produit qui construit des produits significatifs, itere avec intention, et aide les equipes a donner le meilleur d'elles-memes."
+    "title": "Product Engineer",
+    "description": "Product Engineer. Je conçois et construis des produits de bout en bout. Du code jusqu'à l'impact utilisateur."
   },
   "hero": {
-    "title": ["INGENIEUR", "PRODUIT"],
-    "subtitle": "CONSTRUIRE CE QUI COMPTE"
+    "title": ["PRODUCT", "ENGINEER"],
+    "subtitle": "UNE NOUVELLE FACON DE TRAVAILLER"
   },
   "about": {
-    "intro": "Je construis des produits <highlight>SIGNIFICATIFS</highlight> et j'aide les petites equipes a faire leur <highlight>MEILLEUR TRAVAIL</highlight>.",
-    "detail": "J'accorde de l'importance au savoir-faire et a l'iteration. Je prefere rendre les autres autonomes plutot que de les micro-manager. Travailler avec l'IA m'a rendu encore plus optimiste sur ce que les equipes concentrees peuvent creer.",
+    "intro": "Je construis des <highlight>PRODUITS</highlight> et j'aide les petites équipes à faire du <highlight>BON BOULOT</highlight>.",
+    "detail": "Le savoir-faire et l'itération, c'est ce qui compte. Je préfère rendre les gens autonomes plutôt que de les micro-manager. Bosser avec l'IA m'a rendu optimiste sur ce que des équipes focus peuvent créer.",
     "specs": {
       "location": "FRANCE",
       "experience": "7+ ANS",
-      "focus": "INGENIERIE PRODUIT",
-      "status": "DISPONIBLE POUR PROJETS"
+      "focus": "PRODUCT ENGINEERING",
+      "status": "DISPO POUR PROJETS"
     }
   },
   "techStack": [

@@ -1,11 +1,11 @@
 {
   "meta": {
     "name": "Tom Andrieu",
-    "title": "Ingenieur Produit",
-    "description": "Ingenieur produit qui construit des produits significatifs, itere avec intention, et aide les equipes a donner le meilleur d'elles-memes."
+    "title": "Product Engineer",
+    "description": "Product Engineer qui construit des produits significatifs, itere avec intention, et aide les equipes a donner le meilleur d'elles-memes."
   },
   "hero": {
-    "title": ["INGENIEUR", "PRODUIT"],
+    "title": ["PRODUCT", "ENGINEER"],
     "subtitle": "CONSTRUIRE CE QUI COMPTE"
   },
   "about": {
@@ -14,7 +14,7 @@
     "specs": {
       "location": "FRANCE",
       "experience": "7+ ANS",
-      "focus": "INGENIERIE PRODUIT",
+      "focus": "PRODUCT ENGINEER",
       "status": "DISPONIBLE POUR PROJETS"
     },
     "specLabels": {

@@ -43,8 +43,8 @@
   },
   "terminalOutput": {
     "loadingModules": "[OK] Chargement des modules...",
-    "productEngineerInit": "[OK] Ingenieur produit initialise",
-    "readyToBuild": "[OK] Pret a construire quelque chose de significatif"
+    "productEngineerInit": "[OK] Product engineer initialise",
+    "readyToBuild": "[OK] Pret a construire quelque chose d'incroyable"
   },
   "heroStats": {
     "creativity": "CREATIVITE",
