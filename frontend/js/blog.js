@@ -80,6 +80,15 @@ async function fetchArticles(page = 1, limit = ITEMS_PER_PAGE) {
         const response = await fetch(`${apiBase}/api/articles?page=${page}&limit=${limit}`);
         if (!response.ok) throw new Error('Failed to fetch articles');
         return await response.json();
+        const data = await response.json();
+        // Fix coverImage paths - prepend API base URL for local development
+        if (data.articles) {
+            data.articles = data.articles.map(article => ({
+                ...article,
+                coverImage: article.coverImage ? `${apiBase}${article.coverImage}` : null
+            }));
+        }
+        return data;
     } catch (err) {
         console.error('%c[ERR] ' + err.message, 'color: #ff3333;');
         return { articles: [], pagination: { page: 1, limit, total: 0, totalPages: 0, hasNext: false, hasPrev: false } };
