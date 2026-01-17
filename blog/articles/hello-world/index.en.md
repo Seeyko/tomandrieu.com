@@ -10,8 +10,6 @@ Welcome to my new website.
 
 This isn't just a redesign. Not an update to showcase new projects. **It's a reset.**
 
----
-
 ## Why yet another new version?
 
 ### A new way to build
