@@ -26,7 +26,7 @@ const ThemeManager = (function() {
         },
         blueprint: {
             id: 'blueprint',
-            name: 'Architectural Blueprint',
+            name: 'Blueprint',
             description: 'Technical Drawing Aesthetic',
             css: '/themes/blueprint/blueprint.css',
             js: '/themes/blueprint/blueprint.js',

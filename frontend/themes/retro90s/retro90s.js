@@ -1045,6 +1045,9 @@ async function initRetroTheme() {
     console.log('%c[TIP] Try the Konami Code: ↑↑↓↓←→←→BA', 'color: #00FFFF;');
 }
 
+// Export blog card renderer for use by blog.js
+window.ThemeBlogCardRenderer = renderRetroBlogCard;
+
 // Run when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initRetroTheme);

@@ -102,7 +102,8 @@ async function fetchArticles(page = 1, limit = ITEMS_PER_PAGE) {
 }
 
 /**
- * Render article list
+ * Render article list using theme-specific card renderer
+ * Uses the same renderer as the landing page for consistency
  */
 function renderArticleList(articles) {
     const container = document.getElementById('blog-list');
@@ -117,32 +118,64 @@ function renderArticleList(articles) {
         return;
     }
 
-    container.innerHTML = articles.map((article, index) => {
-        const date = formatDate(article.publishedAt);
-        // Always use clean URLs (dev server supports URL rewriting)
-        const articleUrl = `/blog/${article.slug}/`;
-        return `
-            <a href="${articleUrl}" class="blog-list-card fade-in-up" style="animation-delay: ${index * 0.1}s">
-                <div class="blog-list-card-image">
-                    ${article.coverImage
-                        ? `<img src="${article.coverImage}" alt="${article.title}" loading="lazy">`
-                        : '<div class="blog-list-card-placeholder"></div>'}
-                </div>
-                <div class="blog-list-card-content">
-                    <h2 class="blog-list-card-title">${article.title}</h2>
-                    <p class="blog-list-card-excerpt">${article.excerpt}</p>
-                    <div class="blog-list-card-meta">
-                        <span class="blog-list-date">${date}</span>
-                        <span class="meta-separator">|</span>
-                        <span class="blog-list-reading-time">${article.readingTime} min read</span>
-                    </div>
-                </div>
-            </a>
-        `;
-    }).join('');
+    // Clear container
+    container.innerHTML = '';
+
+    // Use theme-specific renderer if available, otherwise use fallback
+    const renderer = window.ThemeBlogCardRenderer;
+
+    articles.forEach((article, index) => {
+        if (renderer) {
+            // Use theme-specific renderer (same as landing page)
+            const card = renderer(article, index);
+            // Add blog-list-card class for blog page specific styling
+            card.classList.add('blog-list-card');
+            container.appendChild(card);
+        } else {
+            // Fallback: Create a basic card (should rarely happen)
+            const card = createFallbackBlogCard(article, index);
+            container.appendChild(card);
+        }
+    });
 
     // Trigger animations
     initListAnimations();
+}
+
+/**
+ * Fallback blog card renderer (used if theme renderer not available)
+ */
+function createFallbackBlogCard(article, index) {
+    const card = document.createElement('a');
+    card.className = 'blog-card blog-list-card fade-in-up';
+    if (!article.coverImage) {
+        card.classList.add('no-image');
+    }
+    card.href = `/blog/${article.slug}/`;
+    card.style.animationDelay = `${index * 0.1}s`;
+
+    const date = formatDate(article.publishedAt);
+    const indexFormatted = String(index + 1).padStart(2, '0');
+
+    // Only show image if there's a cover image
+    const imageHTML = article.coverImage
+        ? `<div class="blog-card-image"><img src="${article.coverImage}" alt="${article.title}" loading="lazy"></div>`
+        : '';
+
+    card.innerHTML = `
+        ${imageHTML}
+        <div class="blog-card-content">
+            <span class="blog-index">BLOG-${indexFormatted}</span>
+            <h3 class="blog-card-title">${article.title}</h3>
+            <p class="blog-card-excerpt">${article.excerpt}</p>
+            <div class="blog-card-meta">
+                <span class="blog-date">${date}</span>
+                <span class="blog-reading-time">${article.readingTime} min read</span>
+            </div>
+        </div>
+    `;
+
+    return card;
 }
 
 /**
@@ -295,10 +328,38 @@ function initListAnimations() {
 }
 
 /**
+ * Wait for theme renderer to be available
+ * Returns a promise that resolves when theme is ready or times out
+ */
+function waitForThemeRenderer(timeout = 2000) {
+    return new Promise((resolve) => {
+        if (window.ThemeBlogCardRenderer) {
+            resolve(true);
+            return;
+        }
+
+        const startTime = Date.now();
+        const checkInterval = setInterval(() => {
+            if (window.ThemeBlogCardRenderer) {
+                clearInterval(checkInterval);
+                resolve(true);
+            } else if (Date.now() - startTime > timeout) {
+                clearInterval(checkInterval);
+                console.warn('[BLOG] Theme renderer not available, using fallback');
+                resolve(false);
+            }
+        }, 50);
+    });
+}
+
+/**
  * Initialize blog page
  */
 async function initBlog() {
     const { view, slug, page } = getViewFromURL();
+
+    // Wait for theme renderer to be available (for consistent styling)
+    await waitForThemeRenderer();
 
     if (view === 'article' && slug) {
         // Load single article

@@ -157,6 +157,9 @@ async function initDefaultTheme() {
     console.log('%c✓ Default theme ready', 'color: #0f766e;');
 }
 
+// Export blog card renderer for use by blog.js
+window.ThemeBlogCardRenderer = renderDefaultBlogCard;
+
 // Run when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initDefaultTheme);

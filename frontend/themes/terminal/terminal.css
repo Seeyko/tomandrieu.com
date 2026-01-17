@@ -733,6 +733,14 @@ body[data-theme="terminal"] .blog-card:hover {
   box-shadow: var(--glow-primary);
 }
 
+body[data-theme="terminal"] .blog-card.no-image {
+  border-left: 3px solid var(--primary);
+}
+
+body[data-theme="terminal"] .blog-card.no-image .blog-card-content {
+  padding: var(--spacing-md);
+}
+
 body[data-theme="terminal"] .blog-card-image {
   border-right: 1px solid var(--border);
 }

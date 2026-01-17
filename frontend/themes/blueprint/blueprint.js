@@ -1,6 +1,6 @@
 /**
  * ═══════════════════════════════════════════════════════════════
- * ARCHITECTURAL BLUEPRINT PORTFOLIO - Theme JavaScript
+ * BLUEPRINT PORTFOLIO - Theme JavaScript
  * "The Master Plan" Aesthetic - Theme-specific effects
  * ═══════════════════════════════════════════════════════════════
  */
@@ -266,6 +266,9 @@ async function initBlueprintTheme() {
 
     console.log('%c[BLUEPRINT] All systems operational', 'color: #00FF00;');
 }
+
+// Export blog card renderer for use by blog.js
+window.ThemeBlogCardRenderer = renderBlueprintBlogCard;
 
 // Run when DOM is ready
 if (document.readyState === 'loading') {

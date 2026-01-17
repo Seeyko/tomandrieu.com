@@ -469,6 +469,9 @@ async function initTerminalTheme() {
     console.log('%c[TIP] Open console and type help() for fun commands!', 'color: #ffb000;');
 }
 
+// Export blog card renderer for use by blog.js
+window.ThemeBlogCardRenderer = renderTerminalBlogCard;
+
 // Run when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initTerminalTheme);
