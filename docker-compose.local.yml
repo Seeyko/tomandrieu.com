@@ -12,3 +12,4 @@ services:
     environment:
       - PORT=3000
       - ARTICLES_DIR=/app/articles
+      - FRONTEND_URL=http://localhost:8000

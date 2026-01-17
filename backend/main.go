@@ -23,6 +23,13 @@ func main() {
 		port = "3000"
 	}
 
+	// Get frontend URL for CORS (supports subdomain setup)
+	frontendURL := os.Getenv("FRONTEND_URL")
+	allowedOrigins := []string{"http://localhost:8000", "http://localhost:3000"}
+	if frontendURL != "" {
+		allowedOrigins = append(allowedOrigins, frontendURL)
+	}
+
 	articleService := services.NewArticleService(articlesDir)
 	articleHandler := handlers.NewArticleHandler(articleService)
 
@@ -33,7 +40,7 @@ func main() {
 	r.Use(middleware.Compress(5))
 
 	r.Use(cors.Handler(cors.Options{
-		AllowedOrigins:   []string{"*"},
+		AllowedOrigins:   allowedOrigins,
 		AllowedMethods:   []string{"GET", "OPTIONS"},
 		AllowedHeaders:   []string{"Accept", "Content-Type"},
 		ExposedHeaders:   []string{"Link"},
@@ -54,6 +61,7 @@ func main() {
 
 	log.Printf("Starting server on port %s", port)
 	log.Printf("Articles directory: %s", articlesDir)
+	log.Printf("CORS allowed origins: %v", allowedOrigins)
 
 	if err := http.ListenAndServe(":"+port, r); err != nil {
 		log.Fatal(err)

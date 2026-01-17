@@ -6,6 +6,9 @@ services:
       context: .
       dockerfile: frontend/Dockerfile
       target: production
+      args:
+        - API_URL=${API_URL:-https://api.tomandrieu.com}
+        - FRONTEND_URL=${FRONTEND_URL:-https://tomandrieu.com}
     image: ${CI_REGISTRY_IMAGE}/frontend:${APP_VERSION:-latest}
     expose:
       - ${FRONTEND_PORT:-4200}
@@ -15,7 +18,6 @@ services:
       - "traefik.http.routers.tomandrieu-frontend.entrypoints=websecure"
       - "traefik.http.routers.tomandrieu-frontend.tls.certResolver=letsencrypt"
       - "traefik.http.services.tomandrieu-frontend.loadbalancer.server.port=4200"
-      - "traefik.http.routers.tomandrieu-frontend.priority=1"
     networks:
       - dokploy-network
 
@@ -33,13 +35,13 @@ services:
     environment:
       - PORT=${BACKEND_PORT:-3000}
       - ARTICLES_DIR=/app/articles
+      - FRONTEND_URL=${FRONTEND_URL:-https://tomandrieu.com}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.tomandrieu-api.rule=Host(`tomandrieu.com`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.tomandrieu-api.rule=Host(`api.tomandrieu.com`)"
       - "traefik.http.routers.tomandrieu-api.entrypoints=websecure"
       - "traefik.http.routers.tomandrieu-api.tls.certResolver=letsencrypt"
       - "traefik.http.services.tomandrieu-api.loadbalancer.server.port=3000"
-      - "traefik.http.routers.tomandrieu-api.priority=10"
     networks:
       - dokploy-network
 

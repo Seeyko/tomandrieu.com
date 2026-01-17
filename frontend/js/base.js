@@ -136,14 +136,15 @@ async function loadProjects() {
 }
 
 /**
- * Get the API base URL - uses localhost:3000 for local development
+ * Get the API base URL from config
+ * Uses window.APP_CONFIG.API_URL set by config.js
  */
 function getApiBaseUrl() {
-    // In local development (localhost:8000), use the backend on port 3000
-    if (window.location.hostname === 'localhost' && window.location.port === '8000') {
-        return 'http://localhost:3000';
+    // Use config if available, otherwise fall back to same-origin
+    if (window.APP_CONFIG && window.APP_CONFIG.API_URL) {
+        return window.APP_CONFIG.API_URL;
     }
-    // In production or when served by nginx, use relative path
+    // Fallback: same-origin (relative paths)
     return '';
 }
 

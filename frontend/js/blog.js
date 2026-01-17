@@ -9,12 +9,15 @@ let currentPage = 1;
 const ITEMS_PER_PAGE = 6;
 
 /**
- * Get the API base URL - uses localhost:3000 for local development
+ * Get the API base URL from config
+ * Uses window.APP_CONFIG.API_URL set by config.js
  */
 function getApiBaseUrl() {
-    if (window.location.hostname === 'localhost' && window.location.port === '8000') {
-        return 'http://localhost:3000';
+    // Use config if available, otherwise fall back to same-origin
+    if (window.APP_CONFIG && window.APP_CONFIG.API_URL) {
+        return window.APP_CONFIG.API_URL;
     }
+    // Fallback: same-origin (relative paths)
     return '';
 }
 
