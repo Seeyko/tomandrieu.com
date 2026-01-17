@@ -1,6 +1,6 @@
 ---
-title: "Hello World - Why I Revamped My Website"
-excerpt: "A fresh start: embracing AI-assisted coding, product engineering, and finally sharing my thoughts with the world."
+title: "Hello World"
+excerpt: "Un nouveau départ : le développement assisté par IA, le product engineering, et enfin partager mes pensées avec le monde."
 publishedAt: "2026-01-16"
 draft: false
 ---
@@ -23,15 +23,15 @@ Au début, quelques questions posées à ChatGPT. Puis des plugins sur mon édit
 
 Quelle claque.
 
-Au début c'était juste de l'autocomplétion. Comme si l'éditeur lisait dans mes pensées. Il savait où je voulais aller, prédisait la suite logique de mes actions.
+Au début, c'était juste de l'autocomplétion. Comme si l'éditeur lisait dans mes pensées. Il savait où je voulais aller, prédisait la suite logique de mes actions.
 
 Puis j'ai voulu lui laisser les rênes. Lui donner des missions plus complexes.
 
-Il y a eu des désillusions. Des erreurs. Du code pas rigoureux, inmaintenable sur le long terme. De la duplication, des fonctions douteuses...
+Il y a eu des désillusions. Des erreurs. Du code pas rigoureux, impossible à maintenir sur le long terme. De la duplication, des fonctions douteuses...
 
 Mais j'ai appris à dompter la bête. À m'en servir pour les tâches ingrates, mais aussi pour mieux concevoir. Tester de nouvelles technos. Voir jusqu'où je pouvais aller.
 
-J'ai construit des systèmes entiers. Microservices, event-driven, architecture scalable. Des chats temps réel, des systèmes de paiement capables d'encaisser des millions de messages par jour.
+J'ai construit des systèmes entiers. Microservices, event-driven, architecture scalable. Des chats en temps réel, des systèmes de paiement capables d'encaisser des millions de messages par jour.
 
 En quelques jours. Là où avant, j'aurais mis des mois.
 
@@ -91,7 +91,7 @@ Cette année, les choses sont différentes.
 
 Quelque chose a changé récemment.
 
-Je grandis dans ma carrière. Lead, manager, encadrer. Me rapprocher des humains. L'année 2025 a été riche en rencontres. Des discussions avec des gens fantastiques.
+Je grandis dans ma carrière. Devenir lead. Manager. Encadrer. Me rapprocher des humains. L'année 2025 a été riche en rencontres. Des discussions avec des gens fantastiques.
 
 J'ai réalisé quelque chose : **mes mots ont de la valeur.**
 
