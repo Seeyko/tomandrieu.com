@@ -423,6 +423,129 @@ body[data-theme="default"] .carousel-dot:hover {
   transform: scale(1.2);
 }
 
+/* ─── Blog Section ─── */
+body[data-theme="default"] .blog {
+  padding: var(--spacing-3xl) var(--spacing-xl);
+  background: var(--bg-secondary);
+}
+
+body[data-theme="default"] .blog .section-header {
+  margin-bottom: var(--spacing-xl);
+}
+
+body[data-theme="default"] .blog .section-title {
+  font-family: var(--font-sans);
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+  text-transform: none;
+}
+
+body[data-theme="default"] .blog-grid {
+  gap: var(--spacing-lg);
+}
+
+body[data-theme="default"] .blog-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s var(--ease-out);
+}
+
+body[data-theme="default"] .blog-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+  border-color: var(--border-medium);
+}
+
+body[data-theme="default"] .blog-card-image {
+  border-radius: var(--radius-md);
+  margin: var(--spacing-sm);
+  width: 180px;
+  height: 130px;
+}
+
+body[data-theme="default"] .blog-card-image img {
+  border-radius: var(--radius-md);
+}
+
+body[data-theme="default"] .blog-card-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+}
+
+body[data-theme="default"] .blog-card-content {
+  padding: var(--spacing-md) var(--spacing-lg) var(--spacing-md) var(--spacing-sm);
+}
+
+body[data-theme="default"] .blog-card-title {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.015em;
+  text-transform: none;
+}
+
+body[data-theme="default"] .blog-card-excerpt {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-transform: none;
+}
+
+body[data-theme="default"] .blog-card-meta {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+}
+
+body[data-theme="default"] .blog-date {
+  color: var(--accent);
+}
+
+body[data-theme="default"] .blog-footer {
+  padding: var(--spacing-xl) 0;
+}
+
+body[data-theme="default"] .view-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--accent);
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-transform: none;
+  transition: all 0.25s var(--ease-out);
+}
+
+body[data-theme="default"] .view-all-link:hover {
+  color: var(--accent-hover);
+}
+
+body[data-theme="default"] .link-bracket {
+  display: none;
+}
+
+body[data-theme="default"] .link-arrow {
+  transition: transform 0.25s var(--ease-out);
+}
+
+body[data-theme="default"] .view-all-link:hover .link-arrow {
+  transform: translateX(4px);
+}
+
+body[data-theme="default"] .no-articles {
+  color: var(--text-tertiary);
+  text-transform: none;
+}
+
 /* Section Footer */
 body[data-theme="default"] .section-footer {
   display: none;

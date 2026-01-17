@@ -164,7 +164,9 @@ const ThemeManager = (function() {
 
             const script = document.createElement('script');
             script.id = 'theme-js';
-            script.src = theme.js;
+            // Add cache-busting for development
+            const cacheBuster = window.location.hostname === 'localhost' ? `?v=${Date.now()}` : '';
+            script.src = theme.js + cacheBuster;
             script.onload = resolve;
             script.onerror = reject;
             document.body.appendChild(script);

@@ -10,6 +10,7 @@ COPY frontend/data/ /usr/share/nginx/html/data/
 COPY frontend/js/ /usr/share/nginx/html/js/
 COPY frontend/themes/ /usr/share/nginx/html/themes/
 COPY frontend/index.html /usr/share/nginx/html/
+COPY frontend/blog.html /usr/share/nginx/html/
 
 EXPOSE 4200
 

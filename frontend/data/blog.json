@@ -1,0 +1,36 @@
+{
+  "articles": [
+    {
+      "slug": "hello-world",
+      "title": "Hello World - Welcome to My Blog",
+      "excerpt": "My first blog post. A quick introduction to what I'll be writing about and why I decided to start this blog.",
+      "coverImage": "",
+      "publishedAt": "2026-01-16T00:00:00Z",
+      "readingTime": 2
+    },
+    {
+      "slug": "building-products-that-matter",
+      "title": "Building Products That Matter",
+      "excerpt": "Reflections on meaningful product development and why iteration beats perfection every time.",
+      "coverImage": "",
+      "publishedAt": "2026-01-14T00:00:00Z",
+      "readingTime": 3
+    },
+    {
+      "slug": "ai-changed-how-i-code",
+      "title": "How AI Changed the Way I Code",
+      "excerpt": "AI tools have transformed my development workflow. Here's what I've learned after months of pair programming with AI.",
+      "coverImage": "",
+      "publishedAt": "2026-01-10T00:00:00Z",
+      "readingTime": 5
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "limit": 6,
+    "total": 3,
+    "totalPages": 1,
+    "hasNext": false,
+    "hasPrev": false
+  }
+}

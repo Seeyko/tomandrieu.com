@@ -35,6 +35,31 @@ function renderDefaultCard(project, index) {
     return card;
 }
 
+// ─── Default Blog Card Renderer ───
+function renderDefaultBlogCard(article, index) {
+    const card = document.createElement('a');
+    card.className = 'blog-card fade-in-up';
+    card.href = `/blog/${article.slug}/`;
+
+    const date = PortfolioBase.formatDate(article.publishedAt);
+
+    card.innerHTML = `
+        <div class="blog-card-image">
+            ${article.coverImage ? `<img src="${article.coverImage}" alt="${article.title}" loading="lazy">` : '<div class="blog-card-placeholder"></div>'}
+        </div>
+        <div class="blog-card-content">
+            <h3 class="blog-card-title">${article.title}</h3>
+            <p class="blog-card-excerpt">${article.excerpt}</p>
+            <div class="blog-card-meta">
+                <span class="blog-date">${date}</span>
+                <span class="blog-reading-time">${article.readingTime} min read</span>
+            </div>
+        </div>
+    `;
+
+    return card;
+}
+
 // ─── Header Scroll Effect ───
 function initHeaderEffect() {
     const header = document.querySelector('.header');
@@ -106,6 +131,15 @@ async function initDefaultTheme() {
 
         // Initialize reveal animations after render
         setTimeout(initRevealAnimation, 100);
+    });
+
+    // Load and render blog articles preview (latest 3)
+    PortfolioBase.loadArticles(1, 3).then(data => {
+        if (data.articles && data.articles.length > 0) {
+            PortfolioBase.renderBlogSection(data.articles, renderDefaultBlogCard);
+            // Initialize reveal animations for blog cards
+            setTimeout(initRevealAnimation, 100);
+        }
     });
 
     // Initialize header effect

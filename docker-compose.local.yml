@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./blog/articles:/app/articles:ro
+    environment:
+      - PORT=3000
+      - ARTICLES_DIR=/app/articles

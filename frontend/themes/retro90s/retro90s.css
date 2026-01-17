@@ -947,6 +947,160 @@ body[data-theme="retro90s"] .carousel-dot:hover {
   background: var(--color-yellow);
 }
 
+/* ─── Blog Section ─── */
+body[data-theme="retro90s"] .blog {
+  padding: var(--spacing-lg) var(--spacing-md);
+  background: repeating-linear-gradient(
+    0deg,
+    var(--bg-90s) 0px,
+    var(--bg-90s) 2px,
+    #D0D0D0 2px,
+    #D0D0D0 4px
+  );
+}
+
+body[data-theme="retro90s"] .blog .section-title {
+  font-family: var(--font-90s);
+  text-shadow: 2px 2px 0 var(--color-black), -1px -1px 0 var(--color-white);
+}
+
+body[data-theme="retro90s"] .blog-grid {
+  gap: var(--spacing-md);
+}
+
+body[data-theme="retro90s"] .blog-card {
+  background: var(--bg-90s);
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+  flex-direction: column;
+}
+
+body[data-theme="retro90s"] .blog-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+body[data-theme="retro90s"] .blog-titlebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, var(--titlebar-gradient-start), var(--titlebar-gradient-end));
+  padding: 2px 4px;
+  color: var(--color-white);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+body[data-theme="retro90s"] .blog-card-image {
+  width: 100%;
+  height: 150px;
+  border-bottom: 2px solid;
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+}
+
+body[data-theme="retro90s"] .blog-card-image img {
+  filter: saturate(1.3) contrast(1.1);
+}
+
+body[data-theme="retro90s"] .blog-card-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-90s);
+  color: var(--color-gray);
+  font-family: var(--font-90s);
+  font-size: 12px;
+}
+
+body[data-theme="retro90s"] .blog-card-content {
+  padding: var(--spacing-sm);
+}
+
+body[data-theme="retro90s"] .blog-index {
+  font-family: var(--font-90s);
+  font-size: 11px;
+  color: var(--color-purple);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+
+body[data-theme="retro90s"] .blog-card-title {
+  font-family: var(--font-90s);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-blue);
+  text-decoration: underline;
+  text-transform: none;
+}
+
+body[data-theme="retro90s"] .blog-card:hover .blog-card-title {
+  color: var(--color-red);
+}
+
+body[data-theme="retro90s"] .blog-card-excerpt {
+  font-family: var(--font-90s);
+  font-size: 12px;
+  color: var(--color-black);
+  text-transform: none;
+}
+
+body[data-theme="retro90s"] .blog-card-meta {
+  font-family: var(--font-90s);
+  font-size: 11px;
+  color: var(--color-gray);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+body[data-theme="retro90s"] .blog-date {
+  color: var(--color-teal);
+}
+
+body[data-theme="retro90s"] .blog-new-badge {
+  background: var(--color-red);
+  color: var(--color-yellow);
+  padding: 1px 4px;
+  font-size: 10px;
+  font-weight: 700;
+  animation: blink-badge 0.8s infinite;
+}
+
+body[data-theme="retro90s"] .blog-footer {
+  padding: var(--spacing-md) 0;
+}
+
+body[data-theme="retro90s"] .view-all-link {
+  font-family: var(--font-90s);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-blue);
+  text-decoration: underline;
+  background: var(--bg-90s);
+  padding: 4px 12px;
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+}
+
+body[data-theme="retro90s"] .view-all-link:hover {
+  color: var(--color-red);
+  background: var(--color-yellow);
+}
+
+body[data-theme="retro90s"] .link-bracket {
+  display: none;
+}
+
+body[data-theme="retro90s"] .no-articles {
+  font-family: var(--font-90s);
+  color: var(--color-gray);
+  text-transform: none;
+}
+
 body[data-theme="retro90s"] .carousel-dot.active {
   background: var(--color-navy);
 }

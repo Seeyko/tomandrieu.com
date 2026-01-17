@@ -8,8 +8,10 @@
 // ─── Content Data ───
 let siteContent = {};
 let projects = [];
+let articles = [];
 let loadingProjects = true;
 let loadingContent = true;
+let loadingArticles = true;
 
 /**
  * Load site content from JSON
@@ -131,6 +133,113 @@ async function loadProjects() {
         loadingProjects = false;
         throw err;
     }
+}
+
+/**
+ * Get the API base URL - uses localhost:3000 for local development
+ */
+function getApiBaseUrl() {
+    // In local development (localhost:8000), use the backend on port 3000
+    if (window.location.hostname === 'localhost' && window.location.port === '8000') {
+        return 'http://localhost:3000';
+    }
+    // In production or when served by nginx, use relative path
+    return '';
+}
+
+/**
+ * Fetch and load articles from API
+ * @param {number} page - Page number (default 1)
+ * @param {number} limit - Items per page (default 6)
+ */
+async function loadArticles(page = 1, limit = 6) {
+    const apiBase = getApiBaseUrl();
+    try {
+        const response = await fetch(`${apiBase}/api/articles?page=${page}&limit=${limit}`);
+        if (!response.ok) throw new Error('Failed to fetch articles from API');
+        const data = await response.json();
+        articles = data.articles || [];
+        console.log(`%c[OK] Loaded ${articles.length} articles from API`, 'color: #33ff00;');
+        loadingArticles = false;
+        return data;
+    } catch (err) {
+        console.error('%c[ERR] API unavailable: ' + err.message, 'color: #ff3333;');
+        console.warn('%c[WARN] Make sure the backend is running (docker-compose -f docker-compose.local.yml up)', 'color: #ffb000;');
+        loadingArticles = false;
+        return { articles: [], pagination: { page: 1, limit: 6, total: 0, totalPages: 0, hasNext: false, hasPrev: false } };
+    }
+}
+
+/**
+ * Render blog section on homepage (latest articles preview)
+ * @param {Array} articlesData - Array of article objects
+ * @param {Function} cardRenderer - Theme-specific card renderer function
+ */
+function renderBlogSection(articlesData, cardRenderer) {
+    const grid = document.getElementById('blog-grid');
+    if (!grid) return;
+
+    // Hide loading
+    const loading = grid.querySelector('.blog-grid-loading');
+    if (loading) loading.style.display = 'none';
+
+    // Clear and render
+    grid.innerHTML = '';
+
+    if (!articlesData || articlesData.length === 0) {
+        grid.innerHTML = '<p class="no-articles">No articles yet. Check back soon!</p>';
+        return;
+    }
+
+    articlesData.forEach((article, index) => {
+        const card = cardRenderer(article, index);
+        grid.appendChild(card);
+    });
+
+    // Initialize scroll animations for blog cards
+    initBlogScrollAnimations();
+
+    console.log(`%c[OK] Rendered ${articlesData.length} blog cards`, 'color: #33ff00;');
+}
+
+/**
+ * Initialize scroll animations for blog cards
+ */
+function initBlogScrollAnimations() {
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.utils.toArray('.blog-card').forEach((card, i) => {
+            gsap.fromTo(card,
+                { opacity: 0, y: 30, scale: 0.98 },
+                {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top bottom-=100',
+                        end: 'top center',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.5,
+                    ease: 'power3.out',
+                    delay: i * 0.1
+                }
+            );
+        });
+    }
+}
+
+/**
+ * Format date for display
+ * @param {string} dateString - ISO date string
+ */
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    });
 }
 
 /**
@@ -434,7 +543,9 @@ async function initBase() {
 window.PortfolioBase = {
     loadProjects,
     loadContent,
+    loadArticles,
     renderProjects,
+    renderBlogSection,
     initCarousels,
     initScrollAnimations,
     initSmoothScroll,
@@ -442,6 +553,8 @@ window.PortfolioBase = {
     initKonamiCode,
     initBase,
     createMediaContent,
+    formatDate,
     get projects() { return projects; },
-    get content() { return siteContent; }
+    get content() { return siteContent; },
+    get articles() { return articles; }
 };

@@ -220,6 +220,35 @@ function renderTerminalCard(project, index) {
     return card;
 }
 
+// ─── Terminal Blog Card Renderer ───
+function renderTerminalBlogCard(article, index) {
+    const card = document.createElement('a');
+    card.className = 'blog-card fade-in-up';
+    card.href = `/blog/${article.slug}/`;
+
+    const indexFormatted = String(index + 1).padStart(2, '0');
+    const date = PortfolioBase.formatDate(article.publishedAt);
+
+    card.innerHTML = `
+        <div class="blog-card-image">
+            ${article.coverImage ? `<img src="${article.coverImage}" alt="${article.title}" loading="lazy">` : '<div class="blog-card-placeholder">[ NO IMAGE ]</div>'}
+        </div>
+        <div class="blog-card-content">
+            <div class="blog-card-header">
+                <span class="blog-index">BLOG-${indexFormatted}</span>
+            </div>
+            <h3 class="blog-card-title">> ${article.title}</h3>
+            <p class="blog-card-excerpt">${article.excerpt}</p>
+            <div class="blog-card-meta">
+                <span class="blog-date">[ ${date} ]</span>
+                <span class="blog-reading-time">~${article.readingTime} min read</span>
+            </div>
+        </div>
+    `;
+
+    return card;
+}
+
 // ─── Header Scroll Effect ───
 function initHeaderEffect() {
     const header = document.querySelector('.header');
@@ -407,6 +436,13 @@ async function initTerminalTheme() {
     // Load and render projects with terminal card renderer
     PortfolioBase.loadProjects().then(projects => {
         PortfolioBase.renderProjects(projects, renderTerminalCard);
+    });
+
+    // Load and render blog articles preview (latest 3)
+    PortfolioBase.loadArticles(1, 3).then(data => {
+        if (data.articles && data.articles.length > 0) {
+            PortfolioBase.renderBlogSection(data.articles, renderTerminalBlogCard);
+        }
     });
 
     // Initialize theme-specific effects

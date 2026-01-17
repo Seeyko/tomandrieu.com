@@ -713,6 +713,112 @@ body[data-theme="terminal"] .carousel-dot:hover {
   box-shadow: var(--glow-primary);
 }
 
+/* ─── Blog Section ─── */
+body[data-theme="terminal"] .blog {
+  padding: var(--spacing-lg) var(--spacing-md);
+}
+
+body[data-theme="terminal"] .blog-grid {
+  gap: var(--spacing-sm);
+}
+
+body[data-theme="terminal"] .blog-card {
+  background: var(--bg-terminal-panel);
+  border: 1px solid var(--border);
+}
+
+body[data-theme="terminal"] .blog-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .blog-card-image {
+  border-right: 1px solid var(--border);
+}
+
+body[data-theme="terminal"] .blog-card-image img {
+  filter: grayscale(100%) brightness(0.7) contrast(1.2);
+}
+
+body[data-theme="terminal"] .blog-card:hover .blog-card-image img {
+  filter: grayscale(50%) brightness(0.9) contrast(1.1);
+}
+
+body[data-theme="terminal"] .blog-card-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-terminal);
+  color: var(--text-comment);
+  font-size: 0.7rem;
+}
+
+body[data-theme="terminal"] .blog-card-header {
+  margin-bottom: 0.5rem;
+}
+
+body[data-theme="terminal"] .blog-index {
+  font-size: 0.65rem;
+  color: var(--secondary);
+}
+
+body[data-theme="terminal"] .blog-card-title {
+  font-family: var(--font-terminal);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .blog-card-excerpt {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-transform: none;
+}
+
+body[data-theme="terminal"] .blog-card-meta {
+  font-size: 0.65rem;
+  color: var(--text-comment);
+}
+
+body[data-theme="terminal"] .blog-date {
+  color: var(--secondary);
+}
+
+body[data-theme="terminal"] .blog-footer {
+  padding: var(--spacing-md) 0;
+}
+
+body[data-theme="terminal"] .view-all-link {
+  color: var(--primary);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+body[data-theme="terminal"] .view-all-link:hover {
+  text-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .link-bracket {
+  color: var(--text-dim);
+}
+
+body[data-theme="terminal"] .link-arrow {
+  color: var(--secondary);
+  transition: transform 0.3s ease;
+}
+
+body[data-theme="terminal"] .view-all-link:hover .link-arrow {
+  transform: translateX(5px);
+}
+
+body[data-theme="terminal"] .no-articles {
+  color: var(--text-comment);
+  font-size: 0.8rem;
+}
+
 /* Section Footer */
 body[data-theme="terminal"] .section-footer {
   margin-top: var(--spacing-md);

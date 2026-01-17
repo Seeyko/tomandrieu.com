@@ -105,6 +105,38 @@ function renderBlueprintCard(project, index) {
     return card;
 }
 
+// ─── Blueprint Blog Card Renderer ───
+function renderBlueprintBlogCard(article, index) {
+    const card = document.createElement('a');
+    card.className = 'blog-card fade-in-up';
+    card.href = `/blog/${article.slug}/`;
+    card.style.animationDelay = `${index * 0.1}s`;
+
+    const indexFormatted = String(index + 1).padStart(2, '0');
+    const date = PortfolioBase.formatDate(article.publishedAt);
+
+    card.innerHTML = `
+        <div class="blog-card-image">
+            ${article.coverImage ? `<img src="${article.coverImage}" alt="${article.title}" loading="lazy">` : '<div class="blog-card-placeholder">NO PREVIEW</div>'}
+        </div>
+        <div class="blog-card-content">
+            <span class="blog-index">BLOG-${indexFormatted}</span>
+            <h3 class="blog-card-title">${article.title}</h3>
+            <p class="blog-card-excerpt">${article.excerpt}</p>
+            <div class="blog-card-meta">
+                <span class="blog-date">${date}</span>
+                <span class="blog-reading-time">${article.readingTime} min read</span>
+            </div>
+        </div>
+        <div class="card-corner tl"></div>
+        <div class="card-corner tr"></div>
+        <div class="card-corner bl"></div>
+        <div class="card-corner br"></div>
+    `;
+
+    return card;
+}
+
 // ─── SVG Line Drawing Animation ───
 function initSVGAnimations() {
     const svgPaths = document.querySelectorAll('.frame-line, .dim-line');
@@ -208,6 +240,13 @@ async function initBlueprintTheme() {
     // Load and render projects with blueprint card renderer
     PortfolioBase.loadProjects().then(projects => {
         PortfolioBase.renderProjects(projects, renderBlueprintCard);
+    });
+
+    // Load and render blog articles preview (latest 3)
+    PortfolioBase.loadArticles(1, 3).then(data => {
+        if (data.articles && data.articles.length > 0) {
+            PortfolioBase.renderBlogSection(data.articles, renderBlueprintBlogCard);
+        }
     });
 
     // Initialize theme-specific effects

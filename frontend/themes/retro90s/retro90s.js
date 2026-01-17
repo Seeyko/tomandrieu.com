@@ -66,6 +66,43 @@ function renderRetroCard(project, index) {
     return card;
 }
 
+// ─── Retro Blog Card Renderer ───
+function renderRetroBlogCard(article, index) {
+    const card = document.createElement('a');
+    card.className = 'blog-card';
+    card.href = `/blog/${article.slug}/`;
+    card.setAttribute('data-tooltip', `Read: ${article.title}`);
+
+    const indexFormatted = String(index + 1).padStart(2, '0');
+    const date = PortfolioBase.formatDate(article.publishedAt);
+
+    card.innerHTML = `
+        <div class="project-titlebar blog-titlebar">
+            <span class="project-titlebar-text">blog_post_${indexFormatted}.html</span>
+            <div class="project-titlebar-buttons">
+                <span class="titlebar-btn">_</span>
+                <span class="titlebar-btn">□</span>
+                <span class="titlebar-btn">×</span>
+            </div>
+        </div>
+        <div class="blog-card-image">
+            ${article.coverImage ? `<img src="${article.coverImage}" alt="${article.title}" loading="lazy">` : '<div class="blog-card-placeholder">[ IMAGE LOADING... ]</div>'}
+        </div>
+        <div class="blog-card-content">
+            <span class="blog-index">POST #${indexFormatted}</span>
+            <h3 class="blog-card-title">${article.title}</h3>
+            <p class="blog-card-excerpt">${article.excerpt}</p>
+            <div class="blog-card-meta">
+                <span class="blog-date">${date}</span>
+                <span class="blog-reading-time">${article.readingTime} min read</span>
+                <span class="blog-new-badge">NEW!</span>
+            </div>
+        </div>
+    `;
+
+    return card;
+}
+
 // ─── Visual Click Feedback (simulates sound) ───
 function playVisualClick() {
     const flash = document.createElement('div');
@@ -963,6 +1000,13 @@ async function initRetroTheme() {
     PortfolioBase.loadProjects().then(projects => {
         PortfolioBase.renderProjects(projects, renderRetroCard);
         initTitlebarButtons();
+    });
+
+    // Load and render blog articles preview (latest 3)
+    PortfolioBase.loadArticles(1, 3).then(data => {
+        if (data.articles && data.articles.length > 0) {
+            PortfolioBase.renderBlogSection(data.articles, renderRetroBlogCard);
+        }
     });
 
     // Setup marquee
