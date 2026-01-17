@@ -1,7 +1,8 @@
 /**
  * ═══════════════════════════════════════════════════════════════
  * TERMINAL CLI PORTFOLIO - Theme JavaScript
- * "Cyber-Industrial Hacker" Aesthetic - Theme-specific effects
+ * "Cyber-Industrial Hacker" Aesthetic
+ * Uses new modular architecture with ThemeInit
  * ═══════════════════════════════════════════════════════════════
  */
 
@@ -19,19 +20,19 @@ console.log(`
 
 console.log('%c[SYSTEM] Terminal initialized...', 'color: #ffb000;');
 console.log('%c[OK] Portfolio v3.0 loaded', 'color: #33ff00;');
-console.log('%c[INFO] Type "help()" for easter eggs 🥚', 'color: #33ff00;');
+console.log('%c[INFO] Type "help()" for easter eggs', 'color: #33ff00;');
 
-// ─── Easter Egg Functions ───
+// ─── Easter Egg Console Functions ───
 window.help = function() {
     console.log(`
 %c╔═══════════════════════════════════════╗
 ║         AVAILABLE COMMANDS            ║
 ╠═══════════════════════════════════════╣
 ║  matrix()    - Enter the Matrix       ║
-║  party()     - 🎉 Party mode!         ║
+║  party()     - Party mode!            ║
 ║  hack()      - Hack the mainframe     ║
-║  ship()      - 🚀 Ship it now!        ║
-║  enderman()  - 👾 Summon an Enderman  ║
+║  ship()      - Ship it now!           ║
+║  enderman()  - Summon an Enderman     ║
 ║  reset()     - Reset to default       ║
 ╚═══════════════════════════════════════╝
 `, 'color: #33ff00; font-family: monospace;');
@@ -41,7 +42,7 @@ window.matrix = function() {
     document.documentElement.style.setProperty('--primary', '#00ff00');
     document.documentElement.style.setProperty('--secondary', '#003300');
     console.log('%c[SYSTEM] You are now in the Matrix...', 'color: #00ff00;');
-    console.log('%c"There is no spoon." 🥄', 'color: #00ff00;');
+    console.log('%c"There is no spoon."', 'color: #00ff00;');
 };
 
 window.party = function() {
@@ -55,48 +56,18 @@ window.party = function() {
             document.documentElement.style.setProperty('--primary', '#33ff00');
         }
     }, 100);
-    console.log('%c🎉 PARTY MODE ACTIVATED! 🎉', 'color: #ff00ff; font-size: 20px;');
+    console.log('%c PARTY MODE ACTIVATED!', 'color: #ff00ff; font-size: 20px;');
 };
 
 window.hack = function() {
     console.log('%c[SYSTEM] Initializing hack sequence...', 'color: #ffb000;');
     console.log('%c[████████████████████] 100%', 'color: #33ff00;');
-    console.log('%c[SUCCESS] Access granted! Just kidding 😄', 'color: #33ff00;');
+    console.log('%c[SUCCESS] Access granted! Just kidding', 'color: #33ff00;');
 };
 
 window.ship = function() {
-    console.log('%c🚀 Another iteration deployed!', 'color: #ffb000; font-size: 16px;');
+    console.log('%c Another iteration deployed!', 'color: #ffb000; font-size: 16px;');
     console.log('%c[OK] Small steps, meaningful progress.', 'color: #33ff00;');
-};
-
-window.enderman = function() {
-    console.log(`
-%c      ▄██████▄
-      █ %c▓▓%c  %c▓▓%c █
-      █      █
-      ▀██████▀
-         ██
-       ██████
-      ██ ██ ██
-     ██  ██  ██
-         ██
-        ████
-       ██  ██
-      ██    ██
-%c[ENTITY] Enderman spotted... Don't look directly at it!
-`, 'color: #1a1a1a; background: #0a0a0a;', 'color: #ff00ff;', 'color: #1a1a1a;', 'color: #ff00ff;', 'color: #1a1a1a;', 'color: #ff00ff;');
-
-    // Trigger visual effect on page
-    const endermanEl = document.querySelector('.enderman-ascii');
-    if (endermanEl) {
-        endermanEl.classList.add('visible');
-        setTimeout(() => {
-            endermanEl.classList.add('teleport');
-            setTimeout(() => {
-                endermanEl.classList.remove('visible', 'teleport');
-            }, 500);
-        }, 3000);
-    }
 };
 
 window.reset = function() {
@@ -105,45 +76,7 @@ window.reset = function() {
     console.log('%c[SYSTEM] Colors reset to default', 'color: #33ff00;');
 };
 
-// ─── DOM Elements ───
-const customCursor = document.getElementById('custom-cursor');
-const coordX = document.getElementById('coord-x');
-const coordY = document.getElementById('coord-y');
-const heroTyped = document.getElementById('hero-typed');
-
-// ─── Cursor Block Tracker ───
-class CursorTracker {
-    constructor() {
-        this.cursorX = 0;
-        this.cursorY = 0;
-        this.targetX = 0;
-        this.targetY = 0;
-        this.init();
-    }
-
-    init() {
-        document.addEventListener('mousemove', this.handleMouseMove.bind(this));
-        this.animate();
-    }
-
-    handleMouseMove(e) {
-        this.targetX = e.clientX;
-        this.targetY = e.clientY;
-    }
-
-    animate() {
-        this.cursorX += (this.targetX - this.cursorX) * 0.15;
-        this.cursorY += (this.targetY - this.cursorY) * 0.15;
-
-        if (customCursor) {
-            customCursor.style.transform = `translate(${this.cursorX + 10}px, ${this.cursorY - 10}px)`;
-        }
-
-        requestAnimationFrame(this.animate.bind(this));
-    }
-}
-
-// ─── Typewriter Effect ───
+// ─── Typewriter Effect Class ───
 class Typewriter {
     constructor(element, texts, speed = 80) {
         this.element = element;
@@ -152,8 +85,7 @@ class Typewriter {
         this.textIndex = 0;
         this.charIndex = 0;
         this.isDeleting = false;
-        this.isPaused = false;
-        
+
         if (this.element) {
             this.type();
         }
@@ -161,7 +93,7 @@ class Typewriter {
 
     type() {
         const currentText = this.texts[this.textIndex];
-        
+
         if (this.isDeleting) {
             this.element.textContent = currentText.substring(0, this.charIndex - 1);
             this.charIndex--;
@@ -173,117 +105,119 @@ class Typewriter {
         let delay = this.isDeleting ? this.speed / 2 : this.speed;
 
         if (!this.isDeleting && this.charIndex === currentText.length) {
-            delay = 2000; // Pause at end
+            delay = 2000;
             this.isDeleting = true;
         } else if (this.isDeleting && this.charIndex === 0) {
             this.isDeleting = false;
             this.textIndex = (this.textIndex + 1) % this.texts.length;
-            delay = 500; // Pause before next text
+            delay = 500;
         }
 
         setTimeout(() => this.type(), delay);
     }
 }
 
-// ─── Terminal Card Renderer ───
-function renderTerminalCard(project, index) {
-    const card = document.createElement('a');
-    card.className = 'project-card fade-in-up';
-    card.href = project.url;
-    card.target = '_blank';
-    card.rel = 'noopener noreferrer';
+// Theme configuration
+const terminalThemeConfig = {
+    name: 'Terminal',
 
-    const carouselId = `carousel-${project.id}`;
-    const mediaContent = PortfolioBase.createMediaContent(project, carouselId);
-    const tagsHTML = project.tags.map(tag => `<span class="tag">[ ${tag} ]</span>`).join('');
-    const indexFormatted = String(index + 1).padStart(2, '0');
-
-    card.innerHTML = `
-        <div class="project-card-header">
-            <span class="project-index">PRJ-${indexFormatted}</span>
-            <span class="project-type">// ${project.type}</span>
-        </div>
-        <div class="project-media-container">
-            ${mediaContent}
-        </div>
-        <div class="project-info">
-            <h3>> ${project.title}</h3>
-            <p>${project.description}</p>
-            <div class="tags">${tagsHTML}</div>
-            <div class="project-link">
-                <span class="link-icon">→</span>
-                <span>${project.url}</span>
+    // Card rendering configuration
+    cards: {
+        wrapperClass: 'project-card fade-in-up',
+        showIndex: true,
+        indexPrefix: 'PRJ-',
+        indexPadding: 2,
+        showType: true,
+        typePrefix: '// ',
+        titlePrefix: '> ',
+        tagWrapper: '[ {tag} ]',
+        showUrl: true,
+        urlIcon: '&#8594;',  // →
+        // Custom header template for terminal style
+        headerTemplate: (project, indexFormatted) => `
+            <div class="project-card-header">
+                <span class="project-index">PRJ-${indexFormatted}</span>
+                <span class="project-type">// ${project.type}</span>
             </div>
-        </div>
-    `;
+        `
+    },
 
-    return card;
-}
-
-// ─── Terminal Blog Card Renderer ───
-function renderTerminalBlogCard(article, index) {
-    const card = document.createElement('a');
-    card.className = 'blog-card fade-in-up';
-    if (!article.coverImage) {
-        card.classList.add('no-image');
-    }
-    card.href = `/blog/${article.slug}/`;
-
-    const indexFormatted = String(index + 1).padStart(2, '0');
-    const date = PortfolioBase.formatDate(article.publishedAt);
-
-    // Only show image container if there's a cover image
-    const imageHTML = article.coverImage
-        ? `<div class="blog-card-image"><img src="${article.coverImage}" alt="${article.title}" loading="lazy"></div>`
-        : '';
-
-    card.innerHTML = `
-        ${imageHTML}
-        <div class="blog-card-content">
+    // Blog card configuration
+    blogCards: {
+        wrapperClass: 'blog-card fade-in-up',
+        showIndex: true,
+        indexPrefix: 'BLOG-',
+        indexPadding: 2,
+        titlePrefix: '> ',
+        dateWrapper: '[ {date} ]',
+        readingTimePrefix: '~',
+        // Custom header template
+        headerTemplate: (article, indexFormatted) => `
             <div class="blog-card-header">
                 <span class="blog-index">BLOG-${indexFormatted}</span>
             </div>
-            <h3 class="blog-card-title">> ${article.title}</h3>
-            <p class="blog-card-excerpt">${article.excerpt}</p>
-            <div class="blog-card-meta">
-                <span class="blog-date">[ ${date} ]</span>
-                <span class="blog-reading-time">~${article.readingTime} min read</span>
-            </div>
-        </div>
-    `;
+        `
+    },
 
-    return card;
+    // Cursor tracker configuration
+    cursor: {
+        mode: 'viewport',
+        cursorSelector: '#custom-cursor',
+        smoothing: 0.15,
+        offsetX: 10,
+        offsetY: -10
+    },
+
+    // Header scroll effect
+    headerScroll: 'terminal',
+
+    // Konami code easter egg
+    konami: handleKonami,
+
+    // Theme-specific effects
+    initEffects: initTerminalEffects,
+
+    // Ready callback
+    onReady: () => {
+        console.log('%c[OK] All systems operational', 'color: #33ff00;');
+        console.log('%c[TIP] Open console and type help() for fun commands!', 'color: #ffb000;');
+    }
+};
+
+// ─── Theme-Specific Effects ───
+function initTerminalEffects() {
+    initTypewriter();
+    initGlitchEffect();
+    initLoadingSpinner();
+    initRandomMessages();
+    initKeyboardShortcuts();
+    randomGlitch();
+    createEndermanElement();
 }
 
-// ─── Header Scroll Effect ───
-function initHeaderEffect() {
-    const header = document.querySelector('.header');
-    if (!header) return;
+// ─── Typewriter Initialization ───
+function initTypewriter() {
+    const heroTyped = document.getElementById('hero-typed');
+    const heroMessages = [
+        'echo "Hello, World!"',
+        'npm run create-awesome-stuff',
+        'git commit -m "made it better"',
+        'sudo let me surf more',
+        'iterate() until meaningful(product)',
+        './build-dreams.sh --with-passion',
+        'grep -r "bugs" . | ./fix-them-with-ai-pipelines.sh',
+    ];
 
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.scrollY;
-
-        if (currentScroll > 50) {
-            header.style.background = 'rgba(10, 10, 10, 0.98)';
-            header.style.borderBottomColor = 'var(--primary)';
-            header.style.boxShadow = '0 0 20px rgba(51, 255, 0, 0.1)';
-        } else {
-            header.style.background = 'var(--bg-terminal)';
-            header.style.borderBottomColor = 'var(--border)';
-            header.style.boxShadow = 'none';
-        }
-    });
+    setTimeout(() => {
+        new Typewriter(heroTyped, heroMessages, 60);
+    }, 1000);
 }
 
 // ─── Glitch Effect on Hover ───
 function initGlitchEffect() {
     document.querySelectorAll('.section-title').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            el.classList.add('glitching');
-        });
-        el.addEventListener('mouseleave', () => {
-            el.classList.remove('glitching');
-        });
+        el.addEventListener('mouseenter', () => el.classList.add('glitching'));
+        el.addEventListener('mouseleave', () => el.classList.remove('glitching'));
     });
 }
 
@@ -315,14 +249,14 @@ function initLoadingSpinner() {
     }, 100);
 }
 
-// ─── Fun Random Terminal Messages ───
+// ─── Random Terminal Messages ───
 function initRandomMessages() {
     const messages = [
         '[INFO] Good things take time and iteration',
-        '[INFO] Remember to stretch! 🧘',
+        '[INFO] Remember to stretch!',
         '[OK] All systems nominal',
         '[INFO] Fun fact: This site runs on creativity',
-        '[INFO] You found a hidden message! 🎉',
+        '[INFO] You found a hidden message!',
         '[OK] Matrix stability at 100%',
         '[INFO] Keep being awesome!',
         '[WARN] Enderman detected in sector 7...',
@@ -341,22 +275,52 @@ function initKeyboardShortcuts() {
     document.addEventListener('keydown', (e) => {
         if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
             e.preventDefault();
-            console.log('%c[SYSTEM] Search not implemented... yet! 🔍', 'color: #ffb000;');
+            console.log('%c[SYSTEM] Search not implemented... yet!', 'color: #ffb000;');
         }
     });
 }
 
 // ─── Konami Code Handler ───
 function handleKonami() {
-    console.log('%c🎮 KONAMI CODE ACTIVATED! 🎮', 'color: #ffb000; font-size: 20px;');
+    console.log('%c KONAMI CODE ACTIVATED!', 'color: #ffb000; font-size: 20px;');
     document.documentElement.style.setProperty('--primary', '#ffb000');
     document.documentElement.style.setProperty('--secondary', '#ff3333');
-    
+
     setTimeout(() => {
         document.documentElement.style.setProperty('--primary', '#33ff00');
         document.documentElement.style.setProperty('--secondary', '#ffb000');
     }, 5000);
 }
+
+// ─── Enderman Easter Egg ───
+window.enderman = function() {
+    console.log(`
+%c      ▄██████▄
+      █ %c▓▓%c  %c▓▓%c █
+      █      █
+      ▀██████▀
+         ██
+       ██████
+      ██ ██ ██
+     ██  ██  ██
+         ██
+        ████
+       ██  ██
+      ██    ██
+%c[ENTITY] Enderman spotted... Don't look directly at it!
+`, 'color: #1a1a1a; background: #0a0a0a;', 'color: #ff00ff;', 'color: #1a1a1a;', 'color: #ff00ff;', 'color: #1a1a1a;', 'color: #ff00ff;');
+
+    const endermanEl = document.querySelector('.enderman-ascii');
+    if (endermanEl) {
+        endermanEl.classList.add('visible');
+        setTimeout(() => {
+            endermanEl.classList.add('teleport');
+            setTimeout(() => {
+                endermanEl.classList.remove('visible', 'teleport');
+            }, 500);
+        }, 3000);
+    }
+};
 
 // ─── Create Enderman Element ───
 function createEndermanElement() {
@@ -383,18 +347,15 @@ function createEndermanElement() {
       ██    ██</pre>`;
     document.body.appendChild(enderman);
 
-    // Hover detection for eyes
     let hoverTimer = null;
 
     eyes.addEventListener('mouseenter', () => {
         eyes.classList.add('watching');
         hoverTimer = setTimeout(() => {
-            // Trigger enderman appearance
             eyes.classList.add('triggered');
             enderman.classList.add('visible');
             console.log('%c[ENTITY] You looked at it for too long...', 'color: #ff00ff;');
 
-            // Teleport away after 3 seconds
             setTimeout(() => {
                 enderman.classList.add('teleport');
                 setTimeout(() => {
@@ -414,67 +375,13 @@ function createEndermanElement() {
     });
 }
 
-// ─── Initialize Terminal Theme ───
-async function initTerminalTheme() {
+// ─── Export Blog Card Renderer ───
+ThemeInit.exportBlogRenderer((article, index) => {
+    return CardRenderer.renderBlogCard(article, index, terminalThemeConfig.blogCards);
+});
+
+// ─── Initialize Theme ───
+ThemeInit.whenReady(() => {
     console.log('%c[SYSTEM] DOM Ready - Initializing Terminal modules...', 'color: #ffb000;');
-
-    // Initialize cursor tracker
-    new CursorTracker();
-
-    // Initialize typewriter
-    const heroMessages = [
-        'echo "Hello, World!"',
-        'npm run create-awesome-stuff',
-        'git commit -m "made it better"',
-        'sudo let me surf more',
-        'iterate() until meaningful(product)',
-        './build-dreams.sh --with-passion',
-        'grep -r "bugs" . | ./fix-them-with-ai-pipelines.sh',
-    ];
-
-    setTimeout(() => {
-        new Typewriter(heroTyped, heroMessages, 60);
-    }, 1000);
-
-    // Initialize base and load content
-    await PortfolioBase.initBase();
-
-    // Load and render projects with terminal card renderer
-    PortfolioBase.loadProjects().then(projects => {
-        PortfolioBase.renderProjects(projects, renderTerminalCard);
-    });
-
-    // Load and render blog articles preview (latest 3)
-    PortfolioBase.loadArticles(1, 3).then(data => {
-        if (data.articles && data.articles.length > 0) {
-            PortfolioBase.renderBlogSection(data.articles, renderTerminalBlogCard);
-        }
-    });
-
-    // Initialize theme-specific effects
-    initHeaderEffect();
-    initGlitchEffect();
-    initLoadingSpinner();
-    initRandomMessages();
-    initKeyboardShortcuts();
-    randomGlitch();
-
-    // Create Enderman easter egg element
-    createEndermanElement();
-
-    // Initialize konami code
-    PortfolioBase.initKonamiCode(handleKonami);
-
-    console.log('%c[OK] All systems operational ✓', 'color: #33ff00;');
-    console.log('%c[TIP] Open console and type help() for fun commands!', 'color: #ffb000;');
-}
-
-// Export blog card renderer for use by blog.js
-window.ThemeBlogCardRenderer = renderTerminalBlogCard;
-
-// Run when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initTerminalTheme);
-} else {
-    initTerminalTheme();
-}
+    ThemeInit.init(terminalThemeConfig);
+});

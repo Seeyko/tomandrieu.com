@@ -2,114 +2,14 @@
  * ═══════════════════════════════════════════════════════════════
  * RETRO 90s / GEOCITIES PORTFOLIO - Theme JavaScript
  * "Welcome to 1997" - MAXIMUM PLAYFULNESS EDITION
- * Now with 500% more interactions!
+ * Uses new modular architecture with ThemeInit
  * ═══════════════════════════════════════════════════════════════
  */
 
 console.log('%c[RETRO 90s] Welcome to 1997!', 'color: #FF00FF; font-size: 20px; font-family: "Comic Sans MS", cursive; text-shadow: 2px 2px 0 #FFFF00;');
 console.log('%c♦♦♦ Best viewed with Netscape Navigator 4.0 at 800x600 ♦♦♦', 'color: #00FF00; font-size: 12px;');
 
-// ─── Marquee Setup ───
-function setupMarquee() {
-    const marquee = document.querySelector('.retro-marquee .marquee-content');
-    if (!marquee) return;
-
-    // Duplicate content for seamless loop
-    const content = marquee.innerHTML;
-    marquee.innerHTML = content + content;
-}
-
-// ─── Retro Project Card Renderer ───
-function renderRetroCard(project, index) {
-    const card = document.createElement('a');
-    card.className = 'project-card';
-    card.href = project.url;
-    card.target = '_blank';
-    card.rel = 'noopener noreferrer';
-    card.setAttribute('data-tooltip', `Click to visit ${project.title}!`);
-
-    const carouselId = `carousel-${project.id}`;
-    const mediaContent = PortfolioBase.createMediaContent(project, carouselId);
-    const tagsHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
-    const indexFormatted = String(index + 1).padStart(2, '0');
-
-    card.innerHTML = `
-        <div class="project-titlebar">
-            <span class="project-titlebar-text">${project.title}.exe</span>
-            <div class="project-titlebar-buttons">
-                <span class="titlebar-btn" data-action="minimize">_</span>
-                <span class="titlebar-btn" data-action="maximize">□</span>
-                <span class="titlebar-btn" data-action="close">×</span>
-            </div>
-        </div>
-        <div class="project-media-container">
-            <span class="project-index">#${indexFormatted}</span>
-            ${mediaContent}
-        </div>
-        <div class="project-info">
-            <span class="project-type">${project.type}</span>
-            <h3>${project.title}</h3>
-            <p>${project.description}</p>
-            <div class="tags">${tagsHTML}</div>
-            <div class="project-link">
-                <span class="link-icon">→</span>
-                <span class="link-url">Click here to visit!</span>
-            </div>
-        </div>
-    `;
-
-    // Add hover sound effect simulation (visual feedback)
-    card.addEventListener('mouseenter', () => {
-        playVisualClick();
-    });
-
-    return card;
-}
-
-// ─── Retro Blog Card Renderer ───
-function renderRetroBlogCard(article, index) {
-    const card = document.createElement('a');
-    card.className = 'blog-card';
-    if (!article.coverImage) {
-        card.classList.add('no-image');
-    }
-    card.href = `/blog/${article.slug}/`;
-    card.setAttribute('data-tooltip', `Read: ${article.title}`);
-
-    const indexFormatted = String(index + 1).padStart(2, '0');
-    const date = PortfolioBase.formatDate(article.publishedAt);
-
-    // Only show image container if there's a cover image
-    const imageHTML = article.coverImage
-        ? `<div class="blog-card-image"><img src="${article.coverImage}" alt="${article.title}" loading="lazy"></div>`
-        : '';
-
-    card.innerHTML = `
-        <div class="project-titlebar blog-titlebar">
-            <span class="project-titlebar-text">blog_post_${indexFormatted}.html</span>
-            <div class="project-titlebar-buttons">
-                <span class="titlebar-btn">_</span>
-                <span class="titlebar-btn">□</span>
-                <span class="titlebar-btn">×</span>
-            </div>
-        </div>
-        ${imageHTML}
-        <div class="blog-card-content">
-            <span class="blog-index">POST #${indexFormatted}</span>
-            <h3 class="blog-card-title">${article.title}</h3>
-            <p class="blog-card-excerpt">${article.excerpt}</p>
-            <div class="blog-card-meta">
-                <span class="blog-date">${date}</span>
-                <span class="blog-reading-time">${article.readingTime} min read</span>
-                <span class="blog-new-badge">NEW!</span>
-            </div>
-        </div>
-    `;
-
-    return card;
-}
-
-// ─── Visual Click Feedback (simulates sound) ───
+// ─── Visual Click Feedback ───
 function playVisualClick() {
     const flash = document.createElement('div');
     flash.style.cssText = `
@@ -140,7 +40,6 @@ class CursorTrail {
     }
 
     init() {
-        // Create trail elements
         for (let i = 0; i < this.maxTrails; i++) {
             const trail = document.createElement('div');
             trail.className = 'cursor-trail';
@@ -156,12 +55,7 @@ class CursorTrail {
             `;
             trail.textContent = this.shapes[i % this.shapes.length];
             document.body.appendChild(trail);
-            this.trails.push({
-                el: trail,
-                x: 0,
-                y: 0,
-                age: 0
-            });
+            this.trails.push({ el: trail, x: 0, y: 0, age: 0 });
         }
 
         document.addEventListener('mousemove', this.handleMouseMove.bind(this));
@@ -174,17 +68,14 @@ class CursorTrail {
     }
 
     animate() {
-        // Shift trails
         for (let i = this.trails.length - 1; i > 0; i--) {
             this.trails[i].x = this.trails[i - 1].x;
             this.trails[i].y = this.trails[i - 1].y;
         }
 
-        // Update first trail to cursor position
         this.trails[0].x = this.lastX;
         this.trails[0].y = this.lastY;
 
-        // Update trail positions and colors
         this.trails.forEach((trail, i) => {
             const opacity = 1 - (i / this.maxTrails);
             const colorIndex = Math.floor(this.colorIndex + i) % this.colors.length;
@@ -196,9 +87,7 @@ class CursorTrail {
             trail.el.style.transform = `translate(-50%, -50%) scale(${1 - i * 0.05}) rotate(${i * 15}deg)`;
         });
 
-        // Cycle colors
         this.colorIndex = (this.colorIndex + 0.05) % this.colors.length;
-
         requestAnimationFrame(this.animate.bind(this));
     }
 }
@@ -261,7 +150,6 @@ class FlyingShapes {
     }
 
     init() {
-        // Create initial shapes
         for (let i = 0; i < 6; i++) {
             this.createShape(i * 3);
         }
@@ -291,7 +179,6 @@ class FlyingShapes {
 
         document.body.appendChild(shape);
 
-        // Remove and recreate after animation
         setTimeout(() => {
             shape.remove();
             this.createShape();
@@ -377,17 +264,14 @@ class ClippyHelper {
                 </div>
                 <div class="clippy-body">
                     <svg class="clippy-svg" viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Paperclip body -->
                         <path class="clippy-wire" d="M30 95 L30 75 Q30 55 15 55 Q5 55 5 45 L5 20 Q5 5 20 5 L40 5 Q55 5 55 20 L55 60 Q55 75 40 75 L35 75"
                               fill="none" stroke="#666" stroke-width="6" stroke-linecap="round"/>
                         <path class="clippy-wire-inner" d="M30 95 L30 75 Q30 55 15 55 Q5 55 5 45 L5 20 Q5 5 20 5 L40 5 Q55 5 55 20 L55 60 Q55 75 40 75 L35 75"
                               fill="none" stroke="#999" stroke-width="4" stroke-linecap="round"/>
-                        <!-- Eyes -->
                         <ellipse class="clippy-eye-bg" cx="20" cy="30" rx="8" ry="10" fill="white" stroke="#333" stroke-width="1"/>
                         <ellipse class="clippy-eye-bg" cx="44" cy="30" rx="8" ry="10" fill="white" stroke="#333" stroke-width="1"/>
                         <circle class="clippy-pupil clippy-pupil-left" cx="22" cy="32" r="4" fill="#333"/>
                         <circle class="clippy-pupil clippy-pupil-right" cx="46" cy="32" r="4" fill="#333"/>
-                        <!-- Eyebrows -->
                         <path class="clippy-eyebrow" d="M12 20 Q20 16 28 20" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/>
                         <path class="clippy-eyebrow" d="M36 20 Q44 16 52 20" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/>
                     </svg>
@@ -397,7 +281,6 @@ class ClippyHelper {
 
         document.body.appendChild(this.container);
 
-        // Action button - scrolls to relevant section
         this.container.querySelector('.clippy-action').addEventListener('click', (e) => {
             e.stopPropagation();
             const currentMsg = this.messages[this.currentMessage];
@@ -408,7 +291,6 @@ class ClippyHelper {
                     this.showExcitedAnimation();
                 }
             } else {
-                // Default action: scroll to contact
                 const contact = document.getElementById('contact');
                 if (contact) {
                     contact.scrollIntoView({ behavior: 'smooth' });
@@ -419,19 +301,15 @@ class ClippyHelper {
             setTimeout(() => this.showNextMessage(), 3000);
         });
 
-        // Dismiss button
         this.container.querySelector('.clippy-dismiss').addEventListener('click', (e) => {
             e.stopPropagation();
             this.container.classList.remove('show-speech');
             setTimeout(() => this.showNextMessage(), 15000);
         });
 
-        // Click on Clippy body for easter egg
         this.container.querySelector('.clippy-body').addEventListener('click', () => {
             this.clickCount++;
-
             if (this.clickCount >= 5) {
-                // Easter egg: Clippy does a spin!
                 this.showEasterEgg();
                 this.clickCount = 0;
             } else if (!this.container.classList.contains('show-speech')) {
@@ -440,10 +318,7 @@ class ClippyHelper {
             }
         });
 
-        // Auto-cycle messages
         this.startMessageCycle();
-
-        // Add eye tracking
         this.initEyeTracking();
     }
 
@@ -453,42 +328,31 @@ class ClippyHelper {
         const actionBtn = this.container.querySelector('.clippy-action');
         const currentMsg = this.messages[this.currentMessage];
 
-        if (messageEl) {
-            messageEl.textContent = currentMsg.text;
-        }
+        if (messageEl) messageEl.textContent = currentMsg.text;
 
-        // Update button text based on action
         if (actionBtn) {
-            if (currentMsg.action === 'contact') {
-                actionBtn.textContent = "Let's talk!";
-            } else if (currentMsg.action === 'projects') {
-                actionBtn.textContent = "Show me!";
-            } else if (currentMsg.action === 'about') {
-                actionBtn.textContent = "Tell me more!";
-            } else {
-                actionBtn.textContent = "Cool!";
-            }
+            if (currentMsg.action === 'contact') actionBtn.textContent = "Let's talk!";
+            else if (currentMsg.action === 'projects') actionBtn.textContent = "Show me!";
+            else if (currentMsg.action === 'about') actionBtn.textContent = "Tell me more!";
+            else actionBtn.textContent = "Cool!";
         }
     }
 
     showExcitedAnimation() {
         const body = this.container.querySelector('.clippy-body');
         body.style.animation = 'none';
-        body.offsetHeight; // Trigger reflow
+        body.offsetHeight;
         body.style.animation = 'clippy-excited 0.5s ease-in-out';
     }
 
     showEasterEgg() {
         const body = this.container.querySelector('.clippy-body');
         body.style.animation = 'none';
-        body.offsetHeight; // Trigger reflow
+        body.offsetHeight;
         body.style.animation = 'clippy-spin 1s ease-in-out';
 
-        // Show special message
         const messageEl = this.container.querySelector('.clippy-message');
-        if (messageEl) {
-            messageEl.textContent = "Wheee! You found a secret! 🎉";
-        }
+        if (messageEl) messageEl.textContent = "Wheee! You found a secret!";
         this.container.classList.add('show-speech');
     }
 
@@ -524,26 +388,119 @@ class ClippyHelper {
         }, 8000);
     }
 
-    hide() {
-        if (this.container) {
-            this.container.style.display = 'none';
-        }
-    }
+    hide() { if (this.container) this.container.style.display = 'none'; }
+    show() { if (this.container) this.container.style.display = 'block'; }
+}
 
-    show() {
-        if (this.container) {
-            this.container.style.display = 'block';
+// Theme configuration
+const retroThemeConfig = {
+    name: 'Retro 90s',
+
+    // Card rendering configuration
+    cards: {
+        wrapperClass: 'project-card',
+        showIndex: true,
+        indexPrefix: '#',
+        indexPadding: 2,
+        indexInMedia: true,
+        showType: true,
+        typeInInfo: true,
+        tagWrapper: '{tag}',
+        showUrl: true,
+        urlIcon: '&#8594;',
+        urlText: 'Click here to visit!',
+        tooltip: 'Click to visit {title}!',
+        // Custom header template for Windows titlebar
+        headerTemplate: (project, indexFormatted) => `
+            <div class="project-titlebar">
+                <span class="project-titlebar-text">${project.title}.exe</span>
+                <div class="project-titlebar-buttons">
+                    <span class="titlebar-btn" data-action="minimize">_</span>
+                    <span class="titlebar-btn" data-action="maximize">□</span>
+                    <span class="titlebar-btn" data-action="close">×</span>
+                </div>
+            </div>
+        `,
+        onRender: (card, project, index) => {
+            card.addEventListener('mouseenter', () => playVisualClick());
         }
+    },
+
+    // Blog card configuration
+    blogCards: {
+        wrapperClass: 'blog-card',
+        showIndex: true,
+        indexPrefix: 'POST #',
+        indexPadding: 2,
+        showNewBadge: true,
+        tooltip: 'Read: {title}',
+        headerTemplate: (article, indexFormatted) => `
+            <div class="project-titlebar blog-titlebar">
+                <span class="project-titlebar-text">blog_post_${indexFormatted}.html</span>
+                <div class="project-titlebar-buttons">
+                    <span class="titlebar-btn">_</span>
+                    <span class="titlebar-btn">□</span>
+                    <span class="titlebar-btn">×</span>
+                </div>
+            </div>
+        `
+    },
+
+    // No cursor tracker (we use CursorTrail instead)
+    cursor: null,
+
+    // No standard header scroll (90s style doesn't need it)
+    headerScroll: null,
+
+    // Konami code easter egg
+    konami: handleKonami,
+
+    // Theme-specific effects
+    initEffects: initRetroEffects,
+
+    // Ready callback
+    onReady: () => {
+        console.log('%c[RETRO 90s] All systems GO!', 'color: #FFFF00; font-size: 16px;');
+        console.log('%c[TIP] Try the Konami Code: ↑↑↓↓←→←→BA', 'color: #00FFFF;');
     }
+};
+
+// ─── Theme-Specific Effects ───
+function initRetroEffects() {
+    setupMarquee();
+    new CursorTrail();
+    new SparkleEffect();
+    new FlyingShapes();
+    new RetroTooltips();
+    new ClippyHelper();
+    initBounceOnScroll();
+    initConstructionWobble();
+    initTechTagColors();
+    initBlinkBadges();
+    initColorSquares();
+    initScrollProgress();
+    initStatusBar();
+    initAwardsBadges();
+    initWebring();
+    initSecretDoubleClick();
+    initSectionTitleEffects();
+    // Initialize titlebar buttons after cards are rendered
+    setTimeout(initTitlebarButtons, 500);
+}
+
+// ─── Marquee Setup ───
+function setupMarquee() {
+    const marquee = document.querySelector('.retro-marquee .marquee-content');
+    if (!marquee) return;
+    const content = marquee.innerHTML;
+    marquee.innerHTML = content + content;
 }
 
 // ─── Bounce Animation on Scroll ───
 function initBounceOnScroll() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('bounce-in');
-            }
+            if (entry.isIntersecting) entry.target.classList.add('bounce-in');
         });
     }, { threshold: 0.1 });
 
@@ -553,7 +510,6 @@ function initBounceOnScroll() {
         observer.observe(el);
     });
 
-    // Add bounce animation styles
     const style = document.createElement('style');
     style.textContent = `
         .bounce-in {
@@ -568,7 +524,7 @@ function initBounceOnScroll() {
     document.head.appendChild(style);
 }
 
-// ─── Random "Under Construction" GIF Wobble ───
+// ─── Under Construction Wobble ───
 function initConstructionWobble() {
     const construction = document.querySelector('.under-construction');
     if (!construction) return;
@@ -577,19 +533,11 @@ function initConstructionWobble() {
         construction.style.transform = `rotate(${Math.random() * 6 - 3}deg)`;
     }, 2000);
 
-    // Add click to toggle message
     construction.addEventListener('click', () => {
         const inner = construction.querySelector('.under-construction-inner');
         if (inner) {
-            const messages = [
-                'SITE UNDER CONSTRUCTION!',
-                'COMING SOON!',
-                'WORK IN PROGRESS!',
-                'PARDON OUR DUST!',
-                'MORE FEATURES COMING!'
-            ];
-            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-            inner.textContent = randomMessage;
+            const messages = ['SITE UNDER CONSTRUCTION!', 'COMING SOON!', 'WORK IN PROGRESS!', 'PARDON OUR DUST!', 'MORE FEATURES COMING!'];
+            inner.textContent = messages[Math.floor(Math.random() * messages.length)];
         }
     });
 }
@@ -601,7 +549,6 @@ function initTechTagColors() {
 
     tags.forEach((tag, i) => {
         tag.setAttribute('data-tooltip', `I know ${tag.textContent}!`);
-
         tag.addEventListener('mouseenter', () => {
             tag.style.background = colors[i % colors.length];
             tag.style.color = '#FFFFFF';
@@ -615,71 +562,41 @@ function initTechTagColors() {
     });
 }
 
-// ─── Easter Egg: Konami Code ───
+// ─── Konami Code Handler ───
 function handleKonami() {
-    console.log('%c🎮 CHEAT CODE ACTIVATED!', 'color: #FFFF00; font-size: 24px; background: #000080; padding: 10px;');
+    console.log('%c CHEAT CODE ACTIVATED!', 'color: #FFFF00; font-size: 24px; background: #000080; padding: 10px;');
 
-    // Create retro alert box
     const alertBox = document.createElement('div');
     alertBox.style.cssText = `
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 99999;
-        background: #C0C0C0;
-        border: 2px solid;
-        border-color: #FFFFFF #808080 #808080 #FFFFFF;
-        padding: 0;
-        box-shadow: 4px 4px 0 rgba(0,0,0,0.5);
-        font-family: "MS Sans Serif", Tahoma, sans-serif;
-        min-width: 350px;
+        position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 99999;
+        background: #C0C0C0; border: 2px solid; border-color: #FFFFFF #808080 #808080 #FFFFFF;
+        padding: 0; box-shadow: 4px 4px 0 rgba(0,0,0,0.5); font-family: "MS Sans Serif", Tahoma, sans-serif; min-width: 350px;
     `;
 
     alertBox.innerHTML = `
         <div style="background: linear-gradient(to right, #000080, #1084D0); color: white; padding: 4px 8px; font-weight: bold; font-size: 12px; display: flex; justify-content: space-between; align-items: center;">
-            <span>🎮 Secret Message</span>
+            <span> Secret Message</span>
             <span style="cursor: pointer;" id="close-secret">×</span>
         </div>
         <div style="padding: 20px; text-align: center;">
             <p style="font-size: 14px; margin-bottom: 16px;">
-                🎉 CONGRATULATIONS! 🎉<br><br>
-                <span style="font-family: 'Comic Sans MS', cursive; color: #FF00FF; font-size: 16px;">
-                    You found the secret!
-                </span><br><br>
-                <span style="font-size: 12px; color: #808080;">
-                    Enjoy the rainbow mode for 10 seconds!
-                </span>
+                CONGRATULATIONS!<br><br>
+                <span style="font-family: 'Comic Sans MS', cursive; color: #FF00FF; font-size: 16px;">You found the secret!</span><br><br>
+                <span style="font-size: 12px; color: #808080;">Enjoy the rainbow mode for 10 seconds!</span>
             </p>
-            <button id="retro-alert-ok" style="
-                background: #C0C0C0;
-                border: 2px solid;
-                border-color: #FFFFFF #808080 #808080 #FFFFFF;
-                padding: 6px 32px;
-                font-family: inherit;
-                cursor: pointer;
-                font-weight: bold;
-                font-size: 12px;
-            ">COOL!</button>
+            <button id="retro-alert-ok" style="background: #C0C0C0; border: 2px solid; border-color: #FFFFFF #808080 #808080 #FFFFFF; padding: 6px 32px; font-family: inherit; cursor: pointer; font-weight: bold; font-size: 12px;">COOL!</button>
         </div>
     `;
 
     document.body.appendChild(alertBox);
-
     const closeAlert = () => alertBox.remove();
     document.getElementById('retro-alert-ok').addEventListener('click', closeAlert);
     document.getElementById('close-secret').addEventListener('click', closeAlert);
 
-    // Add rainbow mode
     document.body.style.animation = 'rainbow-bg 2s linear infinite';
     const rainbowStyle = document.createElement('style');
     rainbowStyle.id = 'konami-rainbow';
-    rainbowStyle.textContent = `
-        @keyframes rainbow-bg {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-    `;
+    rainbowStyle.textContent = `@keyframes rainbow-bg { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }`;
     document.head.appendChild(rainbowStyle);
 
     setTimeout(() => {
@@ -688,16 +605,13 @@ function handleKonami() {
     }, 10000);
 }
 
-// ─── Random Blink Effect for "NEW" Badges ───
+// ─── Blink Badges ───
 function initBlinkBadges() {
     const badges = document.querySelectorAll('.retro-badge');
-    badges.forEach((badge, i) => {
-        // Stagger the blink timing
-        badge.style.animationDelay = `${i * 0.2}s`;
-    });
+    badges.forEach((badge, i) => { badge.style.animationDelay = `${i * 0.2}s`; });
 }
 
-// ─── Window Title Bar Button Effects ───
+// ─── Titlebar Buttons ───
 function initTitlebarButtons() {
     document.querySelectorAll('.titlebar-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -707,46 +621,34 @@ function initTitlebarButtons() {
             const action = btn.dataset.action;
             const card = btn.closest('.project-card');
 
-            // Create a mini flash effect
             btn.style.background = '#FFFFFF';
-            setTimeout(() => {
-                btn.style.background = '';
-            }, 100);
+            setTimeout(() => { btn.style.background = ''; }, 100);
 
-            // Fun actions based on button
             if (action === 'close' && card) {
                 card.style.transition = 'transform 0.3s, opacity 0.3s';
                 card.style.transform = 'scale(0.9)';
                 card.style.opacity = '0.5';
-                setTimeout(() => {
-                    card.style.transform = '';
-                    card.style.opacity = '';
-                }, 500);
+                setTimeout(() => { card.style.transform = ''; card.style.opacity = ''; }, 500);
             } else if (action === 'maximize' && card) {
                 card.style.transition = 'transform 0.2s';
                 card.style.transform = 'scale(1.05)';
-                setTimeout(() => {
-                    card.style.transform = '';
-                }, 200);
+                setTimeout(() => { card.style.transform = ''; }, 200);
             } else if (action === 'minimize' && card) {
                 card.style.transition = 'transform 0.2s';
                 card.style.transform = 'scaleY(0.1)';
-                setTimeout(() => {
-                    card.style.transform = '';
-                }, 300);
+                setTimeout(() => { card.style.transform = ''; }, 300);
             }
         });
     });
 }
 
-// ─── Animate Color Squares ───
+// ─── Color Squares ───
 function initColorSquares() {
     const squares = document.querySelectorAll('.color-square');
     const sounds = ['boop!', 'beep!', 'click!', 'pop!', 'ding!', 'wow!'];
 
     squares.forEach((square, i) => {
         square.setAttribute('data-tooltip', sounds[i] || 'click!');
-
         square.addEventListener('mouseenter', () => {
             square.style.transform = 'scale(1.3) rotate(10deg)';
             square.style.zIndex = '10';
@@ -757,21 +659,10 @@ function initColorSquares() {
         });
         square.addEventListener('click', (e) => {
             e.preventDefault();
-            // Create a burst of that color
             for (let j = 0; j < 6; j++) {
                 const burst = document.createElement('div');
-                burst.style.cssText = `
-                    position: fixed;
-                    left: ${e.clientX}px;
-                    top: ${e.clientY}px;
-                    width: 10px;
-                    height: 10px;
-                    background: ${getComputedStyle(square).backgroundColor};
-                    pointer-events: none;
-                    z-index: 10000;
-                `;
+                burst.style.cssText = `position: fixed; left: ${e.clientX}px; top: ${e.clientY}px; width: 10px; height: 10px; background: ${getComputedStyle(square).backgroundColor}; pointer-events: none; z-index: 10000;`;
                 document.body.appendChild(burst);
-
                 const angle = (j / 6) * Math.PI * 2;
                 const velocity = 60;
                 burst.animate([
@@ -783,97 +674,43 @@ function initColorSquares() {
     });
 }
 
-// ─── Scroll Progress Bar (very 90s!) ───
+// ─── Scroll Progress Bar ───
 function initScrollProgress() {
     const progressBar = document.createElement('div');
-    progressBar.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 4px;
-        width: 0%;
-        background: linear-gradient(to right, #FF0000, #FF8000, #FFFF00, #00FF00, #00FFFF, #0080FF, #FF00FF);
-        z-index: 10001;
-        transition: width 0.1s linear;
-        box-shadow: 0 0 5px currentColor;
-    `;
+    progressBar.style.cssText = `position: fixed; top: 0; left: 0; height: 4px; width: 0%; background: linear-gradient(to right, #FF0000, #FF8000, #FFFF00, #00FF00, #00FFFF, #0080FF, #FF00FF); z-index: 10001; transition: width 0.1s linear; box-shadow: 0 0 5px currentColor;`;
     document.body.appendChild(progressBar);
 
     window.addEventListener('scroll', () => {
         const scrollTop = window.scrollY;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollPercent = (scrollTop / docHeight) * 100;
-        progressBar.style.width = scrollPercent + '%';
+        progressBar.style.width = (scrollTop / docHeight) * 100 + '%';
     });
 }
 
-// ─── Add Status Bar at Bottom ───
+// ─── Status Bar ───
 function initStatusBar() {
     const statusBar = document.createElement('div');
     statusBar.className = 'retro-status-bar';
-    statusBar.style.cssText = `
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 26px;
-        background: #C0C0C0;
-        border-top: 2px solid;
-        border-color: #FFFFFF #808080 #808080 #FFFFFF;
-        display: flex;
-        align-items: center;
-        padding: 0 4px;
-        gap: 4px;
-        font-family: "MS Sans Serif", Tahoma, sans-serif;
-        font-size: 11px;
-        z-index: 1000;
-    `;
+    statusBar.style.cssText = `position: fixed; bottom: 0; left: 0; right: 0; height: 26px; background: #C0C0C0; border-top: 2px solid; border-color: #FFFFFF #808080 #808080 #FFFFFF; display: flex; align-items: center; padding: 0 4px; gap: 4px; font-family: "MS Sans Serif", Tahoma, sans-serif; font-size: 11px; z-index: 1000;`;
 
-    const statusPanel = (content, flex = 0, id = '') => `
-        <div ${id ? `id="${id}"` : ''} style="
-            background: #C0C0C0;
-            border: 1px solid;
-            border-color: #808080 #FFFFFF #FFFFFF #808080;
-            padding: 2px 8px;
-            flex: ${flex};
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            height: 18px;
-            display: flex;
-            align-items: center;
-        ">${content}</div>
-    `;
+    const statusPanel = (content, flex = 0, id = '') => `<div ${id ? `id="${id}"` : ''} style="background: #C0C0C0; border: 1px solid; border-color: #808080 #FFFFFF #FFFFFF #808080; padding: 2px 8px; flex: ${flex}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; height: 18px; display: flex; align-items: center;">${content}</div>`;
 
     const now = new Date();
     const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 
-    statusBar.innerHTML = `
-        ${statusPanel('Ready', 1, 'status-message')}
-        ${statusPanel('<span id="status-coords">x: 0, y: 0</span>')}
-        ${statusPanel('<span id="status-time">${time}</span>')}
-    `;
-
+    statusBar.innerHTML = `${statusPanel('Ready', 1, 'status-message')}${statusPanel('<span id="status-coords">x: 0, y: 0</span>')}${statusPanel(`<span id="status-time">${time}</span>`)}`;
     document.body.appendChild(statusBar);
 
-    // Update coordinates on mouse move
     document.addEventListener('mousemove', (e) => {
         const coords = document.getElementById('status-coords');
-        if (coords) {
-            coords.textContent = `x: ${e.clientX}, y: ${e.clientY}`;
-        }
+        if (coords) coords.textContent = `x: ${e.clientX}, y: ${e.clientY}`;
     });
 
-    // Update time every minute
     setInterval(() => {
         const timeEl = document.getElementById('status-time');
-        if (timeEl) {
-            const now = new Date();
-            timeEl.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-        }
+        if (timeEl) timeEl.textContent = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
     }, 60000);
 
-    // Update status message on section scroll
     const sections = ['hero', 'projects', 'about', 'contact'];
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -892,11 +729,10 @@ function initStatusBar() {
         if (el) observer.observe(el);
     });
 
-    // Add padding to body for status bar
     document.body.style.paddingBottom = '26px';
 }
 
-// ─── Add Awards Badges ───
+// ─── Awards Badges ───
 function initAwardsBadges() {
     const contactCard = document.querySelector('.contact-card .card-body');
     if (!contactCard) return;
@@ -904,28 +740,15 @@ function initAwardsBadges() {
     const awards = document.createElement('div');
     awards.className = 'retro-awards';
     awards.innerHTML = `
-        <div class="award-badge" data-tooltip="Best Site of 1997!">
-            <span class="award-icon">🏆</span>
-            <span>Best Site 1997</span>
-        </div>
-        <div class="award-badge" data-tooltip="5 Star Rating!">
-            <span class="award-icon">⭐</span>
-            <span>5 Star Site</span>
-        </div>
-        <div class="award-badge" data-tooltip="Hot Pick of the Week!">
-            <span class="award-icon">🔥</span>
-            <span>Hot Pick</span>
-        </div>
-        <div class="award-badge" data-tooltip="Cool Site Award!">
-            <span class="award-icon">❄️</span>
-            <span>Cool Site</span>
-        </div>
+        <div class="award-badge" data-tooltip="Best Site of 1997!"><span class="award-icon">🏆</span><span>Best Site 1997</span></div>
+        <div class="award-badge" data-tooltip="5 Star Rating!"><span class="award-icon">⭐</span><span>5 Star Site</span></div>
+        <div class="award-badge" data-tooltip="Hot Pick of the Week!"><span class="award-icon">🔥</span><span>Hot Pick</span></div>
+        <div class="award-badge" data-tooltip="Cool Site Award!"><span class="award-icon">❄️</span><span>Cool Site</span></div>
     `;
-
     contactCard.appendChild(awards);
 }
 
-// ─── Add Webring Navigation ───
+// ─── Webring Navigation ───
 function initWebring() {
     const footer = document.querySelector('.footer-content');
     if (!footer) return;
@@ -934,123 +757,50 @@ function initWebring() {
     webring.className = 'retro-webring';
     webring.innerHTML = `
         <button class="webring-btn" data-tooltip="Previous site in the ring">◄ Prev</button>
-        <div class="webring-text">
-            <span class="webring-logo">🌐</span>
-            Creative Dev WebRing
-        </div>
+        <div class="webring-text"><span class="webring-logo">🌐</span> Creative Dev WebRing</div>
         <button class="webring-btn" data-tooltip="Next site in the ring">Next ►</button>
     `;
 
-    // Insert before footer info
     const footerInfo = footer.querySelector('.footer-info-row');
-    if (footerInfo) {
-        footer.insertBefore(webring, footerInfo);
-    } else {
-        footer.insertBefore(webring, footer.firstChild);
-    }
+    if (footerInfo) footer.insertBefore(webring, footerInfo);
+    else footer.insertBefore(webring, footer.firstChild);
 
-    // Add click handlers with fun messages
     webring.querySelectorAll('.webring-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            const messages = [
-                "There's only one site in this webring... this one!",
-                "You've reached the end of the internet!",
-                "404: More sites not found!",
-                "Coming soon: More awesome sites!",
-                "This is the best site in the ring!"
-            ];
-            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            const messages = ["There's only one site in this webring... this one!", "You've reached the end of the internet!", "404: More sites not found!", "Coming soon: More awesome sites!", "This is the best site in the ring!"];
             const statusEl = document.getElementById('status-message');
-            if (statusEl) {
-                statusEl.innerHTML = randomMessage;
-            }
+            if (statusEl) statusEl.innerHTML = messages[Math.floor(Math.random() * messages.length)];
         });
     });
 }
 
-// ─── Secret Double-Click Easter Egg ───
+// ─── Secret Double-Click ───
 function initSecretDoubleClick() {
     const heroTitle = document.querySelector('.hero-title');
     if (!heroTitle) return;
 
     heroTitle.addEventListener('dblclick', () => {
-        // Make the title do a flip
         heroTitle.style.transition = 'transform 0.6s ease-in-out';
         heroTitle.style.transform = 'rotateY(360deg)';
-        setTimeout(() => {
-            heroTitle.style.transform = '';
-        }, 600);
+        setTimeout(() => { heroTitle.style.transform = ''; }, 600);
     });
 }
 
-// ─── Hover Effects on Section Titles ───
+// ─── Section Title Effects ───
 function initSectionTitleEffects() {
     document.querySelectorAll('.section-title').forEach(title => {
-        title.addEventListener('mouseenter', () => {
-            title.classList.add('fire-text');
-        });
-        title.addEventListener('mouseleave', () => {
-            title.classList.remove('fire-text');
-        });
+        title.addEventListener('mouseenter', () => title.classList.add('fire-text'));
+        title.addEventListener('mouseleave', () => title.classList.remove('fire-text'));
     });
 }
 
-// ─── Initialize Retro Theme ───
-async function initRetroTheme() {
+// ─── Export Blog Card Renderer ───
+ThemeInit.exportBlogRenderer((article, index) => {
+    return CardRenderer.renderBlogCard(article, index, retroThemeConfig.blogCards);
+});
+
+// ─── Initialize Theme ───
+ThemeInit.whenReady(() => {
     console.log('%c[RETRO 90s] Initializing radical effects...', 'color: #00FF00;');
-
-    // Initialize base and load content
-    await PortfolioBase.initBase();
-
-    // Load and render projects with retro card renderer
-    PortfolioBase.loadProjects().then(projects => {
-        PortfolioBase.renderProjects(projects, renderRetroCard);
-        initTitlebarButtons();
-    });
-
-    // Load and render blog articles preview (latest 3)
-    PortfolioBase.loadArticles(1, 3).then(data => {
-        if (data.articles && data.articles.length > 0) {
-            PortfolioBase.renderBlogSection(data.articles, renderRetroBlogCard);
-        }
-    });
-
-    // Setup marquee
-    setupMarquee();
-
-    // Initialize visual effects
-    new CursorTrail();
-    new SparkleEffect();
-    new FlyingShapes();
-    new RetroTooltips();
-    new ClippyHelper();
-
-    // Initialize animations
-    initBounceOnScroll();
-    initConstructionWobble();
-    initTechTagColors();
-    initBlinkBadges();
-    initColorSquares();
-    initScrollProgress();
-    initStatusBar();
-    initAwardsBadges();
-    initWebring();
-    initSecretDoubleClick();
-    initSectionTitleEffects();
-
-    // Initialize konami code
-    PortfolioBase.initKonamiCode(handleKonami);
-
-    console.log('%c[RETRO 90s] All systems GO! 🚀', 'color: #FFFF00; font-size: 16px;');
-    console.log('%c[TIP] Try the Konami Code: ↑↑↓↓←→←→BA', 'color: #00FFFF;');
-}
-
-// Export blog card renderer for use by blog.js
-window.ThemeBlogCardRenderer = renderRetroBlogCard;
-
-// Run when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initRetroTheme);
-} else {
-    initRetroTheme();
-}
+    ThemeInit.init(retroThemeConfig);
+});

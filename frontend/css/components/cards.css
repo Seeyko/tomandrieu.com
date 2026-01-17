@@ -1,0 +1,271 @@
+/* ═══════════════════════════════════════════════════════════════
+   CARD COMPONENT - Shared styles for project and blog cards
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Project Card Base ─── */
+.project-card {
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.project-card:focus-visible {
+    outline: 2px solid var(--color-accent, currentColor);
+    outline-offset: 2px;
+}
+
+/* ─── Project Card Header ─── */
+.project-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm);
+    font-size: 0.75rem;
+}
+
+.project-index {
+    font-family: var(--font-mono, monospace);
+    font-weight: 500;
+    opacity: 0.7;
+}
+
+.project-type {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.6;
+}
+
+/* ─── Project Media Container ─── */
+.project-media-container {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: var(--color-bg-tertiary, rgba(128, 128, 128, 0.1));
+}
+
+.project-image,
+.project-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.project-card:hover .project-image,
+.project-card:hover .project-video {
+    transform: scale(1.05);
+}
+
+/* ─── Project Info ─── */
+.project-info {
+    padding: var(--spacing-md);
+}
+
+.project-info h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    line-height: 1.3;
+}
+
+.project-info p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    line-height: 1.5;
+    margin-bottom: var(--spacing-sm);
+}
+
+/* ─── Project Link ─── */
+.project-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: 0.8rem;
+    opacity: 0.6;
+    margin-top: var(--spacing-sm);
+    transition: opacity var(--transition-fast);
+}
+
+.project-card:hover .project-link {
+    opacity: 1;
+}
+
+.link-icon {
+    font-size: 0.9rem;
+}
+
+.link-url {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ─── Card Corner Decorations (for blueprint/retro themes) ─── */
+.card-corner {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-style: solid;
+    border-width: 0;
+    opacity: 0.5;
+    transition: opacity var(--transition-fast);
+}
+
+.project-card:hover .card-corner {
+    opacity: 1;
+}
+
+.card-corner.tl {
+    top: 0;
+    left: 0;
+    border-top-width: 2px;
+    border-left-width: 2px;
+}
+
+.card-corner.tr {
+    top: 0;
+    right: 0;
+    border-top-width: 2px;
+    border-right-width: 2px;
+}
+
+.card-corner.bl {
+    bottom: 0;
+    left: 0;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+}
+
+.card-corner.br {
+    bottom: 0;
+    right: 0;
+    border-bottom-width: 2px;
+    border-right-width: 2px;
+}
+
+/* ─── Blog Card Base ─── */
+.blog-card {
+    display: flex;
+    text-decoration: none;
+    color: inherit;
+    transition: all var(--transition-normal);
+    overflow: hidden;
+}
+
+.blog-card:focus-visible {
+    outline: 2px solid var(--color-accent, currentColor);
+    outline-offset: 2px;
+}
+
+/* ─── Blog Card Image ─── */
+.blog-card-image {
+    flex-shrink: 0;
+    width: 200px;
+    height: 150px;
+    overflow: hidden;
+}
+
+.blog-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-normal);
+}
+
+.blog-card:hover .blog-card-image img {
+    transform: scale(1.05);
+}
+
+/* ─── Blog Card Content ─── */
+.blog-card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    min-width: 0;
+}
+
+.blog-index {
+    font-size: 0.7rem;
+    font-family: var(--font-mono, monospace);
+    opacity: 0.6;
+    margin-bottom: var(--spacing-xs);
+}
+
+.blog-card-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    line-height: 1.3;
+}
+
+.blog-card-excerpt {
+    font-size: 0.9rem;
+    opacity: 0.75;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ─── Blog Card Meta ─── */
+.blog-card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+
+.blog-date {
+    font-family: var(--font-mono, monospace);
+}
+
+.blog-new-badge {
+    background: var(--color-accent, #ff6600);
+    color: white;
+    padding: 0.125rem 0.375rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    border-radius: 2px;
+    animation: badge-pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes badge-pulse {
+    from { opacity: 0.8; }
+    to { opacity: 1; }
+}
+
+/* ─── No Image State ─── */
+.blog-card.no-image {
+    min-height: 120px;
+}
+
+.blog-card.no-image .blog-card-content {
+    padding: var(--spacing-md);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+    .blog-card {
+        flex-direction: column;
+    }
+
+    .blog-card-image {
+        width: 100%;
+        height: 180px;
+    }
+
+    .blog-card-excerpt {
+        white-space: normal;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+}
