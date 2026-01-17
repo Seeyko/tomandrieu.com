@@ -1,0 +1,102 @@
+{
+  "marquee": [
+    "*** WELCOME TO MY PORTFOLIO ***",
+    "*** UNDER CONSTRUCTION ***",
+    "*** BEST VIEWED AT 800x600 ***",
+    "*** JAVASCRIPT REQUIRED ***",
+    "*** SIGN MY GUESTBOOK! ***",
+    "*** YOU ARE VISITOR #001337 ***"
+  ],
+  "clippy": {
+    "messages": [
+      {"text": "It looks like you're browsing a portfolio! Need help?", "action": "contact"},
+      {"text": "Wow, these projects look amazing!", "action": "projects"},
+      {"text": "Have you tried clicking on a project?", "action": "projects"},
+      {"text": "Want to get in touch? Click below!", "action": "contact"},
+      {"text": "This site is best viewed at 800x600!", "action": null},
+      {"text": "Press arrow keys BA for a surprise!", "action": null},
+      {"text": "Remember to bookmark this page!", "action": null},
+      {"text": "Did you know? This site uses JavaScript!", "action": null},
+      {"text": "Check out what I can do!", "action": "about"},
+      {"text": "The colors! The bevels! So 90s!", "action": null},
+      {"text": "Want to learn more about me?", "action": "about"},
+      {"text": "Links turn red when you hover. Cool, right?", "action": null}
+    ],
+    "buttons": {
+      "letsGo": "Let's go!",
+      "letsTalk": "Let's talk!",
+      "showMe": "Show me!",
+      "tellMeMore": "Tell me more!",
+      "cool": "Cool!"
+    },
+    "secret": "Wheee! You found a secret!"
+  },
+  "underConstruction": [
+    "SITE UNDER CONSTRUCTION!",
+    "COMING SOON!",
+    "WORK IN PROGRESS!",
+    "PARDON OUR DUST!",
+    "MORE FEATURES COMING!"
+  ],
+  "statusBar": {
+    "ready": "Ready",
+    "viewing": "Viewing:"
+  },
+  "webring": {
+    "prev": "Prev",
+    "next": "Next",
+    "title": "Creative Dev WebRing",
+    "messages": [
+      "There's only one site in this webring... this one!",
+      "You've reached the end of the internet!",
+      "404: More sites not found!",
+      "Coming soon: More awesome sites!",
+      "This is the best site in the ring!"
+    ]
+  },
+  "awards": {
+    "bestSite1997": "Best Site 1997",
+    "fiveStarSite": "5 Star Site",
+    "hotPick": "Hot Pick",
+    "coolSite": "Cool Site"
+  },
+  "tooltips": {
+    "clickToVisit": "Click to visit {title}!",
+    "bestSiteTooltip": "Best Site of 1997!",
+    "fiveStarTooltip": "5 Star Rating!",
+    "hotPickTooltip": "Hot Pick of the Week!",
+    "coolSiteTooltip": "Cool Site Award!",
+    "prevSiteTooltip": "Previous site in the ring",
+    "nextSiteTooltip": "Next site in the ring",
+    "techTooltip": "I know {tech}!"
+  },
+  "colorSquares": [
+    "boop!",
+    "beep!",
+    "click!",
+    "pop!",
+    "ding!",
+    "wow!"
+  ],
+  "konamiSecret": {
+    "title": "Secret Message",
+    "congratulations": "CONGRATULATIONS!",
+    "foundSecret": "You found the secret!",
+    "enjoyRainbow": "Enjoy the rainbow mode for 10 seconds!",
+    "coolButton": "COOL!"
+  },
+  "windowTitles": {
+    "projectSuffix": ".exe",
+    "blogPrefix": "blog_post_",
+    "blogSuffix": ".html"
+  },
+  "console": {
+    "welcome": "[RETRO 90s] Welcome to 1997!",
+    "bestViewed": "Best viewed with Netscape Navigator 4.0 at 800x600"
+  },
+  "cardElements": {
+    "clickToVisit": "Click here to visit!",
+    "postPrefix": "POST #",
+    "newBadge": "NEW!"
+  }
+}

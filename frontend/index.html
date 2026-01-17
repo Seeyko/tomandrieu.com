@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,6 +17,9 @@
 
   <!-- Theme Switcher UI Styles -->
   <link rel="stylesheet" href="/css/theme-switcher.css" />
+
+  <!-- Language Switcher UI Styles -->
+  <link rel="stylesheet" href="/css/language-switcher.css" />
 
   <!-- Theme CSS (dynamically loaded) -->
   <link id="theme-css" rel="stylesheet" href="" />
@@ -107,7 +110,7 @@
 <!-- Loading Screen -->
 <div id="loading-screen">
   <div class="loading-spinner"></div>
-  <div class="loading-text">Loading...</div>
+  <div class="loading-text" data-i18n="ui.loading">Loading...</div>
 </div>
 <!-- Theme Overlay (CRT/Blueprint grid - styled by theme CSS) -->
 <div id="theme-overlay" class="theme-overlay"></div>
@@ -124,7 +127,7 @@
 <!-- CRO: Floating CTA Button -->
 <a href="#contact" class="floating-cta" id="floating-cta" aria-label="Get in touch">
   <span class="floating-cta-icon">&#9993;</span>
-  <span class="floating-cta-text">Let's Talk</span>
+  <span class="floating-cta-text" data-i18n="ui.letsTalk">Let's Talk</span>
   <span class="floating-cta-pulse"></span>
 </a>
 
@@ -133,13 +136,13 @@
   <div class="exit-modal-content">
     <button class="exit-modal-close" id="exit-modal-close" aria-label="Close">&times;</button>
     <div class="exit-modal-icon">&#128075;</div>
-    <h3 class="exit-modal-title">Wait! Let's Connect</h3>
-    <p class="exit-modal-text">Have a project in mind? I'd love to hear about it.</p>
+    <h3 class="exit-modal-title" data-i18n="cro.exitModal.title">Wait! Let's Connect</h3>
+    <p class="exit-modal-text" data-i18n="cro.exitModal.subtitle">Have a project in mind? I'd love to hear about it.</p>
     <a href="mailto:contact@tomandrieu.com" class="exit-modal-cta" id="exit-modal-cta">
-      <span>Get In Touch</span>
+      <span data-i18n="cro.exitModal.cta">Get In Touch</span>
       <span class="exit-modal-arrow">&rarr;</span>
     </a>
-    <button class="exit-modal-dismiss" id="exit-modal-dismiss">Maybe later</button>
+    <button class="exit-modal-dismiss" id="exit-modal-dismiss" data-i18n="cro.exitModal.dismiss">Maybe later</button>
   </div>
 </div>
 
@@ -154,19 +157,19 @@
     <nav class="nav">
       <a href="#projects" class="nav-link" data-section="01">
         <span class="nav-prefix"></span>
-        <span class="nav-text">Projects</span>
+        <span class="nav-text" data-i18n="nav.projects">Projects</span>
       </a>
       <a href="#about" class="nav-link" data-section="02">
         <span class="nav-prefix"></span>
-        <span class="nav-text">About</span>
+        <span class="nav-text" data-i18n="nav.about">About</span>
       </a>
       <a href="#blog" class="nav-link" data-section="04">
         <span class="nav-prefix"></span>
-        <span class="nav-text">Blog</span>
+        <span class="nav-text" data-i18n="nav.blog">Blog</span>
       </a>
       <a href="#contact" class="nav-link" data-section="05">
         <span class="nav-prefix"></span>
-        <span class="nav-text">Contact</span>
+        <span class="nav-text" data-i18n="nav.contact">Contact</span>
       </a>
     </nav>
   </header>
@@ -242,13 +245,13 @@
       </div>
 
       <h1 class="hero-title">
-        <span class="title-line" data-content="hero.title.0">PRODUCT</span>
-        <span class="title-line" data-content="hero.title.1">ENGINEER</span>
+        <span class="title-line" data-i18n="hero.title.0">PRODUCT</span>
+        <span class="title-line" data-i18n="hero.title.1">ENGINEER</span>
       </h1>
 
-      <p class="hero-subtitle" data-content="hero.subtitle">
+      <p class="hero-subtitle">
         <span class="annotation-mark"></span>
-        BUILDING THINGS THAT MATTER
+        <span data-i18n="hero.subtitle">BUILDING THINGS THAT MATTER</span>
         <span class="annotation-mark"></span>
       </p>
 
@@ -277,7 +280,7 @@
 
       <!-- CRO: Hero CTA -->
       <a href="#contact" class="hero-cta" id="hero-cta">
-        <span>Start a Project</span>
+        <span data-i18n="ui.startProject">Start a Project</span>
         <span class="hero-cta-arrow">&rarr;</span>
       </a>
 
@@ -285,15 +288,15 @@
       <div class="social-proof">
         <div class="proof-stat">
           <span class="proof-number">5+</span>
-          <span class="proof-label">Years Experience</span>
+          <span class="proof-label" data-i18n="stats.yearsExperience">Years Experience</span>
         </div>
         <div class="proof-stat">
           <span class="proof-number">30K+</span>
-          <span class="proof-label">Users Reached</span>
+          <span class="proof-label" data-i18n="stats.usersReached">Users Reached</span>
         </div>
         <div class="proof-stat">
           <span class="proof-number">4</span>
-          <span class="proof-label">Live Products</span>
+          <span class="proof-label" data-i18n="stats.liveProducts">Live Products</span>
         </div>
       </div>
     </div>
@@ -304,7 +307,7 @@
     </div>
 
     <div class="scroll-indicator">
-      <span class="scroll-text">SCROLL TO EXPLORE</span>
+      <span class="scroll-text" data-i18n="ui.scrollToExplore">SCROLL TO EXPLORE</span>
       <div class="scroll-arrow">▼</div>
     </div>
   </section>
@@ -315,14 +318,14 @@
       <div class="section-label">
         <span class="section-number">01</span>
         <span class="section-prompt">$</span>
-        <h2 class="section-title" data-glitch="PROJECTS">PROJECTS</h2><span class="retro-badge">NEW!</span>
+        <h2 class="section-title" data-glitch="PROJECTS" data-i18n="sections.projects">PROJECTS</h2><span class="retro-badge" data-i18n="blog.newBadge">NEW!</span>
       </div>
       <div class="section-divider">═══════════════════════════════════════════════════════</div>
     </div>
 
     <div id="projects-grid" class="projects-grid">
       <div class="projects-grid-loading">
-        <span class="loading-text">Loading projects...</span>
+        <span class="loading-text" data-i18n="ui.loadingProjects">Loading projects...</span>
         <span class="loading-spinner">⣾⣽⣻⢿⡿⣟⣯⣷</span>
       </div>
     </div>
@@ -339,7 +342,7 @@
       <div class="section-label">
         <span class="section-number">02</span>
         <span class="section-prompt">$</span>
-        <h2 class="section-title" data-glitch="ABOUT">ABOUT</h2>
+        <h2 class="section-title" data-glitch="ABOUT" data-i18n="sections.about">ABOUT</h2>
       </div>
       <div class="section-divider">═══════════════════════════════════════════════════════</div>
     </div>
@@ -347,17 +350,17 @@
     <div class="about-content">
       <div class="about-card">
         <div class="card-header">
-          <span class="card-title">SYSTEM STATUS</span>
+          <span class="card-title" data-i18n="ui.systemStatus">SYSTEM STATUS</span>
         </div>
         <div class="card-body">
           <div class="about-text">
             <p class="code-comment">/* Who am I? */</p>
-            <p class="about-main" data-content="about.intro">
+            <p class="about-main" data-i18n="about.intro">
               I build <span class="highlight">MEANINGFUL</span> products and help small teams
               do their <span class="highlight">BEST WORK</span>.
             </p>
             <p class="code-comment">/* How I work */</p>
-            <p class="about-detail" data-content="about.detail">
+            <p class="about-detail" data-i18n="about.detail">
               I care about craft and iteration. I'd rather enable others than micromanage them.
               Working with AI has made me even more optimistic about what focused teams can create.
             </p>
@@ -377,7 +380,7 @@
 
         <!-- Blueprint redline note -->
         <div class="redline-note">
-          <span>↳ available for projects</span>
+          <span data-i18n="ui.availableNote">available for projects</span>
         </div>
       </div>
     </div>
@@ -389,7 +392,7 @@
       <div class="section-label">
         <span class="section-number">04</span>
         <span class="section-prompt">$</span>
-        <h2 class="section-title" data-glitch="BLOG">BLOG</h2><span class="retro-badge">NEW!</span>
+        <h2 class="section-title" data-glitch="BLOG" data-i18n="sections.blog">BLOG</h2><span class="retro-badge" data-i18n="blog.newBadge">NEW!</span>
       </div>
       <div class="section-divider">═══════════════════════════════════════════════════════</div>
     </div>
@@ -405,7 +408,7 @@
     <div class="blog-footer">
       <a href="/blog/" class="view-all-link">
         <span class="link-bracket">[</span>
-        <span>VIEW ALL ARTICLES</span>
+        <span data-i18n="ui.viewAllArticles">VIEW ALL ARTICLES</span>
         <span class="link-bracket">]</span>
         <span class="link-arrow">→</span>
       </a>
@@ -418,7 +421,7 @@
       <div class="section-label">
         <span class="section-number">05</span>
         <span class="section-prompt">$</span>
-        <h2 class="section-title" data-glitch="CONTACT">CONTACT</h2>
+        <h2 class="section-title" data-glitch="CONTACT" data-i18n="sections.contact">CONTACT</h2>
       </div>
       <div class="section-divider">═══════════════════════════════════════════════════════</div>
     </div>
@@ -426,23 +429,23 @@
     <div class="contact-content">
       <div class="contact-card">
         <div class="card-header">
-          <span class="card-title">ESTABLISH CONNECTION</span>
+          <span class="card-title" data-i18n="ui.establishConnection">ESTABLISH CONNECTION</span>
         </div>
         <div class="card-body">
           <!-- CRO: Availability Badge -->
           <div class="availability-badge">
             <span class="availability-dot"></span>
-            <span>Available for Projects</span>
+            <span data-i18n="ui.availableForProjects">Available for Projects</span>
           </div>
 
           <!-- CRO: Urgency Banner -->
           <div class="contact-urgency">
-            <span>Currently accepting new clients for Q2 2025</span>
+            <span data-i18n="ui.acceptingClients">Currently accepting new clients for Q2 2025</span>
           </div>
 
           <div class="contact-prompt">
-            <p class="output-line">> Initiating contact protocol...</p>
-            <p class="output-line">[<span class="status-ok">OK</span>] Email channel ready</p>
+            <p class="output-line">> <span data-i18n="guestbook.initiatingContact">Initiating contact protocol...</span></p>
+            <p class="output-line">[<span class="status-ok">OK</span>] <span data-i18n="guestbook.emailChannelReady">Email channel ready</span></p>
           </div>
 
           <!-- Blueprint SVG frame -->
@@ -471,7 +474,7 @@
 
           <!-- CRO: Response Time -->
           <div class="response-time">
-            <span>Typically responds within 24 hours</span>
+            <span data-i18n="ui.typicallyResponds">Typically responds within 24 hours</span>
           </div>
 
           <div class="social-links" id="social-links">
@@ -479,7 +482,7 @@
           </div>
 
           <!-- 90s Guestbook CTA (hidden by default) -->
-          <div class="guestbook-cta">
+          <div class="guestbook-cta" data-i18n="guestbook.signGuestbook">
             Please sign my guestbook before you leave!
           </div>
 
@@ -502,20 +505,20 @@
     <div class="footer-content">
       <div class="footer-line">────────────────────────────────────────────────────────────────</div>
       <div class="footer-info-row">
-        <span class="footer-session" data-content="footer.sessionId">SESSION: TOM-2026-PORTFOLIO</span>
+        <span class="footer-session" data-i18n="footer.sessionId">SESSION: TOM-2026-PORTFOLIO</span>
         <span class="footer-sep">|</span>
-        <span class="footer-version" data-content="footer.version">VERSION: 3.0</span>
+        <span class="footer-version" data-i18n="footer.version">VERSION: 3.0</span>
         <span class="footer-sep">|</span>
-        <span class="footer-scale">SCALE: 1:1</span>
+        <span class="footer-scale" data-i18n="footer.scale">SCALE: 1:1</span>
       </div>
-      <div class="footer-copyright" data-content="footer.copyright">
-        © 2026 TOM ANDRIEU — ALL RIGHTS RESERVED
+      <div class="footer-copyright" data-i18n="footer.copyright">
+        2026 TOM ANDRIEU - ALL RIGHTS RESERVED
       </div>
       <div class="footer-exit">
-        <span class="blink-slow">[Press any key to continue...]</span>
+        <span class="blink-slow" data-i18n="footer.pressAnyKey">[Press any key to continue...]</span>
       </div>
       <!-- 90s Best Viewed Badge (hidden by default) -->
-      <div class="best-viewed">
+      <div class="best-viewed" data-i18n="footer.bestViewed">
         Best viewed with Netscape Navigator 4.0 at 800x600 resolution
       </div>
     </div>
@@ -538,6 +541,10 @@
 <script src="/js/core/effects/header-scroll.js"></script>
 <script src="/js/core/effects/konami.js"></script>
 <script src="/js/core/theme-init.js"></script>
+
+<!-- i18n / Language Manager (must load before theme manager) -->
+<script src="/i18n/language-manager.js"></script>
+<script src="/i18n/language-switcher.js"></script>
 
 <!-- Theme Manager & Legacy Base -->
 <script src="/js/theme-manager.js"></script>

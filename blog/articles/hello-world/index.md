@@ -3,6 +3,7 @@ title: "Hello World"
 excerpt: "Un nouveau départ : le développement assisté par IA, le product engineering, et enfin partager mes pensées avec le monde."
 publishedAt: "2026-01-16"
 draft: false
+lang: fr
 ---
 
 # Hello World

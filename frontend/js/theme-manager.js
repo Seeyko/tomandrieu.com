@@ -193,6 +193,11 @@ const ThemeManager = (function() {
             await loadThemeCSS(theme);
             console.log(`%c[THEME] CSS loaded: ${theme.css}`, 'color: #33ff00;');
 
+            // Load theme translations (if LanguageManager is available)
+            if (window.LanguageManager && LanguageManager.isLoaded) {
+                await LanguageManager.loadThemeTranslations(themeId, LanguageManager.currentLang);
+            }
+
             // Load theme JS
             await loadThemeJS(theme);
             console.log(`%c[THEME] Loaded: ${theme.name}`, 'color: #33ff00;');

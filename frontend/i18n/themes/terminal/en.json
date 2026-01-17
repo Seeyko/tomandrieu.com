@@ -1,0 +1,57 @@
+{
+  "typewriter": [
+    "echo \"Hello, World!\"",
+    "npm run create-awesome-stuff",
+    "git commit -m \"made it better\"",
+    "sudo let me surf more",
+    "iterate() until meaningful(product)",
+    "./build-dreams.sh --with-passion",
+    "grep -r \"bugs\" . | ./fix-them-with-ai-pipelines.sh"
+  ],
+  "console": {
+    "systemInit": "[SYSTEM] Terminal initialized...",
+    "portfolioLoaded": "[OK] Portfolio v3.0 loaded",
+    "helpTip": "[INFO] Type \"help()\" for easter eggs",
+    "allSystemsOk": "[OK] All systems operational",
+    "openConsoleTip": "[TIP] Open console and type help() for fun commands!",
+    "searchNotImplemented": "[SYSTEM] Search not implemented... yet!",
+    "availableCommands": "AVAILABLE COMMANDS",
+    "matrixInit": "[SYSTEM] Initializing hack sequence...",
+    "accessGranted": "[SUCCESS] Access granted! Just kidding"
+  },
+  "randomMessages": [
+    "[INFO] Good things take time and iteration",
+    "[INFO] Remember to stretch!",
+    "[OK] All systems nominal",
+    "[INFO] Fun fact: This site runs on creativity",
+    "[INFO] You found a hidden message!",
+    "[OK] Matrix stability at 100%",
+    "[INFO] Keep being awesome!",
+    "[WARN] Enderman detected in sector 7..."
+  ],
+  "easterEggs": {
+    "konamiActivated": "KONAMI CODE ACTIVATED!",
+    "matrixMessage": "You are now in the Matrix...",
+    "noSpoon": "There is no spoon.",
+    "partyMode": "PARTY MODE ACTIVATED!",
+    "hackSuccess": "[SUCCESS] Access granted! Just kidding",
+    "shipIt": "Another iteration deployed!",
+    "smallSteps": "[OK] Small steps, meaningful progress.",
+    "endermanWarning": "[ENTITY] Enderman spotted... Don't look directly at it!",
+    "endermanLookTooLong": "[ENTITY] You looked at it for too long...",
+    "colorsReset": "[SYSTEM] Colors reset to default"
+  },
+  "terminalOutput": {
+    "loadingModules": "[OK] Loading modules...",
+    "productEngineerInit": "[OK] Product engineer initialized",
+    "readyToBuild": "[OK] Ready to build something meaningful"
+  },
+  "heroStats": {
+    "creativity": "CREATIVITY",
+    "drive": "DRIVE",
+    "codeSkill": "CODE_SKILL"
+  },
+  "cardPrefix": "PRJ",
+  "blogPrefix": "BLOG",
+  "readingTime": "~{time} min read"
+}

@@ -1,0 +1,57 @@
+{
+  "typewriter": [
+    "echo \"Bonjour, Monde !\"",
+    "npm run creer-des-trucs-incroyables",
+    "git commit -m \"ameliore\"",
+    "sudo laisse-moi surfer",
+    "iterate() jusqu_a meaningful(produit)",
+    "./construire-des-reves.sh --avec-passion",
+    "grep -r \"bugs\" . | ./les-corriger-avec-ia.sh"
+  ],
+  "console": {
+    "systemInit": "[SYSTEME] Terminal initialise...",
+    "portfolioLoaded": "[OK] Portfolio v3.0 charge",
+    "helpTip": "[INFO] Tapez \"help()\" pour des surprises",
+    "allSystemsOk": "[OK] Tous les systemes operationnels",
+    "openConsoleTip": "[ASTUCE] Ouvrez la console et tapez help() pour des commandes fun !",
+    "searchNotImplemented": "[SYSTEME] Recherche non implementee... pour l'instant !",
+    "availableCommands": "COMMANDES DISPONIBLES",
+    "matrixInit": "[SYSTEME] Initialisation de la sequence de hack...",
+    "accessGranted": "[SUCCES] Acces accorde ! Je plaisante"
+  },
+  "randomMessages": [
+    "[INFO] Les bonnes choses prennent du temps et de l'iteration",
+    "[INFO] N'oubliez pas de vous etirer !",
+    "[OK] Tous les systemes nominaux",
+    "[INFO] Fun fact: Ce site tourne sur la creativite",
+    "[INFO] Vous avez trouve un message cache !",
+    "[OK] Stabilite de la Matrice a 100%",
+    "[INFO] Continuez a etre genial !",
+    "[WARN] Enderman detecte dans le secteur 7..."
+  ],
+  "easterEggs": {
+    "konamiActivated": "CODE KONAMI ACTIVE !",
+    "matrixMessage": "Vous etes maintenant dans la Matrice...",
+    "noSpoon": "Il n'y a pas de cuillere.",
+    "partyMode": "MODE FETE ACTIVE !",
+    "hackSuccess": "[SUCCES] Acces accorde ! Je plaisante",
+    "shipIt": "Une autre iteration deployee !",
+    "smallSteps": "[OK] Petits pas, progres significatifs.",
+    "endermanWarning": "[ENTITE] Enderman repere... Ne le regardez pas directement !",
+    "endermanLookTooLong": "[ENTITE] Vous l'avez regarde trop longtemps...",
+    "colorsReset": "[SYSTEME] Couleurs reinitialises"
+  },
+  "terminalOutput": {
+    "loadingModules": "[OK] Chargement des modules...",
+    "productEngineerInit": "[OK] Ingenieur produit initialise",
+    "readyToBuild": "[OK] Pret a construire quelque chose de significatif"
+  },
+  "heroStats": {
+    "creativity": "CREATIVITE",
+    "drive": "MOTIVATION",
+    "codeSkill": "COMPETENCE_CODE"
+  },
+  "cardPrefix": "PRJ",
+  "blogPrefix": "BLOG",
+  "readingTime": "~{time} min de lecture"
+}

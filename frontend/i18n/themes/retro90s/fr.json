@@ -1,0 +1,102 @@
+{
+  "marquee": [
+    "*** BIENVENUE SUR MON PORTFOLIO ***",
+    "*** EN CONSTRUCTION ***",
+    "*** MEILLEUR AFFICHAGE A 800x600 ***",
+    "*** JAVASCRIPT REQUIS ***",
+    "*** SIGNEZ MON LIVRE D'OR ! ***",
+    "*** VOUS ETES LE VISITEUR #001337 ***"
+  ],
+  "clippy": {
+    "messages": [
+      {"text": "On dirait que vous parcourez un portfolio ! Besoin d'aide ?", "action": "contact"},
+      {"text": "Wow, ces projets sont incroyables !", "action": "projects"},
+      {"text": "Avez-vous essaye de cliquer sur un projet ?", "action": "projects"},
+      {"text": "Vous voulez me contacter ? Cliquez ci-dessous !", "action": "contact"},
+      {"text": "Ce site s'affiche mieux a 800x600 !", "action": null},
+      {"text": "Appuyez sur les fleches puis BA pour une surprise !", "action": null},
+      {"text": "N'oubliez pas d'ajouter cette page aux favoris !", "action": null},
+      {"text": "Saviez-vous ? Ce site utilise JavaScript !", "action": null},
+      {"text": "Decouvrez ce que je sais faire !", "action": "about"},
+      {"text": "Les couleurs ! Les reliefs ! Tellement 90s !", "action": null},
+      {"text": "Vous voulez en savoir plus sur moi ?", "action": "about"},
+      {"text": "Les liens deviennent rouges au survol. Cool, non ?", "action": null}
+    ],
+    "buttons": {
+      "letsGo": "Allons-y !",
+      "letsTalk": "Discutons !",
+      "showMe": "Montrez-moi !",
+      "tellMeMore": "Dites-m'en plus !",
+      "cool": "Cool !"
+    },
+    "secret": "Youhou ! Vous avez trouve un secret !"
+  },
+  "underConstruction": [
+    "SITE EN CONSTRUCTION !",
+    "BIENTOT DISPONIBLE !",
+    "TRAVAUX EN COURS !",
+    "EXCUSEZ LA POUSSIERE !",
+    "D'AUTRES FONCTIONNALITES ARRIVENT !"
+  ],
+  "statusBar": {
+    "ready": "Pret",
+    "viewing": "Affichage :"
+  },
+  "webring": {
+    "prev": "Prec.",
+    "next": "Suiv.",
+    "title": "WebRing Dev Creatif",
+    "messages": [
+      "Il n'y a qu'un seul site dans ce webring... celui-ci !",
+      "Vous avez atteint la fin d'internet !",
+      "404 : Plus de sites trouves !",
+      "Bientot : D'autres sites incroyables !",
+      "C'est le meilleur site du webring !"
+    ]
+  },
+  "awards": {
+    "bestSite1997": "Meilleur Site 1997",
+    "fiveStarSite": "Site 5 Etoiles",
+    "hotPick": "Selection du Moment",
+    "coolSite": "Site Cool"
+  },
+  "tooltips": {
+    "clickToVisit": "Cliquez pour visiter {title} !",
+    "bestSiteTooltip": "Meilleur Site de 1997 !",
+    "fiveStarTooltip": "Note 5 Etoiles !",
+    "hotPickTooltip": "Selection de la Semaine !",
+    "coolSiteTooltip": "Prix du Site Cool !",
+    "prevSiteTooltip": "Site precedent dans le webring",
+    "nextSiteTooltip": "Site suivant dans le webring",
+    "techTooltip": "Je connais {tech} !"
+  },
+  "colorSquares": [
+    "bip !",
+    "beep !",
+    "clic !",
+    "pop !",
+    "ding !",
+    "wow !"
+  ],
+  "konamiSecret": {
+    "title": "Message Secret",
+    "congratulations": "FELICITATIONS !",
+    "foundSecret": "Vous avez trouve le secret !",
+    "enjoyRainbow": "Profitez du mode arc-en-ciel pendant 10 secondes !",
+    "coolButton": "COOL !"
+  },
+  "windowTitles": {
+    "projectSuffix": ".exe",
+    "blogPrefix": "article_blog_",
+    "blogSuffix": ".html"
+  },
+  "console": {
+    "welcome": "[RETRO 90s] Bienvenue en 1997 !",
+    "bestViewed": "Meilleur affichage avec Netscape Navigator 4.0 a 800x600"
+  },
+  "cardElements": {
+    "clickToVisit": "Cliquez ici pour visiter !",
+    "postPrefix": "ARTICLE #",
+    "newBadge": "NOUVEAU !"
+  }
+}

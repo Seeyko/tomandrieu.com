@@ -73,13 +73,18 @@ const ThemeInit = (() => {
                 config.initEffects();
             }
 
-            // 11. Mark body as loaded
+            // 11. Initialize language switcher UI (if available)
+            if (window.LanguageSwitcher) {
+                LanguageSwitcher.init();
+            }
+
+            // 12. Mark body as loaded
             document.body.classList.remove('loading');
             document.body.classList.add('loaded');
 
             isInitialized = true;
 
-            // 12. Call onReady callback
+            // 13. Call onReady callback
             if (config.onReady) {
                 config.onReady();
             }

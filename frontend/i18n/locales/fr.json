@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "name": "Tom Andrieu",
+    "title": "Ingenieur Produit",
+    "description": "Ingenieur produit qui construit des produits significatifs, itere avec intention, et aide les equipes a donner le meilleur d'elles-memes."
+  },
+  "hero": {
+    "title": ["INGENIEUR", "PRODUIT"],
+    "subtitle": "CONSTRUIRE CE QUI COMPTE"
+  },
+  "about": {
+    "intro": "Je construis des produits <highlight>SIGNIFICATIFS</highlight> et j'aide les petites equipes a faire leur <highlight>MEILLEUR TRAVAIL</highlight>.",
+    "detail": "J'accorde de l'importance au savoir-faire et a l'iteration. Je prefere rendre les autres autonomes plutot que de les micro-manager. Travailler avec l'IA m'a rendu encore plus optimiste sur ce que les equipes concentrees peuvent creer.",
+    "specs": {
+      "location": "FRANCE",
+      "experience": "7+ ANS",
+      "focus": "INGENIERIE PRODUIT",
+      "status": "DISPONIBLE POUR PROJETS"
+    },
+    "specLabels": {
+      "location": "LOCALISATION",
+      "experience": "EXPERIENCE",
+      "focus": "DOMAINE",
+      "status": "STATUT"
+    }
+  },
+  "techStack": [
+    "IA/ML",
+    "NEXT.JS",
+    "ANGULAR",
+    "TYPESCRIPT",
+    "NODE.JS",
+    "NESTJS",
+    "FLUTTER",
+    "WORDPRESS",
+    "VOXEL"
+  ],
+  "contact": {
+    "email": "CONTACT@TOMANDRIEU.COM"
+  },
+  "nav": {
+    "projects": "Projets",
+    "about": "A propos",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "sections": {
+    "projects": "PROJETS",
+    "about": "A PROPOS",
+    "blog": "BLOG",
+    "contact": "CONTACT"
+  },
+  "ui": {
+    "loading": "Chargement...",
+    "loadingProjects": "Chargement des projets...",
+    "noArticles": "Pas encore d'articles. Revenez bientot !",
+    "viewAllArticles": "VOIR TOUS LES ARTICLES",
+    "scrollToExplore": "DEFILER POUR EXPLORER",
+    "startProject": "Demarrer un Projet",
+    "letsTalk": "Discutons",
+    "getInTouch": "Me Contacter",
+    "maybeLater": "Peut-etre plus tard",
+    "waitLetsConnect": "Attendez ! Connectons-nous",
+    "haveProjectInMind": "Un projet en tete ? J'aimerais en savoir plus.",
+    "availableForProjects": "Disponible pour des Projets",
+    "acceptingClients": "J'accepte de nouveaux clients pour Q2 2025",
+    "typicallyResponds": "Repond generalement sous 24 heures",
+    "establishConnection": "ETABLIR LA CONNEXION",
+    "systemStatus": "STATUT SYSTEME",
+    "availableNote": "disponible pour projets"
+  },
+  "footer": {
+    "sessionId": "SESSION: TOM-2026-PORTFOLIO",
+    "version": "VERSION: 3.0",
+    "scale": "ECHELLE: 1:1",
+    "copyright": "2026 TOM ANDRIEU - TOUS DROITS RESERVES",
+    "pressAnyKey": "[Appuyez sur une touche pour continuer...]",
+    "bestViewed": "Meilleur affichage avec Netscape Navigator 4.0 a 800x600"
+  },
+  "stats": {
+    "yearsExperience": "Ans d'Experience",
+    "usersReached": "Utilisateurs Atteints",
+    "liveProducts": "Produits en Ligne"
+  },
+  "blog": {
+    "minRead": "min de lecture",
+    "newBadge": "NOUVEAU !",
+    "articleNotFound": "Article Introuvable",
+    "articleNotFoundMsg": "Desole, l'article que vous cherchez n'existe pas.",
+    "backToBlog": "Retour au Blog",
+    "prev": "Prec.",
+    "next": "Suiv."
+  },
+  "guestbook": {
+    "signGuestbook": "Signez mon livre d'or avant de partir !",
+    "initiatingContact": "Initialisation du protocole de contact...",
+    "emailChannelReady": "[OK] Canal email pret"
+  },
+  "cro": {
+    "exitModal": {
+      "title": "Attendez ! Connectons-nous",
+      "subtitle": "Un projet en tete ? J'aimerais en savoir plus.",
+      "cta": "Me Contacter",
+      "dismiss": "Peut-etre plus tard"
+    }
+  }
+}

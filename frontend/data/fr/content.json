@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "name": "Tom Andrieu",
+    "title": "Ingenieur Produit",
+    "description": "Ingenieur produit qui construit des produits significatifs, itere avec intention, et aide les equipes a donner le meilleur d'elles-memes."
+  },
+  "hero": {
+    "title": ["INGENIEUR", "PRODUIT"],
+    "subtitle": "CONSTRUIRE CE QUI COMPTE"
+  },
+  "about": {
+    "intro": "Je construis des produits <highlight>SIGNIFICATIFS</highlight> et j'aide les petites equipes a faire leur <highlight>MEILLEUR TRAVAIL</highlight>.",
+    "detail": "J'accorde de l'importance au savoir-faire et a l'iteration. Je prefere rendre les autres autonomes plutot que de les micro-manager. Travailler avec l'IA m'a rendu encore plus optimiste sur ce que les equipes concentrees peuvent creer.",
+    "specs": {
+      "location": "FRANCE",
+      "experience": "7+ ANS",
+      "focus": "INGENIERIE PRODUIT",
+      "status": "DISPONIBLE POUR PROJETS"
+    }
+  },
+  "techStack": [
+    "IA/ML",
+    "NEXT.JS",
+    "ANGULAR",
+    "TYPESCRIPT",
+    "NODE.JS",
+    "NESTJS",
+    "FLUTTER",
+    "WORDPRESS",
+    "VOXEL"
+  ],
+  "contact": {
+    "email": "CONTACT@TOMANDRIEU.COM",
+    "social": {
+      "github": "https://github.com/Seeyko",
+      "linkedin": "https://www.linkedin.com/in/andrieu-tom"
+    }
+  },
+  "footer": {
+    "sessionId": "TOM-2026-PORTFOLIO",
+    "version": "3.0",
+    "copyright": "2026 TOM ANDRIEU - TOUS DROITS RESERVES"
+  }
+}

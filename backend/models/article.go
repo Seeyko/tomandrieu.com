@@ -10,6 +10,7 @@ type Article struct {
 	CoverImage  string    `json:"coverImage"`
 	PublishedAt time.Time `json:"publishedAt"`
 	ReadingTime int       `json:"readingTime"`
+	Lang        string    `json:"lang"`
 }
 
 type ArticleListResponse struct {

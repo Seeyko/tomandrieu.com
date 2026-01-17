@@ -24,6 +24,7 @@ type Frontmatter struct {
 	CoverImage  string `yaml:"coverImage"`
 	PublishedAt string `yaml:"publishedAt"`
 	Draft       bool   `yaml:"draft"`
+	Lang        string `yaml:"lang"`
 }
 
 type ArticleService struct {
@@ -128,6 +129,12 @@ func (s *ArticleService) parseArticle(slug string, content []byte) (models.Artic
 
 	readingTime := calculateReadingTime(string(content))
 
+	// Default language to "fr" if not specified
+	lang := meta.Lang
+	if lang == "" {
+		lang = "fr"
+	}
+
 	return models.Article{
 		Slug:        slug,
 		Title:       meta.Title,
@@ -136,6 +143,7 @@ func (s *ArticleService) parseArticle(slug string, content []byte) (models.Artic
 		CoverImage:  coverImage,
 		PublishedAt: publishedAt,
 		ReadingTime: readingTime,
+		Lang:        lang,
 	}, nil
 }
 
@@ -161,11 +169,20 @@ func calculateReadingTime(content string) int {
 	return minutes
 }
 
-func (s *ArticleService) GetArticles(page, limit int) models.ArticleListResponse {
+func (s *ArticleService) GetArticles(page, limit int, lang string) models.ArticleListResponse {
 	s.cacheMu.RLock()
 	defer s.cacheMu.RUnlock()
 
-	total := len(s.cache)
+	// Filter articles by language
+	var filteredArticles []models.Article
+	for _, article := range s.cache {
+		// Match if lang matches, or if lang is empty and article is French (default)
+		if article.Lang == lang || (lang == "" && article.Lang == "fr) {
+			filteredArticles = append(filteredArticles, article)
+		}
+	}
+
+	total := len(filteredArticles)
 	totalPages := (total + limit - 1) / limit
 
 	start := (page - 1) * limit
@@ -190,7 +207,7 @@ func (s *ArticleService) GetArticles(page, limit int) models.ArticleListResponse
 	}
 
 	articles := make([]models.Article, end-start)
-	for i, article := range s.cache[start:end] {
+	for i, article := range filteredArticles[start:end] {
 		articles[i] = models.Article{
 			Slug:        article.Slug,
 			Title:       article.Title,
@@ -198,6 +215,7 @@ func (s *ArticleService) GetArticles(page, limit int) models.ArticleListResponse
 			CoverImage:  article.CoverImage,
 			PublishedAt: article.PublishedAt,
 			ReadingTime: article.ReadingTime,
+			Lang:        article.Lang,
 		}
 	}
 

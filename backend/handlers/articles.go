@@ -36,7 +36,13 @@ func (h *ArticleHandler) ListArticles(w http.ResponseWriter, r *http.Request) {
 		limit = 6
 	}
 
-	response := h.service.GetArticles(page, limit)
+	// Get language filter from query param, default to "fr"
+	lang := r.URL.Query().Get("lang")
+	if lang == "" {
+		lang = "fr"
+	}
+
+	response := h.service.GetArticles(page, limit, lang)
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)

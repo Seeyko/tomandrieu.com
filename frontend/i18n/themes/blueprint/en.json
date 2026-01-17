@@ -1,0 +1,12 @@
+{
+  "console": {
+    "initialized": "[BLUEPRINT] Portfolio Initialized",
+    "domReady": "[BLUEPRINT] DOM Ready - Initializing modules...",
+    "operational": "[BLUEPRINT] All systems operational",
+    "konamiActivated": "KONAMI CODE ACTIVATED!"
+  },
+  "cardPrefix": "PRJ",
+  "annotations": {
+    "revisionNeeded": "revision needed"
+  }
+}
