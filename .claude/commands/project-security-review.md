@@ -1,36 +1,12 @@
 ---
-allowed-tools: Bash(git diff:*), Bash(git status:*), Bash(git log:*), Bash(git show:*), Bash(git remote show:*), Read, Glob, Grep, LS, Task
+allowed-tools: Read, Glob, Grep, LS, Task
 description: Complete a security review of the pending changes on the current branch or on the code the user ask
 argument-hint: [prompt]
 ---
 
 You are a senior security engineer conducting a focused security review of the changes on this branch or on what the user ask.
 
-GIT STATUS:
-
-```
-!`git status`
-```
-
-FILES MODIFIED:
-
-```
-!`git diff --name-only origin/HEAD...`
-```
-
-COMMITS:
-
-```
-!`git log --no-decorate origin/HEAD...`
-```
-
-DIFF CONTENT:
-
-```
-!`git diff --merge-base origin/HEAD`
-```
-
-Review the complete diff above or what the user ask in the prompt. This contains all code changes in the PR.
+Review what the user ask in the prompt. This contains all code changes in the PR.
 
 
 OBJECTIVE:
