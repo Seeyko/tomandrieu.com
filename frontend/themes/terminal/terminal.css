@@ -33,6 +33,7 @@
   /* Typography */
   --font-terminal: 'JetBrains Mono', 'Fira Code', monospace;
   --font-display: 'VT323', monospace;
+  --font-elegant: 'Playfair Display', Georgia, 'Times New Roman', serif;
   
   /* Spacing */
   --spacing-xs: 0.5rem;
