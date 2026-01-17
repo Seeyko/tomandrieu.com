@@ -232,3 +232,8 @@ func (s *ArticleService) GetArticle(slug string) *models.Article {
 func (s *ArticleService) GetImagePath(slug, filename string) string {
 	return filepath.Join(s.articlesDir, slug, filename)
 }
+
+// GetArticlesDir returns the base articles directory path for path containment checks
+func (s *ArticleService) GetArticlesDir() string {
+	return s.articlesDir
+}

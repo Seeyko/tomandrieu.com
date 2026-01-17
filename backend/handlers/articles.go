@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -12,6 +13,9 @@ import (
 	"github.com/tomandrieu/blog-api/models"
 	"github.com/tomandrieu/blog-api/services"
 )
+
+// validSlugPattern matches only safe slug characters (lowercase alphanumeric and hyphens)
+var validSlugPattern = regexp.MustCompile(`^[a-z0-9][a-z0-9-]*[a-z0-9]$|^[a-z0-9]$`)
 
 type ArticleHandler struct {
 	service *services.ArticleService
@@ -63,7 +67,32 @@ func (h *ArticleHandler) ServeImage(w http.ResponseWriter, r *http.Request) {
 	slug = strings.TrimSuffix(slug, "/")
 	filename = filepath.Base(filename)
 
+	// Validate slug contains only safe characters (prevents path traversal)
+	if !validSlugPattern.MatchString(slug) {
+		http.NotFound(w, r)
+		return
+	}
+
 	imagePath := h.service.GetImagePath(slug, filename)
+
+	// Path containment check: ensure resolved path is within articles directory
+	absPath, err := filepath.Abs(imagePath)
+	if err != nil {
+		http.NotFound(w, r)
+		return
+	}
+
+	absArticlesDir, err := filepath.Abs(h.service.GetArticlesDir())
+	if err != nil {
+		http.NotFound(w, r)
+		return
+	}
+
+	// Ensure the path starts with the articles directory (with separator to prevent prefix attacks)
+	if !strings.HasPrefix(absPath, absArticlesDir+string(filepath.Separator)) {
+		http.NotFound(w, r)
+		return
+	}
 
 	if _, err := os.Stat(imagePath); os.IsNotExist(err) {
 		http.NotFound(w, r)
