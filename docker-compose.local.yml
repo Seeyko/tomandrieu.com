@@ -3,11 +3,12 @@ version: '3.8'
 services:
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
     ports:
       - "3000:3000"
     volumes:
+      # Bind mount for local development (overrides COPY'd articles for hot-reload)
       - ./blog/articles:/app/articles:ro
     environment:
       - PORT=3000

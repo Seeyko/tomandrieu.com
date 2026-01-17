@@ -25,13 +25,12 @@ services:
     env_file:
       - .env
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
     image: ${CI_REGISTRY_IMAGE}/backend:${APP_VERSION:-latest}
     expose:
       - ${BACKEND_PORT:-3000}
-    volumes:
-      - ./blog/articles:/app/articles:ro
+    # Articles are now copied into the image at build time (no volume needed)
     environment:
       - PORT=${BACKEND_PORT:-3000}
       - ARTICLES_DIR=/app/articles

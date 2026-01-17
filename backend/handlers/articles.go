@@ -52,7 +52,13 @@ func (h *ArticleHandler) GetArticle(w http.ResponseWriter, r *http.Request) {
 	slug := chi.URLParam(r, "slug")
 	slug = strings.TrimSuffix(slug, "/")
 
-	article := h.service.GetArticle(slug)
+	// Get language from query param, default to "fr"
+	lang := r.URL.Query().Get("lang")
+	if lang == "" {
+		lang = "fr"
+	}
+
+	article := h.service.GetArticle(slug, lang)
 	if article == nil {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusNotFound)

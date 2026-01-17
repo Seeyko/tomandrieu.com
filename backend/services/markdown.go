@@ -67,6 +67,7 @@ func (s *ArticleService) RefreshCache() error {
 	}
 
 	var articles []models.Article
+	supportedLangs := []string{"en", "fr"}
 
 	for _, entry := range entries {
 		if !entry.IsDir() {
@@ -74,19 +75,51 @@ func (s *ArticleService) RefreshCache() error {
 		}
 
 		slug := entry.Name()
-		indexPath := filepath.Join(s.articlesDir, slug, "index.md")
 
-		content, err := os.ReadFile(indexPath)
-		if err != nil {
-			continue
+		// Try language-specific files first (index.en.md, index.fr.md)
+		for _, lang := range supportedLangs {
+			langPath := filepath.Join(s.articlesDir, slug, "index."+lang+".md")
+			content, err := os.ReadFile(langPath)
+			if err != nil {
+				continue
+			}
+
+			article, err := s.parseArticle(slug, content)
+			if err != nil {
+				continue
+			}
+
+			// Override lang from filename if not specified in frontmatter
+			if article.Lang == "" {
+				article.Lang = lang
+			}
+
+			articles = append(articles, article)
 		}
 
-		article, err := s.parseArticle(slug, content)
-		if err != nil {
-			continue
+		// Fallback to index.md if no language-specific files found for this slug
+		hasLangFiles := false
+		for _, a := range articles {
+			if a.Slug == slug {
+				hasLangFiles = true
+				break
+			}
 		}
 
-		articles = append(articles, article)
+		if !hasLangFiles {
+			indexPath := filepath.Join(s.articlesDir, slug, "index.md")
+			content, err := os.ReadFile(indexPath)
+			if err != nil {
+				continue
+			}
+
+			article, err := s.parseArticle(slug, content)
+			if err != nil {
+				continue
+			}
+
+			articles = append(articles, article)
+		}
 	}
 
 	sort.Slice(articles, func(i, j int) bool {
@@ -177,7 +210,7 @@ func (s *ArticleService) GetArticles(page, limit int, lang string) models.Articl
 	var filteredArticles []models.Article
 	for _, article := range s.cache {
 		// Match if lang matches, or if lang is empty and article is French (default)
-		if article.Lang == lang || (lang == "" && article.Lang == "fr) {
+		if article.Lang == lang || (lang == "" && article.Lang == "fr") {
 			filteredArticles = append(filteredArticles, article)
 		}
 	}
@@ -232,12 +265,20 @@ func (s *ArticleService) GetArticles(page, limit int, lang string) models.Articl
 	}
 }
 
-func (s *ArticleService) GetArticle(slug string) *models.Article {
+func (s *ArticleService) GetArticle(slug string, lang string) *models.Article {
 	s.cacheMu.RLock()
 	defer s.cacheMu.RUnlock()
 
 	slug = strings.TrimSuffix(slug, "/")
 
+	// First try to find article matching both slug and language
+	for _, article := range s.cache {
+		if article.Slug == slug && article.Lang == lang {
+			return &article
+		}
+	}
+
+	// Fallback: if no match for requested language, return any article with this slug
 	for _, article := range s.cache {
 		if article.Slug == slug {
 			return &article

@@ -4,10 +4,12 @@ WORKDIR /build
 
 RUN apk add --no-cache git
 
-COPY go.mod go.sum* ./
+# Copy Go module files first (from backend directory in context)
+COPY backend/go.mod backend/go.sum* ./
 RUN go mod download 2>/dev/null || go mod tidy
 
-COPY . .
+# Copy backend source
+COPY backend/ .
 RUN go mod tidy && CGO_ENABLED=0 GOOS=linux go build -ldflags="-w -s" -o /app/server .
 
 FROM alpine:3.19
@@ -18,7 +20,8 @@ WORKDIR /app
 
 COPY --from=builder /app/server .
 
-RUN mkdir -p /app/articles
+# Copy articles from the repo (ensures fresh articles on every build)
+COPY blog/articles /app/articles
 
 EXPOSE 3000
 
