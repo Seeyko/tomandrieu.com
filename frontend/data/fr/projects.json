@@ -15,7 +15,7 @@
     {
         "id": "skoolbook",
         "title": "Skoolbook",
-        "description": "Skoolbook est une plateforme que j'ai concue, avec ma conjointe institutrice, pour optimiser la gestion des bibliotheques scolaires. Elle offre une interface intuitive pour les enseignants, facilite le suivi des emprunts de livres et encourage l'autonomie des eleves.",
+        "description": "Skoolbook, c'est une appli que j'ai construite avec ma conjointe instit. L'idée : simplifier la gestion des bibliothèques de classe. Les profs peuvent suivre les emprunts facilement, et les élèves gèrent leurs livres en autonomie.",
         "type": "APPLICATION WEB",
         "url": "https://skoolbook.fr",
         "images": [
@@ -29,7 +29,7 @@
     {
         "id": "teach-tools",
         "title": "Teach Tools",
-        "description": "Un assistant pedagogique numerique, des outils innovants pour simplifier le travail des enseignants au quotidien. Permet de generer des exercices et des images grace a l'IA.",
+        "description": "Des outils pour les profs. Génère des exercices et des images grâce à l'IA. Simple et pratique pour le quotidien.",
         "type": "OUTIL IA",
         "url": "https://teach-tools.com",
         "images": [

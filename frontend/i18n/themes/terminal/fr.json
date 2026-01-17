@@ -1,12 +1,12 @@
 {
   "typewriter": [
     "echo \"Bonjour, Monde !\"",
-    "npm run creer-des-trucs-incroyables",
-    "git commit -m \"ameliore\"",
-    "sudo laisse-moi surfer",
-    "iterate() jusqu_a meaningful(produit)",
-    "./construire-des-reves.sh --avec-passion",
-    "grep -r \"bugs\" . | ./les-corriger-avec-ia.sh"
+    "bun run build-cool-stuff",
+    "git commit -m \"ça marche\"",
+    "sudo let-me-cook",
+    "while (!done) { iterate(); }",
+    "./ship-it.sh --no-excuses",
+    "grep -r \"bugs\" . | xargs ./fix-with-ai.sh"
   ],
   "console": {
     "systemInit": "[SYSTEME] Terminal initialise...",
@@ -20,13 +20,13 @@
     "accessGranted": "[SUCCES] Acces accorde ! Je plaisante"
   },
   "randomMessages": [
-    "[INFO] Les bonnes choses prennent du temps et de l'iteration",
+    "[INFO] Les bonnes choses prennent du temps",
     "[INFO] N'oubliez pas de vous etirer !",
     "[OK] Tous les systemes nominaux",
-    "[INFO] Fun fact: Ce site tourne sur la creativite",
+    "[INFO] Fun fact: Ce site tourne sur du vanilla JS",
     "[INFO] Vous avez trouve un message cache !",
     "[OK] Stabilite de la Matrice a 100%",
-    "[INFO] Continuez a etre genial !",
+    "[INFO] Keep building !",
     "[WARN] Enderman detecte dans le secteur 7..."
   ],
   "easterEggs": {
@@ -35,8 +35,8 @@
     "noSpoon": "Il n'y a pas de cuillere.",
     "partyMode": "MODE FETE ACTIVE !",
     "hackSuccess": "[SUCCES] Acces accorde ! Je plaisante",
-    "shipIt": "Une autre iteration deployee !",
-    "smallSteps": "[OK] Petits pas, progres significatifs.",
+    "shipIt": "Shipped !",
+    "smallSteps": "[OK] Petits pas, par petits pas.",
     "endermanWarning": "[ENTITE] Enderman repere... Ne le regardez pas directement !",
     "endermanLookTooLong": "[ENTITE] Vous l'avez regarde trop longtemps...",
     "colorsReset": "[SYSTEME] Couleurs reinitialises"
@@ -44,12 +44,12 @@
   "terminalOutput": {
     "loadingModules": "[OK] Chargement des modules...",
     "productEngineerInit": "[OK] Product engineer initialise",
-    "readyToBuild": "[OK] Pret a construire quelque chose d'incroyable"
+    "readyToBuild": "[OK] Ready to ship"
   },
   "heroStats": {
     "creativity": "CREATIVITE",
-    "drive": "MOTIVATION",
-    "codeSkill": "COMPETENCE_CODE"
+    "drive": "DRIVE",
+    "codeSkill": "CODE_SKILL"
   },
   "cardPrefix": "PRJ",
   "blogPrefix": "BLOG",

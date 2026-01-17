@@ -2,20 +2,20 @@
   "meta": {
     "name": "Tom Andrieu",
     "title": "Product Engineer",
-    "description": "Product Engineer qui construit des produits significatifs, itere avec intention, et aide les equipes a donner le meilleur d'elles-memes."
+    "description": "Product Engineer. Je conçois et construis des produits de bout en bout. Du code jusqu'à l'impact utilisateur."
   },
   "hero": {
     "title": ["PRODUCT", "ENGINEER"],
-    "subtitle": "CONSTRUIRE CE QUI COMPTE"
+    "subtitle": "UNE NOUVELLE FACON DE TRAVAILLER"
   },
   "about": {
-    "intro": "Je construis des produits <highlight>SIGNIFICATIFS</highlight> et j'aide les petites equipes a faire leur <highlight>MEILLEUR TRAVAIL</highlight>.",
-    "detail": "J'accorde de l'importance au savoir-faire et a l'iteration. Je prefere rendre les autres autonomes plutot que de les micro-manager. Travailler avec l'IA m'a rendu encore plus optimiste sur ce que les equipes concentrees peuvent creer.",
+    "intro": "Je construis des <highlight>PRODUITS</highlight> et j'aide les petites équipes à faire du <highlight>BON BOULOT</highlight>.",
+    "detail": "Le savoir-faire et l'itération, c'est ce qui compte. Je préfère rendre les gens autonomes plutôt que de les micro-manager. Bosser avec l'IA m'a rendu optimiste sur ce que des équipes focus peuvent créer.",
     "specs": {
       "location": "FRANCE",
       "experience": "7+ ANS",
-      "focus": "PRODUCT ENGINEER",
-      "status": "DISPONIBLE POUR PROJETS"
+      "focus": "PRODUCT ENGINEERING",
+      "status": "DISPO POUR PROJETS"
     },
     "specLabels": {
       "location": "LOCALISATION",
@@ -60,12 +60,12 @@
     "letsTalk": "Discutons",
     "getInTouch": "Me Contacter",
     "maybeLater": "Peut-etre plus tard",
-    "waitLetsConnect": "Attendez ! Connectons-nous",
-    "haveProjectInMind": "Un projet en tete ? J'aimerais en savoir plus.",
-    "availableForProjects": "Disponible pour des Projets",
-    "acceptingClients": "J'accepte de nouveaux clients pour Q2 2025",
-    "typicallyResponds": "Repond generalement sous 24 heures",
-    "establishConnection": "ETABLIR LA CONNEXION",
+    "waitLetsConnect": "Hey, on se connecte ?",
+    "haveProjectInMind": "Un projet en tête ? Parlons-en.",
+    "availableForProjects": "Dispo pour des projets",
+    "acceptingClients": "Dispo pour de nouveaux projets",
+    "typicallyResponds": "Réponse sous 24h",
+    "establishConnection": "CONNECTER",
     "systemStatus": "STATUT SYSTEME",
     "availableNote": "disponible pour projets"
   },
@@ -78,12 +78,12 @@
     "bestViewed": "Meilleur affichage avec Netscape Navigator 4.0 a 800x600"
   },
   "stats": {
-    "yearsExperience": "Ans d'Experience",
-    "usersReached": "Utilisateurs Atteints",
-    "liveProducts": "Produits en Ligne"
+    "yearsExperience": "Ans d'XP",
+    "usersReached": "Utilisateurs",
+    "liveProducts": "Produits en prod"
   },
   "blog": {
-    "subtitle": "Reflexions sur le product engineering, la creation de produits significatifs et la technologie.",
+    "subtitle": "Product engineering, création de produits, et technologie.",
     "minRead": "min de lecture",
     "newBadge": "NOUVEAU !",
     "articleNotFound": "Article Introuvable",
@@ -93,16 +93,16 @@
     "next": "Suiv."
   },
   "guestbook": {
-    "signGuestbook": "Signez mon livre d'or avant de partir !",
-    "initiatingContact": "Initialisation du protocole de contact...",
-    "emailChannelReady": "[OK] Canal email pret"
+    "signGuestbook": "Signez le livre d'or !",
+    "initiatingContact": "Connexion en cours...",
+    "emailChannelReady": "[OK] Email ready"
   },
   "cro": {
     "exitModal": {
-      "title": "Attendez ! Connectons-nous",
-      "subtitle": "Un projet en tete ? J'aimerais en savoir plus.",
+      "title": "Hey, on se connecte ?",
+      "subtitle": "Un projet en tête ? Parlons-en.",
       "cta": "Me Contacter",
-      "dismiss": "Peut-etre plus tard"
+      "dismiss": "Plus tard"
     }
   }
 }
