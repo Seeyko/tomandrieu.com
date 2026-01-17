@@ -7,60 +7,123 @@ draft: false
 
 # Hello World
 
-Bienvue sur mon nouveau site web. Ce n'est pas juste un redesign ou une mise à jour pour afficher de nouveau projet. <b>C'est un reset<b>.
+Bienvenue sur mon nouveau site web.
+
+Ce n'est pas juste un redesign. Pas une mise à jour pour afficher de nouveaux projets. **C'est un reset.**
+
+---
 
 ## Pourquoi encore une nouvelle version ?
 
 ### Une nouvelle façon de construire
 
-Il y a quelques mois, durant l'année 2025 j'ai découvert le développement assisté par IA. Au début simplement quelques questions posé à ChatGPT. Ensuite des extensions/plugins sur mon éditeur de code comme Github Copilot. Puis pour le fun (et certainement un peu de [FOMO](https://fr.wikipedia.org/wiki/Syndrome_FOMO) j'ai voulu testé Cursor.
-Et la quelle claque je me suis pris, au début c'était juste de l'autocomplétion comme si l'éditeur lisait dans mes pensées et savaient ou je voulais allez et qui prédisait la suite logique des actions que je comptais prendre.
-Puis ensuite j'ai essayé de lui laissé les reines en lui donnant des missions plus ou moins complexes. Il y a eu beaucoup de désilusions, il faisait des erreurs, ne codais pas avec la même rigueur que moi, faisais du code qui semblait inmaintenable sur le long terme. De la duplication, des fonctions vraiment douteuses...
-Puis j'ai appris a l'utiliser, a dompter la bête. A m'en servir non seulement pour faire les tâches ingrâtes de corriger un bug mais aussi pour mieux concevoir, tester de nouvelles technologies, voir jusqu'ou je pouvais allez. 
-J'ai réussi à construire des systèmes entier, du microservices, event-driven, avec une architecture scalable, des chats en temps réel, capable d'absorber plusieurs millions de messages par jours. Tout cela en quelques jours, la où avant cela m'aurait pris plusieurs mois. Ne serait-ce que pour absorber la documentation et comprendre comment les systèmes fonctionnent.
-Et enfin je finis l'année avec Claude Code, un outil assez simple d'apparence, qui tourne dans un terminal et peux être configuré et customiser comme on le souhaite. Alors je le customise, le cadre, lui apprends a penser et coder comme moi. En ayant espoir que toute mes années de pratiques et de connaissances que j'ai accumulé en m'entrainant et en étant mentorer par des personnes plus intelligentes, ce savoir qui me distingue des autres développeurs et ingénieurs et qui me permettent aujourd'hui de sortir du lot ne soit pas vain. Tout le monde est plus productif et peux pisser du code grâce aux IA, mais tout le monde ne sait pas ce qui fait un système qui marche, tiens la route et peux être robuste face aux temps. 
+Il y a quelques mois, en 2025, j'ai découvert le développement assisté par IA.
+
+Au début, quelques questions posées à ChatGPT. Puis des plugins sur mon éditeur : Github Copilot. Et pour le fun (et un peu de [FOMO](https://fr.wikipedia.org/wiki/Syndrome_FOMO)), j'ai testé Cursor.
+
+Quelle claque.
+
+Au début c'était juste de l'autocomplétion. Comme si l'éditeur lisait dans mes pensées. Il savait où je voulais aller, prédisait la suite logique de mes actions.
+
+Puis j'ai voulu lui laisser les rênes. Lui donner des missions plus complexes.
+
+Il y a eu des désillusions. Des erreurs. Du code pas rigoureux, inmaintenable sur le long terme. De la duplication, des fonctions douteuses...
+
+Mais j'ai appris à dompter la bête. À m'en servir pour les tâches ingrates, mais aussi pour mieux concevoir. Tester de nouvelles technos. Voir jusqu'où je pouvais aller.
+
+J'ai construit des systèmes entiers. Microservices, event-driven, architecture scalable. Des chats temps réel, des systèmes de paiement capables d'encaisser des millions de messages par jour.
+
+En quelques jours. Là où avant, j'aurais mis des mois.
+
+Et je finis l'année avec Claude Code. Un outil simple d'apparence, qui tourne dans un terminal. Configurable, customisable à souhait.
+
+Alors je le customise. Je le cadre. Je lui apprends à penser et coder comme moi.
+
+J'ai passé des années à apprendre, à être mentoré par des gens plus intelligents que moi. Ce savoir me distingue. J'espère qu'il ne sera pas vain.
+
+Tout le monde peut pisser du code grâce aux IA. Mais tout le monde ne sait pas ce qui fait un système qui marche. Qui tient la route. Qui reste robuste face au temps.
+
+Mais ces nouveaux outils m'ont aussi fait réfléchir. Sur ce que je veux vraiment faire.
 
 ### Un changement de direction
 
-Cette année, j'ai pris le temps de lire. Quelque chose qui m'a marqué c'est les newsletters de l'équipe de PostHog: [Product for Engineers](https://newsletter.posthog.com/). cela a profondément résonné en moi et m'a ouvert les yeux sur de nouvelles perspectives et une nouvelle façon de faire mon travail. 
-L'idée que je ne suis pas un simple developer. Cela fait plusieurs année que je conçois et tente de créer des solutions, mais je savais que mon point de vue de développeur n'était pas le point de vue qu'il fallais pour réussir dans ce milieu. Et surtout, comment cette passion que j'ai et cette envie de construire des choses pourraient ce traduire dans le monde de l'entreprise tel que je le connais ? Ou on a un developpeur en bas de chaîne, à l'éxecution. Et ensuite des PO, des PM, un directeur etc... Tout pleins de gens et d'étages qui dilue et brouille les consignes, les volontés et le bon sens (cela s'applique aussi dans l'aspect purement technique et managériale, pas seulement sur les décisions produits).
-Je ne suis pas un PO, ni un PM. Ce ne sont pas des métiers qui me plairait de faire au quotidien. Mais leurs décisions me paraissent parfois tellement irrationnelle et déconnecté de ce qui compte vraiment: l'utilisateur et le produit.
-L'idée du Product Engineer que je retiens et qui va driver le futur de ma carrière, c'est celle d'un développeur capable d'être responsable de l'entiéreté de l'experience produit. A partir du code, jusqu'a l'impact utilisateur. C'est ce que je veux faire. Je le faisais déjà sur mes sides projects mais sans réelle conviction, simplement parcequ'il fallais le faire et que je n'avais pas de PM. Mais je réfléchissais toujours avec la métrique de "qu'est ce que cela va me coûter à développer"
-Aujourd'hui avec cette nouvelle façon de cosntruire les choses je peux m'abstraire de tout ça et travailler différement. C'est ce changement que je veux refléter avec ce nouveau site.
+Cette année, j'ai pris le temps de lire.
+
+Les newsletters de l'équipe de PostHog m'ont marqué : [Product for Engineers](https://newsletter.posthog.com/). Ça a résonné en moi. Une nouvelle façon de voir mon travail.
+
+L'idée que je ne suis pas un simple développeur.
+
+Cela fait des années que je conçois et crée des solutions. Mais je savais que mon point de vue de développeur n'était pas suffisant pour réussir dans ce milieu.
+
+Et surtout : comment traduire cette passion dans le monde de l'entreprise tel que je le connais ?
+
+Un développeur en bas de chaîne, à l'exécution. Au-dessus : des PO, des PM, un directeur. Des étages qui diluent les consignes et brouillent le bon sens.
+
+Je ne suis pas un PO, ni un PM. Ce ne sont pas des métiers qui me plairaient. Mais leurs décisions me paraissent parfois irrationnelles. Déconnectées de ce qui compte vraiment : **l'utilisateur et le produit**.
+
+L'idée du Product Engineer qui va driver ma carrière ? Un développeur responsable de l'entièreté de l'expérience produit. Du code jusqu'à l'impact utilisateur.
+
+C'est ce que je veux faire.
+
+Je le faisais déjà sur mes side projects. Sans conviction, parce qu'il fallait le faire et que je n'avais pas de PM. Je réfléchissais toujours en termes de "qu'est-ce que ça va me coûter à développer".
+
+Aujourd'hui, avec cette nouvelle façon de construire, je peux m'abstraire de tout ça. Travailler différemment. C'est ce changement que je veux refléter avec ce nouveau site.
 
 ### Quelque chose de plus... personnel
 
-Mon vieux site wordpress était fonctionnel et faisais le taff, mais il était un peu bateau. Et ne me permettais pas de m'exprimer.
-Je voulais quelque chose de plus customisable, créatif. Quelque chose qui me reflète un peu plus et avec lequel je peux m'amuser.
-Quelque chose de léger que je maitrise et comprend. Donc avec mon nouveau collègue Claude, je l'ai reconstruit from scratch, Vanilla JS et un petit backend en Go pour héberger mes articles. Rien de fancy ou complexe, certainement encore des progrés à faire car Claude n'est pas encore assez rigoureux mais il est là et il me correspond.
+Mon vieux site WordPress faisait le taff. Mais il était bateau. Il ne me permettait pas de m'exprimer.
+
+Je voulais quelque chose de plus créatif. Qui me reflète. Avec lequel je peux m'amuser. Quelque chose de léger, que je maîtrise et comprends.
+
+Alors avec mon nouveau collègue Claude, je l'ai reconstruit from scratch. Vanilla JS, un petit backend en Go pour les articles. Rien de fancy. Encore des progrès à faire, mais il est là. Et il me correspond.
+
+---
 
 ## Pourquoi commencer à écrire des articles ?
 
-Honnêtement ? Parceque j'ai toujours voulu le faire mais que je ne voyais pas le bénéfice que cela apporterais a la société
-Je me suis convaincu que je ne savais pas écrire, car je n'écrivais jamais (bien que j'ai eu 18 à l'épreuve d'écriture d'invention au bac de français, qui était un de mes kiffs absolu)
-La vérité c'est que j'ai jamais vraiment essayé. Et si j'essaye pas, personne ne le fera a ma place et cela restera pour toujours dans un coin de ma tête. Et cette année, les choses sont différentes.
+Honnêtement ? Parce que j'ai toujours voulu le faire. Mais je ne voyais pas ce que ça apporterait.
 
-Quelque chose à changé récemment. Au fur et à mesure que je grandis dans ma carrière - devenir lead, manager, encadrer, me rapprocher des humains. L'année 2025 à été riche en rencontre et m'a permis de m'ouvrir et d'avoir des discussions avec des humains fantastiques
-J'ai réalisé quelque chose: **mes mots ont de la valeurs**.
+Je me suis convaincu que je ne savais pas écrire. Parce que je n'écrivais jamais. (Pourtant j'ai eu 18 à l'épreuve d'invention au bac de français. Un de mes kiffs absolus.)
 
-Mes idées ne sont pas révolutionnaire, mais c'est les miennes. Et plus souvent que ce que je pense, des gens les partagent ou sont prêt à les écouter, et cela peut résonner en eux aussi.
-Ils ont envie de partager, d'écouter, de débattre. Et toute ces conversations font partie de ce qui est le plus récompensant dans mon travail et ma vie.
-La vie est faite d'échange et chaque mot peut changer la trajectoire d'une vie.
+La vérité ? Je n'ai jamais vraiment essayé. Et si je n'essaie pas, personne ne le fera à ma place.
 
-Alors je me suis dit: pourquoi ne pas en garder une traces quelque part ?
+Cette année, les choses sont différentes.
+
+Quelque chose a changé récemment.
+
+Je grandis dans ma carrière. Lead, manager, encadrer. Me rapprocher des humains. L'année 2025 a été riche en rencontres. Des discussions avec des gens fantastiques.
+
+J'ai réalisé quelque chose : **mes mots ont de la valeur.**
+
+Mes idées ne sont pas révolutionnaires. Mais ce sont les miennes. Et plus souvent que je ne le pense, des gens les partagent. Ou sont prêts à les écouter. Ça peut résonner en eux aussi.
+
+Ils ont envie de partager, d'écouter, de débattre. Ces conversations font partie de ce qui est le plus récompensant dans mon travail. Et dans ma vie.
+
+La vie est faite d'échanges. Chaque mot peut changer la trajectoire d'une vie.
+
+Alors je me suis dit : pourquoi ne pas en garder une trace ?
+
+---
 
 ## De quoi s'agit-il réellement ?
 
-Ces articles sont une tentatives de laissé une trace. Un témoignage de qui je suis, de mon époque, des ma façon de voir les choses, du chemin de mon existence.
-Pas pour la gloire, pas pour les followers, juste pour le simple fait que j'existe. Que je pense à des choses, et que peut être, juste peut être, quelqu'un le lira et cela résonnera en lui.
+Ces articles sont une tentative de laisser une trace. Un témoignage. Qui je suis, mon époque, ma façon de voir les choses.
 
-## A quoi s'attendre
+Pas pour la gloire. Pas pour les followers. Juste parce que j'existe. Que je pense à des choses. Et que peut-être, quelqu'un le lira et ça résonnera en lui.
 
-Dans cet élan, j'écrirais certainement à propos:
+---
 
-- **Product Engineering** - Construire des choses qui comptent, de bout en bout
-- **Développement (et +) assisté par l'IA** - Ce que j'apprends et comment je navigue dans ce nouveau monde agentique
-- **Leadership et croissance** - Des leçons et ma façon de collaborer et communiquer et grandir avec les autres
-- **Trucs randoms** - Parceque tout n'a pas besoin d'être catégorisé et que je ne me briderais pas
+## À quoi s'attendre
 
-Merci d'être la, merci d'exister - Voyons voir où cela nous mène.
+Dans cet élan, j'écrirai sur :
+
+- **Product Engineering** — Construire des choses qui comptent, de bout en bout
+- **IA et développement** — Ce que j'apprends dans ce nouveau monde agentique
+- **Leadership** — Collaborer, communiquer, grandir avec les autres
+- **Trucs randoms** — Parce que tout n'a pas besoin d'être catégorisé
+
+---
+
+Merci d'être là.
+
+Voyons où ça nous mène.
