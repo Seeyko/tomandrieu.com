@@ -6,11 +6,8 @@ draft: false
 lang: fr
 ---
 
-Bienvenue sur mon nouveau site web.
-
+Bienvenue sur mon nouveau site web.\
 Ce n'est pas juste un redesign. Pas une mise à jour pour afficher de nouveaux projets. **C'est un reset.**
-
----
 
 ## Pourquoi encore une nouvelle version ?
 
