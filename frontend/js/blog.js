@@ -1,186 +1,78 @@
 /**
- * ═══════════════════════════════════════════════════════════════
- * BLOG PAGE - Handles listing and article views
- * ═══════════════════════════════════════════════════════════════
+ * Blog Page - Handles listing and article views
  */
 
-// ─── State ───
 let currentPage = 1;
 const ITEMS_PER_PAGE = 6;
 
-/**
- * Get the API base URL from config
- * Uses window.APP_CONFIG.API_URL set by config.js
- */
-function getApiBaseUrl() {
-    // Use config if available, otherwise fall back to same-origin
-    if (window.APP_CONFIG && window.APP_CONFIG.API_URL) {
-        return window.APP_CONFIG.API_URL;
-    }
-    // Fallback: same-origin (relative paths)
-    return '';
-}
-
-/**
- * Check if running in local development mode
- */
-function isLocalDev() {
-    return window.location.hostname === 'localhost' && window.location.port === '8000';
-}
-
-/**
- * Get current view type and slug from URL
- */
 function getViewFromURL() {
     const params = new URLSearchParams(window.location.search);
     const path = window.location.pathname;
-
-    // Check path-based slug first (works for both local dev and production)
     const match = path.match(/^\/blog\/([^\/]+)\/?$/);
-    if (match && match[1]) {
-        return { view: 'article', slug: match[1] };
-    }
 
-    // Fallback: check for slug query param
-    const slugParam = params.get('slug');
-    if (slugParam) {
-        return { view: 'article', slug: slugParam };
-    }
-
-    // Check for page param
-    const page = parseInt(params.get('page')) || 1;
-
-    return { view: 'listing', page };
+    if (match?.[1]) return { view: 'article', slug: match[1] };
+    if (params.get('slug')) return { view: 'article', slug: params.get('slug') };
+    return { view: 'listing', page: parseInt(params.get('page')) || 1 };
 }
 
-/**
- * Fetch article by slug
- */
 async function fetchArticle(slug) {
-    const apiBase = getApiBaseUrl();
+    const apiBase = Utils.getApiBaseUrl();
     try {
         const response = await fetch(`${apiBase}/api/articles/${slug}`);
-        if (!response.ok) {
-            if (response.status === 404) {
-                return null;
-            }
-            throw new Error('Failed to fetch article');
-        }
+        if (!response.ok) return response.status === 404 ? null : null;
         const data = await response.json();
-        // Fix coverImage path - prepend API base URL for local development
-        if (data.article && data.article.coverImage) {
+        if (data.article?.coverImage) {
             data.article.coverImage = `${apiBase}${data.article.coverImage}`;
         }
         return data.article;
-    } catch (err) {
-        console.error('%c[ERR] ' + err.message, 'color: #ff3333;');
+    } catch {
         return null;
     }
 }
 
-/**
- * Fetch paginated articles
- */
 async function fetchArticles(page = 1, limit = ITEMS_PER_PAGE) {
-    const apiBase = getApiBaseUrl();
+    const apiBase = Utils.getApiBaseUrl();
+    const lang = window.LanguageManager?.currentLang || 'fr';
     try {
-        const response = await fetch(`${apiBase}/api/articles?page=${page}&limit=${limit}`);
-        if (!response.ok) throw new Error('Failed to fetch articles');
+        const response = await fetch(`${apiBase}/api/articles?page=${page}&limit=${limit}&lang=${lang}`);
+        if (!response.ok) throw new Error('Failed to fetch');
         const data = await response.json();
-        // Fix coverImage paths - prepend API base URL for local development
         if (data.articles) {
-            data.articles = data.articles.map(article => ({
-                ...article,
-                coverImage: article.coverImage ? `${apiBase}${article.coverImage}` : null
+            data.articles = data.articles.map(a => ({
+                ...a,
+                coverImage: a.coverImage ? `${apiBase}${a.coverImage}` : null
             }));
         }
         return data;
-    } catch (err) {
-        console.error('%c[ERR] ' + err.message, 'color: #ff3333;');
+    } catch {
         return { articles: [], pagination: { page: 1, limit, total: 0, totalPages: 0, hasNext: false, hasPrev: false } };
     }
 }
 
-/**
- * Render article list using theme-specific card renderer
- * Uses the same renderer as the landing page for consistency
- */
 function renderArticleList(articles) {
     const container = document.getElementById('blog-list');
     if (!container) return;
 
-    // Hide loading
     const loading = container.querySelector('.blog-list-loading');
     if (loading) loading.style.display = 'none';
 
-    if (!articles || articles.length === 0) {
+    if (!articles?.length) {
         container.innerHTML = '<p class="no-articles">No articles yet. Check back soon!</p>';
         return;
     }
 
-    // Clear container
     container.innerHTML = '';
-
-    // Use theme-specific renderer if available, otherwise use fallback
-    const renderer = window.ThemeBlogCardRenderer;
+    const renderer = window.ThemeBlogCardRenderer || ((a, i) => CardRenderer.renderBlogCard(a, i, {}));
 
     articles.forEach((article, index) => {
-        if (renderer) {
-            // Use theme-specific renderer (same as landing page)
-            const card = renderer(article, index);
-            // Add blog-list-card class for blog page specific styling
-            card.classList.add('blog-list-card');
-            container.appendChild(card);
-        } else {
-            // Fallback: Create a basic card (should rarely happen)
-            const card = createFallbackBlogCard(article, index);
-            container.appendChild(card);
-        }
+        const card = renderer(article, index);
+        card.classList.add('blog-list-card');
+        container.appendChild(card);
     });
 
-    // Trigger animations
     initListAnimations();
 }
 
-/**
- * Fallback blog card renderer (used if theme renderer not available)
- */
-function createFallbackBlogCard(article, index) {
-    const card = document.createElement('a');
-    card.className = 'blog-card blog-list-card fade-in-up';
-    if (!article.coverImage) {
-        card.classList.add('no-image');
-    }
-    card.href = `/blog/${article.slug}/`;
-    card.style.animationDelay = `${index * 0.1}s`;
-
-    const date = formatDate(article.publishedAt);
-    const indexFormatted = String(index + 1).padStart(2, '0');
-
-    // Only show image if there's a cover image
-    const imageHTML = article.coverImage
-        ? `<div class="blog-card-image"><img src="${article.coverImage}" alt="${article.title}" loading="lazy"></div>`
-        : '';
-
-    card.innerHTML = `
-        ${imageHTML}
-        <div class="blog-card-content">
-            <span class="blog-index">BLOG-${indexFormatted}</span>
-            <h3 class="blog-card-title">${article.title}</h3>
-            <p class="blog-card-excerpt">${article.excerpt}</p>
-            <div class="blog-card-meta">
-                <span class="blog-date">${date}</span>
-                <span class="blog-reading-time">${article.readingTime} min read</span>
-            </div>
-        </div>
-    `;
-
-    return card;
-}
-
-/**
- * Render pagination controls
- */
 function renderPagination(pagination) {
     const container = document.getElementById('pagination');
     if (!container || pagination.totalPages <= 1) {
@@ -189,98 +81,57 @@ function renderPagination(pagination) {
     }
 
     const { page, totalPages, hasNext, hasPrev } = pagination;
-    const baseUrl = '/blog/';
 
-    let html = '<div class="pagination-controls">';
+    container.innerHTML = `
+        <div class="pagination-controls">
+            ${hasPrev ? `<a href="/blog/?page=${page - 1}" class="pagination-btn prev" data-page="${page - 1}">&larr; Prev</a>` : '<span class="pagination-btn prev disabled">&larr; Prev</span>'}
+            <div class="pagination-numbers">
+                ${Array.from({ length: totalPages }, (_, i) => i + 1)
+                    .map(n => n === page ? `<span class="pagination-num active">${n}</span>` : `<a href="/blog/?page=${n}" class="pagination-num" data-page="${n}">${n}</a>`)
+                    .join('')}
+            </div>
+            ${hasNext ? `<a href="/blog/?page=${page + 1}" class="pagination-btn next" data-page="${page + 1}">Next &rarr;</a>` : '<span class="pagination-btn next disabled">Next &rarr;</span>'}
+        </div>
+    `;
 
-    // Previous button
-    if (hasPrev) {
-        html += `<a href="${baseUrl}?page=${page - 1}" class="pagination-btn prev" data-page="${page - 1}">&larr; Prev</a>`;
-    } else {
-        html += `<span class="pagination-btn prev disabled">&larr; Prev</span>`;
-    }
-
-    // Page numbers
-    html += '<div class="pagination-numbers">';
-    for (let i = 1; i <= totalPages; i++) {
-        if (i === page) {
-            html += `<span class="pagination-num active">${i}</span>`;
-        } else {
-            html += `<a href="${baseUrl}?page=${i}" class="pagination-num" data-page="${i}">${i}</a>`;
-        }
-    }
-    html += '</div>';
-
-    // Next button
-    if (hasNext) {
-        html += `<a href="${baseUrl}?page=${page + 1}" class="pagination-btn next" data-page="${page + 1}">Next &rarr;</a>`;
-    } else {
-        html += `<span class="pagination-btn next disabled">Next &rarr;</span>`;
-    }
-
-    html += '</div>';
-    container.innerHTML = html;
-
-    // Add click handlers for SPA-like navigation
     container.querySelectorAll('[data-page]').forEach(link => {
-        link.addEventListener('click', (e) => {
+        link.addEventListener('click', e => {
             e.preventDefault();
-            const newPage = parseInt(link.dataset.page);
-            navigateToPage(newPage);
+            navigateToPage(parseInt(link.dataset.page));
         });
     });
 }
 
-/**
- * Navigate to a page (updates URL and re-renders)
- */
 async function navigateToPage(page) {
     currentPage = page;
     window.history.pushState({}, '', `/blog/?page=${page}`);
-
     const data = await fetchArticles(page);
     renderArticleList(data.articles);
     renderPagination(data.pagination);
-
-    // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/**
- * Render article detail view
- */
 function renderArticle(article) {
-    // Hide listing, show article
     document.getElementById('blog-listing').style.display = 'none';
     document.getElementById('article-view').style.display = 'block';
-
-    // Update page title
     document.title = `${article.title} - Tom Andrieu`;
 
-    // Populate content
     document.getElementById('article-title').textContent = article.title;
-    document.getElementById('article-date').textContent = formatDate(article.publishedAt);
+    document.getElementById('article-date').textContent = ContentLoader.formatDate(article.publishedAt);
     document.getElementById('article-reading-time').textContent = `${article.readingTime} min read`;
     document.getElementById('article-content').innerHTML = article.content;
 
-    // Cover image
-    const coverContainer = document.getElementById('article-cover');
+    const cover = document.getElementById('article-cover');
     if (article.coverImage) {
-        coverContainer.innerHTML = `<img src="${article.coverImage}" alt="${article.title}" class="article-cover-img">`;
-        coverContainer.style.display = 'block';
+        cover.innerHTML = `<img src="${article.coverImage}" alt="${article.title}" class="article-cover-img">`;
+        cover.style.display = 'block';
     } else {
-        coverContainer.style.display = 'none';
+        cover.style.display = 'none';
     }
 
-    // Scroll to top
     window.scrollTo({ top: 0, behavior: 'instant' });
-
-    console.log(`%c[OK] Article loaded: ${article.title}`, 'color: #33ff00;');
 }
 
-/**
- * Show 404 not found view
- */
 function showNotFound() {
     const container = document.getElementById('blog-list');
     if (container) {
@@ -295,123 +146,59 @@ function showNotFound() {
     document.getElementById('pagination').innerHTML = '';
 }
 
-/**
- * Format date for display
- */
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
+function initListAnimations() {
+    if (typeof gsap === 'undefined') return;
+    gsap.utils.toArray('.blog-list-card').forEach((card, i) => {
+        gsap.fromTo(card, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, delay: i * 0.1, ease: 'power3.out' });
     });
 }
 
-/**
- * Initialize animations for list items
- */
-function initListAnimations() {
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-        gsap.utils.toArray('.blog-list-card').forEach((card, i) => {
-            gsap.fromTo(card,
-                { opacity: 0, y: 30 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.5,
-                    delay: i * 0.1,
-                    ease: 'power3.out'
-                }
-            );
-        });
-    }
-}
-
-/**
- * Wait for theme renderer to be available
- * Returns a promise that resolves when theme is ready or times out
- */
 function waitForThemeRenderer(timeout = 2000) {
-    return new Promise((resolve) => {
-        if (window.ThemeBlogCardRenderer) {
-            resolve(true);
-            return;
-        }
-
-        const startTime = Date.now();
-        const checkInterval = setInterval(() => {
-            if (window.ThemeBlogCardRenderer) {
-                clearInterval(checkInterval);
-                resolve(true);
-            } else if (Date.now() - startTime > timeout) {
-                clearInterval(checkInterval);
-                console.warn('[BLOG] Theme renderer not available, using fallback');
-                resolve(false);
-            }
+    return new Promise(resolve => {
+        if (window.ThemeBlogCardRenderer) return resolve(true);
+        const start = Date.now();
+        const check = setInterval(() => {
+            if (window.ThemeBlogCardRenderer) { clearInterval(check); resolve(true); }
+            else if (Date.now() - start > timeout) { clearInterval(check); resolve(false); }
         }, 50);
     });
 }
 
-/**
- * Initialize blog page
- */
 async function initBlog() {
     const { view, slug, page } = getViewFromURL();
-
-    // Wait for theme renderer to be available (for consistent styling)
     await waitForThemeRenderer();
 
     if (view === 'article' && slug) {
-        // Load single article
         const article = await fetchArticle(slug);
-        if (article) {
-            renderArticle(article);
-        } else {
-            showNotFound();
-        }
+        article ? renderArticle(article) : showNotFound();
     } else {
-        // Load article listing
         currentPage = page || 1;
         const data = await fetchArticles(currentPage);
         renderArticleList(data.articles);
         renderPagination(data.pagination);
     }
 
-    // Remove loading state
     document.body.classList.remove('loading');
     document.body.classList.add('loaded');
-
-    const loadingScreen = document.getElementById('loading-screen');
-    if (loadingScreen) {
-        loadingScreen.classList.add('hidden');
-    }
+    document.getElementById('loading-screen')?.classList.add('hidden');
 }
 
-// Handle browser back/forward
-window.addEventListener('popstate', () => {
+window.addEventListener('popstate', async () => {
     const { view, slug, page } = getViewFromURL();
 
     if (view === 'article' && slug) {
-        fetchArticle(slug).then(article => {
-            if (article) {
-                renderArticle(article);
-            } else {
-                showNotFound();
-            }
-        });
+        const article = await fetchArticle(slug);
+        article ? renderArticle(article) : showNotFound();
     } else {
         document.getElementById('blog-listing').style.display = 'block';
         document.getElementById('article-view').style.display = 'none';
         document.title = 'Blog - Tom Andrieu';
-
-        fetchArticles(page || 1).then(data => {
-            renderArticleList(data.articles);
-            renderPagination(data.pagination);
-        });
+        const data = await fetchArticles(page || 1);
+        renderArticleList(data.articles);
+        renderPagination(data.pagination);
     }
 });
 
-// Initialize when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initBlog);
 } else {

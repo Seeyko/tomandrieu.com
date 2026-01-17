@@ -13,6 +13,7 @@ COPY frontend/css/ /usr/share/nginx/html/css/
 COPY frontend/data/ /usr/share/nginx/html/data/
 COPY frontend/js/ /usr/share/nginx/html/js/
 COPY frontend/themes/ /usr/share/nginx/html/themes/
+COPY frontend/i18n/ /usr/share/nginx/html/i18n/
 COPY frontend/index.html /usr/share/nginx/html/
 COPY frontend/blog.html /usr/share/nginx/html/
 

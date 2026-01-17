@@ -1,145 +1,72 @@
 /**
- * Language Switcher UI Component
- * Provides a dropdown to switch between languages
+ * Language Switcher UI - Dropdown to switch languages
  */
 
 const LanguageSwitcher = (() => {
     let container = null;
 
-    /**
-     * Create the language switcher UI
-     */
     function create() {
-        // Don't create if already exists
-        if (document.getElementById('language-switcher')) {
-            return;
-        }
+        if (document.getElementById('language-switcher')) return;
 
-        const currentLang = LanguageManager.currentLang;
+        const lang = LanguageManager.currentLang;
         const langs = LanguageManager.SUPPORTED_LANGS;
 
         container = document.createElement('div');
         container.id = 'language-switcher';
         container.className = 'language-switcher';
-
         container.innerHTML = `
-            <button class="language-switcher-toggle" aria-label="Switch language" title="Switch language">
-                <span class="lang-current">${currentLang.toUpperCase()}</span>
+            <button class="language-switcher-toggle" aria-label="Switch language">
+                <span class="lang-current">${lang.toUpperCase()}</span>
                 <span class="lang-arrow">&#9662;</span>
             </button>
             <div class="language-switcher-menu">
-                ${langs.map(lang => `
-                    <button
-                        class="language-option ${lang === currentLang ? 'active' : ''}"
-                        data-lang="${lang}"
-                        title="${LanguageManager.getLanguageName(lang)}"
-                    >
-                        <span class="lang-flag">${lang === 'en' ? 'EN' : 'FR'}</span>
-                        <span class="lang-name">${LanguageManager.getLanguageName(lang)}</span>
+                ${langs.map(l => `
+                    <button class="language-option ${l === lang ? 'active' : ''}" data-lang="${l}">
+                        <span class="lang-flag">${l.toUpperCase()}</span>
+                        <span class="lang-name">${LanguageManager.getLanguageName(l)}</span>
                     </button>
                 `).join('')}
             </div>
         `;
 
-        // Add event listeners
         const toggle = container.querySelector('.language-switcher-toggle');
         const menu = container.querySelector('.language-switcher-menu');
-        const options = container.querySelectorAll('.language-option');
 
-        toggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            menu.classList.toggle('open');
-        });
+        toggle.addEventListener('click', e => { e.stopPropagation(); menu.classList.toggle('open'); });
 
-        options.forEach(option => {
-            option.addEventListener('click', async (e) => {
+        container.querySelectorAll('.language-option').forEach(opt => {
+            opt.addEventListener('click', async e => {
                 e.stopPropagation();
-                const langCode = option.dataset.lang;
-
-                // Update UI immediately
-                toggle.querySelector('.lang-current').textContent = langCode.toUpperCase();
-                options.forEach(opt => opt.classList.remove('active'));
-                option.classList.add('active');
+                const code = opt.dataset.lang;
+                toggle.querySelector('.lang-current').textContent = code.toUpperCase();
+                container.querySelectorAll('.language-option').forEach(o => o.classList.remove('active'));
+                opt.classList.add('active');
                 menu.classList.remove('open');
-
-                // Switch language and reload page
-                await LanguageManager.setLanguage(langCode);
-
-                // Reload page to fully apply translations
-                // This is simpler than dynamically updating all content
+                await LanguageManager.setLanguage(code);
                 window.location.reload();
             });
         });
 
-        // Close menu on outside click
-        document.addEventListener('click', () => {
-            menu.classList.remove('open');
-        });
+        document.addEventListener('click', () => menu.classList.remove('open'));
 
-        // Insert into page
-        insertSwitcher();
+        // Insert next to theme switcher or in header
+        const target = document.getElementById('theme-switcher-container') || document.querySelector('.header');
+        target ? target.after?.(container) || target.appendChild(container) : document.body.appendChild(container);
     }
 
-    /**
-     * Insert the switcher into the page
-     */
-    function insertSwitcher() {
-        if (!container) return;
-
-        // Try to insert next to theme switcher
-        const themeSwitcher = document.getElementById('theme-switcher-container');
-        if (themeSwitcher) {
-            themeSwitcher.after(container);
-            return;
-        }
-
-        // Fallback: insert in header
-        const header = document.querySelector('.header');
-        if (header) {
-            header.appendChild(container);
-            return;
-        }
-
-        // Last resort: append to body
-        document.body.appendChild(container);
-    }
-
-    /**
-     * Update the switcher display (e.g., after language change)
-     */
-    function update() {
-        if (!container) return;
-
-        const currentLang = LanguageManager.currentLang;
-        const toggle = container.querySelector('.lang-current');
-        const options = container.querySelectorAll('.language-option');
-
-        if (toggle) {
-            toggle.textContent = currentLang.toUpperCase();
-        }
-
-        options.forEach(opt => {
-            opt.classList.toggle('active', opt.dataset.lang === currentLang);
-        });
-    }
-
-    /**
-     * Initialize the language switcher
-     */
     function init() {
         create();
-
-        // Listen for external language changes
-        window.addEventListener('languageChanged', update);
+        window.addEventListener('languageChanged', () => {
+            if (!container) return;
+            const lang = LanguageManager.currentLang;
+            container.querySelector('.lang-current').textContent = lang.toUpperCase();
+            container.querySelectorAll('.language-option').forEach(o =>
+                o.classList.toggle('active', o.dataset.lang === lang)
+            );
+        });
     }
 
-    // Public API
-    return {
-        init,
-        create,
-        update
-    };
+    return { init };
 })();
 
-// Export for global use
 window.LanguageSwitcher = LanguageSwitcher;
