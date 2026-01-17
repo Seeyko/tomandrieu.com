@@ -407,7 +407,8 @@ body[data-theme="blueprint"] .scroll-arrow svg {
 /* ─── Section Styles ─── */
 body[data-theme="blueprint"] .projects,
 body[data-theme="blueprint"] .about,
-body[data-theme="blueprint"] .contact {
+body[data-theme="blueprint"] .contact,
+body[data-theme="blueprint"] .blog {
   padding: var(--spacing-md) var(--spacing-lg);
 }
 
@@ -1234,7 +1235,8 @@ body[data-theme="blueprint"] .footer-copyright {
 
   body[data-theme="blueprint"] .projects,
   body[data-theme="blueprint"] .about,
-  body[data-theme="blueprint"] .contact {
+  body[data-theme="blueprint"] .contact,
+  body[data-theme="blueprint"] .blog {
     padding: var(--spacing-md) var(--spacing-sm);
   }
 

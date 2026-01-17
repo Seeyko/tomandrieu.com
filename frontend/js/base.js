@@ -158,7 +158,12 @@ async function loadArticles(page = 1, limit = 6) {
         const response = await fetch(`${apiBase}/api/articles?page=${page}&limit=${limit}`);
         if (!response.ok) throw new Error('Failed to fetch articles from API');
         const data = await response.json();
-        articles = data.articles || [];
+        // Fix coverImage paths - prepend API base URL for local development
+        articles = (data.articles || []).map(article => ({
+            ...article,
+            coverImage: article.coverImage ? `${apiBase}${article.coverImage}` : null
+        }));
+        data.articles = articles;
         console.log(`%c[OK] Loaded ${articles.length} articles from API`, 'color: #33ff00;');
         loadingArticles = false;
         return data;

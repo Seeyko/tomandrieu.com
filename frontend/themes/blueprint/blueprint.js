@@ -109,16 +109,22 @@ function renderBlueprintCard(project, index) {
 function renderBlueprintBlogCard(article, index) {
     const card = document.createElement('a');
     card.className = 'blog-card fade-in-up';
+    if (!article.coverImage) {
+        card.classList.add('no-image');
+    }
     card.href = `/blog/${article.slug}/`;
     card.style.animationDelay = `${index * 0.1}s`;
 
     const indexFormatted = String(index + 1).padStart(2, '0');
     const date = PortfolioBase.formatDate(article.publishedAt);
 
+    // Only show image container if there's a cover image
+    const imageHTML = article.coverImage
+        ? `<div class="blog-card-image"><img src="${article.coverImage}" alt="${article.title}" loading="lazy"></div>`
+        : '';
+
     card.innerHTML = `
-        <div class="blog-card-image">
-            ${article.coverImage ? `<img src="${article.coverImage}" alt="${article.title}" loading="lazy">` : '<div class="blog-card-placeholder">NO PREVIEW</div>'}
-        </div>
+        ${imageHTML}
         <div class="blog-card-content">
             <span class="blog-index">BLOG-${indexFormatted}</span>
             <h3 class="blog-card-title">${article.title}</h3>

@@ -39,14 +39,20 @@ function renderDefaultCard(project, index) {
 function renderDefaultBlogCard(article, index) {
     const card = document.createElement('a');
     card.className = 'blog-card fade-in-up';
+    if (!article.coverImage) {
+        card.classList.add('no-image');
+    }
     card.href = `/blog/${article.slug}/`;
 
     const date = PortfolioBase.formatDate(article.publishedAt);
 
+    // Only show image container if there's a cover image
+    const imageHTML = article.coverImage
+        ? `<div class="blog-card-image"><img src="${article.coverImage}" alt="${article.title}" loading="lazy"></div>`
+        : '';
+
     card.innerHTML = `
-        <div class="blog-card-image">
-            ${article.coverImage ? `<img src="${article.coverImage}" alt="${article.title}" loading="lazy">` : '<div class="blog-card-placeholder"></div>'}
-        </div>
+        ${imageHTML}
         <div class="blog-card-content">
             <h3 class="blog-card-title">${article.title}</h3>
             <p class="blog-card-excerpt">${article.excerpt}</p>

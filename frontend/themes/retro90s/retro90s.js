@@ -70,11 +70,19 @@ function renderRetroCard(project, index) {
 function renderRetroBlogCard(article, index) {
     const card = document.createElement('a');
     card.className = 'blog-card';
+    if (!article.coverImage) {
+        card.classList.add('no-image');
+    }
     card.href = `/blog/${article.slug}/`;
     card.setAttribute('data-tooltip', `Read: ${article.title}`);
 
     const indexFormatted = String(index + 1).padStart(2, '0');
     const date = PortfolioBase.formatDate(article.publishedAt);
+
+    // Only show image container if there's a cover image
+    const imageHTML = article.coverImage
+        ? `<div class="blog-card-image"><img src="${article.coverImage}" alt="${article.title}" loading="lazy"></div>`
+        : '';
 
     card.innerHTML = `
         <div class="project-titlebar blog-titlebar">
@@ -85,9 +93,7 @@ function renderRetroBlogCard(article, index) {
                 <span class="titlebar-btn">×</span>
             </div>
         </div>
-        <div class="blog-card-image">
-            ${article.coverImage ? `<img src="${article.coverImage}" alt="${article.title}" loading="lazy">` : '<div class="blog-card-placeholder">[ IMAGE LOADING... ]</div>'}
-        </div>
+        ${imageHTML}
         <div class="blog-card-content">
             <span class="blog-index">POST #${indexFormatted}</span>
             <h3 class="blog-card-title">${article.title}</h3>

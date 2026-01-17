@@ -224,15 +224,21 @@ function renderTerminalCard(project, index) {
 function renderTerminalBlogCard(article, index) {
     const card = document.createElement('a');
     card.className = 'blog-card fade-in-up';
+    if (!article.coverImage) {
+        card.classList.add('no-image');
+    }
     card.href = `/blog/${article.slug}/`;
 
     const indexFormatted = String(index + 1).padStart(2, '0');
     const date = PortfolioBase.formatDate(article.publishedAt);
 
+    // Only show image container if there's a cover image
+    const imageHTML = article.coverImage
+        ? `<div class="blog-card-image"><img src="${article.coverImage}" alt="${article.title}" loading="lazy"></div>`
+        : '';
+
     card.innerHTML = `
-        <div class="blog-card-image">
-            ${article.coverImage ? `<img src="${article.coverImage}" alt="${article.title}" loading="lazy">` : '<div class="blog-card-placeholder">[ NO IMAGE ]</div>'}
-        </div>
+        ${imageHTML}
         <div class="blog-card-content">
             <div class="blog-card-header">
                 <span class="blog-index">BLOG-${indexFormatted}</span>

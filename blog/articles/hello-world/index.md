@@ -1,7 +1,6 @@
 ---
 title: "Hello World - Why I Revamped My Website"
 excerpt: "A fresh start: embracing AI-assisted coding, product engineering, and finally sharing my thoughts with the world."
-coverImage: "cover.jpg"
 publishedAt: "2026-01-16"
 draft: false
 ---

@@ -64,6 +64,10 @@ async function fetchArticle(slug) {
             throw new Error('Failed to fetch article');
         }
         const data = await response.json();
+        // Fix coverImage path - prepend API base URL for local development
+        if (data.article && data.article.coverImage) {
+            data.article.coverImage = `${apiBase}${data.article.coverImage}`;
+        }
         return data.article;
     } catch (err) {
         console.error('%c[ERR] ' + err.message, 'color: #ff3333;');
@@ -79,7 +83,6 @@ async function fetchArticles(page = 1, limit = ITEMS_PER_PAGE) {
     try {
         const response = await fetch(`${apiBase}/api/articles?page=${page}&limit=${limit}`);
         if (!response.ok) throw new Error('Failed to fetch articles');
-        return await response.json();
         const data = await response.json();
         // Fix coverImage paths - prepend API base URL for local development
         if (data.articles) {

@@ -621,7 +621,8 @@ body[data-theme="retro90s"] .retro-divider-animated {
 
 body[data-theme="retro90s"] .projects,
 body[data-theme="retro90s"] .about,
-body[data-theme="retro90s"] .contact {
+body[data-theme="retro90s"] .contact,
+body[data-theme="retro90s"] .blog {
   padding: var(--spacing-md);
   position: relative;
   z-index: 1;

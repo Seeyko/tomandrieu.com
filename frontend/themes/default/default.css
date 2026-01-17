@@ -257,7 +257,8 @@ body[data-theme="default"] .scroll-arrow {
 /* ─── Section Styles ─── */
 body[data-theme="default"] .projects,
 body[data-theme="default"] .about,
-body[data-theme="default"] .contact {
+body[data-theme="default"] .contact,
+body[data-theme="default"] .blog {
   padding: var(--spacing-2xl) var(--spacing-lg);
   max-width: var(--max-width);
   margin: 0 auto;
@@ -426,7 +427,6 @@ body[data-theme="default"] .carousel-dot:hover {
 /* ─── Blog Section ─── */
 body[data-theme="default"] .blog {
   padding: var(--spacing-3xl) var(--spacing-xl);
-  background: var(--bg-secondary);
 }
 
 body[data-theme="default"] .blog .section-header {
@@ -459,6 +459,14 @@ body[data-theme="default"] .blog-card:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-2px);
   border-color: var(--border-medium);
+}
+
+body[data-theme="default"] .blog-card.no-image {
+  border-left: 4px solid var(--accent);
+}
+
+body[data-theme="default"] .blog-card.no-image .blog-card-content {
+  padding: var(--spacing-lg);
 }
 
 body[data-theme="default"] .blog-card-image {
@@ -849,7 +857,8 @@ body[data-theme="default"] .visitor-count {
 
   body[data-theme="default"] .projects,
   body[data-theme="default"] .about,
-  body[data-theme="default"] .contact {
+  body[data-theme="default"] .contact,
+  body[data-theme="default"] .blog {
     padding: var(--spacing-xl) var(--spacing-sm);
   }
 

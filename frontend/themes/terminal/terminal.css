@@ -467,7 +467,8 @@ body[data-theme="terminal"] .scroll-arrow {
 /* ─── Section Styles ─── */
 body[data-theme="terminal"] .projects,
 body[data-theme="terminal"] .about,
-body[data-theme="terminal"] .contact {
+body[data-theme="terminal"] .contact,
+body[data-theme="terminal"] .blog {
   padding: var(--spacing-lg) var(--spacing-md);
 }
 
@@ -1167,7 +1168,8 @@ body[data-theme="terminal"] :focus-visible {
 
   body[data-theme="terminal"] .projects,
   body[data-theme="terminal"] .about,
-  body[data-theme="terminal"] .contact {
+  body[data-theme="terminal"] .contact,
+  body[data-theme="terminal"] .blog {
     padding: var(--spacing-md) var(--spacing-sm);
   }
 
