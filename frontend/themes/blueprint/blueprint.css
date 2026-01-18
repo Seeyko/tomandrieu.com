@@ -1472,3 +1472,62 @@ body[data-theme="blueprint"] .theme-name {
   font-weight: 500;
   letter-spacing: 0.05em;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   LANGUAGE SWITCHER - Blueprint Theme Styling
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="blueprint"] .language-switcher-toggle {
+  color: var(--line-white-dim);
+  border-color: var(--accent-cyan);
+  border-radius: 0;
+  font-family: var(--font-technical);
+  letter-spacing: 0.05em;
+}
+
+body[data-theme="blueprint"] .language-switcher-toggle:hover {
+  color: var(--line-white);
+  border-color: var(--line-white);
+  background: rgba(0, 255, 255, 0.1);
+}
+
+body[data-theme="blueprint"] .language-switcher-menu {
+  background: var(--bg-blueprint-dark);
+  border: 1px solid var(--accent-cyan);
+  border-radius: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body[data-theme="blueprint"] .language-option {
+  color: var(--line-white-dim);
+  border-radius: 0;
+  font-family: var(--font-technical);
+}
+
+body[data-theme="blueprint"] .language-option:hover {
+  background: rgba(0, 255, 255, 0.1);
+  color: var(--line-white);
+}
+
+body[data-theme="blueprint"] .language-option.active {
+  background: rgba(0, 255, 255, 0.15);
+  color: var(--accent-cyan);
+  border-left: 2px solid var(--accent-cyan);
+}
+
+body[data-theme="blueprint"] .lang-name {
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+body[data-theme="blueprint"] .lang-flag {
+  color: var(--line-white-dim);
+}
+
+body[data-theme="blueprint"] .lang-arrow {
+  color: var(--line-white-dim);
+}
+
+body[data-theme="blueprint"] .language-switcher-toggle:hover .lang-arrow {
+  color: var(--line-white);
+}

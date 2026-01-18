@@ -1425,6 +1425,69 @@ body[data-theme="terminal"] .theme-name {
   letter-spacing: 0.05em;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   LANGUAGE SWITCHER - Terminal Theme Styling
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="terminal"] .language-switcher-toggle {
+  color: var(--text-dim);
+  border-color: var(--border);
+  border-radius: 0;
+  font-family: var(--font-terminal);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+body[data-theme="terminal"] .language-switcher-toggle:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+  background: rgba(51, 255, 0, 0.1);
+  text-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .language-switcher-menu {
+  background: var(--bg-terminal-panel);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+body[data-theme="terminal"] .language-option {
+  color: var(--text-dim);
+  border-radius: 0;
+  font-family: var(--font-terminal);
+}
+
+body[data-theme="terminal"] .language-option:hover {
+  background: rgba(51, 255, 0, 0.1);
+  color: var(--primary);
+}
+
+body[data-theme="terminal"] .language-option.active {
+  background: rgba(51, 255, 0, 0.15);
+  color: var(--primary);
+  border-left: 2px solid var(--primary);
+  text-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .lang-name {
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+body[data-theme="terminal"] .lang-flag {
+  color: var(--text-dim);
+}
+
+body[data-theme="terminal"] .lang-arrow {
+  color: var(--text-dim);
+}
+
+body[data-theme="terminal"] .language-switcher-toggle:hover .lang-arrow {
+  color: var(--primary);
+}
+
 /* ─── Enderman Easter Egg ─── */
 
 /* Hidden eyes that watch you */

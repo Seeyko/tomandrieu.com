@@ -2422,3 +2422,69 @@ body[data-theme="retro90s"] .theme-name {
   font-weight: 700;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   LANGUAGE SWITCHER - Retro 90s Theme Styling
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="retro90s"] .language-switcher-toggle {
+  color: var(--color-white);
+  border: 3px outset var(--bevel-light);
+  border-radius: 0;
+  font-family: var(--font-90s);
+  background: var(--color-navy);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+body[data-theme="retro90s"] .language-switcher-toggle:hover {
+  color: var(--color-yellow);
+  background: var(--color-navy-light);
+}
+
+body[data-theme="retro90s"] .language-switcher-toggle:active {
+  border-style: inset;
+}
+
+body[data-theme="retro90s"] .language-switcher-menu {
+  background: var(--color-navy);
+  border: 3px outset var(--bevel-light);
+  border-radius: 0;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+body[data-theme="retro90s"] .language-option {
+  color: var(--color-white);
+  border-radius: 0;
+  font-family: var(--font-90s);
+  border: none;
+  background: transparent;
+}
+
+body[data-theme="retro90s"] .language-option:hover {
+  background: var(--color-navy-light);
+  color: var(--color-yellow);
+}
+
+body[data-theme="retro90s"] .language-option.active {
+  background: var(--color-navy-light);
+  color: var(--color-yellow);
+  border-left: 3px solid var(--color-yellow);
+}
+
+body[data-theme="retro90s"] .lang-name {
+  font-weight: 700;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+body[data-theme="retro90s"] .lang-flag {
+  color: var(--color-white);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+body[data-theme="retro90s"] .lang-arrow {
+  color: var(--color-white);
+}
+
+body[data-theme="retro90s"] .language-switcher-toggle:hover .lang-arrow {
+  color: var(--color-yellow);
+}

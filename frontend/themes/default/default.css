@@ -1095,3 +1095,60 @@ body[data-theme="default"] .theme-option.active {
 body[data-theme="default"] .theme-name {
   font-weight: 480;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   LANGUAGE SWITCHER - Default Theme Styling
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="default"] .language-switcher-toggle {
+  color: var(--text-secondary);
+  border-color: var(--border-light);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+}
+
+body[data-theme="default"] .language-switcher-toggle:hover {
+  color: var(--text-primary);
+  border-color: var(--border);
+  background: var(--bg-tertiary);
+}
+
+body[data-theme="default"] .language-switcher-menu {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+body[data-theme="default"] .language-option {
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+}
+
+body[data-theme="default"] .language-option:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+body[data-theme="default"] .language-option.active {
+  background: var(--accent-light);
+  color: var(--accent);
+  border-left: 2px solid var(--accent);
+}
+
+body[data-theme="default"] .lang-name {
+  font-weight: 480;
+}
+
+body[data-theme="default"] .lang-flag {
+  color: var(--text-secondary);
+}
+
+body[data-theme="default"] .lang-arrow {
+  color: var(--text-secondary);
+}
+
+body[data-theme="default"] .language-switcher-toggle:hover .lang-arrow {
+  color: var(--text-primary);
+}
