@@ -20,6 +20,11 @@ const ThemeInit = (() => {
             ScrollEffects.initResizeHandler();
             ScrollEffects.initSmoothScroll();
 
+            // Initialize Timeline
+            if (window.Timeline) {
+                await Timeline.init();
+            }
+
             const articles = await ContentLoader.loadArticles(1, 3);
             if (articles.articles?.length) {
                 CardRenderer.renderBlogCards(articles.articles, config.blogCards || config.cards || {}, '#blog-grid');
