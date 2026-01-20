@@ -1155,8 +1155,19 @@ body[data-theme="default"] .language-switcher-toggle:hover .lang-arrow {
 
 /* ═══════════════════════════════════════════════════════════════
    TIMELINE SECTION (Default Theme)
-   Elegant horizontal timeline with subtle animations
+   Modern floating card design with elegant gradients
    ═══════════════════════════════════════════════════════════════ */
+
+/* Modern Card Color Variables */
+body[data-theme="default"] {
+  --modern-work-color: #6366f1;
+  --modern-work-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --modern-project-color: #ec4899;
+  --modern-project-gradient: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+  --modern-edu-color: #14b8a6;
+  --modern-edu-gradient: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+  --timeline-now-color: #ef4444;
+}
 
 body[data-theme="default"] .timeline-section {
   padding: var(--spacing-xl) var(--spacing-md);
@@ -1164,109 +1175,168 @@ body[data-theme="default"] .timeline-section {
 
 body[data-theme="default"] #timeline .section-title {
   font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 2.5rem;
+  font-weight: 700;
   color: var(--text-primary);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 body[data-theme="default"] .timeline-subtitle {
   color: var(--text-secondary);
   font-family: var(--font-sans);
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 400;
 }
 
-/* Timeline colors */
-body[data-theme="default"] {
-  --timeline-work-color: var(--accent);
-  --timeline-work-bg: var(--accent-light);
-  --timeline-project-color: #7c3aed;
-  --timeline-project-bg: rgba(124, 58, 237, 0.08);
-  --timeline-edu-color: #2563eb;
-  --timeline-edu-bg: rgba(37, 99, 235, 0.08);
-}
-
 /* Year Axis */
-body[data-theme="default"] .timeline-axis {
-  border-color: var(--border-medium);
+body[data-theme="default"] .timeline-year-label {
+  color: var(--text-tertiary);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.8rem;
 }
 
 body[data-theme="default"] .timeline-year-tick {
-  background: var(--border-medium);
+  background: var(--border-light);
 }
 
-body[data-theme="default"] .timeline-year-label {
-  color: var(--text-secondary);
-  font-family: var(--font-sans);
-  font-weight: 500;
-}
-
-/* Period Bars */
-body[data-theme="default"] .timeline-bar {
-  border-radius: var(--radius-md);
-  font-family: var(--font-sans);
-}
-
-body[data-theme="default"] .timeline-bar::before,
-body[data-theme="default"] .timeline-bar::after {
-  border-color: var(--bg-primary);
-}
-
-body[data-theme="default"] .timeline-item:hover .timeline-bar,
-body[data-theme="default"] .timeline-item.active .timeline-bar {
-  box-shadow: var(--shadow-md);
-}
-
-body[data-theme="default"] .timeline-bar-title {
-  font-weight: 600;
-}
-
-body[data-theme="default"] .timeline-bar-company {
-  color: var(--text-secondary);
-}
-
-/* Detail Popup */
-body[data-theme="default"] .timeline-detail {
-  background: var(--bg-secondary);
-  border-color: var(--border-light);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  font-family: var(--font-sans);
-}
-
-body[data-theme="default"] .timeline-detail::after {
-  border-top-color: var(--bg-secondary);
-}
-
-body[data-theme="default"] .timeline-detail-title {
-  color: var(--text-primary);
-  font-family: var(--font-display);
-  font-weight: 600;
-}
-
-body[data-theme="default"] .timeline-detail-date {
+body[data-theme="default"] .timeline-year.current .timeline-year-label {
   color: var(--accent);
 }
 
-body[data-theme="default"] .timeline-detail-company {
+/* NOW Marker */
+body[data-theme="default"] .timeline-now-marker span {
+  background: var(--timeline-now-color);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+/* Modern Cards */
+body[data-theme="default"] .modern-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--border-light);
+}
+
+body[data-theme="default"] .modern-card:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-4px);
+}
+
+body[data-theme="default"] .modern-card-accent {
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+body[data-theme="default"] .modern-card-accent.work {
+  background: var(--modern-work-gradient);
+}
+
+body[data-theme="default"] .modern-card-accent.project {
+  background: var(--modern-project-gradient);
+}
+
+body[data-theme="default"] .modern-card-accent.education {
+  background: var(--modern-edu-gradient);
+}
+
+body[data-theme="default"] .modern-card-content {
+  font-family: var(--font-sans);
+}
+
+body[data-theme="default"] .modern-card-date {
+  color: var(--text-tertiary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+body[data-theme="default"] .modern-card-title {
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+body[data-theme="default"] .modern-card-company {
   color: var(--text-secondary);
   font-weight: 500;
 }
 
-body[data-theme="default"] .timeline-detail-location {
-  color: var(--text-tertiary);
+body[data-theme="default"] .modern-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  position: absolute;
+  top: -20px;
+  right: 15px;
+  box-shadow: var(--shadow-md);
 }
 
-body[data-theme="default"] .timeline-detail-description {
+body[data-theme="default"] .modern-card-icon.work {
+  background: var(--modern-work-gradient);
+  color: white;
+}
+
+body[data-theme="default"] .modern-card-icon.project {
+  background: var(--modern-project-gradient);
+  color: white;
+}
+
+body[data-theme="default"] .modern-card-icon.education {
+  background: var(--modern-edu-gradient);
+  color: white;
+}
+
+/* Modern Card Detail Popup */
+body[data-theme="default"] .modern-card-detail {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-2xl);
+  font-family: var(--font-sans);
+}
+
+body[data-theme="default"] .modern-detail-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+body[data-theme="default"] .modern-detail-title {
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+body[data-theme="default"] .modern-detail-company {
   color: var(--text-secondary);
+  font-weight: 500;
 }
 
-body[data-theme="default"] .timeline-detail-tag {
+body[data-theme="default"] .modern-detail-meta {
   color: var(--text-tertiary);
-  border-color: var(--border-light);
+  font-size: 0.875rem;
+}
+
+body[data-theme="default"] .modern-detail-desc {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+body[data-theme="default"] .modern-detail-tags span {
   background: var(--bg-tertiary);
-  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  border-radius: var(--radius-full);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
 }
 
 /* Scroll Hint */
