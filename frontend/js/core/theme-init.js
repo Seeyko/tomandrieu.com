@@ -20,9 +20,9 @@ const ThemeInit = (() => {
             ScrollEffects.initResizeHandler();
             ScrollEffects.initSmoothScroll();
 
-            // Initialize Timeline
-            if (window.Timeline) {
-                await Timeline.init();
+            // Initialize Git Timeline
+            if (window.GitTimeline) {
+                await GitTimeline.init();
             }
 
             const articles = await ContentLoader.loadArticles(1, 3);

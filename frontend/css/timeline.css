@@ -1,446 +1,441 @@
 /* ═══════════════════════════════════════════════════════════════
-   TIMELINE - Git-style Career History
-   Unified design for all themes with theme-specific colors
+   GIT TIMELINE - Horizontal Career Visualization
+   Clean git-style graph with branches, commits, and merges
    ═══════════════════════════════════════════════════════════════ */
 
-/* ─── CSS Variables (defaults, overridden by themes) ─── */
+/* ─── CSS Variables ─── */
 :root {
-  /* Branch colors by category */
-  --git-work-color: #33ff00;
-  --git-project-color: #ff6b6b;
-  --git-edu-color: #4ecdc4;
-
-  /* UI colors */
-  --git-trunk-color: rgba(255, 255, 255, 0.3);
-  --git-hash-color: #ffb000;
-  --git-card-bg: rgba(0, 0, 0, 0.6);
-  --git-card-border: rgba(255, 255, 255, 0.1);
-  --git-detail-bg: rgba(10, 10, 10, 0.95);
-  --git-text-primary: #ffffff;
-  --git-text-secondary: rgba(255, 255, 255, 0.7);
-  --git-text-muted: rgba(255, 255, 255, 0.5);
-
-  /* Sizing */
-  --git-line-width: 4px;
-  --git-node-size: 10px;
+    --git-work-color: #33ff00;
+    --git-project-color: #ff6b6b;
+    --git-education-color: #4ecdc4;
+    --git-trunk-color: rgba(255, 255, 255, 0.3);
+    --git-bg: rgba(0, 0, 0, 0.6);
+    --git-bg-solid: rgba(10, 10, 10, 0.95);
+    --git-border: rgba(255, 255, 255, 0.15);
+    --git-text: #ffffff;
+    --git-text-secondary: rgba(255, 255, 255, 0.7);
+    --git-text-muted: rgba(255, 255, 255, 0.5);
+    --git-hash-color: #ffb000;
 }
 
-/* ─── Section Base ─── */
-.timeline-section {
-  position: relative;
-  padding: 4rem 0;
-  overflow: visible;
+/* ─── Section Container ─── */
+.git-timeline-section {
+    position: relative;
+    padding: 4rem 0;
+    overflow: hidden;
 }
 
-.timeline-intro {
-  text-align: center;
-  margin-bottom: 2rem;
-  padding: 0 2rem;
+.git-timeline-intro {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 0 2rem;
 }
 
-.timeline-intro .section-title {
-  margin-bottom: 0.5rem;
+.git-timeline-intro .section-title {
+    margin-bottom: 0.5rem;
 }
 
-.timeline-subtitle {
-  font-size: 1.1rem;
-  opacity: 0.7;
+.git-timeline-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.7;
 }
 
-/* ─── Viewport & Scroll Container ─── */
-.timeline-viewport {
-  position: relative;
-  width: 100%;
-  overflow: visible;
+/* ─── Viewport & Scroll ─── */
+.git-timeline-viewport {
+    position: relative;
+    width: 100%;
 }
 
-.timeline-scroll-container {
-  overflow-x: auto;
-  overflow-y: visible;
-  padding: 2rem 0 4rem 0;
-  scrollbar-width: thin;
-  scrollbar-color: var(--git-trunk-color) transparent;
+.git-timeline-scroll {
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 1rem 0 3rem 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--git-trunk-color) transparent;
 }
 
-.timeline-scroll-container::-webkit-scrollbar {
-  height: 8px;
+.git-timeline-scroll::-webkit-scrollbar {
+    height: 8px;
 }
 
-.timeline-scroll-container::-webkit-scrollbar-track {
-  background: transparent;
+.git-timeline-scroll::-webkit-scrollbar-track {
+    background: transparent;
 }
 
-.timeline-scroll-container::-webkit-scrollbar-thumb {
-  background: var(--git-trunk-color);
-  border-radius: 4px;
+.git-timeline-scroll::-webkit-scrollbar-thumb {
+    background: var(--git-trunk-color);
+    border-radius: 4px;
 }
 
-.timeline-content {
-  position: relative;
-  min-height: 400px;
-  overflow: visible;
+.git-timeline-content {
+    position: relative;
+    min-height: 300px;
 }
 
 /* ─── Year Axis ─── */
-#timeline-axis {
-  position: relative;
-  height: 50px;
-  margin-bottom: 1rem;
-  overflow: visible;
+#git-timeline-axis {
+    position: relative;
+    height: 50px;
+    margin-bottom: 0.5rem;
 }
 
-.timeline-year {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transform: translateX(-50%);
+.git-timeline-axis {
+    position: relative;
+    height: 100%;
 }
 
-.timeline-year-label {
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: var(--git-text-secondary);
-  margin-bottom: 8px;
-  white-space: nowrap;
+.git-year-marker {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateX(-50%);
 }
 
-.timeline-year-tick {
-  width: 2px;
-  height: 20px;
-  background: var(--git-trunk-color);
+.git-year-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--git-text-secondary);
+    margin-bottom: 8px;
 }
 
-.timeline-year.current .timeline-year-label {
-  color: var(--git-hash-color);
-  font-size: 1.1rem;
+.git-year-tick {
+    width: 2px;
+    height: 16px;
+    background: var(--git-trunk-color);
 }
 
-.timeline-year.current .timeline-year-tick {
-  background: var(--git-hash-color);
-  width: 3px;
+.git-year-marker.current .git-year-label {
+    color: var(--git-hash-color);
+    font-size: 1.05rem;
 }
 
-.timeline-year.future {
-  opacity: 0.4;
+.git-year-marker.current .git-year-tick {
+    background: var(--git-hash-color);
+    width: 3px;
+}
+
+.git-year-marker.future {
+    opacity: 0.4;
 }
 
 /* NOW Marker */
-.timeline-now-marker {
-  position: absolute;
-  top: 0;
-  transform: translateX(-50%);
-  z-index: 10;
+.git-now-marker {
+    position: absolute;
+    top: -5px;
+    transform: translateX(-50%);
+    z-index: 10;
 }
 
-.timeline-now-marker span {
-  display: inline-block;
-  padding: 4px 12px;
-  background: #ff3333;
-  color: white;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  border-radius: 4px;
-  box-shadow: 0 2px 10px rgba(255, 51, 51, 0.4);
+.git-now-marker span {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #ff3333;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(255, 51, 51, 0.4);
 }
 
-/* ─── Git Graph SVG ─── */
-#timeline-lanes {
-  position: relative;
-  overflow: visible;
+/* ─── SVG Graph ─── */
+#git-timeline-lanes {
+    position: relative;
 }
 
-.timeline-git-svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  overflow: visible;
+.git-timeline-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
 }
 
-/* Main trunk line */
+/* Trunk line */
 .git-trunk {
-  stroke: var(--git-trunk-color);
-  stroke-width: var(--git-line-width);
-  stroke-linecap: round;
+    stroke: var(--git-trunk-color);
+    stroke-linecap: round;
 }
 
-/* Branch lines */
+/* Branch paths */
 .git-branch {
-  stroke-width: var(--git-line-width);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  fill: none;
-  transition: stroke-width 0.2s ease;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    transition: stroke-width 0.2s ease, opacity 0.2s ease;
 }
 
-.git-branch.git-work { stroke: var(--git-work-color); }
-.git-branch.git-project { stroke: var(--git-project-color); }
-.git-branch.git-education { stroke: var(--git-edu-color); }
+.git-branch-work { stroke: var(--git-work-color); }
+.git-branch-project { stroke: var(--git-project-color); }
+.git-branch-education { stroke: var(--git-education-color); }
 
 /* Nodes */
 .git-node {
-  stroke-width: 3px;
-  stroke: var(--git-card-bg);
-  transition: r 0.2s ease;
+    transition: r 0.2s ease;
 }
 
-.git-node.git-work { fill: var(--git-work-color); }
-.git-node.git-project { fill: var(--git-project-color); }
-.git-node.git-education { fill: var(--git-edu-color); }
+.git-node-work { fill: var(--git-work-color); }
+.git-node-project { fill: var(--git-project-color); }
+.git-node-education { fill: var(--git-education-color); }
 
-/* Ongoing node animation */
+/* Ongoing node pulse */
 .git-node-ongoing {
-  animation: pulse-node 2s ease-in-out infinite;
+    animation: pulse-node 2s ease-in-out infinite;
 }
 
 @keyframes pulse-node {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
 }
 
-/* ─── Timeline Items (Cards) ─── */
-.timeline-item {
-  position: absolute;
-  cursor: pointer;
-  z-index: 5;
-  overflow: visible;
+/* ─── Commit Markers (Compact) ─── */
+.git-commit-marker {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--git-bg-solid, rgba(30, 30, 30, 0.95));
+    border: 1px solid var(--git-border);
+    border-left: 3px solid var(--branch-color, var(--git-work-color));
+    border-radius: 6px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
+    z-index: 5;
 }
 
-.timeline-item:hover {
-  z-index: 20;
+.git-commit-marker:hover {
+    background: var(--git-bg-solid, rgba(20, 20, 20, 0.98));
+    border-color: var(--branch-color, var(--git-work-color));
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    z-index: 20;
 }
 
-.timeline-item.active {
-  z-index: 30;
+/* Type-specific left border colors */
+.git-commit-work {
+    border-left-color: var(--git-work-color);
 }
 
-/* Git commit info card */
-.git-commit-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 14px;
-  background: var(--git-card-bg);
-  border: 1px solid var(--git-card-border);
-  border-radius: 6px;
-  font-size: 0.8rem;
-  white-space: nowrap;
-  overflow: hidden;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(10px);
+.git-commit-project {
+    border-left-color: var(--git-project-color);
 }
 
-.timeline-item:hover .git-commit-info {
-  background: var(--git-detail-bg);
-  border-color: var(--git-work-color);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+.git-commit-education {
+    border-left-color: var(--git-education-color);
 }
 
-.timeline-item.git-project:hover .git-commit-info {
-  border-color: var(--git-project-color);
+.marker-hash {
+    color: rgba(255, 255, 255, 0.6);
+    font-family: var(--font-mono, monospace);
+    font-weight: 600;
+    font-size: 0.65rem;
+    text-transform: uppercase;
 }
 
-.timeline-item.git-education:hover .git-commit-info {
-  border-color: var(--git-edu-color);
+.marker-title {
+    color: var(--git-text, #ffffff);
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.git-hash {
-  color: var(--git-hash-color);
-  font-family: var(--font-mono, monospace);
-  font-weight: 700;
-  font-size: 0.75rem;
-}
-
-.git-title {
-  flex: 1;
-  color: var(--git-text-primary);
-  font-weight: 600;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.git-author {
-  color: var(--git-text-muted);
-  font-size: 0.75rem;
-}
-
-.git-ongoing-badge {
-  padding: 2px 8px;
-  background: var(--git-work-color);
-  color: #000;
-  font-size: 0.6rem;
-  font-weight: 700;
-  border-radius: 3px;
-  animation: pulse-badge 2s ease-in-out infinite;
+.marker-badge {
+    width: 6px;
+    height: 6px;
+    background: var(--branch-color, var(--git-work-color));
+    border-radius: 50%;
+    animation: pulse-badge 2s ease-in-out infinite;
 }
 
 @keyframes pulse-badge {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
 }
 
-/* ─── Detail Popup ─── */
-.git-detail {
-  position: absolute;
-  bottom: calc(100% + 15px);
-  left: 0;
-  width: 320px;
-  padding: 1rem;
-  background: var(--git-detail-bg);
-  border: 1px solid var(--git-card-border);
-  border-radius: 8px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: all 0.25s ease;
-  pointer-events: none;
-  z-index: 100;
-  backdrop-filter: blur(10px);
+/* Type-specific marker hover effects */
+.git-commit-work:hover {
+    border-color: var(--git-work-color);
+    box-shadow: 0 4px 16px rgba(51, 255, 0, 0.15);
 }
 
-.timeline-item:hover .git-detail,
-.timeline-item.active .git-detail {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  pointer-events: auto;
+.git-commit-project:hover {
+    border-color: var(--git-project-color);
+    box-shadow: 0 4px 16px rgba(255, 107, 107, 0.15);
 }
 
-/* Detail positioned at top if too close to top edge */
-.timeline-item[style*="top: 5"] .git-detail,
-.timeline-item[style*="top: 6"] .git-detail,
-.timeline-item[style*="top: 7"] .git-detail {
-  bottom: auto;
-  top: calc(100% + 15px);
+.git-commit-education:hover {
+    border-color: var(--git-education-color);
+    box-shadow: 0 4px 16px rgba(78, 205, 196, 0.15);
 }
 
-.git-detail-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.75rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--git-card-border);
+
+/* ─── CDK-Style Overlay (fixed corner position) ─── */
+.git-timeline-overlay {
+    position: absolute;
+    z-index: 99999;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-.git-detail-hash {
-  color: var(--git-hash-color);
-  font-family: var(--font-mono, monospace);
-  font-size: 0.7rem;
-  font-weight: 700;
+.git-timeline-overlay.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
 }
 
-.git-detail-date {
-  color: var(--git-text-muted);
-  font-size: 0.75rem;
+/* Fixed corner positioning */
+.git-timeline-overlay.fixed-corner {
+    position: fixed;
+    top: auto;
+    right: 20px;
 }
 
-.git-detail-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--git-text-primary);
-  margin: 0 0 0.5rem 0;
+.overlay-content {
+    width: 320px;
+    max-width: 90vw;
+    padding: 1rem;
+    background: var(--git-bg-solid);
+    border: 2px solid var(--git-border);
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(15px);
 }
 
-.git-detail-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  margin-bottom: 0.75rem;
+/* Overlay type-specific borders */
+.git-overlay-work .overlay-content {
+    border-color: var(--git-work-color);
 }
 
-.git-detail-company {
-  color: var(--git-text-secondary);
-  font-weight: 500;
+.git-overlay-project .overlay-content {
+    border-color: var(--git-project-color);
 }
 
-.git-detail-location {
-  color: var(--git-text-muted);
-  font-size: 0.85rem;
+.git-overlay-education .overlay-content {
+    border-color: var(--git-education-color);
 }
 
-.git-detail-desc {
-  color: var(--git-text-secondary);
-  font-size: 0.85rem;
-  line-height: 1.6;
-  margin-bottom: 0.75rem;
+.overlay-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--git-border);
 }
 
-.git-detail-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
+.overlay-hash {
+    color: var(--git-hash-color);
+    font-family: var(--font-mono, monospace);
+    font-size: 0.7rem;
+    font-weight: 700;
 }
 
-.git-tag {
-  padding: 3px 8px;
-  font-size: 0.7rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--git-card-border);
-  border-radius: 4px;
-  color: var(--git-text-secondary);
+.overlay-date {
+    color: var(--git-text-muted);
+    font-size: 0.75rem;
+}
+
+.overlay-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--git-text);
+    margin: 0 0 0.5rem 0;
+}
+
+.overlay-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.overlay-company {
+    color: var(--git-text-secondary);
+    font-weight: 500;
+}
+
+.overlay-location {
+    color: var(--git-text-muted);
+    font-size: 0.85rem;
+}
+
+.overlay-description {
+    color: var(--git-text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0 0 0.75rem 0;
+    white-space: normal;
+}
+
+.overlay-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.overlay-tag {
+    padding: 3px 8px;
+    font-size: 0.7rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--git-border);
+    border-radius: 4px;
+    color: var(--git-text-secondary);
 }
 
 /* ─── Scroll Hint ─── */
-.timeline-scroll-hint {
-  position: absolute;
-  bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--git-text-muted);
-  font-size: 0.85rem;
-  opacity: 1;
-  transition: opacity 0.3s ease;
+.git-timeline-scroll-hint {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--git-text-muted);
+    font-size: 0.85rem;
+    opacity: 1;
+    transition: opacity 0.3s ease;
 }
 
-.timeline-scroll-hint.hidden {
-  opacity: 0;
-  pointer-events: none;
+.git-timeline-scroll-hint.hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .scroll-hint-arrow {
-  animation: bounce-right 1.5s ease-in-out infinite;
+    animation: bounce-right 1.5s ease-in-out infinite;
 }
 
 @keyframes bounce-right {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(5px); }
-}
-
-/* ─── Loading State ─── */
-.timeline-loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 300px;
-  color: var(--git-text-muted);
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
 }
 
 /* ─── Responsive ─── */
 @media (max-width: 768px) {
-  .timeline-section {
-    padding: 2rem 0;
-  }
+    .git-timeline-section {
+        padding: 2rem 0;
+    }
 
-  .timeline-year-label {
-    font-size: 0.85rem;
-  }
+    .git-year-label {
+        font-size: 0.8rem;
+    }
 
-  .git-commit-info {
-    padding: 6px 10px;
-    font-size: 0.75rem;
-  }
+    .git-commit-card {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+        min-width: 150px;
+    }
 
-  .git-detail {
-    width: 280px;
-    padding: 0.75rem;
-  }
+    .overlay-content {
+        width: 280px;
+        padding: 0.75rem;
+    }
 }

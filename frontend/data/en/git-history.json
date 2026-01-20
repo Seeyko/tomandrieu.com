@@ -1,0 +1,164 @@
+{
+  "config": {
+    "title": "JOURNEY",
+    "subtitle": "From student to product builder",
+    "startYear": 2017,
+    "endYear": 2028
+  },
+  "branches": [
+    {
+      "id": "dut",
+      "name": "Education",
+      "type": "education",
+      "startDate": "2017-09",
+      "endDate": "2019-06",
+      "commits": [
+        {
+          "hash": "dut2017",
+          "date": "2017-09",
+          "message": "Started DUT Informatique",
+          "author": "IUT Montpellier-Sete",
+          "details": {
+            "title": "DUT Informatique",
+            "company": "IUT Montpellier-Sete",
+            "location": "Montpellier, France",
+            "description": "Two-year technical degree in Computer Science. Learned software development fundamentals, database design, and web technologies.",
+            "tags": ["Computer Science", "Development", "Databases"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "freelance",
+      "name": "Freelance",
+      "type": "work",
+      "startDate": "2019-09",
+      "endDate": "ongoing",
+      "commits": [
+        {
+          "hash": "free19",
+          "date": "2019-09",
+          "message": "Started freelancing",
+          "author": "Andrieu Tom",
+          "details": {
+            "title": "Freelance Developer",
+            "company": "Andrieu Tom",
+            "location": "France",
+            "description": "Building custom web solutions with WordPress and Angular/Node.js platforms. Dynamic websites, custom platforms, and full-stack applications.",
+            "tags": ["WordPress", "Angular", "Node.js", "Freelance"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ridemypark",
+      "name": "Ride My Park",
+      "type": "project",
+      "startDate": "2019-06",
+      "endDate": "ongoing",
+      "commits": [
+        {
+          "hash": "rmp2019",
+          "date": "2019-06",
+          "message": "Co-founded Ride My Park",
+          "author": "Ride My Park",
+          "details": {
+            "title": "Co-founder & Lead Dev",
+            "company": "Ride My Park",
+            "location": "ridemypark.com",
+            "description": "The largest database of skateparks, street spots, pumptracks, events and shops for extreme sports. 30K+ users reached.",
+            "tags": ["Flutter", "WordPress", "API REST", "UX/UI"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "itesoft-rd",
+      "name": "ITESOFT R&D",
+      "type": "work",
+      "startDate": "2020-01",
+      "endDate": "2024-06",
+      "commits": [
+        {
+          "hash": "ird2020",
+          "date": "2020-01",
+          "message": "Joined ITESOFT R&D team",
+          "author": "ITESOFT",
+          "details": {
+            "title": "R&D Engineer",
+            "company": "ITESOFT",
+            "location": "Aimargues, France",
+            "description": "Full-stack development on micro-services application, leader in document digitization. Grew frontend team from 5 to 12 members. Led AngularJS to Angular migration.",
+            "tags": ["Angular", "Node.js", "Docker", "Microservices"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "skoolbook",
+      "name": "Skoolbook",
+      "type": "project",
+      "startDate": "2023-01",
+      "endDate": "ongoing",
+      "commits": [
+        {
+          "hash": "skb2023",
+          "date": "2023-01",
+          "message": "Launched Skoolbook",
+          "author": "Skoolbook",
+          "details": {
+            "title": "Founder",
+            "company": "Skoolbook",
+            "location": "skoolbook.fr",
+            "description": "School library management platform built to help teachers track book loans and encourage reading. Intuitive interface for teachers with student autonomy features.",
+            "tags": ["WordPress", "PHP", "UX/UI", "Education"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "teachtools",
+      "name": "Teach Tools",
+      "type": "project",
+      "startDate": "2023-06",
+      "endDate": "ongoing",
+      "commits": [
+        {
+          "hash": "tt2023",
+          "date": "2023-06",
+          "message": "Started Teach Tools",
+          "author": "Teach Tools",
+          "details": {
+            "title": "Founder",
+            "company": "Teach Tools",
+            "location": "teach-tools.com",
+            "description": "AI-powered pedagogical assistant generating exercises and images for teachers. Next.js application with AI integration and CI/CD pipeline.",
+            "tags": ["Next.js", "AI/ML", "UX/UI", "CI/CD"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cba",
+      "name": "CBA Informatique",
+      "type": "work",
+      "startDate": "2024-07",
+      "endDate": "ongoing",
+      "commits": [
+        {
+          "hash": "cba2024",
+          "date": "2024-07",
+          "message": "Joined CBA as Lead Developer",
+          "author": "CBA Informatique Liberale",
+          "details": {
+            "title": "Lead Developer",
+            "company": "CBA Informatique Liberale",
+            "location": "Avignon, France",
+            "description": "Leading a team of 8 developers building web and mobile applications with Angular & Ionic. Architecting multiple applications and implementing CI/CD pipeline.",
+            "tags": ["Angular", "Ionic", "CI/CD", "Team Lead"]
+          }
+        }
+      ]
+    }
+  ]
+}
