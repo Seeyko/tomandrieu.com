@@ -2491,17 +2491,15 @@ body[data-theme="retro90s"] .language-switcher-toggle:hover .lang-arrow {
 
 /* ═══════════════════════════════════════════════════════════════
    TIMELINE SECTION (Retro 90s Theme)
-   Horizontal timeline with Windows 95 / GeoCities aesthetics
+   Windows 95 style draggable windows with classic UI elements
    ═══════════════════════════════════════════════════════════════ */
 
-/* Timeline Color Variables */
+/* Retro Timeline Color Variables */
 body[data-theme="retro90s"] {
-  --timeline-work-color: var(--color-blue);
-  --timeline-work-bg: rgba(0, 0, 170, 0.15);
-  --timeline-project-color: var(--color-magenta);
-  --timeline-project-bg: rgba(255, 0, 255, 0.15);
-  --timeline-edu-color: var(--color-green-dark);
-  --timeline-edu-bg: rgba(0, 128, 0, 0.15);
+  --retro-work-color: var(--color-navy);
+  --retro-project-color: var(--color-magenta);
+  --retro-edu-color: var(--color-green-dark);
+  --timeline-now-color: var(--color-red);
 }
 
 body[data-theme="retro90s"] .timeline-section {
@@ -2545,201 +2543,238 @@ body[data-theme="retro90s"] .timeline-intro::after {
   51%, 100% { opacity: 0; }
 }
 
-/* Viewport - Windows 95 Panel */
+/* Viewport - Windows 95 Desktop */
 body[data-theme="retro90s"] .timeline-viewport {
-  background: var(--bg-90s);
+  background: var(--color-teal);
   border: 2px solid;
   border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
-  box-shadow: inset 1px 1px 0 var(--bevel-darker);
+  box-shadow: inset 2px 2px 0 var(--bevel-darker);
 }
 
-/* Year Axis */
-body[data-theme="retro90s"] .timeline-axis {
-  border-top: 3px solid var(--color-navy);
-  background: linear-gradient(to right,
-    var(--color-red) 0%,
-    var(--color-orange) 16%,
-    var(--color-yellow) 33%,
-    var(--color-green) 50%,
-    var(--color-cyan) 66%,
-    var(--color-blue) 83%,
-    var(--color-purple) 100%
-  );
-  background-size: 100% 3px;
-  background-position: top;
-  background-repeat: no-repeat;
-}
-
-body[data-theme="retro90s"] .timeline-year {
-  color: var(--color-navy);
-}
-
-body[data-theme="retro90s"] .timeline-year-tick {
-  background: var(--color-navy);
-  width: 3px;
-}
-
+/* Year Axis - Rainbow Bar */
 body[data-theme="retro90s"] .timeline-year-label {
   font-family: var(--font-90s);
   font-weight: 700;
-  color: var(--color-navy);
-  text-shadow: 1px 1px 0 var(--color-white);
-  font-size: 0.8rem;
+  color: var(--color-white);
+  text-shadow: 1px 1px 0 var(--color-black);
+  font-size: 0.75rem;
+  background: var(--color-navy);
+  padding: 2px 6px;
 }
 
-/* Period Bars - Windows 95 Style */
-body[data-theme="retro90s"] .timeline-item {
-  color: var(--color-black);
+body[data-theme="retro90s"] .timeline-year-tick {
+  background: var(--color-white);
+  width: 2px;
+  opacity: 0.5;
 }
 
-body[data-theme="retro90s"] .timeline-bar {
-  background: var(--bg-90s);
-  border: 2px solid;
-  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
-  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
-  border-radius: 0;
+body[data-theme="retro90s"] .timeline-year.current .timeline-year-label {
+  background: var(--color-red);
+  animation: blink-90s 1s step-end infinite;
 }
 
-body[data-theme="retro90s"] .timeline-item:hover .timeline-bar,
-body[data-theme="retro90s"] .timeline-item.active .timeline-bar {
-  transform: translate(-2px, -4px);
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
-}
-
-/* Category Colors */
-body[data-theme="retro90s"] .timeline-item[data-category="work"] .timeline-bar {
-  border-color: var(--bevel-light) var(--color-blue) var(--color-blue) var(--bevel-light);
-  background: linear-gradient(to bottom, var(--bg-90s) 0%, rgba(0, 0, 170, 0.1) 100%);
-}
-
-body[data-theme="retro90s"] .timeline-item[data-category="work"] .timeline-bar::before,
-body[data-theme="retro90s"] .timeline-item[data-category="work"] .timeline-bar::after {
-  background: var(--color-blue);
-  border-color: var(--color-white);
-}
-
-body[data-theme="retro90s"] .timeline-item[data-category="project"] .timeline-bar {
-  border-color: var(--bevel-light) var(--color-magenta) var(--color-magenta) var(--bevel-light);
-  background: linear-gradient(to bottom, var(--bg-90s) 0%, rgba(255, 0, 255, 0.1) 100%);
-}
-
-body[data-theme="retro90s"] .timeline-item[data-category="project"] .timeline-bar::before,
-body[data-theme="retro90s"] .timeline-item[data-category="project"] .timeline-bar::after {
-  background: var(--color-magenta);
-  border-color: var(--color-white);
-}
-
-body[data-theme="retro90s"] .timeline-item[data-category="education"] .timeline-bar {
-  border-color: var(--bevel-light) var(--color-green-dark) var(--color-green-dark) var(--bevel-light);
-  background: linear-gradient(to bottom, var(--bg-90s) 0%, rgba(0, 128, 0, 0.1) 100%);
-}
-
-body[data-theme="retro90s"] .timeline-item[data-category="education"] .timeline-bar::before,
-body[data-theme="retro90s"] .timeline-item[data-category="education"] .timeline-bar::after {
-  background: var(--color-green-dark);
-  border-color: var(--color-white);
-}
-
-/* Start/End nodes */
-body[data-theme="retro90s"] .timeline-bar::before,
-body[data-theme="retro90s"] .timeline-bar::after {
-  border-width: 2px;
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
-}
-
-/* Bar Content */
-body[data-theme="retro90s"] .timeline-bar-title {
-  color: var(--color-navy);
+/* NOW Marker */
+body[data-theme="retro90s"] .timeline-now-marker span {
+  background: var(--color-red);
   font-family: var(--font-90s);
   font-weight: 700;
+  border: 2px solid var(--color-white);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
 }
 
-body[data-theme="retro90s"] .timeline-bar-company {
-  color: var(--color-purple);
-  font-family: var(--font-90s);
-}
-
-/* Highlighted items */
-body[data-theme="retro90s"] .timeline-item.highlight .timeline-bar {
-  border-left: 4px solid var(--color-red);
-  animation: pulse-90s 1s ease-in-out infinite;
-}
-
-@keyframes pulse-90s {
-  0%, 100% { box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3); }
-  50% { box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3), 0 0 10px var(--color-yellow); }
-}
-
-/* Detail Popup - Windows 95 Window */
-body[data-theme="retro90s"] .timeline-detail {
+/* Retro Windows - Windows 95 Style */
+body[data-theme="retro90s"] .retro-window {
   background: var(--bg-90s);
   border: 2px solid;
   border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
   box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
-  border-radius: 0;
+  transition: all 0.1s ease;
 }
 
-body[data-theme="retro90s"] .timeline-detail::after {
-  border-top-color: var(--bg-90s);
+body[data-theme="retro90s"] .retro-window:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.4);
 }
 
-body[data-theme="retro90s"] .timeline-detail::before {
-  border-top-color: var(--bevel-dark);
-}
-
-body[data-theme="retro90s"] .timeline-detail-header {
+/* Window Titlebar */
+body[data-theme="retro90s"] .retro-window-titlebar {
   background: linear-gradient(to right, var(--color-navy), var(--color-navy-light));
-  margin: -1rem -1rem 0.75rem -1rem;
-  padding: 0.4rem 0.5rem;
+  padding: 2px 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-body[data-theme="retro90s"] .timeline-detail-title {
+body[data-theme="retro90s"] .retro-window-titlebar.work {
+  background: linear-gradient(to right, var(--color-navy), #1084D0);
+}
+
+body[data-theme="retro90s"] .retro-window-titlebar.project {
+  background: linear-gradient(to right, var(--color-purple), var(--color-magenta));
+}
+
+body[data-theme="retro90s"] .retro-window-titlebar.education {
+  background: linear-gradient(to right, var(--color-green-dark), #00AA00);
+}
+
+body[data-theme="retro90s"] .retro-window-icon {
+  width: 16px;
+  height: 16px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body[data-theme="retro90s"] .retro-window-title {
   color: var(--color-white);
   font-family: var(--font-90s);
   font-weight: 700;
-  text-shadow: 1px 1px 0 var(--color-black);
+  font-size: 0.75rem;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
 }
 
-body[data-theme="retro90s"] .timeline-detail-date {
-  color: var(--color-yellow);
+body[data-theme="retro90s"] .retro-window-buttons {
+  display: flex;
+  gap: 2px;
+}
+
+body[data-theme="retro90s"] .retro-window-btn {
+  width: 16px;
+  height: 14px;
+  background: var(--bg-90s);
+  border: 1px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  font-size: 10px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: bold;
+}
+
+/* Window Content */
+body[data-theme="retro90s"] .retro-window-content {
+  padding: 8px;
+  background: var(--bg-90s);
   font-family: var(--font-90s);
-  font-weight: 700;
+  font-size: 0.8rem;
 }
 
-body[data-theme="retro90s"] .timeline-detail-company {
-  color: var(--color-purple);
-  font-family: var(--font-90s);
-  font-weight: 700;
-}
-
-body[data-theme="retro90s"] .timeline-detail-company::before {
-  content: '>> ';
-  color: var(--color-blue);
-}
-
-body[data-theme="retro90s"] .timeline-detail-location {
+body[data-theme="retro90s"] .retro-window-date {
   color: var(--color-teal);
-  font-family: var(--font-fun);
+  font-weight: 700;
+  margin-bottom: 4px;
 }
 
-body[data-theme="retro90s"] .timeline-detail-description {
-  color: var(--color-black);
+body[data-theme="retro90s"] .retro-window-company {
+  color: var(--color-purple);
+  font-weight: 700;
+}
+
+body[data-theme="retro90s"] .retro-window-company::before {
+  content: '📁 ';
+}
+
+/* NEW Badge */
+body[data-theme="retro90s"] .retro-new-badge {
+  display: inline-block;
+  background: var(--color-yellow);
+  color: var(--color-red);
+  font-family: var(--font-fun);
+  font-size: 0.6rem;
+  font-weight: bold;
+  padding: 1px 4px;
+  margin-left: 4px;
+  animation: blink-90s 0.8s step-end infinite;
+  border: 1px solid var(--color-red);
+}
+
+/* Retro Window Detail Popup */
+body[data-theme="retro90s"] .retro-detail {
+  background: var(--bg-90s);
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+body[data-theme="retro90s"] .retro-detail-titlebar {
+  background: linear-gradient(to right, var(--color-navy), var(--color-navy-light));
+  padding: 3px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+body[data-theme="retro90s"] .retro-detail-title {
+  color: var(--color-white);
+  font-family: var(--font-90s);
+  font-weight: 700;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+body[data-theme="retro90s"] .retro-detail-close {
+  width: 18px;
+  height: 16px;
+  background: var(--bg-90s);
+  border: 1px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  font-family: var(--font-mono);
+  font-weight: bold;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+body[data-theme="retro90s"] .retro-detail-content {
+  padding: 12px;
   font-family: var(--font-90s);
 }
 
-body[data-theme="retro90s"] .timeline-detail-tag {
+body[data-theme="retro90s"] .retro-detail-company {
+  color: var(--color-purple);
+  font-weight: 700;
+}
+
+body[data-theme="retro90s"] .retro-detail-meta {
+  color: var(--color-teal);
+  font-size: 0.85rem;
+}
+
+body[data-theme="retro90s"] .retro-detail-desc {
+  color: var(--color-black);
+  background: var(--color-white);
+  border: 1px solid;
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+  padding: 8px;
+  margin: 8px 0;
+}
+
+body[data-theme="retro90s"] .retro-detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+body[data-theme="retro90s"] .retro-detail-tags span {
   background: var(--color-panel-yellow);
   color: var(--color-black);
   border: 1px solid var(--color-black);
-  font-family: var(--font-90s);
+  padding: 2px 6px;
+  font-size: 0.75rem;
   font-weight: 700;
 }
 
 /* Scroll Hint */
 body[data-theme="retro90s"] .timeline-scroll-hint {
-  color: var(--color-navy);
+  color: var(--color-white);
   font-family: var(--font-90s);
   font-weight: 700;
+  text-shadow: 1px 1px 0 var(--color-black);
 }
 
 body[data-theme="retro90s"] .scroll-hint-text::before {
@@ -2747,14 +2782,14 @@ body[data-theme="retro90s"] .scroll-hint-text::before {
 }
 
 body[data-theme="retro90s"] .scroll-hint-arrow {
-  color: var(--color-blue);
-  text-decoration: underline;
+  color: var(--color-yellow);
 }
 
 /* Loading - Hourglass */
 body[data-theme="retro90s"] .timeline-loading {
-  color: var(--color-navy);
+  color: var(--color-white);
   font-family: var(--font-90s);
+  text-shadow: 1px 1px 0 var(--color-black);
 }
 
 body[data-theme="retro90s"] .timeline-loading::before {
