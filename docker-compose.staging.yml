@@ -1,0 +1,49 @@
+services:
+  frontend:
+    env_file:
+      - .env.staging
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      target: production
+      args:
+        - API_URL=${API_URL:-https://api.staging.tomandrieu.com}
+        - FRONTEND_URL=${FRONTEND_URL:-https://staging.tomandrieu.com}
+    image: ${CI_REGISTRY_IMAGE}/frontend:${APP_VERSION:-staging}
+    expose:
+      - ${FRONTEND_PORT:-4200}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tomandrieu-staging-frontend.rule=Host(`staging.tomandrieu.com`)"
+      - "traefik.http.routers.tomandrieu-staging-frontend.entrypoints=websecure"
+      - "traefik.http.routers.tomandrieu-staging-frontend.tls.certResolver=letsencrypt"
+      - "traefik.http.services.tomandrieu-staging-frontend.loadbalancer.server.port=4200"
+    networks:
+      - dokploy-network
+
+  backend:
+    env_file:
+      - .env.staging
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    image: ${CI_REGISTRY_IMAGE}/backend:${APP_VERSION:-staging}
+    expose:
+      - ${BACKEND_PORT:-3000}
+    environment:
+      - PORT=${BACKEND_PORT:-3000}
+      - ARTICLES_DIR=/app/articles
+      - FRONTEND_URL=${FRONTEND_URL:-https://staging.tomandrieu.com}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tomandrieu-staging-api.rule=Host(`api.staging.tomandrieu.com`)"
+      - "traefik.http.routers.tomandrieu-staging-api.entrypoints=websecure"
+      - "traefik.http.routers.tomandrieu-staging-api.tls.certResolver=letsencrypt"
+      - "traefik.http.services.tomandrieu-staging-api.loadbalancer.server.port=3000"
+    networks:
+      - dokploy-network
+
+
+networks:
+  dokploy-network:
+    external: true
