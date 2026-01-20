@@ -1619,10 +1619,15 @@ body[data-theme="terminal"] {
   --git-work-color: #33ff00;
   --git-project-color: #ff6b6b;
   --git-edu-color: #4ecdc4;
+  --git-trunk-color: rgba(51, 255, 0, 0.5);
   --git-hash-color: #ffb000;
-  --git-border-color: var(--primary);
-  --timeline-trunk-color: rgba(51, 255, 0, 0.4);
-  --timeline-now-color: #ff3333;
+  --git-card-bg: rgba(0, 20, 0, 0.85);
+  --git-card-border: rgba(51, 255, 0, 0.3);
+  --git-detail-bg: rgba(0, 30, 0, 0.95);
+  --git-text-primary: #e0ffe0;
+  --git-text-secondary: rgba(51, 255, 0, 0.8);
+  --git-text-muted: var(--text-comment);
+  --git-line-width: 4px;
 }
 
 body[data-theme="terminal"] .timeline-section {
@@ -1648,57 +1653,72 @@ body[data-theme="terminal"] .timeline-subtitle::before {
   color: var(--secondary);
 }
 
-/* Year Axis */
+/* Year Axis - BIGGER */
 body[data-theme="terminal"] .timeline-year-label {
   color: var(--primary);
   font-family: var(--font-terminal);
   text-shadow: var(--glow-primary);
-  font-size: 0.7rem;
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 body[data-theme="terminal"] .timeline-year-tick {
   background: var(--primary);
-  opacity: 0.4;
+  opacity: 0.5;
+  height: 25px;
 }
 
 body[data-theme="terminal"] .timeline-year.current .timeline-year-label {
   color: var(--secondary);
   text-shadow: 0 0 10px var(--secondary);
+  font-size: 1.2rem;
 }
 
 /* NOW Marker */
 body[data-theme="terminal"] .timeline-now-marker span {
-  background: var(--timeline-now-color);
+  background: #ff3333;
   font-family: var(--font-terminal);
-  text-shadow: 0 0 5px var(--timeline-now-color);
+  text-shadow: 0 0 5px #ff3333;
+  box-shadow: 0 0 20px rgba(255, 51, 51, 0.5);
 }
 
 /* Git Graph SVG */
 body[data-theme="terminal"] .git-trunk {
-  stroke: var(--timeline-trunk-color);
-  filter: drop-shadow(0 0 3px var(--primary));
+  stroke: var(--git-trunk-color);
+  filter: drop-shadow(0 0 4px var(--primary));
 }
 
-body[data-theme="terminal"] .git-branch,
-body[data-theme="terminal"] .git-line {
-  filter: drop-shadow(0 0 2px currentColor);
+body[data-theme="terminal"] .git-branch {
+  filter: drop-shadow(0 0 3px currentColor);
 }
 
 body[data-theme="terminal"] .git-node {
-  filter: drop-shadow(0 0 4px currentColor);
+  filter: drop-shadow(0 0 6px currentColor);
+  stroke: var(--bg-terminal);
 }
 
 /* Git Commit Info */
 body[data-theme="terminal"] .git-commit-info {
   font-family: var(--font-terminal);
-  background: rgba(0, 20, 0, 0.8);
-  border: 1px solid rgba(51, 255, 0, 0.2);
+  background: var(--git-card-bg);
+  border: 1px solid var(--git-card-border);
 }
 
 body[data-theme="terminal"] .git-item:hover .git-commit-info {
-  background: rgba(0, 40, 0, 0.9);
-  border-color: var(--primary);
-  box-shadow: 0 0 15px rgba(51, 255, 0, 0.3);
+  background: var(--git-detail-bg);
+  box-shadow: 0 0 20px rgba(51, 255, 0, 0.4);
+}
+
+body[data-theme="terminal"] .git-item.git-work:hover .git-commit-info {
+  border-color: var(--git-work-color);
+}
+
+body[data-theme="terminal"] .git-item.git-project:hover .git-commit-info {
+  border-color: var(--git-project-color);
+}
+
+body[data-theme="terminal"] .git-item.git-education:hover .git-commit-info {
+  border-color: var(--git-edu-color);
 }
 
 body[data-theme="terminal"] .git-hash {
@@ -1707,23 +1727,29 @@ body[data-theme="terminal"] .git-hash {
 }
 
 body[data-theme="terminal"] .git-title {
-  color: var(--text-bright);
+  color: var(--git-text-primary);
 }
 
 body[data-theme="terminal"] .git-author {
-  color: var(--text-comment);
+  color: var(--git-text-muted);
+}
+
+body[data-theme="terminal"] .git-ongoing-badge {
+  background: var(--git-work-color);
+  color: #000;
+  box-shadow: 0 0 10px var(--git-work-color);
 }
 
 /* Git Detail Popup */
 body[data-theme="terminal"] .git-detail {
-  background: var(--bg-terminal-panel);
-  border-color: var(--git-border-color);
+  background: var(--git-detail-bg);
+  border: 1px solid var(--git-card-border);
   font-family: var(--font-terminal);
-  box-shadow: 0 0 30px rgba(51, 255, 0, 0.2);
+  box-shadow: 0 0 40px rgba(51, 255, 0, 0.3);
 }
 
 body[data-theme="terminal"] .git-detail-header {
-  border-bottom-color: rgba(51, 255, 0, 0.3);
+  border-bottom-color: var(--git-card-border);
 }
 
 body[data-theme="terminal"] .git-detail-hash {
@@ -1736,22 +1762,21 @@ body[data-theme="terminal"] .git-detail-title {
   text-shadow: var(--glow-primary);
 }
 
-body[data-theme="terminal"] .git-detail-meta {
-  color: var(--text-comment);
+body[data-theme="terminal"] .git-detail-company {
+  color: var(--git-text-secondary);
 }
 
-body[data-theme="terminal"] .git-detail-meta strong {
-  color: var(--secondary);
+body[data-theme="terminal"] .git-detail-location {
+  color: var(--git-text-muted);
 }
 
 body[data-theme="terminal"] .git-detail-desc {
-  color: var(--text-dim);
-  border-left-color: var(--primary);
+  color: var(--git-text-muted);
 }
 
-body[data-theme="terminal"] .git-detail-tags span {
-  background: rgba(51, 255, 0, 0.1);
-  border-color: rgba(51, 255, 0, 0.3);
+body[data-theme="terminal"] .git-tag {
+  background: rgba(51, 255, 0, 0.15);
+  border-color: rgba(51, 255, 0, 0.4);
   color: var(--primary);
 }
 
