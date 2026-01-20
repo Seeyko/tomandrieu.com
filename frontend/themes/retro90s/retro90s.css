@@ -2491,15 +2491,23 @@ body[data-theme="retro90s"] .language-switcher-toggle:hover .lang-arrow {
 
 /* ═══════════════════════════════════════════════════════════════
    TIMELINE SECTION (Retro 90s Theme)
-   Windows 95 style draggable windows with classic UI elements
+   Git-style graph with Windows 95 aesthetic
    ═══════════════════════════════════════════════════════════════ */
 
-/* Retro Timeline Color Variables */
+/* Git Graph Color Variables */
 body[data-theme="retro90s"] {
-  --retro-work-color: var(--color-navy);
-  --retro-project-color: var(--color-magenta);
-  --retro-edu-color: var(--color-green-dark);
-  --timeline-now-color: var(--color-red);
+  --git-work-color: var(--color-blue);
+  --git-project-color: var(--color-magenta);
+  --git-edu-color: var(--color-green-dark);
+  --git-trunk-color: rgba(0, 0, 128, 0.5);
+  --git-hash-color: var(--color-purple);
+  --git-card-bg: var(--bg-90s);
+  --git-card-border: var(--bevel-dark);
+  --git-detail-bg: var(--bg-90s);
+  --git-text-primary: var(--color-navy);
+  --git-text-secondary: var(--color-purple);
+  --git-text-muted: var(--color-teal);
+  --git-line-width: 5px;
 }
 
 body[data-theme="retro90s"] .timeline-section {
@@ -2551,25 +2559,29 @@ body[data-theme="retro90s"] .timeline-viewport {
   box-shadow: inset 2px 2px 0 var(--bevel-darker);
 }
 
-/* Year Axis - Rainbow Bar */
+/* Year Axis - BIGGER */
 body[data-theme="retro90s"] .timeline-year-label {
   font-family: var(--font-90s);
   font-weight: 700;
   color: var(--color-white);
   text-shadow: 1px 1px 0 var(--color-black);
-  font-size: 0.75rem;
+  font-size: 1rem;
   background: var(--color-navy);
-  padding: 2px 6px;
+  padding: 3px 10px;
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
 }
 
 body[data-theme="retro90s"] .timeline-year-tick {
   background: var(--color-white);
-  width: 2px;
-  opacity: 0.5;
+  width: 3px;
+  height: 25px;
+  opacity: 0.7;
 }
 
 body[data-theme="retro90s"] .timeline-year.current .timeline-year-label {
   background: var(--color-red);
+  font-size: 1.1rem;
   animation: blink-90s 1s step-end infinite;
 }
 
@@ -2579,193 +2591,132 @@ body[data-theme="retro90s"] .timeline-now-marker span {
   font-family: var(--font-90s);
   font-weight: 700;
   border: 2px solid var(--color-white);
-  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
 }
 
-/* Retro Windows - Windows 95 Style */
-body[data-theme="retro90s"] .retro-window {
+/* Git Graph SVG */
+body[data-theme="retro90s"] .git-trunk {
+  stroke: var(--color-navy);
+  stroke-width: 5px;
+}
+
+body[data-theme="retro90s"] .git-branch {
+  stroke-width: 5px;
+}
+
+body[data-theme="retro90s"] .git-node {
+  stroke: var(--color-white);
+  stroke-width: 3px;
+}
+
+/* Git Commit Info - Windows 95 Button Style */
+body[data-theme="retro90s"] .git-commit-info {
+  font-family: var(--font-90s);
   background: var(--bg-90s);
   border: 2px solid;
   border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
-  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
-  transition: all 0.1s ease;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 0;
 }
 
-body[data-theme="retro90s"] .retro-window:hover {
+body[data-theme="retro90s"] .git-item:hover .git-commit-info {
   transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
 }
 
-/* Window Titlebar */
-body[data-theme="retro90s"] .retro-window-titlebar {
-  background: linear-gradient(to right, var(--color-navy), var(--color-navy-light));
-  padding: 2px 4px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
+body[data-theme="retro90s"] .git-item.git-work:hover .git-commit-info {
+  border-color: var(--bevel-light) var(--color-blue) var(--color-blue) var(--bevel-light);
 }
 
-body[data-theme="retro90s"] .retro-window-titlebar.work {
-  background: linear-gradient(to right, var(--color-navy), #1084D0);
+body[data-theme="retro90s"] .git-item.git-project:hover .git-commit-info {
+  border-color: var(--bevel-light) var(--color-magenta) var(--color-magenta) var(--bevel-light);
 }
 
-body[data-theme="retro90s"] .retro-window-titlebar.project {
-  background: linear-gradient(to right, var(--color-purple), var(--color-magenta));
+body[data-theme="retro90s"] .git-item.git-education:hover .git-commit-info {
+  border-color: var(--bevel-light) var(--color-green-dark) var(--color-green-dark) var(--bevel-light);
 }
 
-body[data-theme="retro90s"] .retro-window-titlebar.education {
-  background: linear-gradient(to right, var(--color-green-dark), #00AA00);
-}
-
-body[data-theme="retro90s"] .retro-window-icon {
-  width: 16px;
-  height: 16px;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-body[data-theme="retro90s"] .retro-window-title {
-  color: var(--color-white);
-  font-family: var(--font-90s);
-  font-weight: 700;
-  font-size: 0.75rem;
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
-}
-
-body[data-theme="retro90s"] .retro-window-buttons {
-  display: flex;
-  gap: 2px;
-}
-
-body[data-theme="retro90s"] .retro-window-btn {
-  width: 16px;
-  height: 14px;
-  background: var(--bg-90s);
-  border: 1px solid;
-  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
-  font-size: 10px;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-weight: bold;
-}
-
-/* Window Content */
-body[data-theme="retro90s"] .retro-window-content {
-  padding: 8px;
-  background: var(--bg-90s);
-  font-family: var(--font-90s);
-  font-size: 0.8rem;
-}
-
-body[data-theme="retro90s"] .retro-window-date {
-  color: var(--color-teal);
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-body[data-theme="retro90s"] .retro-window-company {
+body[data-theme="retro90s"] .git-hash {
   color: var(--color-purple);
+  font-family: var(--font-mono);
+}
+
+body[data-theme="retro90s"] .git-title {
+  color: var(--color-navy);
   font-weight: 700;
 }
 
-body[data-theme="retro90s"] .retro-window-company::before {
-  content: '📁 ';
+body[data-theme="retro90s"] .git-author {
+  color: var(--color-teal);
 }
 
-/* NEW Badge */
-body[data-theme="retro90s"] .retro-new-badge {
-  display: inline-block;
+body[data-theme="retro90s"] .git-ongoing-badge {
   background: var(--color-yellow);
   color: var(--color-red);
   font-family: var(--font-fun);
-  font-size: 0.6rem;
-  font-weight: bold;
-  padding: 1px 4px;
-  margin-left: 4px;
-  animation: blink-90s 0.8s step-end infinite;
   border: 1px solid var(--color-red);
+  animation: blink-90s 0.8s step-end infinite;
 }
 
-/* Retro Window Detail Popup */
-body[data-theme="retro90s"] .retro-detail {
+/* Git Detail Popup - Windows 95 Window */
+body[data-theme="retro90s"] .git-detail {
   background: var(--bg-90s);
   border: 2px solid;
   border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
-}
-
-body[data-theme="retro90s"] .retro-detail-titlebar {
-  background: linear-gradient(to right, var(--color-navy), var(--color-navy-light));
-  padding: 3px 6px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-body[data-theme="retro90s"] .retro-detail-title {
-  color: var(--color-white);
+  border-radius: 0;
   font-family: var(--font-90s);
-  font-weight: 700;
+}
+
+body[data-theme="retro90s"] .git-detail-header {
+  background: linear-gradient(to right, var(--color-navy), var(--color-navy-light));
+  margin: -1rem -1rem 0.75rem -1rem;
+  padding: 4px 8px;
+  border-bottom: none;
+}
+
+body[data-theme="retro90s"] .git-detail-hash {
+  color: var(--color-white);
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
 }
 
-body[data-theme="retro90s"] .retro-detail-close {
-  width: 18px;
-  height: 16px;
-  background: var(--bg-90s);
-  border: 1px solid;
-  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
-  font-family: var(--font-mono);
-  font-weight: bold;
-  font-size: 12px;
-  cursor: pointer;
+body[data-theme="retro90s"] .git-detail-date {
+  color: var(--color-yellow);
 }
 
-body[data-theme="retro90s"] .retro-detail-content {
-  padding: 12px;
-  font-family: var(--font-90s);
+body[data-theme="retro90s"] .git-detail-title {
+  color: var(--color-navy);
+  font-weight: 700;
 }
 
-body[data-theme="retro90s"] .retro-detail-company {
+body[data-theme="retro90s"] .git-detail-company {
   color: var(--color-purple);
   font-weight: 700;
 }
 
-body[data-theme="retro90s"] .retro-detail-meta {
-  color: var(--color-teal);
-  font-size: 0.85rem;
+body[data-theme="retro90s"] .git-detail-company::before {
+  content: '>> ';
+  color: var(--color-blue);
 }
 
-body[data-theme="retro90s"] .retro-detail-desc {
+body[data-theme="retro90s"] .git-detail-location {
+  color: var(--color-teal);
+  font-family: var(--font-fun);
+}
+
+body[data-theme="retro90s"] .git-detail-desc {
   color: var(--color-black);
   background: var(--color-white);
   border: 1px solid;
   border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
   padding: 8px;
-  margin: 8px 0;
 }
 
-body[data-theme="retro90s"] .retro-detail-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-
-body[data-theme="retro90s"] .retro-detail-tags span {
+body[data-theme="retro90s"] .git-tag {
   background: var(--color-panel-yellow);
   color: var(--color-black);
   border: 1px solid var(--color-black);
-  padding: 2px 6px;
-  font-size: 0.75rem;
+  border-radius: 0;
   font-weight: 700;
 }
 

@@ -1155,18 +1155,23 @@ body[data-theme="default"] .language-switcher-toggle:hover .lang-arrow {
 
 /* ═══════════════════════════════════════════════════════════════
    TIMELINE SECTION (Default Theme)
-   Modern floating card design with elegant gradients
+   Git-style graph with modern elegant styling
    ═══════════════════════════════════════════════════════════════ */
 
-/* Modern Card Color Variables */
+/* Git Graph Color Variables */
 body[data-theme="default"] {
-  --modern-work-color: #6366f1;
-  --modern-work-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  --modern-project-color: #ec4899;
-  --modern-project-gradient: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
-  --modern-edu-color: #14b8a6;
-  --modern-edu-gradient: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
-  --timeline-now-color: #ef4444;
+  --git-work-color: #6366f1;
+  --git-project-color: #ec4899;
+  --git-edu-color: #14b8a6;
+  --git-trunk-color: rgba(99, 102, 241, 0.3);
+  --git-hash-color: #8b5cf6;
+  --git-card-bg: var(--bg-secondary);
+  --git-card-border: var(--border-light);
+  --git-detail-bg: var(--bg-primary);
+  --git-text-primary: var(--text-primary);
+  --git-text-secondary: var(--text-secondary);
+  --git-text-muted: var(--text-tertiary);
+  --git-line-width: 4px;
 }
 
 body[data-theme="default"] .timeline-section {
@@ -1188,155 +1193,136 @@ body[data-theme="default"] .timeline-subtitle {
   font-weight: 400;
 }
 
-/* Year Axis */
+/* Year Axis - BIGGER */
 body[data-theme="default"] .timeline-year-label {
   color: var(--text-tertiary);
   font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 0.8rem;
+  font-weight: 700;
+  font-size: 1.1rem;
 }
 
 body[data-theme="default"] .timeline-year-tick {
-  background: var(--border-light);
+  background: var(--border-medium);
+  height: 25px;
 }
 
 body[data-theme="default"] .timeline-year.current .timeline-year-label {
-  color: var(--accent);
+  color: var(--git-work-color);
+  font-size: 1.2rem;
 }
 
 /* NOW Marker */
 body[data-theme="default"] .timeline-now-marker span {
-  background: var(--timeline-now-color);
+  background: #ef4444;
   font-family: var(--font-sans);
   font-weight: 600;
+  border-radius: 6px;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+}
+
+/* Git Graph SVG */
+body[data-theme="default"] .git-trunk {
+  stroke: var(--git-trunk-color);
+}
+
+body[data-theme="default"] .git-branch {
+  opacity: 0.9;
+}
+
+body[data-theme="default"] .git-node {
+  stroke: var(--bg-primary);
+  stroke-width: 3px;
+}
+
+/* Git Commit Info */
+body[data-theme="default"] .git-commit-info {
+  font-family: var(--font-sans);
+  background: var(--git-card-bg);
+  border: 1px solid var(--git-card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+body[data-theme="default"] .git-item:hover .git-commit-info {
+  background: var(--bg-primary);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
+
+body[data-theme="default"] .git-item.git-work:hover .git-commit-info {
+  border-color: var(--git-work-color);
+}
+
+body[data-theme="default"] .git-item.git-project:hover .git-commit-info {
+  border-color: var(--git-project-color);
+}
+
+body[data-theme="default"] .git-item.git-education:hover .git-commit-info {
+  border-color: var(--git-edu-color);
+}
+
+body[data-theme="default"] .git-hash {
+  color: var(--git-hash-color);
+  font-family: var(--font-mono);
+}
+
+body[data-theme="default"] .git-title {
+  color: var(--git-text-primary);
+  font-weight: 600;
+}
+
+body[data-theme="default"] .git-author {
+  color: var(--git-text-muted);
+}
+
+body[data-theme="default"] .git-ongoing-badge {
+  background: var(--git-work-color);
+  color: white;
   border-radius: 4px;
 }
 
-/* Modern Cards */
-body[data-theme="default"] .modern-card {
-  background: var(--bg-secondary);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid var(--border-light);
-}
-
-body[data-theme="default"] .modern-card:hover {
-  box-shadow: var(--shadow-xl);
-  transform: translateY(-4px);
-}
-
-body[data-theme="default"] .modern-card-accent {
-  border-radius: var(--radius-md) var(--radius-md) 0 0;
-}
-
-body[data-theme="default"] .modern-card-accent.work {
-  background: var(--modern-work-gradient);
-}
-
-body[data-theme="default"] .modern-card-accent.project {
-  background: var(--modern-project-gradient);
-}
-
-body[data-theme="default"] .modern-card-accent.education {
-  background: var(--modern-edu-gradient);
-}
-
-body[data-theme="default"] .modern-card-content {
-  font-family: var(--font-sans);
-}
-
-body[data-theme="default"] .modern-card-date {
-  color: var(--text-tertiary);
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-body[data-theme="default"] .modern-card-title {
-  color: var(--text-primary);
-  font-family: var(--font-display);
-  font-weight: 700;
-}
-
-body[data-theme="default"] .modern-card-company {
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-body[data-theme="default"] .modern-card-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  position: absolute;
-  top: -20px;
-  right: 15px;
-  box-shadow: var(--shadow-md);
-}
-
-body[data-theme="default"] .modern-card-icon.work {
-  background: var(--modern-work-gradient);
-  color: white;
-}
-
-body[data-theme="default"] .modern-card-icon.project {
-  background: var(--modern-project-gradient);
-  color: white;
-}
-
-body[data-theme="default"] .modern-card-icon.education {
-  background: var(--modern-edu-gradient);
-  color: white;
-}
-
-/* Modern Card Detail Popup */
-body[data-theme="default"] .modern-card-detail {
-  background: var(--bg-primary);
-  border: 1px solid var(--border-light);
+/* Git Detail Popup */
+body[data-theme="default"] .git-detail {
+  background: var(--git-detail-bg);
+  border: 1px solid var(--git-card-border);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-2xl);
   font-family: var(--font-sans);
 }
 
-body[data-theme="default"] .modern-detail-header {
-  padding: 1.5rem;
-  border-bottom: 1px solid var(--border-light);
+body[data-theme="default"] .git-detail-header {
+  border-bottom-color: var(--border-light);
 }
 
-body[data-theme="default"] .modern-detail-title {
+body[data-theme="default"] .git-detail-hash {
+  color: var(--git-hash-color);
+  font-family: var(--font-mono);
+}
+
+body[data-theme="default"] .git-detail-title {
   color: var(--text-primary);
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.25rem;
 }
 
-body[data-theme="default"] .modern-detail-company {
+body[data-theme="default"] .git-detail-company {
   color: var(--text-secondary);
   font-weight: 500;
 }
 
-body[data-theme="default"] .modern-detail-meta {
+body[data-theme="default"] .git-detail-location {
   color: var(--text-tertiary);
-  font-size: 0.875rem;
 }
 
-body[data-theme="default"] .modern-detail-desc {
+body[data-theme="default"] .git-detail-desc {
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
-body[data-theme="default"] .modern-detail-tags span {
+body[data-theme="default"] .git-tag {
   background: var(--bg-tertiary);
   border: 1px solid var(--border-light);
   color: var(--text-secondary);
   border-radius: var(--radius-full);
-  padding: 0.25rem 0.75rem;
-  font-size: 0.75rem;
 }
 
 /* Scroll Hint */

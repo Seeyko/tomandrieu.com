@@ -1,6 +1,6 @@
 /**
  * Timeline - Git-style career history visualization
- * Different visual styles per theme
+ * Unified git graph design for all themes with theme-specific styling
  */
 
 const Timeline = (() => {
@@ -12,12 +12,14 @@ const Timeline = (() => {
     // Configuration
     const CONFIG = {
         startYear: 2017,
-        endYear: new Date().getFullYear() + 2, // Extend 2 years into future for "ongoing" items
-        yearWidth: 180, // pixels per year
-        rowHeight: 60, // pixels per row
-        padding: 100, // left/right padding
-        nodeRadius: 8,
-        lineWidth: 3
+        endYear: new Date().getFullYear() + 2,
+        yearWidth: 200, // pixels per year
+        rowHeight: 80, // pixels per row (increased for better spacing)
+        padding: 120, // left/right padding
+        nodeRadius: 10,
+        lineWidth: 4,
+        trunkY: 50, // Y position of main trunk
+        branchRadius: 25 // radius for curved corners
     };
 
     /**
@@ -135,7 +137,7 @@ const Timeline = (() => {
             `;
         }
 
-        // Add "NOW" marker
+        // Add "NOW" marker at current position in year
         const nowX = yearToX(currentYear) + (CONFIG.yearWidth * (new Date().getMonth() / 12));
         html += `<div class="timeline-now-marker" style="left: ${nowX}px;"><span>NOW</span></div>`;
 
@@ -143,35 +145,67 @@ const Timeline = (() => {
     }
 
     /**
-     * TERMINAL THEME - Git graph style
+     * Create SVG path for a rounded corner branch
+     * Goes from trunk down to lane with smooth curves
+     */
+    function createBranchDownPath(startX, trunkY, laneY, radius) {
+        const r = Math.min(radius, (laneY - trunkY) / 2);
+        return `M ${startX} ${trunkY}
+                L ${startX} ${trunkY + r}
+                Q ${startX} ${trunkY + r * 2} ${startX + r} ${trunkY + r * 2}
+                L ${startX + r} ${laneY}`;
+    }
+
+    /**
+     * Create SVG path for merge back to trunk
+     * Goes from lane up to trunk with smooth curves
+     */
+    function createMergeUpPath(endX, trunkY, laneY, radius) {
+        const r = Math.min(radius, (laneY - trunkY) / 2);
+        return `M ${endX - r} ${laneY}
+                L ${endX - r} ${trunkY + r * 2}
+                Q ${endX} ${trunkY + r * 2} ${endX} ${trunkY + r}
+                L ${endX} ${trunkY}`;
+    }
+
+    /**
+     * Unified Git Graph renderer for all themes
      */
     function renderGitGraph(items, laneCount) {
         const container = document.getElementById('timeline-lanes');
         const totalWidth = (CONFIG.endYear - CONFIG.startYear + 1) * CONFIG.yearWidth + CONFIG.padding * 2;
-        const totalHeight = (laneCount + 1) * CONFIG.rowHeight + 40;
+        const totalHeight = CONFIG.trunkY + (laneCount + 1) * CONFIG.rowHeight + 100;
 
         container.style.width = `${totalWidth}px`;
         container.style.height = `${totalHeight}px`;
 
-        // Create SVG for lines
+        const trunkY = CONFIG.trunkY;
+        const r = CONFIG.branchRadius;
+
+        // Create SVG
         let svg = `<svg class="timeline-git-svg" width="${totalWidth}" height="${totalHeight}" viewBox="0 0 ${totalWidth} ${totalHeight}">`;
 
-        // Define glow filter
+        // Defs for filters and markers
         svg += `
             <defs>
-                <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+                    <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
                     <feMerge>
                         <feMergeNode in="coloredBlur"/>
                         <feMergeNode in="SourceGraphic"/>
                     </feMerge>
                 </filter>
+                <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+                </filter>
             </defs>
         `;
 
-        // Main timeline trunk
-        const trunkY = 30;
-        svg += `<line class="git-trunk" x1="${CONFIG.padding}" y1="${trunkY}" x2="${totalWidth - CONFIG.padding}" y2="${trunkY}" />`;
+        // Main trunk line
+        svg += `<line class="git-trunk"
+                      x1="${CONFIG.padding - 20}" y1="${trunkY}"
+                      x2="${totalWidth - CONFIG.padding + 20}" y2="${trunkY}"
+                      stroke-linecap="round"/>`;
 
         let html = '';
 
@@ -179,44 +213,65 @@ const Timeline = (() => {
             const ongoing = isOngoing(item);
             const laneY = trunkY + (item._lane + 1) * CONFIG.rowHeight;
             const startX = item._startX;
-            const endX = ongoing ? totalWidth - CONFIG.padding / 2 : item._endX;
+            const endX = ongoing ? totalWidth - CONFIG.padding + 20 : item._endX;
             const categoryClass = item.category;
 
-            // Branch down from trunk
-            const branchPath = `M ${startX} ${trunkY} C ${startX} ${trunkY + 20}, ${startX} ${laneY - 20}, ${startX} ${laneY}`;
-            svg += `<path class="git-branch git-${categoryClass}" d="${branchPath}" />`;
+            // Branch path: trunk -> curve down -> horizontal -> (curve up if not ongoing)
+            let branchPath = '';
 
-            // Horizontal line
-            svg += `<line class="git-line git-${categoryClass}" x1="${startX}" y1="${laneY}" x2="${endX}" y2="${laneY}" />`;
+            // Start: vertical down from trunk, then curve right
+            branchPath += `M ${startX} ${trunkY}`;
+            branchPath += ` L ${startX} ${laneY - r}`;
+            branchPath += ` Q ${startX} ${laneY} ${startX + r} ${laneY}`;
 
-            // Merge back (if not ongoing)
-            if (!ongoing) {
-                const mergePath = `M ${endX} ${laneY} C ${endX} ${laneY - 20}, ${endX} ${trunkY + 20}, ${endX} ${trunkY}`;
-                svg += `<path class="git-branch git-${categoryClass}" d="${mergePath}" />`;
+            // Horizontal line along the lane
+            if (ongoing) {
+                // Continue to the right edge
+                branchPath += ` L ${endX} ${laneY}`;
+            } else {
+                // Go to merge point
+                branchPath += ` L ${endX - r} ${laneY}`;
+                // Curve up to trunk
+                branchPath += ` Q ${endX} ${laneY} ${endX} ${laneY - r}`;
+                branchPath += ` L ${endX} ${trunkY}`;
             }
 
-            // Start node
-            svg += `<circle class="git-node git-${categoryClass}" cx="${startX}" cy="${trunkY}" r="${CONFIG.nodeRadius}" filter="url(#glow)" />`;
+            svg += `<path class="git-branch git-${categoryClass}" d="${branchPath}"
+                          stroke-linecap="round" stroke-linejoin="round" fill="none"/>`;
+
+            // Start node on trunk
+            svg += `<circle class="git-node git-${categoryClass}"
+                           cx="${startX}" cy="${trunkY}" r="${CONFIG.nodeRadius}"
+                           filter="url(#glow)"/>`;
 
             // End node
-            if (!ongoing) {
-                svg += `<circle class="git-node git-${categoryClass}" cx="${endX}" cy="${trunkY}" r="${CONFIG.nodeRadius}" filter="url(#glow)" />`;
+            if (ongoing) {
+                // Pulsing node at end of ongoing branch
+                svg += `<circle class="git-node git-${categoryClass} git-node-ongoing"
+                               cx="${endX}" cy="${laneY}" r="${CONFIG.nodeRadius - 2}"/>`;
             } else {
-                svg += `<circle class="git-node git-${categoryClass} ongoing-node" cx="${endX}" cy="${laneY}" r="${CONFIG.nodeRadius - 2}" />`;
+                // Merge node on trunk
+                svg += `<circle class="git-node git-${categoryClass}"
+                               cx="${endX}" cy="${trunkY}" r="${CONFIG.nodeRadius}"
+                               filter="url(#glow)"/>`;
             }
 
-            const dateRange = ongoing ? `${item.year} → ` : `${item.year} - ${item.endYear}`;
+            // Item card positioned along the branch
+            const cardX = startX + r + 10;
+            const cardWidth = Math.max((ongoing ? endX - 30 : endX - r - 10) - cardX, 180);
+            const dateRange = ongoing ? `${item.year} → Present` : `${item.year} - ${item.endYear}`;
             const tags = item.tags?.slice(0, 3).map(t => `<span class="git-tag">${t}</span>`).join('') || '';
 
             html += `
                 <div class="timeline-item git-item git-${categoryClass} ${ongoing ? 'ongoing' : ''}"
                      data-id="${item.id}"
                      data-category="${item.category}"
-                     style="left: ${startX + 15}px; top: ${laneY - 18}px; width: ${Math.max(endX - startX - 30, 150)}px;">
+                     style="left: ${cardX}px; top: ${laneY - 22}px; width: ${cardWidth}px;">
                     <div class="git-commit-info">
                         <span class="git-hash">${item.id.substring(0, 7)}</span>
                         <span class="git-title">${item.title}</span>
                         <span class="git-author">${item.company}</span>
+                        ${ongoing ? '<span class="git-ongoing-badge">CURRENT</span>' : ''}
                     </div>
                     <div class="git-detail">
                         <div class="git-detail-header">
@@ -224,9 +279,11 @@ const Timeline = (() => {
                             <span class="git-detail-date">${dateRange}</span>
                         </div>
                         <h4 class="git-detail-title">${item.title}</h4>
-                        <div class="git-detail-company">${item.company}</div>
-                        <div class="git-detail-location">${item.location}</div>
-                        <p class="git-detail-description">${item.description}</p>
+                        <div class="git-detail-meta">
+                            <span class="git-detail-company">${item.company}</span>
+                            <span class="git-detail-location">${item.location}</span>
+                        </div>
+                        <p class="git-detail-desc">${item.description}</p>
                         <div class="git-detail-tags">${tags}</div>
                     </div>
                 </div>
@@ -238,210 +295,7 @@ const Timeline = (() => {
     }
 
     /**
-     * DEFAULT THEME - Modern floating cards
-     */
-    function renderModernCards(items, laneCount) {
-        const container = document.getElementById('timeline-lanes');
-        const totalWidth = (CONFIG.endYear - CONFIG.startYear + 1) * CONFIG.yearWidth + CONFIG.padding * 2;
-        const totalHeight = (laneCount + 1) * (CONFIG.rowHeight + 20) + 60;
-
-        container.style.width = `${totalWidth}px`;
-        container.style.height = `${totalHeight}px`;
-
-        let html = '';
-
-        items.forEach((item) => {
-            const ongoing = isOngoing(item);
-            const laneY = 20 + item._lane * (CONFIG.rowHeight + 20);
-            const startX = item._startX;
-            const width = ongoing ? (yearToX(CONFIG.endYear) - startX) : (item._endX - startX);
-            const dateRange = ongoing ? `${item.year} → Present` : `${item.year} - ${item.endYear}`;
-            const tags = item.tags?.slice(0, 4).map(t => `<span class="modern-tag">${t}</span>`).join('') || '';
-
-            html += `
-                <div class="timeline-item modern-item ${item.category} ${ongoing ? 'ongoing' : ''}"
-                     data-id="${item.id}"
-                     data-category="${item.category}"
-                     style="left: ${startX}px; top: ${laneY}px; width: ${Math.max(width, 200)}px;">
-                    <div class="modern-card">
-                        <div class="modern-card-accent"></div>
-                        <div class="modern-card-content">
-                            <div class="modern-card-header">
-                                <span class="modern-card-category">${item.category}</span>
-                                <span class="modern-card-date">${dateRange}</span>
-                            </div>
-                            <h4 class="modern-card-title">${item.title}</h4>
-                            <div class="modern-card-company">${item.company}</div>
-                        </div>
-                        ${ongoing ? '<div class="modern-ongoing-indicator"></div>' : ''}
-                    </div>
-                    <div class="modern-detail">
-                        <div class="modern-detail-header">
-                            <h4>${item.title}</h4>
-                            <span class="modern-detail-date">${dateRange}</span>
-                        </div>
-                        <div class="modern-detail-company">${item.company}</div>
-                        <div class="modern-detail-location">${item.location}</div>
-                        <p class="modern-detail-description">${item.description}</p>
-                        <div class="modern-detail-tags">${tags}</div>
-                    </div>
-                </div>
-            `;
-        });
-
-        container.innerHTML = html;
-    }
-
-    /**
-     * BLUEPRINT THEME - Technical schematic
-     */
-    function renderBlueprint(items, laneCount) {
-        const container = document.getElementById('timeline-lanes');
-        const totalWidth = (CONFIG.endYear - CONFIG.startYear + 1) * CONFIG.yearWidth + CONFIG.padding * 2;
-        const totalHeight = (laneCount + 1) * (CONFIG.rowHeight + 10) + 80;
-
-        container.style.width = `${totalWidth}px`;
-        container.style.height = `${totalHeight}px`;
-
-        let svg = `<svg class="blueprint-svg" width="${totalWidth}" height="${totalHeight}" viewBox="0 0 ${totalWidth} ${totalHeight}">`;
-        let html = '';
-
-        items.forEach((item, index) => {
-            const ongoing = isOngoing(item);
-            const laneY = 40 + item._lane * (CONFIG.rowHeight + 10);
-            const startX = item._startX;
-            const endX = ongoing ? totalWidth - CONFIG.padding / 2 : item._endX;
-            const width = endX - startX;
-            const dateRange = ongoing ? `${item.year} - ONGOING` : `${item.year} - ${item.endYear}`;
-
-            // Dimension lines
-            const dimY = laneY - 15;
-            svg += `
-                <g class="blueprint-dimension blueprint-${item.category}">
-                    <line x1="${startX}" y1="${dimY}" x2="${startX}" y2="${dimY + 10}" />
-                    <line x1="${endX}" y1="${dimY}" x2="${endX}" y2="${dimY + 10}" />
-                    <line x1="${startX}" y1="${dimY + 5}" x2="${endX}" y2="${dimY + 5}" />
-                    <polygon points="${startX},${dimY + 5} ${startX + 6},${dimY + 2} ${startX + 6},${dimY + 8}" />
-                    <polygon points="${endX},${dimY + 5} ${endX - 6},${dimY + 2} ${endX - 6},${dimY + 8}" />
-                </g>
-            `;
-
-            // Corner markers
-            svg += `
-                <g class="blueprint-corners blueprint-${item.category}">
-                    <path d="M ${startX} ${laneY + 5} L ${startX} ${laneY} L ${startX + 5} ${laneY}" fill="none" />
-                    <path d="M ${endX} ${laneY + 5} L ${endX} ${laneY} L ${endX - 5} ${laneY}" fill="none" />
-                    <path d="M ${startX} ${laneY + CONFIG.rowHeight - 15} L ${startX} ${laneY + CONFIG.rowHeight - 10} L ${startX + 5} ${laneY + CONFIG.rowHeight - 10}" fill="none" />
-                    <path d="M ${endX} ${laneY + CONFIG.rowHeight - 15} L ${endX} ${laneY + CONFIG.rowHeight - 10} L ${endX - 5} ${laneY + CONFIG.rowHeight - 10}" fill="none" />
-                </g>
-            `;
-
-            const tags = item.tags?.slice(0, 3).map(t => `<span class="blueprint-tag">${t}</span>`).join('') || '';
-
-            html += `
-                <div class="timeline-item blueprint-item blueprint-${item.category} ${ongoing ? 'ongoing' : ''}"
-                     data-id="${item.id}"
-                     data-category="${item.category}"
-                     style="left: ${startX + 2}px; top: ${laneY}px; width: ${width - 4}px;">
-                    <div class="blueprint-card">
-                        <div class="blueprint-card-number">${String(index + 1).padStart(2, '0')}</div>
-                        <div class="blueprint-card-content">
-                            <span class="blueprint-card-title">${item.title}</span>
-                            <span class="blueprint-card-company">${item.company}</span>
-                        </div>
-                        <div class="blueprint-card-ref">${item.category.toUpperCase().substring(0, 3)}-${item.id.substring(0, 4)}</div>
-                    </div>
-                    <div class="blueprint-detail">
-                        <div class="blueprint-detail-header">
-                            <span class="blueprint-detail-ref">REF: ${item.id}</span>
-                            <span class="blueprint-detail-date">${dateRange}</span>
-                        </div>
-                        <h4 class="blueprint-detail-title">${item.title}</h4>
-                        <div class="blueprint-detail-company">${item.company} — ${item.location}</div>
-                        <p class="blueprint-detail-description">${item.description}</p>
-                        <div class="blueprint-detail-tags">${tags}</div>
-                    </div>
-                </div>
-            `;
-        });
-
-        svg += '</svg>';
-        container.innerHTML = svg + html;
-    }
-
-    /**
-     * RETRO90S THEME - Windows 95 style
-     */
-    function renderRetro(items, laneCount) {
-        const container = document.getElementById('timeline-lanes');
-        const totalWidth = (CONFIG.endYear - CONFIG.startYear + 1) * CONFIG.yearWidth + CONFIG.padding * 2;
-        const totalHeight = (laneCount + 1) * (CONFIG.rowHeight + 30) + 60;
-
-        container.style.width = `${totalWidth}px`;
-        container.style.height = `${totalHeight}px`;
-
-        let html = '';
-        html += `<div class="retro-road" style="width: ${totalWidth}px;"></div>`;
-
-        const icons = { work: '💼', project: '🚀', education: '📚' };
-
-        items.forEach((item) => {
-            const ongoing = isOngoing(item);
-            const laneY = 30 + item._lane * (CONFIG.rowHeight + 30);
-            const startX = item._startX;
-            const endX = ongoing ? totalWidth - CONFIG.padding / 2 : item._endX;
-            const width = Math.max(endX - startX, 180);
-            const dateRange = ongoing ? `${item.year} → ???` : `${item.year} - ${item.endYear}`;
-            const tags = item.tags?.slice(0, 2).map(t => `<span class="retro-tag">${t}</span>`).join('') || '';
-
-            html += `
-                <div class="timeline-item retro-item retro-${item.category} ${ongoing ? 'ongoing' : ''}"
-                     data-id="${item.id}"
-                     data-category="${item.category}"
-                     style="left: ${startX}px; top: ${laneY}px; width: ${width}px;">
-                    <div class="retro-window">
-                        <div class="retro-window-titlebar">
-                            <span class="retro-window-icon">${icons[item.category] || '📁'}</span>
-                            <span class="retro-window-title">${item.title.substring(0, 25)}${item.title.length > 25 ? '...' : ''}</span>
-                            <div class="retro-window-buttons">
-                                <span class="retro-btn">_</span>
-                                <span class="retro-btn">□</span>
-                                <span class="retro-btn">×</span>
-                            </div>
-                        </div>
-                        <div class="retro-window-content">
-                            <div class="retro-company">${item.company}</div>
-                            <div class="retro-date">${dateRange}</div>
-                        </div>
-                        ${ongoing ? '<div class="retro-new-badge">NEW!</div>' : ''}
-                    </div>
-                    <div class="retro-detail">
-                        <div class="retro-detail-titlebar">
-                            <span>${item.title} - Details</span>
-                            <span class="retro-close">×</span>
-                        </div>
-                        <div class="retro-detail-content">
-                            <div class="retro-detail-icon">${icons[item.category] || '📁'}</div>
-                            <div class="retro-detail-info">
-                                <h4>${item.title}</h4>
-                                <div class="retro-detail-company">${item.company}</div>
-                                <div class="retro-detail-location">📍 ${item.location}</div>
-                                <div class="retro-detail-date">📅 ${dateRange}</div>
-                                <hr class="retro-hr">
-                                <p>${item.description}</p>
-                                <div class="retro-detail-tags">${tags}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
-
-        container.innerHTML = html;
-    }
-
-    /**
-     * Render the complete timeline based on current theme
+     * Render the complete timeline
      */
     function render() {
         const container = document.getElementById('timeline-lanes');
@@ -454,19 +308,8 @@ const Timeline = (() => {
 
         renderAxis();
 
-        switch (currentTheme) {
-            case 'terminal':
-                renderGitGraph(items, laneCount);
-                break;
-            case 'blueprint':
-                renderBlueprint(items, laneCount);
-                break;
-            case 'retro90s':
-                renderRetro(items, laneCount);
-                break;
-            default:
-                renderModernCards(items, laneCount);
-        }
+        // Use git graph for all themes
+        renderGitGraph(items, laneCount);
 
         const subtitleEl = document.querySelector('.timeline-subtitle');
         if (subtitleEl && timelineData.sectionSubtitle) {
@@ -521,6 +364,7 @@ const Timeline = (() => {
 
         window.addEventListener('wheel', handleWheel, { passive: false });
 
+        // Click to show/hide details
         document.querySelectorAll('.timeline-item').forEach(item => {
             item.addEventListener('click', (e) => {
                 const wasActive = item.classList.contains('active');
