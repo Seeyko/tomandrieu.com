@@ -149,9 +149,28 @@ function showNotFound() {
 }
 
 function initListAnimations() {
-    if (typeof gsap === 'undefined') return;
-    gsap.utils.toArray('.blog-list-card').forEach((card, i) => {
-        gsap.fromTo(card, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, delay: i * 0.1, ease: 'power3.out' });
+    const cards = document.querySelectorAll('.blog-list-card');
+    if (!cards.length) return;
+
+    // Use GSAP if available
+    if (typeof gsap !== 'undefined') {
+        gsap.utils.toArray(cards).forEach((card, i) => {
+            gsap.fromTo(card, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, delay: i * 0.1, ease: 'power3.out' });
+        });
+        return;
+    }
+
+    // Native fallback: staggered CSS animations
+    cards.forEach((card, i) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+
+        // Stagger the animations
+        setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, i * 100);
     });
 }
 

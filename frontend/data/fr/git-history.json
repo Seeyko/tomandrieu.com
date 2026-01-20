@@ -1,0 +1,164 @@
+{
+  "config": {
+    "title": "PARCOURS",
+    "subtitle": "D'etudiant a product builder",
+    "startYear": 2017,
+    "endYear": 2028
+  },
+  "branches": [
+    {
+      "id": "dut",
+      "name": "Formation",
+      "type": "education",
+      "startDate": "2017-09",
+      "endDate": "2019-06",
+      "commits": [
+        {
+          "hash": "dut2017",
+          "date": "2017-09",
+          "message": "Debut DUT Informatique",
+          "author": "IUT Montpellier-Sete",
+          "details": {
+            "title": "DUT Informatique",
+            "company": "IUT Montpellier-Sete",
+            "location": "Montpellier, France",
+            "description": "Diplome universitaire de technologie en informatique. Fondamentaux du developpement logiciel, conception de bases de donnees et technologies web.",
+            "tags": ["Informatique", "Developpement", "Bases de donnees"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "freelance",
+      "name": "Freelance",
+      "type": "work",
+      "startDate": "2019-09",
+      "endDate": "ongoing",
+      "commits": [
+        {
+          "hash": "free19",
+          "date": "2019-09",
+          "message": "Debut activite freelance",
+          "author": "Andrieu Tom",
+          "details": {
+            "title": "Developpeur Freelance",
+            "company": "Andrieu Tom",
+            "location": "France",
+            "description": "Creation de solutions web sur mesure avec WordPress et plateformes Angular/Node.js. Sites dynamiques, plateformes personnalisees et applications full-stack.",
+            "tags": ["WordPress", "Angular", "Node.js", "Freelance"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ridemypark",
+      "name": "Ride My Park",
+      "type": "project",
+      "startDate": "2019-06",
+      "endDate": "ongoing",
+      "commits": [
+        {
+          "hash": "rmp2019",
+          "date": "2019-06",
+          "message": "Co-fondation Ride My Park",
+          "author": "Ride My Park",
+          "details": {
+            "title": "Co-fondateur",
+            "company": "Ride My Park",
+            "location": "ridemypark.com",
+            "description": "La plus grande base de donnees de skateparks, street spots, pumptracks, evenements et shops pour sports extremes. 30K+ utilisateurs atteints.",
+            "tags": ["Flutter", "WordPress", "API REST", "UX/UI"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "itesoft-rd",
+      "name": "ITESOFT R&D",
+      "type": "work",
+      "startDate": "2020-01",
+      "endDate": "2024-06",
+      "commits": [
+        {
+          "hash": "ird2020",
+          "date": "2020-01",
+          "message": "Integration equipe R&D ITESOFT",
+          "author": "ITESOFT",
+          "details": {
+            "title": "Ingenieur R&D",
+            "company": "ITESOFT",
+            "location": "Aimargues, France",
+            "description": "Developpement full-stack sur application micro-services, leader de la numerisation documentaire. Equipe frontend passee de 5 a 12 membres. Migration AngularJS vers Angular.",
+            "tags": ["Angular", "Node.js", "Docker", "Microservices"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "skoolbook",
+      "name": "Skoolbook",
+      "type": "project",
+      "startDate": "2023-01",
+      "endDate": "ongoing",
+      "commits": [
+        {
+          "hash": "skb2023",
+          "date": "2023-01",
+          "message": "Lancement Skoolbook",
+          "author": "Skoolbook",
+          "details": {
+            "title": "Fondateur",
+            "company": "Skoolbook",
+            "location": "skoolbook.fr",
+            "description": "Plateforme de gestion de bibliotheque scolaire pour aider les enseignants a suivre les emprunts et encourager la lecture. Interface intuitive avec fonctionnalites d'autonomie eleve.",
+            "tags": ["WordPress", "PHP", "UX/UI", "Education"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "teachtools",
+      "name": "Teach Tools",
+      "type": "project",
+      "startDate": "2023-06",
+      "endDate": "ongoing",
+      "commits": [
+        {
+          "hash": "tt2023",
+          "date": "2023-06",
+          "message": "Debut Teach Tools",
+          "author": "Teach Tools",
+          "details": {
+            "title": "Fondateur",
+            "company": "Teach Tools",
+            "location": "teach-tools.com",
+            "description": "Assistant pedagogique propulse par l'IA generant exercices et images pour enseignants. Application Next.js avec integration IA et pipeline CI/CD.",
+            "tags": ["Next.js", "IA/ML", "UX/UI", "CI/CD"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cba",
+      "name": "CBA Informatique",
+      "type": "work",
+      "startDate": "2024-07",
+      "endDate": "ongoing",
+      "commits": [
+        {
+          "hash": "cba2024",
+          "date": "2024-07",
+          "message": "Arrivee chez CBA en tant que Lead Dev",
+          "author": "CBA Informatique Liberale",
+          "details": {
+            "title": "Lead Developer",
+            "company": "CBA Informatique Liberale",
+            "location": "Avignon, France",
+            "description": "Direction d'une equipe de 8 developpeurs construisant applications web et mobiles avec Angular & Ionic. Architecture multi-applications et mise en place pipeline CI/CD.",
+            "tags": ["Angular", "Ionic", "CI/CD", "Team Lead"]
+          }
+        }
+      ]
+    }
+  ]
+}
