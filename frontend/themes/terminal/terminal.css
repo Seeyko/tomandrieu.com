@@ -1611,8 +1611,19 @@ body[data-theme="terminal"] .enderman-ascii.teleport {
 
 /* ═══════════════════════════════════════════════════════════════
    TIMELINE SECTION (Terminal Theme)
-   Horizontal timeline with cyber-industrial aesthetics
+   Git-style graph visualization with commit history aesthetic
    ═══════════════════════════════════════════════════════════════ */
+
+/* Git Graph Color Variables */
+body[data-theme="terminal"] {
+  --git-work-color: #33ff00;
+  --git-project-color: #ff6b6b;
+  --git-edu-color: #4ecdc4;
+  --git-hash-color: #ffb000;
+  --git-border-color: var(--primary);
+  --timeline-trunk-color: rgba(51, 255, 0, 0.4);
+  --timeline-now-color: #ff3333;
+}
 
 body[data-theme="terminal"] .timeline-section {
   padding: var(--spacing-lg) var(--spacing-md);
@@ -1624,7 +1635,7 @@ body[data-theme="terminal"] #timeline .section-title::before {
 }
 
 body[data-theme="terminal"] #timeline .section-title::after {
-  content: ' --oneline';
+  content: ' --graph --all';
 }
 
 body[data-theme="terminal"] .timeline-subtitle {
@@ -1632,99 +1643,116 @@ body[data-theme="terminal"] .timeline-subtitle {
   font-family: var(--font-terminal);
 }
 
-/* Timeline colors */
-body[data-theme="terminal"] {
-  --timeline-work-color: var(--primary);
-  --timeline-work-bg: rgba(51, 255, 0, 0.1);
-  --timeline-project-color: var(--secondary);
-  --timeline-project-bg: rgba(255, 176, 0, 0.1);
-  --timeline-edu-color: #00BFFF;
-  --timeline-edu-bg: rgba(0, 191, 255, 0.1);
+body[data-theme="terminal"] .timeline-subtitle::before {
+  content: '# ';
+  color: var(--secondary);
 }
 
 /* Year Axis */
-body[data-theme="terminal"] .timeline-axis {
-  border-color: var(--primary);
-  opacity: 0.6;
-}
-
-body[data-theme="terminal"] .timeline-year-tick {
-  background: var(--primary);
-}
-
 body[data-theme="terminal"] .timeline-year-label {
   color: var(--primary);
   font-family: var(--font-terminal);
   text-shadow: var(--glow-primary);
+  font-size: 0.7rem;
 }
 
-/* Period Bars */
-body[data-theme="terminal"] .timeline-bar {
+body[data-theme="terminal"] .timeline-year-tick {
+  background: var(--primary);
+  opacity: 0.4;
+}
+
+body[data-theme="terminal"] .timeline-year.current .timeline-year-label {
+  color: var(--secondary);
+  text-shadow: 0 0 10px var(--secondary);
+}
+
+/* NOW Marker */
+body[data-theme="terminal"] .timeline-now-marker span {
+  background: var(--timeline-now-color);
   font-family: var(--font-terminal);
+  text-shadow: 0 0 5px var(--timeline-now-color);
 }
 
-body[data-theme="terminal"] .timeline-bar::before,
-body[data-theme="terminal"] .timeline-bar::after {
-  border-color: var(--bg-terminal);
+/* Git Graph SVG */
+body[data-theme="terminal"] .git-trunk {
+  stroke: var(--timeline-trunk-color);
+  filter: drop-shadow(0 0 3px var(--primary));
 }
 
-body[data-theme="terminal"] .timeline-item:hover .timeline-bar,
-body[data-theme="terminal"] .timeline-item.active .timeline-bar {
-  box-shadow: 0 0 20px var(--primary-glow);
+body[data-theme="terminal"] .git-branch,
+body[data-theme="terminal"] .git-line {
+  filter: drop-shadow(0 0 2px currentColor);
 }
 
-body[data-theme="terminal"] .timeline-item.highlight .timeline-bar {
-  box-shadow: 0 0 10px var(--secondary-glow);
+body[data-theme="terminal"] .git-node {
+  filter: drop-shadow(0 0 4px currentColor);
 }
 
-body[data-theme="terminal"] .timeline-bar-title {
-  text-shadow: 0 0 5px currentColor;
+/* Git Commit Info */
+body[data-theme="terminal"] .git-commit-info {
+  font-family: var(--font-terminal);
+  background: rgba(0, 20, 0, 0.8);
+  border: 1px solid rgba(51, 255, 0, 0.2);
 }
 
-/* Detail Popup */
-body[data-theme="terminal"] .timeline-detail {
-  background: var(--bg-terminal-panel);
+body[data-theme="terminal"] .git-item:hover .git-commit-info {
+  background: rgba(0, 40, 0, 0.9);
   border-color: var(--primary);
+  box-shadow: 0 0 15px rgba(51, 255, 0, 0.3);
+}
+
+body[data-theme="terminal"] .git-hash {
+  color: var(--git-hash-color);
+  text-shadow: 0 0 5px var(--git-hash-color);
+}
+
+body[data-theme="terminal"] .git-title {
+  color: var(--text-bright);
+}
+
+body[data-theme="terminal"] .git-author {
+  color: var(--text-comment);
+}
+
+/* Git Detail Popup */
+body[data-theme="terminal"] .git-detail {
+  background: var(--bg-terminal-panel);
+  border-color: var(--git-border-color);
   font-family: var(--font-terminal);
+  box-shadow: 0 0 30px rgba(51, 255, 0, 0.2);
 }
 
-body[data-theme="terminal"] .timeline-detail::after {
-  border-top-color: var(--bg-terminal-panel);
+body[data-theme="terminal"] .git-detail-header {
+  border-bottom-color: rgba(51, 255, 0, 0.3);
 }
 
-body[data-theme="terminal"] .timeline-detail-title {
+body[data-theme="terminal"] .git-detail-hash {
+  color: var(--git-hash-color);
+  text-shadow: 0 0 5px var(--git-hash-color);
+}
+
+body[data-theme="terminal"] .git-detail-title {
   color: var(--primary);
   text-shadow: var(--glow-primary);
 }
 
-body[data-theme="terminal"] .timeline-detail-date {
-  color: var(--secondary);
-}
-
-body[data-theme="terminal"] .timeline-detail-company {
-  color: var(--text-bright);
-}
-
-body[data-theme="terminal"] .timeline-detail-company::before {
-  content: '> ';
-  color: var(--secondary);
-}
-
-body[data-theme="terminal"] .timeline-detail-location {
+body[data-theme="terminal"] .git-detail-meta {
   color: var(--text-comment);
 }
 
-body[data-theme="terminal"] .timeline-detail-location::before {
-  content: '// ';
+body[data-theme="terminal"] .git-detail-meta strong {
+  color: var(--secondary);
 }
 
-body[data-theme="terminal"] .timeline-detail-description {
+body[data-theme="terminal"] .git-detail-desc {
   color: var(--text-dim);
+  border-left-color: var(--primary);
 }
 
-body[data-theme="terminal"] .timeline-detail-tag {
-  color: var(--text-dim);
-  border-color: var(--border);
+body[data-theme="terminal"] .git-detail-tags span {
+  background: rgba(51, 255, 0, 0.1);
+  border-color: rgba(51, 255, 0, 0.3);
+  color: var(--primary);
 }
 
 /* Scroll Hint */
@@ -1734,7 +1762,7 @@ body[data-theme="terminal"] .timeline-scroll-hint {
 }
 
 body[data-theme="terminal"] .scroll-hint-text::before {
-  content: '$ ';
+  content: '$ scroll ';
   color: var(--secondary);
 }
 
@@ -1745,6 +1773,6 @@ body[data-theme="terminal"] .timeline-loading {
 }
 
 body[data-theme="terminal"] .timeline-loading::before {
-  content: '> Loading...';
+  content: '> Loading commits...';
   animation: blink 1s step-end infinite;
 }
