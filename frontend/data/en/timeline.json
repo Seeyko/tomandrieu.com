@@ -114,23 +114,6 @@
       "highlight": false
     },
     {
-      "id": "licence-2019",
-      "year": "2019",
-      "endYear": "2020",
-      "category": "education",
-      "title": "Licence Pro",
-      "company": "IUT Montpellier-Sete",
-      "location": "Montpellier, France",
-      "description": "Professional License in IT Project Management Assistant.",
-      "details": [
-        "Project management methodologies",
-        "Software development best practices",
-        "Team coordination skills"
-      ],
-      "tags": ["Project Management", "IT"],
-      "highlight": false
-    },
-    {
       "id": "itesoft-internship-2019",
       "year": "2019",
       "endYear": "2019",

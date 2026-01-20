@@ -114,23 +114,6 @@
       "highlight": false
     },
     {
-      "id": "licence-2019",
-      "year": "2019",
-      "endYear": "2020",
-      "category": "education",
-      "title": "Licence Pro",
-      "company": "IUT Montpellier-Sete",
-      "location": "Montpellier, France",
-      "description": "Licence Professionnelle Assistant Chef de Projet Informatique.",
-      "details": [
-        "Methodologies de gestion de projet",
-        "Bonnes pratiques developpement",
-        "Coordination d'equipe"
-      ],
-      "tags": ["Gestion de Projet", "IT"],
-      "highlight": false
-    },
-    {
       "id": "itesoft-internship-2019",
       "year": "2019",
       "endYear": "2019",
