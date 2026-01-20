@@ -392,35 +392,39 @@
     </div>
   </section>
 
-  <!-- Timeline / Journey Section -->
+  <!-- Timeline / History Section -->
   <section id="timeline" class="timeline-section">
     <div class="section-header">
       <div class="section-label">
         <span class="section-number">03</span>
         <span class="section-prompt">$</span>
-        <h2 class="section-title" data-glitch="JOURNEY" data-i18n="sections.timeline">JOURNEY</h2>
+        <h2 class="section-title" data-glitch="HISTORY">HISTORY</h2>
       </div>
       <div class="section-divider">═══════════════════════════════════════════════════════</div>
     </div>
 
     <div class="timeline-intro">
-      <p class="timeline-subtitle" data-i18n="timeline.subtitle">From student to product builder</p>
+      <p class="timeline-subtitle">From student to product builder</p>
     </div>
 
-    <div class="timeline-filters">
-      <button class="timeline-filter active" data-category="all" data-i18n="timeline.filters.all">All</button>
-      <button class="timeline-filter" data-category="work" data-i18n="timeline.filters.work">Work</button>
-      <button class="timeline-filter" data-category="project" data-i18n="timeline.filters.projects">Projects</button>
-      <button class="timeline-filter" data-category="education" data-i18n="timeline.filters.education">Education</button>
-    </div>
-
-    <div class="timeline-container">
-      <div class="timeline-spine"></div>
-      <div id="timeline-track" class="timeline-track">
-        <!-- Timeline items populated by JavaScript -->
-        <div class="timeline-loading">
-          <span class="loading-text" data-i18n="ui.loading">Loading...</span>
+    <div class="timeline-viewport">
+      <div class="timeline-scroll-container">
+        <!-- Year axis at the bottom -->
+        <div class="timeline-axis" id="timeline-axis">
+          <!-- Year markers populated by JavaScript -->
         </div>
+        <!-- Timeline lanes for items -->
+        <div class="timeline-lanes" id="timeline-lanes">
+          <!-- Timeline items populated by JavaScript -->
+          <div class="timeline-loading">
+            <span class="loading-text">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <!-- Scroll hint -->
+      <div class="timeline-scroll-hint">
+        <span class="scroll-hint-text">Scroll to explore</span>
+        <span class="scroll-hint-arrow">→</span>
       </div>
     </div>
   </section>

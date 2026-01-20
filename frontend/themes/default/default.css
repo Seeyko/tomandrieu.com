@@ -1155,13 +1155,11 @@ body[data-theme="default"] .language-switcher-toggle:hover .lang-arrow {
 
 /* ═══════════════════════════════════════════════════════════════
    TIMELINE SECTION (Default Theme)
-   Elegant and refined timeline with subtle animations
+   Elegant horizontal timeline with subtle animations
    ═══════════════════════════════════════════════════════════════ */
 
 body[data-theme="default"] .timeline-section {
   padding: var(--spacing-xl) var(--spacing-md);
-  max-width: var(--max-width);
-  margin: 0 auto;
 }
 
 body[data-theme="default"] #timeline .section-title {
@@ -1179,249 +1177,106 @@ body[data-theme="default"] .timeline-subtitle {
   font-weight: 400;
 }
 
-/* Filters */
-body[data-theme="default"] .timeline-filter {
-  border: 1px solid var(--border-medium);
-  color: var(--text-secondary);
-  font-family: var(--font-sans);
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  background: var(--bg-secondary);
-  border-radius: var(--radius-md);
-  padding: 0.5rem 1rem;
-  text-transform: none;
+/* Timeline colors */
+body[data-theme="default"] {
+  --timeline-work-color: var(--accent);
+  --timeline-work-bg: var(--accent-light);
+  --timeline-project-color: #7c3aed;
+  --timeline-project-bg: rgba(124, 58, 237, 0.08);
+  --timeline-edu-color: #2563eb;
+  --timeline-edu-bg: rgba(37, 99, 235, 0.08);
 }
 
-body[data-theme="default"] .timeline-filter:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+/* Year Axis */
+body[data-theme="default"] .timeline-axis {
+  border-color: var(--border-medium);
 }
 
-body[data-theme="default"] .timeline-filter.active {
-  background: var(--accent);
-  color: white;
-  border-color: var(--accent);
-}
-
-/* Spine */
-body[data-theme="default"] .timeline-spine {
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    var(--border-medium) 5%,
-    var(--border-medium) 95%,
-    transparent 100%
-  );
-  opacity: 1;
-}
-
-body[data-theme="default"] .timeline-spine::before,
-body[data-theme="default"] .timeline-spine::after {
-  background: var(--accent);
-  width: 10px;
-  height: 10px;
-}
-
-/* Year Markers */
-body[data-theme="default"] .timeline-year-marker {
-  padding: var(--spacing-lg) 0;
+body[data-theme="default"] .timeline-year-tick {
+  background: var(--border-medium);
 }
 
 body[data-theme="default"] .timeline-year-label {
-  background: var(--bg-primary);
-  border: 1px solid var(--border-medium);
-  color: var(--text-primary);
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 600;
-  padding: 0.5rem 1.5rem;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-weight: 500;
 }
 
-/* Timeline Items */
-body[data-theme="default"] .timeline-item {
-  color: var(--text-primary);
+/* Period Bars */
+body[data-theme="default"] .timeline-bar {
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
 }
 
-/* Nodes */
-body[data-theme="default"] .timeline-node {
-  background: var(--bg-primary);
-  border: 2px solid var(--accent);
-  box-shadow: var(--shadow-sm);
+body[data-theme="default"] .timeline-bar::before,
+body[data-theme="default"] .timeline-bar::after {
+  border-color: var(--bg-primary);
 }
 
-body[data-theme="default"] .timeline-item:hover .timeline-node,
-body[data-theme="default"] .timeline-item.active .timeline-node,
-body[data-theme="default"] .timeline-item.scroll-focus .timeline-node {
-  background: var(--accent);
-  box-shadow: 0 0 0 4px var(--accent-light);
-}
-
-body[data-theme="default"] .timeline-item.highlight .timeline-node {
-  border-color: var(--accent-hover);
-  width: 18px;
-  height: 18px;
-}
-
-/* Connector */
-body[data-theme="default"] .timeline-connector {
-  background: var(--border-medium);
-  opacity: 0.5;
-}
-
-body[data-theme="default"] .timeline-item:hover .timeline-connector,
-body[data-theme="default"] .timeline-item.active .timeline-connector {
-  background: var(--accent);
-  opacity: 0.6;
-}
-
-/* Cards */
-body[data-theme="default"] .timeline-card {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  padding: var(--spacing-md);
-}
-
-body[data-theme="default"] .timeline-item:hover .timeline-card,
-body[data-theme="default"] .timeline-item.active .timeline-card,
-body[data-theme="default"] .timeline-item.scroll-focus .timeline-card {
+body[data-theme="default"] .timeline-item:hover .timeline-bar,
+body[data-theme="default"] .timeline-item.active .timeline-bar {
   box-shadow: var(--shadow-md);
-  border-color: var(--accent-light);
 }
 
-body[data-theme="default"] .timeline-item.highlight .timeline-card {
-  border-left: 3px solid var(--accent);
+body[data-theme="default"] .timeline-bar-title {
+  font-weight: 600;
 }
 
-/* Card Header */
-body[data-theme="default"] .timeline-date {
-  color: var(--accent);
+body[data-theme="default"] .timeline-bar-company {
+  color: var(--text-secondary);
+}
+
+/* Detail Popup */
+body[data-theme="default"] .timeline-detail {
+  background: var(--bg-secondary);
+  border-color: var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
   font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: 0.8rem;
 }
 
-body[data-theme="default"] .timeline-category {
-  color: var(--text-tertiary);
-  border: 1px solid var(--border-light);
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 500;
-  border-radius: var(--radius-sm);
-  background: var(--bg-tertiary);
-  text-transform: none;
+body[data-theme="default"] .timeline-detail::after {
+  border-top-color: var(--bg-secondary);
 }
 
-body[data-theme="default"] .timeline-item[data-category="work"] .timeline-category {
-  color: var(--accent);
-  background: var(--accent-light);
-  border-color: transparent;
-}
-
-body[data-theme="default"] .timeline-item[data-category="project"] .timeline-category {
-  color: #7c3aed;
-  background: rgba(124, 58, 237, 0.08);
-  border-color: transparent;
-}
-
-body[data-theme="default"] .timeline-item[data-category="education"] .timeline-category {
-  color: #2563eb;
-  background: rgba(37, 99, 235, 0.08);
-  border-color: transparent;
-}
-
-/* Card Content */
-body[data-theme="default"] .timeline-title {
+body[data-theme="default"] .timeline-detail-title {
   color: var(--text-primary);
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.1rem;
-  letter-spacing: -0.01em;
 }
 
-body[data-theme="default"] .timeline-company {
-  color: var(--text-secondary);
-  font-family: var(--font-sans);
-  font-weight: 500;
-}
-
-body[data-theme="default"] .timeline-location {
-  color: var(--text-tertiary);
-  font-family: var(--font-sans);
-  font-size: 0.8rem;
-}
-
-body[data-theme="default"] .timeline-description {
-  color: var(--text-secondary);
-  font-family: var(--font-sans);
-  line-height: 1.6;
-}
-
-/* Details */
-body[data-theme="default"] .timeline-details {
-  border-top: 1px solid var(--border-light);
-  padding-top: 0.75rem;
-}
-
-body[data-theme="default"] .timeline-details-list li {
-  color: var(--text-secondary);
-  font-family: var(--font-sans);
-  font-size: 0.85rem;
-}
-
-body[data-theme="default"] .timeline-details-list li::before {
-  content: '•';
+body[data-theme="default"] .timeline-detail-date {
   color: var(--accent);
 }
 
-body[data-theme="default"] .timeline-item.left .timeline-details-list li::before {
-  content: '•';
+body[data-theme="default"] .timeline-detail-company {
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
-/* Tags */
-body[data-theme="default"] .timeline-tag {
+body[data-theme="default"] .timeline-detail-location {
   color: var(--text-tertiary);
-  border: 1px solid var(--border-light);
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 500;
-  border-radius: var(--radius-sm);
+}
+
+body[data-theme="default"] .timeline-detail-description {
+  color: var(--text-secondary);
+}
+
+body[data-theme="default"] .timeline-detail-tag {
+  color: var(--text-tertiary);
+  border-color: var(--border-light);
   background: var(--bg-tertiary);
-  text-transform: none;
+  border-radius: var(--radius-sm);
 }
 
-body[data-theme="default"] .timeline-item:hover .timeline-tag,
-body[data-theme="default"] .timeline-item.active .timeline-tag {
-  border-color: var(--accent-light);
-  color: var(--accent);
-}
-
-/* Expand */
-body[data-theme="default"] .timeline-expand {
+/* Scroll Hint */
+body[data-theme="default"] .timeline-scroll-hint {
   color: var(--text-muted);
   font-family: var(--font-sans);
-  font-size: 0.75rem;
-}
-
-body[data-theme="default"] .timeline-item:hover .timeline-expand {
-  color: var(--accent);
 }
 
 /* Loading */
 body[data-theme="default"] .timeline-loading {
   color: var(--text-muted);
   font-family: var(--font-sans);
-  text-align: center;
-  padding: 2rem;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  body[data-theme="default"] .timeline-section {
-    padding: var(--spacing-lg) var(--spacing-sm);
-  }
 }

@@ -1,14 +1,23 @@
 /**
- * Timeline - Interactive chronological timeline with scroll animations
- * Renders career history with dual-track layout and expandable details
+ * Timeline - Horizontal timeline with scroll-jacking
+ * Displays career history as period bars positioned by year
  */
 
 const Timeline = (() => {
     let timelineData = null;
-    let activeItem = null;
-    let currentFilter = 'all';
+    let scrollContainer = null;
+    let isScrollLocked = false;
+    let section = null;
 
-    const hasGSAP = () => typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
+    // Configuration
+    const CONFIG = {
+        startYear: 2017,
+        endYear: new Date().getFullYear() + 1,
+        yearWidth: 150, // pixels per year
+        rowHeight: 52, // pixels per row (item height + gap)
+        padding: 60, // left/right padding
+        laneGap: 8 // gap between items in same lane
+    };
 
     /**
      * Load timeline data based on current language
@@ -27,101 +36,139 @@ const Timeline = (() => {
     }
 
     /**
-     * Determine item side based on category
-     * Work items go left, projects/education go right
+     * Parse year string to number
      */
-    function getItemSide(item) {
-        return item.category === 'work' ? 'left' : 'right';
+    function parseYear(yearStr) {
+        if (!yearStr) return CONFIG.endYear;
+        const year = parseInt(yearStr);
+        if (isNaN(year)) return CONFIG.endYear; // "Present", "Aujourd'hui", etc.
+        return year;
     }
 
     /**
-     * Group items by year for year markers
+     * Check if item is ongoing
      */
-    function groupByYear(items) {
-        const years = {};
-        items.forEach(item => {
-            const year = item.year;
-            if (!years[year]) {
-                years[year] = [];
+    function isOngoing(item) {
+        const endYear = item.endYear?.toLowerCase();
+        return !endYear || endYear === 'present' || endYear === "aujourd'hui" || endYear === 'ongoing';
+    }
+
+    /**
+     * Calculate X position for a year
+     */
+    function yearToX(year) {
+        return CONFIG.padding + (year - CONFIG.startYear) * CONFIG.yearWidth;
+    }
+
+    /**
+     * Calculate width for a period
+     */
+    function periodToWidth(startYear, endYear) {
+        const start = parseYear(startYear);
+        const end = parseYear(endYear);
+        return Math.max((end - start) * CONFIG.yearWidth, CONFIG.yearWidth * 0.5);
+    }
+
+    /**
+     * Assign lanes to items to avoid overlap
+     * Items are sorted by start year, then assigned to first available lane
+     */
+    function assignLanes(items) {
+        // Sort by start year
+        const sorted = [...items].sort((a, b) => parseYear(a.year) - parseYear(b.year));
+
+        // Track end positions for each lane
+        const lanes = [];
+
+        sorted.forEach(item => {
+            const startX = yearToX(parseYear(item.year));
+            const endX = startX + periodToWidth(item.year, item.endYear);
+
+            // Find first lane where item fits
+            let assignedLane = -1;
+            for (let i = 0; i < lanes.length; i++) {
+                if (lanes[i] <= startX - CONFIG.laneGap) {
+                    assignedLane = i;
+                    lanes[i] = endX;
+                    break;
+                }
             }
-            years[year].push(item);
+
+            // Create new lane if needed
+            if (assignedLane === -1) {
+                assignedLane = lanes.length;
+                lanes.push(endX);
+            }
+
+            item._lane = assignedLane;
+            item._startX = startX;
+            item._width = endX - startX;
         });
-        return years;
+
+        return { items: sorted, laneCount: lanes.length };
     }
 
     /**
-     * Sort items chronologically (newest first)
+     * Render year axis
      */
-    function sortItems(items) {
-        return [...items].sort((a, b) => {
-            const yearA = parseInt(a.year);
-            const yearB = parseInt(b.year);
-            if (yearB !== yearA) return yearB - yearA;
-            // Secondary sort: highlight items first
-            if (a.highlight && !b.highlight) return -1;
-            if (!a.highlight && b.highlight) return 1;
-            return 0;
-        });
+    function renderAxis() {
+        const axis = document.getElementById('timeline-axis');
+        if (!axis) return;
+
+        const totalWidth = (CONFIG.endYear - CONFIG.startYear + 1) * CONFIG.yearWidth + CONFIG.padding * 2;
+        axis.style.width = `${totalWidth}px`;
+
+        let html = '';
+        for (let year = CONFIG.startYear; year <= CONFIG.endYear; year++) {
+            const x = yearToX(year);
+            html += `
+                <div class="timeline-year" style="left: ${x}px;">
+                    <div class="timeline-year-tick"></div>
+                    <span class="timeline-year-label">${year}</span>
+                </div>
+            `;
+        }
+
+        axis.innerHTML = html;
     }
 
     /**
      * Render a single timeline item
      */
-    function renderItem(item, index) {
-        const side = getItemSide(item);
-        const dateRange = item.endYear ? `${item.year} - ${item.endYear}` : item.year;
-        const highlightClass = item.highlight ? 'highlight' : '';
-        const categoryLabel = timelineData.categories[item.category] || item.category;
+    function renderItem(item) {
+        const ongoing = isOngoing(item);
+        const startYear = parseYear(item.year);
+        const endYear = parseYear(item.endYear);
+        const dateRange = ongoing ? `${item.year} - Present` : `${item.year} - ${item.endYear}`;
 
-        const detailsList = item.details?.length
-            ? `<ul class="timeline-details-list">
-                ${item.details.map(d => `<li>${d}</li>`).join('')}
-               </ul>`
-            : '';
+        const highlightClass = item.highlight ? 'highlight' : '';
+        const ongoingClass = ongoing ? 'ongoing' : '';
 
         const tags = item.tags?.length
-            ? `<div class="timeline-tags">
-                ${item.tags.map(t => `<span class="timeline-tag">${t}</span>`).join('')}
-               </div>`
+            ? item.tags.map(t => `<span class="timeline-detail-tag">${t}</span>`).join('')
             : '';
 
         return `
-            <div class="timeline-item ${side} ${highlightClass}"
+            <div class="timeline-item ${highlightClass} ${ongoingClass}"
                  data-id="${item.id}"
                  data-category="${item.category}"
-                 data-year="${item.year}"
-                 style="--delay: ${index * 0.1}s">
-                <div class="timeline-node"></div>
-                <div class="timeline-connector"></div>
-                <div class="timeline-card">
-                    <div class="timeline-card-header">
-                        <span class="timeline-date">${dateRange}</span>
-                        <span class="timeline-category">${categoryLabel}</span>
-                    </div>
-                    <h3 class="timeline-title">${item.title}</h3>
-                    <div class="timeline-company">${item.company}</div>
-                    <div class="timeline-location">${item.location}</div>
-                    <p class="timeline-description">${item.description}</p>
-                    <div class="timeline-details">
-                        ${detailsList}
-                        ${tags}
-                    </div>
-                    <div class="timeline-expand">
-                        <span class="timeline-expand-text">Details</span>
-                        <span class="timeline-expand-icon">▼</span>
+                 style="left: ${item._startX}px; width: ${item._width}px; top: ${item._lane * CONFIG.rowHeight}px;">
+                <div class="timeline-bar">
+                    <div class="timeline-bar-content">
+                        <span class="timeline-bar-title">${item.title}</span>
+                        <span class="timeline-bar-company">${item.company}</span>
                     </div>
                 </div>
-            </div>
-        `;
-    }
-
-    /**
-     * Render year marker
-     */
-    function renderYearMarker(year) {
-        return `
-            <div class="timeline-year-marker" data-year="${year}">
-                <span class="timeline-year-label">${year}</span>
+                <div class="timeline-detail">
+                    <div class="timeline-detail-header">
+                        <span class="timeline-detail-title">${item.title}</span>
+                        <span class="timeline-detail-date">${dateRange}</span>
+                    </div>
+                    <div class="timeline-detail-company">${item.company}</div>
+                    <div class="timeline-detail-location">${item.location}</div>
+                    <p class="timeline-detail-description">${item.description}</p>
+                    <div class="timeline-detail-tags">${tags}</div>
+                </div>
             </div>
         `;
     }
@@ -129,250 +176,145 @@ const Timeline = (() => {
     /**
      * Render the complete timeline
      */
-    function render(containerId = '#timeline-track') {
-        const container = document.querySelector(containerId);
-        if (!container || !timelineData) return;
+    function render() {
+        const lanes = document.getElementById('timeline-lanes');
+        const axis = document.getElementById('timeline-axis');
 
-        const sortedItems = sortItems(timelineData.items);
-        const groupedByYear = groupByYear(sortedItems);
-        const years = Object.keys(groupedByYear).sort((a, b) => parseInt(b) - parseInt(a));
+        if (!lanes || !axis || !timelineData) return;
 
-        let html = '';
-        let itemIndex = 0;
+        // Assign lanes to items
+        const { items, laneCount } = assignLanes(timelineData.items);
 
-        years.forEach((year, yearIndex) => {
-            // Add year marker
-            if (yearIndex === 0 || years[yearIndex - 1] !== year) {
-                html += renderYearMarker(year);
-            }
+        // Calculate total dimensions
+        const totalWidth = (CONFIG.endYear - CONFIG.startYear + 1) * CONFIG.yearWidth + CONFIG.padding * 2;
+        const totalHeight = laneCount * CONFIG.rowHeight;
 
-            // Add items for this year
-            groupedByYear[year].forEach(item => {
-                html += renderItem(item, itemIndex++);
-            });
-        });
+        // Set container dimensions
+        lanes.style.width = `${totalWidth}px`;
+        lanes.style.height = `${totalHeight}px`;
 
-        container.innerHTML = html;
+        // Render axis
+        renderAxis();
 
-        // Update section title and subtitle
-        const titleEl = document.querySelector('#timeline .section-title');
+        // Render items
+        lanes.innerHTML = items.map(item => renderItem(item)).join('');
+
+        // Update section subtitle
         const subtitleEl = document.querySelector('.timeline-subtitle');
-        if (titleEl && timelineData.sectionTitle) {
-            titleEl.textContent = timelineData.sectionTitle;
-            titleEl.setAttribute('data-glitch', timelineData.sectionTitle);
-        }
         if (subtitleEl && timelineData.sectionSubtitle) {
             subtitleEl.textContent = timelineData.sectionSubtitle;
         }
 
-        // Initialize interactions
-        initInteractions();
-        initScrollAnimations();
+        // Initialize scroll behavior
+        initScrollBehavior();
     }
 
     /**
-     * Initialize click/hover interactions
+     * Initialize scroll-jacking behavior
+     * Converts vertical scroll to horizontal scroll when timeline is in view
      */
-    function initInteractions() {
-        const items = document.querySelectorAll('.timeline-item');
+    function initScrollBehavior() {
+        section = document.getElementById('timeline');
+        scrollContainer = document.querySelector('.timeline-scroll-container');
+        const scrollHint = document.querySelector('.timeline-scroll-hint');
 
-        items.forEach(item => {
+        if (!section || !scrollContainer) return;
+
+        // Handle wheel events
+        const handleWheel = (e) => {
+            const rect = section.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+
+            // Check if section is in viewport center area
+            const sectionTop = rect.top;
+            const sectionBottom = rect.bottom;
+            const inView = sectionTop < viewportHeight * 0.6 && sectionBottom > viewportHeight * 0.4;
+
+            if (!inView) {
+                isScrollLocked = false;
+                section.classList.remove('scroll-locked');
+                return;
+            }
+
+            // Calculate scroll boundaries
+            const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+            const currentScroll = scrollContainer.scrollLeft;
+
+            // Determine if we should capture the scroll
+            const scrollingRight = e.deltaY > 0;
+            const scrollingLeft = e.deltaY < 0;
+            const atStart = currentScroll <= 0;
+            const atEnd = currentScroll >= maxScroll - 1;
+
+            // Don't capture if at boundaries and scrolling in that direction
+            if ((atStart && scrollingLeft) || (atEnd && scrollingRight)) {
+                isScrollLocked = false;
+                section.classList.remove('scroll-locked');
+                return;
+            }
+
+            // Capture scroll and convert to horizontal
+            e.preventDefault();
+            isScrollLocked = true;
+            section.classList.add('scroll-locked');
+
+            // Apply horizontal scroll with multiplier for smoother feel
+            const scrollAmount = e.deltaY * 1.5;
+            scrollContainer.scrollLeft += scrollAmount;
+
+            // Hide scroll hint after first scroll
+            if (scrollHint && !scrollHint.classList.contains('hidden')) {
+                scrollHint.classList.add('hidden');
+            }
+        };
+
+        // Add wheel listener with passive: false to allow preventDefault
+        window.addEventListener('wheel', handleWheel, { passive: false });
+
+        // Touch handling for mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let isTouchScrolling = false;
+
+        scrollContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            isTouchScrolling = false;
+        }, { passive: true });
+
+        scrollContainer.addEventListener('touchmove', (e) => {
+            if (!isTouchScrolling) {
+                const deltaX = Math.abs(e.touches[0].clientX - touchStartX);
+                const deltaY = Math.abs(e.touches[0].clientY - touchStartY);
+
+                // If horizontal movement is greater, it's a horizontal scroll
+                if (deltaX > deltaY && deltaX > 10) {
+                    isTouchScrolling = true;
+                }
+            }
+        }, { passive: true });
+
+        // Click to pin item
+        document.querySelectorAll('.timeline-item').forEach(item => {
             item.addEventListener('click', (e) => {
-                // Don't toggle if clicking a link
-                if (e.target.tagName === 'A') return;
-
-                const isActive = item.classList.contains('active');
+                const wasActive = item.classList.contains('active');
 
                 // Remove active from all
-                items.forEach(i => i.classList.remove('active'));
+                document.querySelectorAll('.timeline-item').forEach(i => i.classList.remove('active'));
 
                 // Toggle clicked item
-                if (!isActive) {
+                if (!wasActive) {
                     item.classList.add('active');
-                    activeItem = item.dataset.id;
-
-                    // Scroll item into better view if needed
-                    const rect = item.getBoundingClientRect();
-                    if (rect.top < 100 || rect.bottom > window.innerHeight - 100) {
-                        item.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                } else {
-                    activeItem = null;
                 }
             });
         });
 
-        // Initialize filters
-        initFilters();
-    }
-
-    /**
-     * Initialize category filters
-     */
-    function initFilters() {
-        const filters = document.querySelectorAll('.timeline-filter');
-        const items = document.querySelectorAll('.timeline-item');
-
-        filters.forEach(filter => {
-            filter.addEventListener('click', () => {
-                const category = filter.dataset.category;
-
-                // Update active filter
-                filters.forEach(f => f.classList.remove('active'));
-                filter.classList.add('active');
-                currentFilter = category;
-
-                // Filter items
-                items.forEach(item => {
-                    const itemCategory = item.dataset.category;
-                    const shouldShow = category === 'all' || itemCategory === category;
-
-                    if (shouldShow) {
-                        item.style.display = '';
-                        item.classList.remove('filtered-out');
-                    } else {
-                        item.classList.add('filtered-out');
-                        setTimeout(() => {
-                            if (item.classList.contains('filtered-out')) {
-                                item.style.display = 'none';
-                            }
-                        }, 300);
-                    }
-                });
-
-                // Refresh ScrollTrigger if available
-                if (hasGSAP()) {
-                    setTimeout(() => ScrollTrigger.refresh(), 350);
-                }
-            });
-        });
-    }
-
-    /**
-     * Initialize scroll animations
-     */
-    function initScrollAnimations() {
-        const items = document.querySelectorAll('.timeline-item');
-        const yearMarkers = document.querySelectorAll('.timeline-year-marker');
-
-        if (hasGSAP()) {
-            // GSAP ScrollTrigger animations
-            gsap.registerPlugin(ScrollTrigger);
-
-            // Animate items
-            items.forEach((item, i) => {
-                const side = item.classList.contains('left') ? -50 : 50;
-
-                gsap.fromTo(item,
-                    { opacity: 0, x: side },
-                    {
-                        opacity: 1,
-                        x: 0,
-                        duration: 0.6,
-                        ease: 'power3.out',
-                        scrollTrigger: {
-                            trigger: item,
-                            start: 'top bottom-=100',
-                            toggleActions: 'play none none none'
-                        }
-                    }
-                );
-            });
-
-            // Animate year markers
-            yearMarkers.forEach(marker => {
-                gsap.fromTo(marker,
-                    { opacity: 0, scale: 0.8 },
-                    {
-                        opacity: 1,
-                        scale: 1,
-                        duration: 0.4,
-                        ease: 'back.out(1.5)',
-                        scrollTrigger: {
-                            trigger: marker,
-                            start: 'top bottom-=50',
-                            toggleActions: 'play none none none'
-                        }
-                    }
-                );
-            });
-
-            // Scroll-based pinning effect for active item highlight
-            ScrollTrigger.create({
-                trigger: '.timeline-section',
-                start: 'top center',
-                end: 'bottom center',
-                onUpdate: (self) => {
-                    // Find the item closest to center of viewport
-                    let closestItem = null;
-                    let closestDistance = Infinity;
-
-                    items.forEach(item => {
-                        if (item.style.display === 'none') return;
-                        const rect = item.getBoundingClientRect();
-                        const center = rect.top + rect.height / 2;
-                        const viewportCenter = window.innerHeight / 2;
-                        const distance = Math.abs(center - viewportCenter);
-
-                        if (distance < closestDistance) {
-                            closestDistance = distance;
-                            closestItem = item;
-                        }
-                    });
-
-                    // Only apply scroll-based highlight if no item is manually active
-                    if (!activeItem && closestItem && closestDistance < 200) {
-                        items.forEach(i => i.classList.remove('scroll-focus'));
-                        closestItem.classList.add('scroll-focus');
-                    }
-                }
-            });
-
-        } else {
-            // Fallback: Intersection Observer
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            });
-
-            items.forEach(item => observer.observe(item));
-            yearMarkers.forEach(marker => observer.observe(marker));
-        }
-
-        // Animate intro
-        const intro = document.querySelector('.timeline-intro');
-        if (intro) {
-            if (hasGSAP()) {
-                gsap.fromTo(intro,
-                    { opacity: 0, y: 20 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.6,
-                        scrollTrigger: {
-                            trigger: intro,
-                            start: 'top bottom-=100',
-                            toggleActions: 'play none none none'
-                        }
-                    }
-                );
-            } else {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
-                        }
-                    });
-                }, { threshold: 0.1 });
-                observer.observe(intro);
+        // Click outside to deselect
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.timeline-item')) {
+                document.querySelectorAll('.timeline-item').forEach(i => i.classList.remove('active'));
             }
-        }
+        });
     }
 
     /**
@@ -396,15 +338,8 @@ const Timeline = (() => {
      * Refresh timeline (e.g., after language change)
      */
     async function refresh() {
-        activeItem = null;
-        currentFilter = 'all';
         await loadData();
         render();
-
-        // Reset filter buttons
-        document.querySelectorAll('.timeline-filter').forEach(f => {
-            f.classList.toggle('active', f.dataset.category === 'all');
-        });
     }
 
     // Public API
