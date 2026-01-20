@@ -2488,3 +2488,373 @@ body[data-theme="retro90s"] .lang-arrow {
 body[data-theme="retro90s"] .language-switcher-toggle:hover .lang-arrow {
   color: var(--color-yellow);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   TIMELINE SECTION (Retro 90s Theme)
+   GeoCities nostalgia timeline with Windows 95 aesthetics
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="retro90s"] .timeline-section {
+  padding: var(--spacing-lg) var(--spacing-md);
+  background: repeating-linear-gradient(
+    0deg,
+    var(--bg-90s) 0px,
+    var(--bg-90s) 2px,
+    #D0D0D0 2px,
+    #D0D0D0 4px
+  );
+  position: relative;
+  z-index: 10;
+}
+
+body[data-theme="retro90s"] #timeline .section-title {
+  font-family: var(--font-heading);
+  color: var(--color-navy);
+  text-shadow: 2px 2px 0 var(--color-yellow), -1px -1px 0 var(--color-white);
+}
+
+body[data-theme="retro90s"] .timeline-subtitle {
+  color: var(--color-purple);
+  font-family: var(--font-fun);
+  font-size: 1.1rem;
+}
+
+/* Filters - Windows 95 Buttons */
+body[data-theme="retro90s"] .timeline-filter {
+  background: var(--bg-90s);
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  box-shadow:
+    inset -1px -1px 0 var(--bevel-darker),
+    inset 1px 1px 0 var(--bevel-lighter);
+  color: var(--color-black);
+  font-family: var(--font-90s);
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 0.4rem 1rem;
+}
+
+body[data-theme="retro90s"] .timeline-filter:hover {
+  background: var(--bg-90s-light);
+}
+
+body[data-theme="retro90s"] .timeline-filter:active {
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+  box-shadow:
+    inset 1px 1px 0 var(--bevel-darker),
+    inset -1px -1px 0 var(--bevel-lighter);
+  transform: translate(1px, 1px);
+}
+
+body[data-theme="retro90s"] .timeline-filter.active {
+  background: var(--color-navy);
+  color: var(--color-white);
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+}
+
+/* Spine - Rainbow gradient */
+body[data-theme="retro90s"] .timeline-spine {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--color-red) 10%,
+    var(--color-orange) 25%,
+    var(--color-yellow) 40%,
+    var(--color-green) 55%,
+    var(--color-cyan) 70%,
+    var(--color-blue) 85%,
+    var(--color-purple) 95%,
+    transparent 100%
+  );
+  opacity: 0.7;
+  width: 4px;
+}
+
+body[data-theme="retro90s"] .timeline-spine::before,
+body[data-theme="retro90s"] .timeline-spine::after {
+  background: var(--color-yellow);
+  border: 2px solid var(--color-black);
+  width: 16px;
+  height: 16px;
+}
+
+/* Year Markers - Windows 95 Style */
+body[data-theme="retro90s"] .timeline-year-marker {
+  padding: var(--spacing-md) 0;
+}
+
+body[data-theme="retro90s"] .timeline-year-label {
+  background: linear-gradient(to right, var(--color-navy), var(--color-navy-light));
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  color: var(--color-white);
+  font-family: var(--font-90s);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.4rem 1.5rem;
+  text-shadow: 1px 1px 0 var(--color-black);
+}
+
+body[data-theme="retro90s"] .timeline-year-label::before {
+  content: '★ ';
+  color: var(--color-yellow);
+}
+
+body[data-theme="retro90s"] .timeline-year-label::after {
+  content: ' ★';
+  color: var(--color-yellow);
+}
+
+/* Timeline Items */
+body[data-theme="retro90s"] .timeline-item {
+  color: var(--color-black);
+}
+
+/* Nodes - Colorful circles */
+body[data-theme="retro90s"] .timeline-node {
+  background: var(--color-yellow);
+  border: 2px solid var(--color-black);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+body[data-theme="retro90s"] .timeline-item:hover .timeline-node,
+body[data-theme="retro90s"] .timeline-item.active .timeline-node,
+body[data-theme="retro90s"] .timeline-item.scroll-focus .timeline-node {
+  background: var(--color-green);
+  transform: scale(1.3) rotate(45deg);
+}
+
+body[data-theme="retro90s"] .timeline-item.highlight .timeline-node {
+  background: var(--color-red);
+  animation: 90s-pulse 1s ease-in-out infinite;
+}
+
+@keyframes 90s-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+body[data-theme="retro90s"] .timeline-item[data-category="work"] .timeline-node {
+  background: var(--color-blue);
+}
+
+body[data-theme="retro90s"] .timeline-item[data-category="project"] .timeline-node {
+  background: var(--color-magenta);
+}
+
+body[data-theme="retro90s"] .timeline-item[data-category="education"] .timeline-node {
+  background: var(--color-green);
+}
+
+/* Connector */
+body[data-theme="retro90s"] .timeline-connector {
+  background: var(--color-black);
+  opacity: 0.5;
+  height: 3px;
+}
+
+body[data-theme="retro90s"] .timeline-item:hover .timeline-connector,
+body[data-theme="retro90s"] .timeline-item.active .timeline-connector {
+  background: var(--color-navy);
+  opacity: 1;
+}
+
+/* Cards - Windows 95 Window Style */
+body[data-theme="retro90s"] .timeline-card {
+  background: var(--bg-90s);
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 0;
+}
+
+body[data-theme="retro90s"] .timeline-item:hover .timeline-card,
+body[data-theme="retro90s"] .timeline-item.active .timeline-card,
+body[data-theme="retro90s"] .timeline-item.scroll-focus .timeline-card {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+body[data-theme="retro90s"] .timeline-item.highlight .timeline-card {
+  border-left: 4px solid var(--color-red);
+}
+
+/* Card Header */
+body[data-theme="retro90s"] .timeline-card-header {
+  background: linear-gradient(to right, var(--color-navy), var(--color-navy-light));
+  margin: -1rem -1rem 0.75rem -1rem;
+  padding: 0.4rem 0.5rem;
+}
+
+body[data-theme="retro90s"] .timeline-date {
+  color: var(--color-white);
+  font-family: var(--font-90s);
+  font-weight: 700;
+  text-shadow: 1px 1px 0 var(--color-black);
+}
+
+body[data-theme="retro90s"] .timeline-category {
+  background: var(--bg-90s);
+  color: var(--color-black);
+  border: 1px solid var(--color-black);
+  font-family: var(--font-90s);
+  font-weight: 700;
+  font-size: 0.6rem;
+  padding: 0.15rem 0.4rem;
+}
+
+body[data-theme="retro90s"] .timeline-item[data-category="work"] .timeline-category {
+  background: var(--color-blue);
+  color: var(--color-white);
+}
+
+body[data-theme="retro90s"] .timeline-item[data-category="project"] .timeline-category {
+  background: var(--color-magenta);
+  color: var(--color-white);
+}
+
+body[data-theme="retro90s"] .timeline-item[data-category="education"] .timeline-category {
+  background: var(--color-green-dark);
+  color: var(--color-white);
+}
+
+/* Card Content */
+body[data-theme="retro90s"] .timeline-title {
+  color: var(--color-navy);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+}
+
+body[data-theme="retro90s"] .timeline-company {
+  color: var(--color-purple);
+  font-family: var(--font-90s);
+  font-weight: 700;
+}
+
+body[data-theme="retro90s"] .timeline-company::before {
+  content: '>> ';
+  color: var(--color-blue);
+}
+
+body[data-theme="retro90s"] .timeline-location {
+  color: var(--color-teal);
+  font-family: var(--font-fun);
+}
+
+body[data-theme="retro90s"] .timeline-description {
+  color: var(--color-black);
+  font-family: var(--font-90s);
+  line-height: 1.5;
+}
+
+/* Details */
+body[data-theme="retro90s"] .timeline-details {
+  background: var(--bg-90s-white);
+  border: 2px solid;
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+body[data-theme="retro90s"] .timeline-item.active .timeline-details,
+body[data-theme="retro90s"] .timeline-item:hover .timeline-details {
+  margin-top: 0.75rem;
+}
+
+body[data-theme="retro90s"] .timeline-details-list li {
+  color: var(--color-black);
+  font-family: var(--font-90s);
+}
+
+body[data-theme="retro90s"] .timeline-details-list li::before {
+  content: '★';
+  color: var(--color-yellow);
+}
+
+body[data-theme="retro90s"] .timeline-item.left .timeline-details-list li::before {
+  content: '★';
+}
+
+/* Tags */
+body[data-theme="retro90s"] .timeline-tag {
+  background: var(--color-panel-yellow);
+  color: var(--color-black);
+  border: 1px solid var(--color-black);
+  font-family: var(--font-90s);
+  font-weight: 700;
+  font-size: 0.6rem;
+  padding: 0.2rem 0.4rem;
+}
+
+body[data-theme="retro90s"] .timeline-item:hover .timeline-tag,
+body[data-theme="retro90s"] .timeline-item.active .timeline-tag {
+  background: var(--color-cyan);
+}
+
+/* Expand */
+body[data-theme="retro90s"] .timeline-expand {
+  color: var(--color-blue);
+  font-family: var(--font-90s);
+  text-decoration: underline;
+}
+
+body[data-theme="retro90s"] .timeline-expand-text::before {
+  content: '[ ';
+}
+
+body[data-theme="retro90s"] .timeline-expand-text::after {
+  content: ' ]';
+}
+
+body[data-theme="retro90s"] .timeline-item:hover .timeline-expand {
+  color: var(--color-red);
+}
+
+/* Loading - Hourglass animation */
+body[data-theme="retro90s"] .timeline-loading {
+  color: var(--color-navy);
+  font-family: var(--font-90s);
+  text-align: center;
+  padding: 2rem;
+}
+
+body[data-theme="retro90s"] .timeline-loading::before {
+  content: '⌛ ';
+  animation: hourglass 1s step-end infinite;
+}
+
+body[data-theme="retro90s"] .timeline-loading::after {
+  content: ' Please wait...';
+}
+
+@keyframes hourglass {
+  0%, 50% { content: '⌛ '; }
+  51%, 100% { content: '⏳ '; }
+}
+
+/* Under construction badge for timeline */
+body[data-theme="retro90s"] .timeline-intro::after {
+  content: '🚧 UNDER CONSTRUCTION 🚧';
+  display: block;
+  margin-top: 0.5rem;
+  color: var(--color-red);
+  font-family: var(--font-fun);
+  font-size: 0.8rem;
+  animation: blink-90s 0.5s step-end infinite;
+}
+
+@keyframes blink-90s {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  body[data-theme="retro90s"] .timeline-section {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  body[data-theme="retro90s"] .timeline-card-header {
+    margin: -0.75rem -0.75rem 0.5rem -0.75rem;
+  }
+}

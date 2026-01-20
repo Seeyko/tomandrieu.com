@@ -1608,3 +1608,276 @@ body[data-theme="terminal"] .enderman-ascii.teleport {
     filter: blur(5px);
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   TIMELINE SECTION (Terminal Theme)
+   Cyber-industrial timeline with glowing nodes and terminal aesthetics
+   ═══════════════════════════════════════════════════════════════ */
+
+body[data-theme="terminal"] .timeline-section {
+  padding: var(--spacing-lg) var(--spacing-md);
+  background: var(--bg-terminal);
+}
+
+body[data-theme="terminal"] #timeline .section-title::before {
+  content: 'cat ';
+}
+
+body[data-theme="terminal"] #timeline .section-title::after {
+  content: '.history';
+}
+
+body[data-theme="terminal"] .timeline-subtitle {
+  color: var(--text-comment);
+  font-family: var(--font-terminal);
+}
+
+/* Filters */
+body[data-theme="terminal"] .timeline-filter {
+  border-color: var(--border);
+  color: var(--text-dim);
+  font-family: var(--font-terminal);
+  font-size: 0.7rem;
+  background: transparent;
+}
+
+body[data-theme="terminal"] .timeline-filter:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  text-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .timeline-filter.active {
+  background: var(--primary);
+  color: var(--bg-terminal);
+  border-color: var(--primary);
+  box-shadow: var(--glow-primary);
+}
+
+/* Spine */
+body[data-theme="terminal"] .timeline-spine {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--primary) 5%,
+    var(--primary) 95%,
+    transparent 100%
+  );
+  opacity: 0.4;
+  box-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .timeline-spine::before,
+body[data-theme="terminal"] .timeline-spine::after {
+  background: var(--primary);
+  box-shadow: var(--glow-primary);
+}
+
+/* Year Markers */
+body[data-theme="terminal"] .timeline-year-marker {
+  padding: var(--spacing-md) 0;
+}
+
+body[data-theme="terminal"] .timeline-year-label {
+  background: var(--bg-terminal);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  padding: 0.5rem 2rem;
+  text-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .timeline-year-label::before {
+  content: '[ ';
+  color: var(--secondary);
+}
+
+body[data-theme="terminal"] .timeline-year-label::after {
+  content: ' ]';
+  color: var(--secondary);
+}
+
+/* Timeline Items */
+body[data-theme="terminal"] .timeline-item {
+  color: var(--primary);
+}
+
+/* Nodes */
+body[data-theme="terminal"] .timeline-node {
+  background: var(--bg-terminal);
+  border-color: var(--primary);
+  box-shadow: 0 0 5px var(--primary-glow);
+}
+
+body[data-theme="terminal"] .timeline-item:hover .timeline-node,
+body[data-theme="terminal"] .timeline-item.active .timeline-node,
+body[data-theme="terminal"] .timeline-item.scroll-focus .timeline-node {
+  background: var(--primary);
+  box-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .timeline-item.highlight .timeline-node {
+  border-color: var(--secondary);
+  box-shadow: 0 0 10px var(--secondary-glow);
+}
+
+body[data-theme="terminal"] .timeline-item.highlight:hover .timeline-node {
+  background: var(--secondary);
+}
+
+/* Connector */
+body[data-theme="terminal"] .timeline-connector {
+  background: var(--primary);
+  opacity: 0.3;
+}
+
+body[data-theme="terminal"] .timeline-item:hover .timeline-connector,
+body[data-theme="terminal"] .timeline-item.active .timeline-connector {
+  opacity: 1;
+  box-shadow: var(--glow-primary);
+}
+
+/* Cards */
+body[data-theme="terminal"] .timeline-card {
+  background: var(--bg-terminal-panel);
+  border-color: var(--border);
+}
+
+body[data-theme="terminal"] .timeline-item:hover .timeline-card,
+body[data-theme="terminal"] .timeline-item.active .timeline-card,
+body[data-theme="terminal"] .timeline-item.scroll-focus .timeline-card {
+  border-color: var(--primary);
+  box-shadow: 0 0 20px var(--primary-glow), inset 0 0 10px rgba(51, 255, 0, 0.05);
+}
+
+body[data-theme="terminal"] .timeline-item.highlight .timeline-card {
+  border-color: var(--secondary);
+}
+
+body[data-theme="terminal"] .timeline-item.highlight:hover .timeline-card {
+  box-shadow: 0 0 20px var(--secondary-glow);
+}
+
+/* Card Header */
+body[data-theme="terminal"] .timeline-date {
+  color: var(--secondary);
+  font-family: var(--font-terminal);
+}
+
+body[data-theme="terminal"] .timeline-category {
+  color: var(--text-comment);
+  border-color: var(--border);
+  font-family: var(--font-terminal);
+}
+
+body[data-theme="terminal"] .timeline-item[data-category="work"] .timeline-category {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+body[data-theme="terminal"] .timeline-item[data-category="project"] .timeline-category {
+  color: var(--secondary);
+  border-color: var(--secondary);
+}
+
+body[data-theme="terminal"] .timeline-item[data-category="education"] .timeline-category {
+  color: #00BFFF;
+  border-color: #00BFFF;
+}
+
+/* Card Content */
+body[data-theme="terminal"] .timeline-title {
+  color: var(--primary);
+  font-family: var(--font-terminal);
+  text-shadow: 0 0 5px var(--primary-glow);
+}
+
+body[data-theme="terminal"] .timeline-company {
+  color: var(--text-bright);
+}
+
+body[data-theme="terminal"] .timeline-company::before {
+  content: '> ';
+  color: var(--secondary);
+}
+
+body[data-theme="terminal"] .timeline-location {
+  color: var(--text-comment);
+}
+
+body[data-theme="terminal"] .timeline-location::before {
+  content: '// ';
+}
+
+body[data-theme="terminal"] .timeline-description {
+  color: var(--text-dim);
+  font-family: var(--font-terminal);
+}
+
+/* Details */
+body[data-theme="terminal"] .timeline-details-list li {
+  color: var(--text-dim);
+  font-family: var(--font-terminal);
+}
+
+body[data-theme="terminal"] .timeline-details-list li::before {
+  content: '$';
+  color: var(--secondary);
+}
+
+body[data-theme="terminal"] .timeline-item.left .timeline-details-list li::before {
+  content: '$';
+}
+
+/* Tags */
+body[data-theme="terminal"] .timeline-tag {
+  color: var(--text-dim);
+  border-color: var(--border);
+  font-family: var(--font-terminal);
+  background: transparent;
+}
+
+body[data-theme="terminal"] .timeline-item:hover .timeline-tag,
+body[data-theme="terminal"] .timeline-item.active .timeline-tag {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Expand */
+body[data-theme="terminal"] .timeline-expand {
+  color: var(--text-comment);
+  font-family: var(--font-terminal);
+}
+
+body[data-theme="terminal"] .timeline-expand-text::before {
+  content: '[ ';
+}
+
+body[data-theme="terminal"] .timeline-expand-text::after {
+  content: ' ]';
+}
+
+body[data-theme="terminal"] .timeline-item:hover .timeline-expand {
+  color: var(--primary);
+}
+
+/* Loading */
+body[data-theme="terminal"] .timeline-loading {
+  color: var(--text-comment);
+  font-family: var(--font-terminal);
+  text-align: center;
+  padding: 2rem;
+}
+
+body[data-theme="terminal"] .timeline-loading::before {
+  content: '> Loading timeline data';
+  animation: blink 1s step-end infinite;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  body[data-theme="terminal"] .timeline-section {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+}

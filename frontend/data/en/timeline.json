@@ -1,0 +1,168 @@
+{
+  "sectionTitle": "JOURNEY",
+  "sectionSubtitle": "From student to product builder",
+  "categories": {
+    "work": "Work",
+    "education": "Education",
+    "project": "Side Project"
+  },
+  "items": [
+    {
+      "id": "cba-2024",
+      "year": "2024",
+      "endYear": "Present",
+      "category": "work",
+      "title": "Lead Developer",
+      "company": "CBA Informatique Liberale",
+      "location": "Avignon, France",
+      "description": "Leading a team of 5 developers building web and mobile applications with Angular & Ionic.",
+      "details": [
+        "Architecting multiple Angular web applications and a mobile app",
+        "Collaborating closely with Product Owner and Designer",
+        "Implemented CI/CD pipeline with GitLab, Docker & Semantic Release",
+        "Recently migrated codebase to Angular 17"
+      ],
+      "tags": ["Angular", "Ionic", "CI/CD", "Team Lead"],
+      "highlight": true
+    },
+    {
+      "id": "itesoft-2020",
+      "year": "2020",
+      "endYear": "2024",
+      "category": "work",
+      "title": "R&D Engineer",
+      "company": "ITESOFT",
+      "location": "Aimargues, France",
+      "description": "Full-stack development on a micro-services application, leader in document digitization.",
+      "details": [
+        "Grew the frontend team from 5 to 12 members",
+        "Led the AngularJS to Angular migration",
+        "Helped shift backend from Java to Node.js",
+        "Managed CI/CD for ~15 independent micro-services"
+      ],
+      "tags": ["Angular", "Node.js", "Docker", "Microservices"],
+      "highlight": false
+    },
+    {
+      "id": "freelance-2019",
+      "year": "2019",
+      "endYear": "Present",
+      "category": "work",
+      "title": "Freelance Developer",
+      "company": "Andrieu Tom",
+      "location": "France",
+      "description": "Building custom web solutions with WordPress and Angular/Node.js platforms.",
+      "details": [
+        "Dynamic websites and custom platforms",
+        "WordPress development and integrations",
+        "Full-stack Angular + Node.js applications"
+      ],
+      "tags": ["WordPress", "Angular", "Node.js", "Freelance"],
+      "highlight": false
+    },
+    {
+      "id": "ridemypark-2019",
+      "year": "2019",
+      "endYear": "Present",
+      "category": "project",
+      "title": "Co-founder & Lead Dev",
+      "company": "Ride My Park",
+      "location": "ridemypark.com",
+      "description": "The largest database of skateparks, street spots, pumptracks, events and shops for extreme sports.",
+      "details": [
+        "Web & mobile app development",
+        "Community platform for extreme sports",
+        "30K+ users reached",
+        "Built with Flutter, WordPress & REST API"
+      ],
+      "tags": ["Flutter", "WordPress", "API REST", "UX/UI"],
+      "highlight": true
+    },
+    {
+      "id": "teachtools-2023",
+      "year": "2023",
+      "endYear": "2024",
+      "category": "project",
+      "title": "Founder",
+      "company": "Teach Tools",
+      "location": "AI-powered SaaS",
+      "description": "AI-powered pedagogical assistant generating exercises and images for teachers.",
+      "details": [
+        "Next.js application with AI integration",
+        "Generates exercises automatically",
+        "Image generation for educational content",
+        "CI/CD pipeline for rapid iterations"
+      ],
+      "tags": ["Next.js", "AI/ML", "UX/UI", "CI/CD"],
+      "highlight": false
+    },
+    {
+      "id": "skoolbook-2023",
+      "year": "2023",
+      "endYear": "2023",
+      "category": "project",
+      "title": "Founder",
+      "company": "Skoolbook",
+      "location": "WordPress SaaS",
+      "description": "School library management platform built to help teachers track book loans and encourage reading.",
+      "details": [
+        "Intuitive interface for teachers",
+        "Student autonomy features",
+        "Designed to promote equal access to reading"
+      ],
+      "tags": ["WordPress", "PHP", "UX/UI"],
+      "highlight": false
+    },
+    {
+      "id": "licence-2019",
+      "year": "2019",
+      "endYear": "2020",
+      "category": "education",
+      "title": "Licence Pro",
+      "company": "IUT Montpellier-Sete",
+      "location": "Montpellier, France",
+      "description": "Professional License in IT Project Management Assistant.",
+      "details": [
+        "Project management methodologies",
+        "Software development best practices",
+        "Team coordination skills"
+      ],
+      "tags": ["Project Management", "IT"],
+      "highlight": false
+    },
+    {
+      "id": "itesoft-internship-2019",
+      "year": "2019",
+      "endYear": "2019",
+      "category": "work",
+      "title": "Intern & Project Assistant",
+      "company": "ITESOFT",
+      "location": "Aimargues, France",
+      "description": "Web to mobile app development during DUT internship.",
+      "details": [
+        "Adapted web application to mobile",
+        "First professional experience",
+        "Led to full-time position"
+      ],
+      "tags": ["Mobile", "Web", "Internship"],
+      "highlight": false
+    },
+    {
+      "id": "dut-2017",
+      "year": "2017",
+      "endYear": "2019",
+      "category": "education",
+      "title": "DUT Informatique",
+      "company": "IUT Montpellier-Sete",
+      "location": "Montpellier, France",
+      "description": "Two-year technical degree in Computer Science.",
+      "details": [
+        "Software development fundamentals",
+        "Database design and management",
+        "Web technologies"
+      ],
+      "tags": ["Computer Science", "Development"],
+      "highlight": false
+    }
+  ]
+}
