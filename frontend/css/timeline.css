@@ -523,7 +523,7 @@
         position: absolute;
         left: -7px;
         top: 16px;
-        width: 15px;
+        width: 27px;
         height: 2px;
         background: var(--branch-color, var(--git-work-color));
     }
