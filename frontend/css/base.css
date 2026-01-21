@@ -84,9 +84,42 @@ body {
 }
 
 /* ─── Section Base ─── */
-.projects, .about, .contact, .timeline {
+/* Centralized section styling - themes should NOT override padding */
+section,
+.projects,
+.about,
+.contact,
+.blog,
+.timeline {
   position: relative;
   z-index: 10;
+  padding: var(--section-padding-y, 4rem) var(--section-padding-x, 2rem);
+  max-width: var(--section-max-width, 1200px);
+  margin: 0 auto;
+}
+
+/* Git timeline section - full width, no horizontal padding for the graph */
+.git-timeline-section {
+  padding-left: 0;
+  padding-right: 0;
+  max-width: 100%;
+}
+
+/* Mobile responsive padding for all sections */
+@media (max-width: 768px) {
+  section,
+  .projects,
+  .about,
+  .contact,
+  .blog,
+  .timeline {
+    padding: var(--section-padding-y-mobile, 2.5rem) var(--section-padding-x-mobile, 1rem);
+  }
+
+  .git-timeline-section {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .hero {
@@ -433,11 +466,6 @@ body.loading * {
 }
 
 /* ─── Blog Section Base ─── */
-.blog {
-  position: relative;
-  z-index: 10;
-}
-
 .blog-grid {
   display: flex;
   flex-direction: column;

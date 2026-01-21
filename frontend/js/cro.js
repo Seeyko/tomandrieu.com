@@ -58,28 +58,8 @@
   // ─── Floating CTA ───
   function initFloatingCTA() {
     const floatingCta = document.getElementById('floating-cta');
-    const contactSection = document.getElementById('contact');
 
     if (!floatingCta) return;
-
-    // Show after slight delay for better UX
-    floatingCta.style.opacity = '0';
-    floatingCta.style.transform = 'translateY(20px)';
-
-    setTimeout(() => {
-      floatingCta.style.transition = 'all 0.5s ease';
-      floatingCta.style.opacity = '1';
-      floatingCta.style.transform = 'translateY(0)';
-    }, 2000);
-
-    // Hide near contact section
-    if (contactSection) {
-      window.addEventListener('scroll', () => {
-        const contactRect = contactSection.getBoundingClientRect();
-        const shouldHide = contactRect.top < window.innerHeight + CRO_CONFIG.floatingCtaHideDistance;
-        floatingCta.classList.toggle('hidden', shouldHide);
-      }, { passive: true });
-    }
 
     // Track clicks
     floatingCta.addEventListener('click', (e) => {
