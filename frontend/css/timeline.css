@@ -69,11 +69,12 @@
 .git-timeline-viewport {
     position: relative;
     width: 100%;
+    overflow: hidden;
 }
 
 .git-timeline-scroll {
     overflow-x: auto;
-    overflow-y: visible;
+    overflow-y: hidden;
     scrollbar-width: thin;
     scrollbar-color: var(--git-trunk-color) transparent;
 }
