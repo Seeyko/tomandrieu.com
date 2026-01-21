@@ -240,6 +240,21 @@
     z-index: 20;
 }
 
+/* Click indicator for desktop markers */
+.git-commit-marker::after {
+    content: '›';
+    margin-left: 6px;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--git-text-muted, rgba(255, 255, 255, 0.4));
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.git-commit-marker:hover::after {
+    color: var(--branch-color, var(--git-work-color));
+    transform: translateX(2px);
+}
+
 /* Type-specific left border colors */
 .git-commit-work {
     border-left-color: var(--git-work-color);
@@ -545,6 +560,19 @@
         font-size: 0.7rem;
         color: var(--git-text-muted, rgba(255, 255, 255, 0.5));
         white-space: nowrap;
+    }
+
+    /* Click indicator chevron for mobile */
+    .mobile-commit-chevron {
+        font-size: 1rem;
+        color: var(--git-text-muted, rgba(255, 255, 255, 0.4));
+        transition: transform 0.2s ease;
+        margin-left: 4px;
+    }
+
+    .mobile-commit.expanded .mobile-commit-chevron {
+        transform: rotate(90deg);
+        color: var(--branch-color, var(--git-work-color));
     }
 
     .mobile-commit-badge {

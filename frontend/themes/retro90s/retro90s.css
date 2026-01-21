@@ -2762,3 +2762,108 @@ body[data-theme="retro90s"] .timeline-loading::after {
     padding: var(--spacing-md) var(--spacing-sm);
   }
 }
+
+/* ─── Mobile Timeline (Retro90s Theme) ─── */
+body[data-theme="retro90s"] {
+  --git-bg-solid: var(--bg-90s-white);
+  --git-border: var(--bevel-dark);
+  --git-text: var(--color-black);
+  --git-text-muted: var(--bg-90s-dark);
+  --git-trunk-color: var(--color-navy);
+}
+
+@media (max-width: 1024px) {
+  body[data-theme="retro90s"] .mobile-timeline::before {
+    background: var(--color-navy);
+    width: 3px;
+  }
+
+  body[data-theme="retro90s"] .mobile-commit::before {
+    border: 2px solid var(--bg-90s);
+    box-shadow: 1px 1px 0 var(--bevel-dark);
+  }
+
+  body[data-theme="retro90s"] .mobile-commit-card {
+    background: var(--bg-90s-white);
+    border: 2px solid;
+    border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+    box-shadow: 2px 2px 0 var(--bevel-darker);
+    font-family: var(--font-90s);
+    border-radius: 0;
+  }
+
+  body[data-theme="retro90s"] .mobile-commit-card:active {
+    border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+    box-shadow: inset 1px 1px 2px var(--bevel-dark);
+    transform: translate(1px, 1px);
+  }
+
+  body[data-theme="retro90s"] .mobile-commit-title {
+    color: var(--color-navy);
+    font-weight: bold;
+    text-shadow: none;
+  }
+
+  body[data-theme="retro90s"] .mobile-commit-date {
+    color: var(--bg-90s-dark);
+    font-size: 0.7rem;
+  }
+
+  body[data-theme="retro90s"] .mobile-commit-chevron {
+    color: var(--bg-90s-dark);
+    font-family: var(--font-mono);
+  }
+
+  body[data-theme="retro90s"] .mobile-commit.expanded .mobile-commit-chevron {
+    color: var(--color-blue);
+  }
+
+  body[data-theme="retro90s"] .mobile-commit-badge {
+    box-shadow: 1px 1px 0 var(--bevel-dark);
+  }
+
+  body[data-theme="retro90s"] .mobile-commit-details {
+    border-top: 1px dashed var(--bg-90s-dark);
+    background: var(--color-panel-yellow);
+    margin: 8px -14px -12px -14px;
+    padding: 10px 14px;
+  }
+
+  body[data-theme="retro90s"] .mobile-commit-company {
+    color: var(--color-blue);
+    font-weight: bold;
+  }
+
+  body[data-theme="retro90s"] .mobile-commit-location {
+    color: var(--bg-90s-dark);
+    font-size: 0.75rem;
+  }
+
+  body[data-theme="retro90s"] .mobile-commit-description {
+    color: var(--color-black);
+    font-family: var(--font-fun);
+  }
+
+  body[data-theme="retro90s"] .mobile-commit-tag {
+    background: var(--color-navy);
+    border: none;
+    color: var(--color-white);
+    font-family: var(--font-90s);
+    font-size: 0.65rem;
+    border-radius: 0;
+    box-shadow: 1px 1px 0 var(--bevel-darker);
+  }
+
+  /* Type-specific colors */
+  body[data-theme="retro90s"] .mobile-commit-work .mobile-commit-title {
+    color: var(--color-green-dark);
+  }
+
+  body[data-theme="retro90s"] .mobile-commit-project .mobile-commit-title {
+    color: var(--color-red);
+  }
+
+  body[data-theme="retro90s"] .mobile-commit-education .mobile-commit-title {
+    color: var(--color-blue);
+  }
+}

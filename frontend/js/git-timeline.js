@@ -653,6 +653,7 @@ const GitTimeline = (() => {
                             <span class="mobile-commit-title">${displayTitle}</span>
                             <span class="mobile-commit-date">${dateRange}</span>
                             ${ongoing ? '<span class="mobile-commit-badge"></span>' : ''}
+                            <span class="mobile-commit-chevron">›</span>
                         </div>
                         <div class="mobile-commit-details">
                             <div class="mobile-commit-company">${commit.details.company}</div>

@@ -1163,6 +1163,11 @@ body[data-theme="default"] {
   --git-text-secondary: var(--text-secondary);
   --git-text-muted: var(--text-tertiary);
   --git-line-width: 4px;
+
+  /* Mobile timeline variables - light theme */
+  --git-bg-solid: var(--bg-secondary);
+  --git-border: var(--border-light);
+  --git-text: var(--text-primary);
 }
 
 body[data-theme="default"] .timeline-section {
