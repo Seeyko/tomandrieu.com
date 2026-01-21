@@ -9,45 +9,45 @@
     "grep -r \"bugs\" . | xargs ./fix-with-ai.sh"
   ],
   "console": {
-    "systemInit": "[SYSTEME] Terminal initialise...",
-    "portfolioLoaded": "[OK] Portfolio v3.0 charge",
+    "systemInit": "[SYSTÈME] Terminal initialisé...",
+    "portfolioLoaded": "[OK] Portfolio v3.0 chargé",
     "helpTip": "[INFO] Tapez \"help()\" pour des surprises",
-    "allSystemsOk": "[OK] Tous les systemes operationnels",
+    "allSystemsOk": "[OK] Tous les systèmes opérationnels",
     "openConsoleTip": "[ASTUCE] Ouvrez la console et tapez help() pour des commandes fun !",
-    "searchNotImplemented": "[SYSTEME] Recherche non implementee... pour l'instant !",
+    "searchNotImplemented": "[SYSTÈME] Recherche non implémentée... pour l'instant !",
     "availableCommands": "COMMANDES DISPONIBLES",
-    "matrixInit": "[SYSTEME] Initialisation de la sequence de hack...",
-    "accessGranted": "[SUCCES] Acces accorde ! Je plaisante"
+    "matrixInit": "[SYSTÈME] Initialisation de la séquence de hack...",
+    "accessGranted": "[SUCCÈS] Accès accordé ! Je plaisante"
   },
   "randomMessages": [
     "[INFO] Les bonnes choses prennent du temps",
-    "[INFO] N'oubliez pas de vous etirer !",
-    "[OK] Tous les systemes nominaux",
+    "[INFO] N'oubliez pas de vous étirer !",
+    "[OK] Tous les systèmes nominaux",
     "[INFO] Fun fact: Ce site tourne sur du vanilla JS",
-    "[INFO] Vous avez trouve un message cache !",
-    "[OK] Stabilite de la Matrice a 100%",
+    "[INFO] Vous avez trouvé un message caché !",
+    "[OK] Stabilité de la Matrice à 100%",
     "[INFO] Keep building !",
-    "[WARN] Enderman detecte dans le secteur 7..."
+    "[WARN] Enderman détecté dans le secteur 7..."
   ],
   "easterEggs": {
-    "konamiActivated": "CODE KONAMI ACTIVE !",
-    "matrixMessage": "Vous etes maintenant dans la Matrice...",
-    "noSpoon": "Il n'y a pas de cuillere.",
-    "partyMode": "MODE FETE ACTIVE !",
-    "hackSuccess": "[SUCCES] Acces accorde ! Je plaisante",
+    "konamiActivated": "CODE KONAMI ACTIVÉ !",
+    "matrixMessage": "Vous êtes maintenant dans la Matrice...",
+    "noSpoon": "Il n'y a pas de cuillère.",
+    "partyMode": "MODE FÊTE ACTIVÉ !",
+    "hackSuccess": "[SUCCÈS] Accès accordé ! Je plaisante",
     "shipIt": "Shipped !",
     "smallSteps": "[OK] Petits pas, par petits pas.",
-    "endermanWarning": "[ENTITE] Enderman repere... Ne le regardez pas directement !",
-    "endermanLookTooLong": "[ENTITE] Vous l'avez regarde trop longtemps...",
-    "colorsReset": "[SYSTEME] Couleurs reinitialises"
+    "endermanWarning": "[ENTITÉ] Enderman repéré... Ne le regardez pas directement !",
+    "endermanLookTooLong": "[ENTITÉ] Vous l'avez regardé trop longtemps...",
+    "colorsReset": "[SYSTÈME] Couleurs réinitialisées"
   },
   "terminalOutput": {
     "loadingModules": "[OK] Chargement des modules...",
-    "productEngineerInit": "[OK] Product engineer initialise",
+    "productEngineerInit": "[OK] Product engineer initialisé",
     "readyToBuild": "[OK] Ready to ship"
   },
   "heroStats": {
-    "creativity": "CREATIVITE",
+    "creativity": "CRÉATIVITÉ",
     "drive": "DRIVE",
     "codeSkill": "CODE_SKILL"
   },
