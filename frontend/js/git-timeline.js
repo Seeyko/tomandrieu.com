@@ -20,11 +20,11 @@ const GitTimeline = (() => {
     // CONFIGURATION
     // ═══════════════════════════════════════════════════════════════
     const CONFIG = {
-        // Dimensions
-        yearWidth: 180,          // Pixels per year
+        // Dimensions (yearWidth calculated dynamically to fit viewport)
+        yearWidth: 130,          // Default, will be recalculated
         laneHeight: 50,          // Height per branch lane (compact)
         trunkY: 40,              // Y position of main trunk
-        padding: { left: 100, right: 100 },
+        padding: { left: 20, right: 0},  // Minimal padding for full-width
 
         // Node sizes
         commitRadius: 8,
@@ -42,6 +42,27 @@ const GitTimeline = (() => {
             trunk: 'rgba(255, 255, 255, 0.3)'
         }
     };
+
+    /**
+     * Calculate yearWidth dynamically to fit timeline in viewport
+     */
+    function calculateYearWidth() {
+        const viewport = document.querySelector('.git-timeline-viewport');
+        if (!viewport || !data) return CONFIG.yearWidth;
+
+        const availableWidth = viewport.clientWidth;
+        const startYear = data.config?.startYear || 2017;
+        const endYear = data.config?.endYear || new Date().getFullYear() + 1;
+        // +1 because we need intervals from startYear to endYear inclusive
+        const yearCount = endYear - startYear + 1;
+
+        // Calculate width per year to fit everything in viewport
+        const totalPadding = CONFIG.padding.left + CONFIG.padding.right;
+        const yearWidth = (availableWidth - totalPadding) / yearCount;
+
+        // Minimum 60px per year for readability
+        return Math.max(yearWidth, 60);
+    }
 
     // ═══════════════════════════════════════════════════════════════
     // DATA LOADING
@@ -109,7 +130,7 @@ const GitTimeline = (() => {
         // Lane end times and usage count tracker
         const laneEnds = [];
         const laneUsageCount = []; // Track how many times each lane has been used
-        const endYear = data?.config?.endYear || new Date().getFullYear() + 2;
+        const endYear = data?.config?.endYear || new Date().getFullYear() + 1;
 
         sorted.forEach(branch => {
             const start = parseDate(branch.startDate);
@@ -372,7 +393,7 @@ const GitTimeline = (() => {
      */
     function renderYearAxis(container) {
         const startYear = data?.config?.startYear || 2017;
-        const endYear = data?.config?.endYear || new Date().getFullYear() + 2;
+        const endYear = data?.config?.endYear || new Date().getFullYear() + 1;
         const currentYear = new Date().getFullYear();
         const totalWidth = CONFIG.padding.left + CONFIG.padding.right +
                           (endYear - startYear + 1) * CONFIG.yearWidth;
@@ -461,9 +482,6 @@ const GitTimeline = (() => {
 
         // Fixed position: top-right corner of viewport
         overlay.className = `git-timeline-overlay active git-overlay-${branchType} fixed-corner`;
-        overlay.style.top = '100px';
-        overlay.style.right = '20px';
-        overlay.style.left = 'auto';
 
         activeCommit = card;
     }
@@ -529,6 +547,7 @@ const GitTimeline = (() => {
 
     /**
      * Horizontal scroll-jacking when timeline is in view
+     * Only active if content exceeds viewport width
      */
     function setupScrollJacking() {
         const section = document.getElementById('timeline');
@@ -537,6 +556,11 @@ const GitTimeline = (() => {
         if (!section || !scrollContainer || !viewport) return;
 
         window.addEventListener('wheel', (e) => {
+            const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+
+            // Skip scroll-jacking if content fits in viewport (no horizontal scroll needed)
+            if (maxScroll <= 1) return;
+
             const rect = viewport.getBoundingClientRect();
             const vh = window.innerHeight;
 
@@ -548,7 +572,6 @@ const GitTimeline = (() => {
                 return;
             }
 
-            const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
             const currentScroll = scrollContainer.scrollLeft;
             const scrollingRight = e.deltaY > 0;
             const scrollingLeft = e.deltaY < 0;
@@ -564,6 +587,101 @@ const GitTimeline = (() => {
             section.classList.add('scroll-locked');
             scrollContainer.scrollLeft += e.deltaY * 1.5;
         }, { passive: false });
+
+        // Re-render on resize to recalculate yearWidth
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (data) render();
+            }, 250);
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // MOBILE TIMELINE
+    // ═══════════════════════════════════════════════════════════════
+
+    /**
+     * Render mobile vertical timeline
+     */
+    function renderMobileTimeline() {
+        // Create or get mobile container
+        let mobileContainer = document.querySelector('.git-timeline-mobile');
+        if (!mobileContainer) {
+            mobileContainer = document.createElement('div');
+            mobileContainer.className = 'git-timeline-mobile';
+            const section = document.getElementById('timeline');
+            const viewport = section?.querySelector('.git-timeline-viewport');
+            if (viewport) {
+                viewport.after(mobileContainer);
+            }
+        }
+
+        // Sort branches by start date (most recent first for mobile)
+        const sortedBranches = [...data.branches].sort((a, b) => {
+            return parseDate(b.startDate) - parseDate(a.startDate);
+        });
+
+        const timeline = document.createElement('div');
+        timeline.className = 'mobile-timeline';
+
+        sortedBranches.forEach(branch => {
+            const ongoing = isOngoing(branch);
+            const color = CONFIG.colors[branch.type] || CONFIG.colors.work;
+
+            branch.commits.forEach(commit => {
+                const startYear = branch.startDate.split('-')[0];
+                const endYear = ongoing ? 'Present' : branch.endDate.split('-')[0];
+                const dateRange = `${startYear} - ${endYear}`;
+
+                // Format title based on type
+                let displayTitle;
+                if (branch.type === 'project') {
+                    displayTitle = `${commit.details.title} - ${commit.details.company}`;
+                } else {
+                    displayTitle = commit.details.title;
+                }
+
+                const commitEl = document.createElement('div');
+                commitEl.className = `mobile-commit mobile-commit-${branch.type}`;
+                commitEl.style.setProperty('--branch-color', color);
+
+                commitEl.innerHTML = `
+                    <div class="mobile-commit-card">
+                        <div class="mobile-commit-header">
+                            <span class="mobile-commit-title">${displayTitle}</span>
+                            <span class="mobile-commit-date">${dateRange}</span>
+                            ${ongoing ? '<span class="mobile-commit-badge"></span>' : ''}
+                        </div>
+                        <div class="mobile-commit-details">
+                            <div class="mobile-commit-company">${commit.details.company}</div>
+                            <div class="mobile-commit-location">${commit.details.location}</div>
+                            <p class="mobile-commit-description">${commit.details.description}</p>
+                            <div class="mobile-commit-tags">
+                                ${commit.details.tags.map(tag => `<span class="mobile-commit-tag">${tag}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Click to expand
+                const card = commitEl.querySelector('.mobile-commit-card');
+                card.addEventListener('click', () => {
+                    // Close other expanded cards
+                    document.querySelectorAll('.mobile-commit.expanded').forEach(el => {
+                        if (el !== commitEl) el.classList.remove('expanded');
+                    });
+                    // Toggle this card
+                    commitEl.classList.toggle('expanded');
+                });
+
+                timeline.appendChild(commitEl);
+            });
+        });
+
+        mobileContainer.innerHTML = '';
+        mobileContainer.appendChild(timeline);
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -582,6 +700,9 @@ const GitTimeline = (() => {
             console.error('[GitTimeline] Missing containers or data');
             return;
         }
+
+        // Calculate yearWidth to fit viewport (no horizontal scroll)
+        CONFIG.yearWidth = calculateYearWidth();
 
         // Clear containers
         lanesContainer.innerHTML = '';
@@ -603,13 +724,16 @@ const GitTimeline = (() => {
         // Render commit cards
         renderCommitCards(lanesContainer, branches, totalWidth);
 
+        // Render mobile timeline
+        renderMobileTimeline();
+
         // Update subtitle
         const subtitle = document.querySelector('.git-timeline-subtitle');
         if (subtitle && data.config?.subtitle) {
             subtitle.textContent = data.config.subtitle;
         }
 
-        // Create overlay and setup events
+        // Create overlay and setup events (desktop only)
         createOverlay();
         setupEvents();
 
