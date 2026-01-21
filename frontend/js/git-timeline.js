@@ -2,8 +2,8 @@
  * GitTimeline - Horizontal git-style career visualization
  *
  * Renders career history as a git graph with:
- * - Main trunk (horizontal timeline)
- * - Branches for each job/project (down, horizontal, merge back up)
+ * - Main trunk (horizontal timeline) at the bottom
+ * - Branches for each job/project (up, horizontal, merge back down)
  * - Commits on branches
  * - CDK-style overlay popups for details
  */
@@ -23,7 +23,7 @@ const GitTimeline = (() => {
         // Dimensions (yearWidth calculated dynamically to fit viewport)
         yearWidth: 130,          // Default, will be recalculated
         laneHeight: 50,          // Height per branch lane (compact)
-        trunkY: 40,              // Y position of main trunk
+        trunkPadding: 40,        // Padding below trunk for year axis
         padding: { left: 20, right: 0},  // Minimal padding for full-width
 
         // Node sizes
@@ -181,26 +181,26 @@ const GitTimeline = (() => {
     /**
      * Generate branch path with smooth S-curve bezier transitions
      * Uses cubic bezier (C command) for smoother curves than quadratic (Q)
+     * Branches go UP from trunk, then merge back DOWN
      */
-    function createBranchPath(branch, laneY, totalWidth) {
+    function createBranchPath(branch, laneY, trunkY, totalWidth) {
         const startX = branch._startX;
-        const trunkY = CONFIG.trunkY;
         const r = CONFIG.curveRadius;
         const ongoing = isOngoing(branch);
         const endX = ongoing ? totalWidth - CONFIG.padding.right : branch._endX;
 
-        // Calculate vertical distance for smooth S-curve
-        const verticalDist = laneY - trunkY;
+        // Calculate vertical distance for smooth S-curve (laneY is above trunkY)
+        const verticalDist = trunkY - laneY;
         const curveControl = Math.min(r * 1.5, verticalDist * 0.4);
 
         let path = '';
 
-        // Start: S-curve from trunk down to lane
+        // Start: S-curve from trunk UP to lane
         path += `M ${startX} ${trunkY}`;
         // Cubic bezier: C x1 y1, x2 y2, x y
-        // Control point 1: straight down from start
-        // Control point 2: from end point, going up
-        path += ` C ${startX} ${trunkY + curveControl}, ${startX + r} ${laneY - curveControl}, ${startX + r} ${laneY}`;
+        // Control point 1: straight up from start
+        // Control point 2: from end point, going down
+        path += ` C ${startX} ${trunkY - curveControl}, ${startX + r} ${laneY + curveControl}, ${startX + r} ${laneY}`;
 
         // Horizontal line along lane
         if (ongoing) {
@@ -210,8 +210,8 @@ const GitTimeline = (() => {
             // Completed: go to merge point
             path += ` L ${endX - r} ${laneY}`;
 
-            // S-curve from lane back up to trunk
-            path += ` C ${endX - r} ${laneY - curveControl}, ${endX} ${trunkY + curveControl}, ${endX} ${trunkY}`;
+            // S-curve from lane back DOWN to trunk
+            path += ` C ${endX - r} ${laneY + curveControl}, ${endX} ${trunkY - curveControl}, ${endX} ${trunkY}`;
         }
 
         return path;
@@ -219,13 +219,20 @@ const GitTimeline = (() => {
 
     /**
      * Render the complete SVG graph
+     * Trunk is at the bottom, branches go UP
      */
     function renderSvg(container, branches, laneCount) {
         const startYear = data?.config?.startYear || 2017;
         const endYear = data?.config?.endYear || new Date().getFullYear() + 2;
         const totalWidth = CONFIG.padding.left + CONFIG.padding.right +
                           (endYear - startYear + 1) * CONFIG.yearWidth;
-        const totalHeight = CONFIG.trunkY + (laneCount + 1) * CONFIG.laneHeight;
+
+        // Calculate total height: lanes at top, trunk at bottom
+        const lanesHeight = (laneCount + 1) * CONFIG.laneHeight;
+        const totalHeight = lanesHeight + CONFIG.trunkPadding;
+
+        // Trunk Y is at the bottom (after all lanes)
+        const trunkY = lanesHeight;
 
         // Create SVG
         const svg = createSvgElement('svg', {
@@ -248,13 +255,13 @@ const GitTimeline = (() => {
         `;
         svg.appendChild(defs);
 
-        // Main trunk line
+        // Main trunk line (at the bottom)
         const trunk = createSvgElement('line', {
             class: 'git-trunk',
             x1: CONFIG.padding.left - 30,
-            y1: CONFIG.trunkY,
+            y1: trunkY,
             x2: totalWidth - CONFIG.padding.right + 30,
-            y2: CONFIG.trunkY,
+            y2: trunkY,
             stroke: CONFIG.colors.trunk,
             'stroke-width': CONFIG.lineWidth,
             'stroke-linecap': 'round'
@@ -262,13 +269,14 @@ const GitTimeline = (() => {
         svg.appendChild(trunk);
 
         // Draw branches (reverse order for z-index)
+        // laneY goes UP from trunk (smaller Y values)
         [...branches].reverse().forEach(branch => {
-            const laneY = CONFIG.trunkY + (branch._lane + 1) * CONFIG.laneHeight;
+            const laneY = trunkY - (branch._lane + 1) * CONFIG.laneHeight;
             const color = CONFIG.colors[branch.type] || CONFIG.colors.work;
             const ongoing = isOngoing(branch);
 
-            // Branch path
-            const pathD = createBranchPath(branch, laneY, totalWidth);
+            // Branch path (now passes trunkY)
+            const pathD = createBranchPath(branch, laneY, trunkY, totalWidth);
             const path = createSvgElement('path', {
                 class: `git-branch git-branch-${branch.type}`,
                 d: pathD,
@@ -284,7 +292,7 @@ const GitTimeline = (() => {
             const startNode = createSvgElement('circle', {
                 class: `git-node git-node-${branch.type}`,
                 cx: branch._startX,
-                cy: CONFIG.trunkY,
+                cy: trunkY,
                 r: CONFIG.trunkNodeRadius,
                 fill: color,
                 filter: 'url(#glow)'
@@ -306,7 +314,7 @@ const GitTimeline = (() => {
                 const endNode = createSvgElement('circle', {
                     class: `git-node git-node-${branch.type}`,
                     cx: branch._endX,
-                    cy: CONFIG.trunkY,
+                    cy: trunkY,
                     r: CONFIG.trunkNodeRadius,
                     fill: color,
                     filter: 'url(#glow)'
@@ -316,7 +324,9 @@ const GitTimeline = (() => {
         });
 
         container.appendChild(svg);
-        return { totalWidth, totalHeight };
+        // Store trunkY for use by commit cards
+        container.dataset.trunkY = trunkY;
+        return { totalWidth, totalHeight, trunkY };
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -327,10 +337,12 @@ const GitTimeline = (() => {
      * Render compact commit markers for each branch
      * Shows only hash + title pill to prevent overlap
      * Full details appear in overlay on hover (in fixed corner position)
+     * Branches are now ABOVE the trunk
      */
-    function renderCommitCards(container, branches, totalWidth) {
+    function renderCommitCards(container, branches, totalWidth, trunkY) {
         branches.forEach(branch => {
-            const laneY = CONFIG.trunkY + (branch._lane + 1) * CONFIG.laneHeight;
+            // laneY is above the trunk (smaller Y value)
+            const laneY = trunkY - (branch._lane + 1) * CONFIG.laneHeight;
             const color = CONFIG.colors[branch.type] || CONFIG.colors.work;
             const ongoing = isOngoing(branch);
 
@@ -389,14 +401,12 @@ const GitTimeline = (() => {
     // ═══════════════════════════════════════════════════════════════
 
     /**
-     * Render year markers
+     * Render year markers (now at the bottom, ticks point up)
      */
-    function renderYearAxis(container) {
+    function renderYearAxis(container, totalWidth) {
         const startYear = data?.config?.startYear || 2017;
         const endYear = data?.config?.endYear || new Date().getFullYear() + 1;
         const currentYear = new Date().getFullYear();
-        const totalWidth = CONFIG.padding.left + CONFIG.padding.right +
-                          (endYear - startYear + 1) * CONFIG.yearWidth;
 
         const axis = document.createElement('div');
         axis.className = 'git-timeline-axis';
@@ -410,14 +420,15 @@ const GitTimeline = (() => {
             const marker = document.createElement('div');
             marker.className = `git-year-marker ${isCurrent ? 'current' : ''} ${isFuture ? 'future' : ''}`;
             marker.style.left = `${x}px`;
+            // Tick now comes BEFORE label (tick points up to trunk)
             marker.innerHTML = `
-                <span class="git-year-label">${year}</span>
                 <div class="git-year-tick"></div>
+                <span class="git-year-label">${year}</span>
             `;
             axis.appendChild(marker);
         }
 
-        // NOW marker
+        // NOW marker (positioned above the axis)
         const nowX = yearToX(currentYear) + (CONFIG.yearWidth * (new Date().getMonth() / 12));
         const nowMarker = document.createElement('div');
         nowMarker.className = 'git-now-marker';
@@ -712,18 +723,18 @@ const GitTimeline = (() => {
         // Process branches
         const { branches, laneCount } = assignLanes(data.branches);
 
-        // Render year axis
-        renderYearAxis(axisContainer);
-
-        // Render SVG graph
-        const { totalWidth, totalHeight } = renderSvg(lanesContainer, branches, laneCount);
+        // Render SVG graph first to get dimensions and trunkY
+        const { totalWidth, totalHeight, trunkY } = renderSvg(lanesContainer, branches, laneCount);
 
         // Set container dimensions
         lanesContainer.style.width = `${totalWidth}px`;
         lanesContainer.style.height = `${totalHeight}px`;
 
-        // Render commit cards
-        renderCommitCards(lanesContainer, branches, totalWidth);
+        // Render commit cards (with trunkY for positioning)
+        renderCommitCards(lanesContainer, branches, totalWidth, trunkY);
+
+        // Render year axis (now at the bottom)
+        renderYearAxis(axisContainer, totalWidth);
 
         // Render mobile timeline
         renderMobileTimeline();
