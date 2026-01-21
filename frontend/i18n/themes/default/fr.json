@@ -1,7 +1,7 @@
 {
   "console": {
-    "initialized": "[DEFAULT] Portfolio initialise",
-    "konamiActivated": "CODE KONAMI ACTIVE !"
+    "initialized": "[DEFAULT] Portfolio initialisé",
+    "konamiActivated": "CODE KONAMI ACTIVÉ !"
   },
   "cardPrefix": "PRJ"
 }

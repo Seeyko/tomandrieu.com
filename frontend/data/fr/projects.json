@@ -2,7 +2,7 @@
     {
         "id": "ride-my-park",
         "title": "Ride My Park",
-        "description": "Trouvez des spots pres de chez vous parmi 30K skateparks, street spots et pumptracks pour BMX, Skateboard, Roller, Trottinette Freestyle sur Ride My Park.",
+        "description": "Trouvez des spots près de chez vous parmi 30K skateparks, street spots et pumptracks pour BMX, Skateboard, Roller, Trottinette Freestyle sur Ride My Park.",
         "type": "APPLICATION WEB",
         "url": "https://ridemypark.com",
         "images": [
@@ -10,7 +10,7 @@
             "/assets/ridemypark-landing-page.png",
             "/assets/ridemypark-messaging.png"
         ],
-        "tags": ["Wordpress", "Voxel", "Flutter", "Cartes", "Communaute"]
+        "tags": ["Wordpress", "Voxel", "Flutter", "Cartes", "Communauté"]
     },
     {
         "id": "skoolbook",
@@ -43,7 +43,7 @@
     {
         "id": "gyrodex",
         "title": "GyroDex",
-        "description": "Un pokedex pour Animal Crossing. Liste et permet de sauvegarder quelles creatures d'Animal Crossing vous avez collecte, avec des amis. Full vibe coder pour m'amuser avec l'IA.",
+        "description": "Un pokédex pour Animal Crossing. Liste et permet de sauvegarder quelles créatures d'Animal Crossing vous avez collectées, avec des amis. Full vibe coding pour m'amuser avec l'IA.",
         "type": "APP WEB",
         "url": "https://v0-animal-crossing-gyroides.vercel.app",
         "images": [

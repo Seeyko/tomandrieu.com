@@ -19,7 +19,7 @@
     },
     "specLabels": {
       "location": "LOCALISATION",
-      "experience": "EXPERIENCE",
+      "experience": "EXPÉRIENCE",
       "focus": "DOMAINE",
       "status": "STATUT"
     }
@@ -40,43 +40,43 @@
   },
   "nav": {
     "projects": "Projets",
-    "about": "A propos",
+    "about": "À propos",
     "blog": "Blog",
     "contact": "Contact",
     "history": "Timeline"
   },
   "sections": {
     "projects": "PROJETS",
-    "about": "A PROPOS",
+    "about": "À PROPOS",
     "blog": "BLOG",
     "contact": "CONTACT"
   },
   "ui": {
     "loading": "Chargement...",
     "loadingProjects": "Chargement des projets...",
-    "noArticles": "Pas encore d'articles. Revenez bientot !",
+    "noArticles": "Pas encore d'articles. Revenez bientôt !",
     "viewAllArticles": "VOIR TOUS LES ARTICLES",
-    "scrollToExplore": "DEFILER POUR EXPLORER",
-    "startProject": "Demarrer un Projet",
+    "scrollToExplore": "DÉFILER POUR EXPLORER",
+    "startProject": "Démarrer un Projet",
     "letsTalk": "Discutons",
     "getInTouch": "Me Contacter",
-    "maybeLater": "Peut-etre plus tard",
+    "maybeLater": "Peut-être plus tard",
     "waitLetsConnect": "Hey, on se connecte ?",
     "haveProjectInMind": "Un projet en tête ? Parlons-en.",
     "availableForProjects": "Dispo pour des projets",
     "acceptingClients": "J'accepte de nouveaux clients pour Q2",
     "typicallyResponds": "Réponse sous 24h",
     "establishConnection": "CONNECTER",
-    "systemStatus": "STATUT SYSTEME",
+    "systemStatus": "STATUT SYSTÈME",
     "availableNote": "disponible pour projets"
   },
   "footer": {
     "sessionId": "SESSION: TOM-2026-PORTFOLIO",
     "version": "VERSION: 3.0",
-    "scale": "ECHELLE: 1:1",
-    "copyright": "2026 TOM ANDRIEU - TOUS DROITS RESERVES",
+    "scale": "ÉCHELLE: 1:1",
+    "copyright": "2026 TOM ANDRIEU - TOUS DROITS RÉSERVÉS",
     "pressAnyKey": "[Appuyez sur une touche pour continuer...]",
-    "bestViewed": "Meilleur affichage avec Netscape Navigator 4.0 a 800x600"
+    "bestViewed": "Meilleur affichage avec Netscape Navigator 4.0 à 800x600"
   },
   "stats": {
     "yearsExperience": "Ans d'XP",
@@ -88,9 +88,9 @@
     "minRead": "min de lecture",
     "newBadge": "NOUVEAU !",
     "articleNotFound": "Article Introuvable",
-    "articleNotFoundMsg": "Desole, l'article que vous cherchez n'existe pas.",
+    "articleNotFoundMsg": "Désolé, l'article que vous cherchez n'existe pas.",
     "backToBlog": "Retour au Blog",
-    "prev": "Prec.",
+    "prev": "Préc.",
     "next": "Suiv."
   },
   "guestbook": {
