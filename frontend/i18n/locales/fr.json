@@ -2,15 +2,15 @@
   "meta": {
     "name": "Tom Andrieu",
     "title": "Product Engineer",
-    "description": "Product Engineer. Je conçois et construis des produits de bout en bout. Du code jusqu'à l'impact utilisateur."
+    "description": "Développeur Fullstack & Product. Je conçois et développe des produits de A à Z."
   },
   "hero": {
     "title": ["PRODUCT", "ENGINEER"],
-    "subtitle": "UNE NOUVELLE FACON DE TRAVAILLER"
+    "subtitle": "DÉVELOPPEUR FULLSTACK & PRODUCT"
   },
   "about": {
-    "intro": "Je construis des <highlight>PRODUITS</highlight> et j'aide les petites équipes à faire du <highlight>BON BOULOT</highlight>.",
-    "detail": "Le savoir-faire et l'itération, c'est ce qui compte. Je préfère rendre les gens autonomes plutôt que de les micro-manager. Bosser avec l'IA m'a rendu optimiste sur ce que des équipes focus peuvent créer.",
+    "intro": "Je conçois et développe des <highlight>PRODUITS</highlight> de A à Z, du premier coup de crayon jusqu'au déploiement.",
+    "detail": "J'aime les projets où on peut avancer vite, tester des idées, et voir le résultat. Que ce soit pour une startup, un side project, ou une équipe qui a besoin de renfort — côté code ou côté organisation.",
     "specs": {
       "location": "FRANCE",
       "experience": "7+ ANS",
@@ -42,7 +42,8 @@
     "projects": "Projets",
     "about": "A propos",
     "blog": "Blog",
-    "contact": "Contact"
+    "contact": "Contact",
+    "history": "Timeline"
   },
   "sections": {
     "projects": "PROJETS",
@@ -63,7 +64,7 @@
     "waitLetsConnect": "Hey, on se connecte ?",
     "haveProjectInMind": "Un projet en tête ? Parlons-en.",
     "availableForProjects": "Dispo pour des projets",
-    "acceptingClients": "Dispo pour de nouveaux projets",
+    "acceptingClients": "J'accepte de nouveaux clients pour Q2",
     "typicallyResponds": "Réponse sous 24h",
     "establishConnection": "CONNECTER",
     "systemStatus": "STATUT SYSTEME",

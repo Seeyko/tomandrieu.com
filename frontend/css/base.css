@@ -84,7 +84,7 @@ body {
 }
 
 /* ─── Section Base ─── */
-.projects, .about, .contact {
+.projects, .about, .contact, .timeline {
   position: relative;
   z-index: 10;
 }

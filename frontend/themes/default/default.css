@@ -1178,12 +1178,13 @@ body[data-theme="default"] .timeline-section {
   padding: var(--spacing-xl) var(--spacing-md);
 }
 
+/* Timeline section title - matches other sections */
 body[data-theme="default"] #timeline .section-title {
-  font-family: var(--font-display);
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  font-weight: 600;
   color: var(--text-primary);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
 }
 
 body[data-theme="default"] .timeline-subtitle {
@@ -1329,6 +1330,89 @@ body[data-theme="default"] .git-tag {
 body[data-theme="default"] .timeline-scroll-hint {
   color: var(--text-muted);
   font-family: var(--font-sans);
+}
+
+/* ─── Git Timeline Overlay (Default Theme) ─── */
+body[data-theme="default"] {
+  --git-overlay-bg: rgba(255, 255, 255, 0.95);
+  --git-border: var(--border-medium);
+  --git-overlay-shadow: var(--shadow-lg);
+  --git-text: var(--text-primary);
+  --git-text-secondary: var(--text-secondary);
+  --git-text-muted: var(--text-tertiary);
+}
+
+body[data-theme="default"] .overlay-content {
+  background: var(--git-overlay-bg);
+  border-color: var(--border-medium);
+  box-shadow: var(--shadow-lg);
+}
+
+body[data-theme="default"] .overlay-header {
+  border-bottom-color: var(--border-light);
+}
+
+body[data-theme="default"] .overlay-hash {
+  color: var(--git-hash-color);
+}
+
+body[data-theme="default"] .overlay-date {
+  color: var(--text-tertiary);
+}
+
+body[data-theme="default"] .overlay-title {
+  color: var(--text-primary);
+}
+
+body[data-theme="default"] .overlay-company {
+  color: var(--text-secondary);
+}
+
+body[data-theme="default"] .overlay-location {
+  color: var(--text-tertiary);
+}
+
+body[data-theme="default"] .overlay-description {
+  color: var(--text-secondary);
+}
+
+body[data-theme="default"] .overlay-tag {
+  background: var(--bg-tertiary);
+  border-color: var(--border-light);
+  color: var(--text-secondary);
+}
+
+/* Type-specific border colors for overlay */
+body[data-theme="default"] .git-overlay-work .overlay-content {
+  border-color: var(--git-work-color);
+}
+
+body[data-theme="default"] .git-overlay-project .overlay-content {
+  border-color: var(--git-project-color);
+}
+
+body[data-theme="default"] .git-overlay-education .overlay-content {
+  border-color: var(--git-edu-color);
+}
+
+/* Commit markers for light theme */
+body[data-theme="default"] .git-commit-marker {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+body[data-theme="default"] .git-commit-marker:hover {
+  background: var(--bg-primary);
+  box-shadow: var(--shadow-md);
+}
+
+body[data-theme="default"] .marker-hash {
+  color: var(--text-tertiary);
+}
+
+body[data-theme="default"] .marker-title {
+  color: var(--text-primary);
 }
 
 /* Loading */

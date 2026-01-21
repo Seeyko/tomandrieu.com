@@ -11,6 +11,7 @@
     --git-trunk-color: rgba(255, 255, 255, 0.3);
     --git-bg: rgba(0, 0, 0, 0.6);
     --git-bg-solid: rgba(10, 10, 10, 0.95);
+    --git-overlay-bg: rgba(10,10,10,0.5);
     --git-border: rgba(255, 255, 255, 0.15);
     --git-text: #ffffff;
     --git-text-secondary: rgba(255, 255, 255, 0.7);
@@ -21,8 +22,32 @@
 /* ─── Section Container ─── */
 .git-timeline-section {
     position: relative;
-    padding: 4rem 0;
+    padding: 4rem 0 2rem 0;
     overflow: hidden;
+}
+
+/* Section header with padding (like other sections) */
+.git-timeline-section .section-header {
+    padding: 0 var(--spacing-xl, 2rem);
+    margin-bottom: 2rem;
+}
+
+.git-timeline-section .section-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.git-timeline-section .section-title {
+    /* Match other sections styling */
+    font-family: var(--font-sans, system-ui);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.git-timeline-section .section-divider {
+    display: none; /* Hide divider for cleaner look */
 }
 
 .git-timeline-intro {
@@ -49,7 +74,6 @@
 .git-timeline-scroll {
     overflow-x: auto;
     overflow-y: visible;
-    padding: 1rem 0 3rem 0;
     scrollbar-width: thin;
     scrollbar-color: var(--git-trunk-color) transparent;
 }
@@ -274,37 +298,39 @@
 }
 
 
-/* ─── CDK-Style Overlay (fixed corner position) ─── */
+/* ─── CDK-Style Overlay (fixed corner position - bottom left) ─── */
 .git-timeline-overlay {
     position: absolute;
     z-index: 99999;
     pointer-events: none;
     opacity: 0;
-    transform: translateX(20px);
+    transform: translateY(20px);
     transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 .git-timeline-overlay.active {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
     pointer-events: auto;
 }
 
-/* Fixed corner positioning */
+/* Fixed corner positioning - bottom left to avoid hiding content */
 .git-timeline-overlay.fixed-corner {
     position: fixed;
     top: auto;
-    right: 20px;
+    bottom: 20px;
+    left: 20px;
+    right: auto;
 }
 
 .overlay-content {
     width: 320px;
     max-width: 90vw;
     padding: 1rem;
-    background: var(--git-bg-solid);
+    background: var(--git-overlay-bg);
     border: 2px solid var(--git-border);
     border-radius: 8px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    box-shadow: var(--git-overlay-shadow, 0 10px 40px rgba(0, 0, 0, 0.6));
     backdrop-filter: blur(15px);
 }
 
@@ -389,13 +415,13 @@
     color: var(--git-text-secondary);
 }
 
-/* ─── Scroll Hint ─── */
+/* ─── Scroll Hint (hidden when timeline fits viewport) ─── */
 .git-timeline-scroll-hint {
     position: absolute;
     bottom: 0.5rem;
     left: 50%;
     transform: translateX(-50%);
-    display: flex;
+    display: none; /* Hidden by default since timeline fits viewport */
     align-items: center;
     gap: 0.5rem;
     color: var(--git-text-muted);
@@ -418,24 +444,203 @@
     50% { transform: translateX(5px); }
 }
 
-/* ─── Responsive ─── */
-@media (max-width: 768px) {
+/* ─── Responsive - Tablet/Mobile Vertical Timeline ─── */
+@media (max-width: 1024px) {
     .git-timeline-section {
-        padding: 2rem 0;
+        padding: 1.5rem 0;
     }
 
-    .git-year-label {
-        font-size: 0.8rem;
+    .git-timeline-intro {
+        padding: 0 1rem;
+        margin-bottom: 1rem;
     }
 
-    .git-commit-card {
-        padding: 6px 10px;
+    /* Hide horizontal timeline on mobile */
+    .git-timeline-viewport {
+        display: none;
+    }
+
+    /* Show vertical timeline on mobile */
+    .git-timeline-mobile {
+        display: block;
+        padding: 0 1rem;
+    }
+
+    .mobile-timeline {
+        position: relative;
+        padding-left: 20px;
+    }
+
+    /* Vertical line */
+    .mobile-timeline::before {
+        content: '';
+        position: absolute;
+        left: 6px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--git-trunk-color, rgba(0, 0, 0, 0.2));
+    }
+
+    .mobile-commit {
+        position: relative;
+        margin-bottom: 1rem;
+        padding-left: 20px;
+    }
+
+    /* Node on the line */
+    .mobile-commit::before {
+        content: '';
+        position: absolute;
+        left: -17px;
+        top: 12px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--branch-color, var(--git-work-color));
+        border: 2px solid var(--git-bg-solid, #fff);
+        z-index: 2;
+    }
+
+    /* Branch line to node */
+    .mobile-commit::after {
+        content: '';
+        position: absolute;
+        left: -7px;
+        top: 16px;
+        width: 15px;
+        height: 2px;
+        background: var(--branch-color, var(--git-work-color));
+    }
+
+    .mobile-commit-card {
+        background: var(--git-bg-solid, rgba(30, 30, 30, 0.95));
+        border: 1px solid var(--git-border, rgba(0, 0, 0, 0.1));
+        border-left: 3px solid var(--branch-color, var(--git-work-color));
+        border-radius: 8px;
+        padding: 12px 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .mobile-commit-card:active {
+        transform: scale(0.98);
+    }
+
+    .mobile-commit-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .mobile-commit-title {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--git-text, #fff);
+        flex: 1;
+    }
+
+    .mobile-commit-date {
+        font-size: 0.7rem;
+        color: var(--git-text-muted, rgba(255, 255, 255, 0.5));
+        white-space: nowrap;
+    }
+
+    .mobile-commit-badge {
+        width: 8px;
+        height: 8px;
+        background: var(--branch-color, var(--git-work-color));
+        border-radius: 50%;
+        animation: pulse-badge 2s ease-in-out infinite;
+    }
+
+    /* Expanded details */
+    .mobile-commit-details {
+        display: none;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid var(--git-border, rgba(255, 255, 255, 0.1));
+    }
+
+    .mobile-commit.expanded .mobile-commit-details {
+        display: block;
+        animation: slideDown 0.2s ease;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .mobile-commit-company {
+        font-size: 0.85rem;
+        color: var(--branch-color, var(--git-work-color));
+        font-weight: 500;
+        margin-bottom: 4px;
+    }
+
+    .mobile-commit-location {
         font-size: 0.75rem;
-        min-width: 150px;
+        color: var(--git-text-muted, rgba(255, 255, 255, 0.5));
+        margin-bottom: 8px;
     }
 
-    .overlay-content {
-        width: 280px;
-        padding: 0.75rem;
+    .mobile-commit-description {
+        font-size: 0.8rem;
+        color: var(--git-text-secondary, rgba(255, 255, 255, 0.7));
+        line-height: 1.5;
+        margin-bottom: 10px;
+    }
+
+    .mobile-commit-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .mobile-commit-tag {
+        padding: 3px 8px;
+        font-size: 0.65rem;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid var(--git-border, rgba(255, 255, 255, 0.15));
+        border-radius: 4px;
+        color: var(--git-text-secondary, rgba(255, 255, 255, 0.7));
+    }
+
+    /* Type-specific colors */
+    .mobile-commit-work {
+        --branch-color: var(--git-work-color);
+    }
+
+    .mobile-commit-project {
+        --branch-color: var(--git-project-color);
+    }
+
+    .mobile-commit-education {
+        --branch-color: var(--git-education-color);
+    }
+
+    /* Hide overlay on mobile */
+    .git-timeline-overlay {
+        display: none !important;
+    }
+
+    /* Hide scroll hint on mobile */
+    .git-timeline-scroll-hint {
+        display: none;
+    }
+}
+
+/* Desktop: hide mobile timeline */
+@media (min-width: 1025px) {
+    .git-timeline-mobile {
+        display: none;
     }
 }
