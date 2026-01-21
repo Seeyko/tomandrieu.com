@@ -52,12 +52,14 @@ const GitTimeline = (() => {
 
         const availableWidth = viewport.clientWidth;
         const startYear = data.config?.startYear || 2017;
-        const endYear = data.config?.endYear || new Date().getFullYear() + 1;
+        // Use +2 to match renderSvg (current year + some future buffer)
+        const endYear = data.config?.endYear || new Date().getFullYear() + 2;
         // +1 because we need intervals from startYear to endYear inclusive
         const yearCount = endYear - startYear + 1;
 
         // Calculate width per year to fit everything in viewport
-        const totalPadding = CONFIG.padding.left + CONFIG.padding.right;
+        // Account for left padding plus safety margin for year labels and rounding
+        const totalPadding = CONFIG.padding.left + CONFIG.padding.right + 40;
         const yearWidth = (availableWidth - totalPadding) / yearCount;
 
         // Minimum 60px per year for readability
@@ -444,7 +446,7 @@ const GitTimeline = (() => {
     // ═══════════════════════════════════════════════════════════════
 
     /**
-     * Create overlay element (appended to body)
+     * Create overlay element (appended to timeline section for proper positioning)
      */
     function createOverlay() {
         if (overlay) overlay.remove();
@@ -466,7 +468,13 @@ const GitTimeline = (() => {
                 <div class="overlay-tags"></div>
             </div>
         `;
-        document.body.appendChild(overlay);
+        // Append to timeline section for relative positioning below header
+        const section = document.getElementById('timeline');
+        if (section) {
+            section.appendChild(overlay);
+        } else {
+            document.body.appendChild(overlay);
+        }
     }
 
     /**
