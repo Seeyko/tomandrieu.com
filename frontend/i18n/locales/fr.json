@@ -43,13 +43,14 @@
     "about": "À propos",
     "blog": "Blog",
     "contact": "Contact",
-    "history": "Timeline"
+    "history": "Historique"
   },
   "sections": {
     "projects": "PROJETS",
     "about": "À PROPOS",
     "blog": "BLOG",
-    "contact": "CONTACT"
+    "contact": "CONTACT",
+    "history": "HISTORIQUE"
   },
   "ui": {
     "loading": "Chargement...",
