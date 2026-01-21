@@ -2867,3 +2867,85 @@ body[data-theme="retro90s"] {
     color: var(--color-blue);
   }
 }
+
+/* ─── Git Timeline Overlay (Retro90s Theme) ─── */
+body[data-theme="retro90s"] .overlay-content {
+  background: var(--bg-90s-white);
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  box-shadow: 3px 3px 0 var(--bevel-darker);
+  font-family: var(--font-90s);
+  border-radius: 0;
+}
+
+body[data-theme="retro90s"] .overlay-header {
+  background: linear-gradient(90deg, var(--color-navy) 0%, var(--color-navy-light) 100%);
+  margin: -1rem -1rem 0.75rem -1rem;
+  padding: 4px 8px;
+  border-bottom: none;
+}
+
+body[data-theme="retro90s"] .overlay-hash {
+  color: var(--color-white);
+  font-family: var(--font-mono);
+  font-weight: bold;
+}
+
+body[data-theme="retro90s"] .overlay-date {
+  color: var(--color-white);
+}
+
+body[data-theme="retro90s"] .overlay-title {
+  color: var(--color-navy);
+  font-weight: bold;
+  text-shadow: none;
+}
+
+body[data-theme="retro90s"] .overlay-company {
+  color: var(--color-blue);
+  font-weight: bold;
+}
+
+body[data-theme="retro90s"] .overlay-location {
+  color: var(--bg-90s-dark);
+}
+
+body[data-theme="retro90s"] .overlay-description {
+  color: var(--color-black);
+  font-family: var(--font-fun);
+  background: var(--color-panel-yellow);
+  padding: 8px;
+  margin: 0 -8px;
+}
+
+body[data-theme="retro90s"] .overlay-tag {
+  background: var(--color-navy);
+  border: none;
+  color: var(--color-white);
+  border-radius: 0;
+  box-shadow: 1px 1px 0 var(--bevel-darker);
+}
+
+body[data-theme="retro90s"] .git-overlay-work .overlay-content {
+  border-color: var(--color-green-dark) var(--bevel-dark) var(--bevel-dark) var(--color-green-dark);
+}
+
+body[data-theme="retro90s"] .git-overlay-work .overlay-header {
+  background: linear-gradient(90deg, var(--color-green-dark) 0%, var(--color-green) 100%);
+}
+
+body[data-theme="retro90s"] .git-overlay-project .overlay-content {
+  border-color: var(--color-red) var(--bevel-dark) var(--bevel-dark) var(--color-red);
+}
+
+body[data-theme="retro90s"] .git-overlay-project .overlay-header {
+  background: linear-gradient(90deg, var(--color-red) 0%, var(--color-orange) 100%);
+}
+
+body[data-theme="retro90s"] .git-overlay-education .overlay-content {
+  border-color: var(--color-blue) var(--bevel-dark) var(--bevel-dark) var(--color-blue);
+}
+
+body[data-theme="retro90s"] .git-overlay-education .overlay-header {
+  background: linear-gradient(90deg, var(--color-navy) 0%, var(--color-blue) 100%);
+}

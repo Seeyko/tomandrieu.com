@@ -1841,3 +1841,66 @@ body[data-theme="blueprint"] {
     text-transform: uppercase;
   }
 }
+
+/* ─── Git Timeline Overlay (Blueprint Theme) ─── */
+body[data-theme="blueprint"] .overlay-content {
+  background: rgba(0, 34, 68, 0.95);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.15), 0 10px 40px rgba(0, 0, 0, 0.5);
+  font-family: var(--font-technical);
+}
+
+body[data-theme="blueprint"] .overlay-header {
+  border-bottom-color: var(--line-white-dim);
+}
+
+body[data-theme="blueprint"] .overlay-hash {
+  color: var(--accent-cyan);
+  letter-spacing: 0.15em;
+}
+
+body[data-theme="blueprint"] .overlay-date {
+  color: var(--line-white-dim);
+  letter-spacing: 0.1em;
+}
+
+body[data-theme="blueprint"] .overlay-title {
+  color: var(--line-white);
+  letter-spacing: 0.03em;
+}
+
+body[data-theme="blueprint"] .overlay-company {
+  color: var(--accent-cyan);
+  font-family: var(--font-handwritten);
+}
+
+body[data-theme="blueprint"] .overlay-location {
+  color: var(--line-white-dim);
+  letter-spacing: 0.1em;
+}
+
+body[data-theme="blueprint"] .overlay-description {
+  color: var(--line-white-dim);
+  font-family: var(--font-handwritten);
+  font-style: italic;
+}
+
+body[data-theme="blueprint"] .overlay-tag {
+  background: transparent;
+  border: 1px solid var(--line-white-dim);
+  color: var(--line-white-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+body[data-theme="blueprint"] .git-overlay-work .overlay-content {
+  border-color: var(--accent-cyan);
+}
+
+body[data-theme="blueprint"] .git-overlay-project .overlay-content {
+  border-color: var(--accent-yellow);
+}
+
+body[data-theme="blueprint"] .git-overlay-education .overlay-content {
+  border-color: var(--line-white);
+}

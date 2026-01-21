@@ -1794,3 +1794,62 @@ body[data-theme="terminal"] .timeline-loading::before {
   content: '> Loading commits...';
   animation: blink 1s step-end infinite;
 }
+
+/* ─── Git Timeline Overlay (Terminal Theme) ─── */
+body[data-theme="terminal"] .overlay-content {
+  background: rgba(10, 10, 10, 0.95);
+  border-color: var(--primary);
+  box-shadow: 0 0 20px rgba(51, 255, 0, 0.2), 0 10px 40px rgba(0, 0, 0, 0.6);
+  font-family: var(--font-terminal);
+}
+
+body[data-theme="terminal"] .overlay-header {
+  border-bottom-color: rgba(51, 255, 0, 0.3);
+}
+
+body[data-theme="terminal"] .overlay-hash {
+  color: var(--secondary);
+  text-shadow: 0 0 5px var(--secondary-glow);
+}
+
+body[data-theme="terminal"] .overlay-date {
+  color: var(--text-comment);
+}
+
+body[data-theme="terminal"] .overlay-title {
+  color: var(--primary);
+  text-shadow: var(--glow-primary);
+}
+
+body[data-theme="terminal"] .overlay-company {
+  color: var(--secondary);
+}
+
+body[data-theme="terminal"] .overlay-location {
+  color: var(--text-comment);
+}
+
+body[data-theme="terminal"] .overlay-description {
+  color: var(--text-dim);
+}
+
+body[data-theme="terminal"] .overlay-tag {
+  background: rgba(51, 255, 0, 0.1);
+  border-color: rgba(51, 255, 0, 0.3);
+  color: var(--primary);
+}
+
+body[data-theme="terminal"] .git-overlay-work .overlay-content {
+  border-color: var(--git-work-color);
+  box-shadow: 0 0 20px rgba(51, 255, 0, 0.3), 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+body[data-theme="terminal"] .git-overlay-project .overlay-content {
+  border-color: var(--git-project-color);
+  box-shadow: 0 0 20px rgba(255, 107, 107, 0.3), 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+body[data-theme="terminal"] .git-overlay-education .overlay-content {
+  border-color: var(--git-edu-color);
+  box-shadow: 0 0 20px rgba(78, 205, 196, 0.3), 0 10px 40px rgba(0, 0, 0, 0.6);
+}
