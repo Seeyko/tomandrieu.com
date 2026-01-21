@@ -405,11 +405,13 @@ body[data-theme="blueprint"] .scroll-arrow svg {
 }
 
 /* ─── Section Styles ─── */
-body[data-theme="blueprint"] .projects,
-body[data-theme="blueprint"] .about,
-body[data-theme="blueprint"] .contact,
-body[data-theme="blueprint"] .blog {
-  padding: var(--spacing-md) var(--spacing-lg);
+/* Section padding is now defined in base.css via CSS variables */
+body[data-theme="blueprint"] {
+  --section-padding-y: var(--spacing-md);
+  --section-padding-x: var(--spacing-lg);
+  --section-max-width: 1200px;
+  --section-padding-y-mobile: var(--spacing-md);
+  --section-padding-x-mobile: var(--spacing-sm);
 }
 
 body[data-theme="blueprint"] .section-header {
@@ -747,10 +749,6 @@ body[data-theme="blueprint"] .project-card:hover .project-link {
 }
 
 /* ─── Blog Section ─── */
-body[data-theme="blueprint"] .blog {
-  padding: var(--spacing-xl) var(--spacing-lg);
-}
-
 body[data-theme="blueprint"] .blog-grid {
   gap: var(--spacing-md);
 }
@@ -1241,12 +1239,7 @@ body[data-theme="blueprint"] .footer-copyright {
     display: none !important;
   }
 
-  body[data-theme="blueprint"] .projects,
-  body[data-theme="blueprint"] .about,
-  body[data-theme="blueprint"] .contact,
-  body[data-theme="blueprint"] .blog {
-    padding: var(--spacing-md) var(--spacing-sm);
-  }
+  /* Section padding for mobile is now handled in base.css */
 
   body[data-theme="blueprint"] .projects-grid {
     grid-template-columns: 1fr;

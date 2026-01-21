@@ -225,7 +225,7 @@ const GitTimeline = (() => {
         const endYear = data?.config?.endYear || new Date().getFullYear() + 2;
         const totalWidth = CONFIG.padding.left + CONFIG.padding.right +
                           (endYear - startYear + 1) * CONFIG.yearWidth;
-        const totalHeight = CONFIG.trunkY + (laneCount + 1) * CONFIG.laneHeight + 50;
+        const totalHeight = CONFIG.trunkY + (laneCount + 1) * CONFIG.laneHeight;
 
         // Create SVG
         const svg = createSvgElement('svg', {

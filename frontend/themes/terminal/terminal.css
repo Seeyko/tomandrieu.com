@@ -466,11 +466,13 @@ body[data-theme="terminal"] .scroll-arrow {
 }
 
 /* ─── Section Styles ─── */
-body[data-theme="terminal"] .projects,
-body[data-theme="terminal"] .about,
-body[data-theme="terminal"] .contact,
-body[data-theme="terminal"] .blog {
-  padding: var(--spacing-lg) var(--spacing-md);
+/* Section padding is now defined in base.css via CSS variables */
+body[data-theme="terminal"] {
+  --section-padding-y: var(--spacing-lg);
+  --section-padding-x: var(--spacing-md);
+  --section-max-width: 1200px;
+  --section-padding-y-mobile: var(--spacing-md);
+  --section-padding-x-mobile: var(--spacing-sm);
 }
 
 body[data-theme="terminal"] .section-header {
@@ -716,10 +718,6 @@ body[data-theme="terminal"] .carousel-dot:hover {
 }
 
 /* ─── Blog Section ─── */
-body[data-theme="terminal"] .blog {
-  padding: var(--spacing-lg) var(--spacing-md);
-}
-
 body[data-theme="terminal"] .blog-grid {
   gap: var(--spacing-sm);
 }
@@ -1175,12 +1173,7 @@ body[data-theme="terminal"] :focus-visible {
     text-align: center;
   }
 
-  body[data-theme="terminal"] .projects,
-  body[data-theme="terminal"] .about,
-  body[data-theme="terminal"] .contact,
-  body[data-theme="terminal"] .blog {
-    padding: var(--spacing-md) var(--spacing-sm);
-  }
+  /* Section padding for mobile is now handled in base.css */
 
   body[data-theme="terminal"] .section-divider {
     font-size: 0.5rem;

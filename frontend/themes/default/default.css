@@ -224,13 +224,13 @@ body[data-theme="default"] .scroll-indicator {
 }
 
 /* ─── Section Styles ─── */
-body[data-theme="default"] .projects,
-body[data-theme="default"] .about,
-body[data-theme="default"] .contact,
-body[data-theme="default"] .blog {
-  padding: var(--spacing-2xl) var(--spacing-lg);
-  max-width: var(--max-width);
-  margin: 0 auto;
+/* Section padding is now defined in base.css via CSS variables */
+body[data-theme="default"] {
+  --section-padding-y: var(--spacing-lg);
+  --section-padding-x: var(--spacing-lg);
+  --section-max-width: var(--max-width);
+  --section-padding-y-mobile: var(--spacing-xl);
+  --section-padding-x-mobile: var(--spacing-sm);
 }
 
 body[data-theme="default"] .section-header {
@@ -394,10 +394,6 @@ body[data-theme="default"] .carousel-dot:hover {
 }
 
 /* ─── Blog Section ─── */
-body[data-theme="default"] .blog {
-  padding: var(--spacing-3xl) var(--spacing-xl);
-}
-
 body[data-theme="default"] .blog .section-header {
   margin-bottom: var(--spacing-xl);
 }
@@ -824,12 +820,7 @@ body[data-theme="default"] .visitor-count {
     padding-top: calc(var(--spacing-xl) + 100px);
   }
 
-  body[data-theme="default"] .projects,
-  body[data-theme="default"] .about,
-  body[data-theme="default"] .contact,
-  body[data-theme="default"] .blog {
-    padding: var(--spacing-xl) var(--spacing-sm);
-  }
+  /* Section padding for mobile is now handled in base.css */
 
   body[data-theme="default"] .projects-grid {
     grid-template-columns: 1fr;

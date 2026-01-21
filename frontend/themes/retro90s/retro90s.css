@@ -619,13 +619,13 @@ body[data-theme="retro90s"] .retro-divider-animated {
    SECTION STYLES
    ═══════════════════════════════════════════════════════════════ */
 
-body[data-theme="retro90s"] .projects,
-body[data-theme="retro90s"] .about,
-body[data-theme="retro90s"] .contact,
-body[data-theme="retro90s"] .blog {
-  padding: var(--spacing-md);
-  position: relative;
-  z-index: 1;
+/* Section padding is now defined in base.css via CSS variables */
+body[data-theme="retro90s"] {
+  --section-padding-y: var(--spacing-md);
+  --section-padding-x: var(--spacing-md);
+  --section-max-width: 1200px;
+  --section-padding-y-mobile: var(--spacing-md);
+  --section-padding-x-mobile: var(--spacing-sm);
 }
 
 body[data-theme="retro90s"] .section-header {
@@ -950,7 +950,6 @@ body[data-theme="retro90s"] .carousel-dot:hover {
 
 /* ─── Blog Section ─── */
 body[data-theme="retro90s"] .blog {
-  padding: var(--spacing-lg) var(--spacing-md);
   background: repeating-linear-gradient(
     0deg,
     var(--bg-90s) 0px,
