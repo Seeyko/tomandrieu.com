@@ -94,6 +94,7 @@
 .git-timeline-content {
     position: relative;
     min-height: 300px;
+    padding-top: 15px;
 }
 
 /* ─── Year Axis ─── */
