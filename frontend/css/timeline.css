@@ -319,7 +319,7 @@
 }
 
 
-/* ─── CDK-Style Overlay (fixed corner position - bottom left) ─── */
+/* ─── CDK-Style Overlay (positioned below section header) ─── */
 .git-timeline-overlay {
     position: absolute;
     z-index: 99999;
@@ -335,13 +335,14 @@
     pointer-events: auto;
 }
 
-/* Fixed corner positioning - bottom left to avoid hiding content */
+/* Position below section header within timeline section */
 .git-timeline-overlay.fixed-corner {
-    position: fixed;
-    top: auto;
-    bottom: 20px;
+    position: absolute;
+    /* Position just below the section header (4rem padding + ~2rem header + 2rem margin) */
+    top: 7rem;
     left: 20px;
     right: auto;
+    bottom: auto;
 }
 
 .overlay-content {
