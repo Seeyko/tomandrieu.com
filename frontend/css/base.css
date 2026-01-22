@@ -361,21 +361,117 @@ body.loading * {
   animation-play-state: paused !important;
 }
 
+/* ─── Hamburger Menu Button ─── */
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 101;
+  margin-left: 0.5rem;
+}
+
+.hamburger-line {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: var(--color-text, #1a1a1a);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Hamburger animation when open */
+.hamburger-menu.open .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-menu.open .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.open .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Header controls container (theme + language on mobile) */
+.header-controls {
+  display: none;
+}
+
 /* ─── Base Responsive ─── */
 @media (max-width: 768px) {
   .header {
-    flex-direction: column;
-    gap: 0.5rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0;
+    padding: 0.75rem 1rem;
+  }
+
+  .header-brand {
+    flex: 0 0 auto;
   }
 
   .header-right {
-    flex-wrap: wrap;
-    justify-content: center;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0;
   }
 
+  /* Hide nav by default on mobile */
   .nav {
-    flex-wrap: wrap;
-    justify-content: center;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--color-bg-secondary, var(--color-bg, #f8f7f4));
+    padding: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
+    z-index: 99;
+  }
+
+  /* Show nav when menu is open */
+  .nav.mobile-open {
+    display: flex;
+  }
+
+  .nav .nav-link {
+    padding: 0.75rem 1rem;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid var(--color-border, rgba(0, 0, 0, 0.05));
+  }
+
+  .nav .nav-link:last-child {
+    border-bottom: none;
+  }
+
+  /* Show hamburger menu on mobile */
+  .hamburger-menu {
+    display: flex;
+  }
+
+  /* Show header controls container on mobile */
+  .header-controls {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Move theme and language switchers into controls */
+  .theme-switcher,
+  .language-switcher {
+    margin-left: 0.25rem;
   }
 
   .projects-grid {
