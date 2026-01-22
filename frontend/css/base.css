@@ -447,10 +447,17 @@ body.loading * {
   }
 
   .nav .nav-link {
-    padding: 0.75rem 1rem;
+    padding: 1rem 1.25rem;
     width: 100%;
     text-align: center;
     border-bottom: 1px solid var(--color-border, rgba(0, 0, 0, 0.05));
+    min-height: 3.5rem;
+    height: 3.5rem;
+    line-height: 1.4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
   }
 
   .nav .nav-link:last-child {

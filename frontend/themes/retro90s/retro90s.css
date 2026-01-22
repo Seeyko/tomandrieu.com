@@ -2035,12 +2035,14 @@ body[data-theme="retro90s"] ::-webkit-scrollbar-button:hover {
 
   body[data-theme="retro90s"] .nav .nav-link {
     font-size: 0.85rem;
-    padding: 0.75rem 1rem;
+    padding: 1rem 1.25rem;
     border-bottom: 1px solid var(--bevel-dark);
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 2.75rem;
+    min-height: 3.5rem;
+    height: 3.5rem;
+    line-height: 1.4;
     box-sizing: border-box;
   }
 
