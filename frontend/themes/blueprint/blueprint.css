@@ -1234,6 +1234,21 @@ body[data-theme="blueprint"] .footer-copyright {
     font-size: 0.9rem;
     padding: 1rem 1.25rem;
     border-bottom: 1px solid var(--line-white-dim);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 3rem;
+    box-sizing: border-box;
+  }
+
+  /* Hide section numbers on mobile nav */
+  body[data-theme="blueprint"] .nav .nav-link::before {
+    display: none;
+  }
+
+  /* Hide hover underline animation on mobile nav */
+  body[data-theme="blueprint"] .nav .nav-link:hover::after {
+    display: none;
   }
 
   body[data-theme="blueprint"] .nav .nav-link:last-child {
