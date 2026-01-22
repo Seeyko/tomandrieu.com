@@ -800,18 +800,37 @@ body[data-theme="default"] .visitor-count {
   body[data-theme="default"] .header {
     padding: 0.75rem var(--spacing-sm);
     flex-direction: row;
-    gap: var(--spacing-sm);
+    gap: 0;
   }
 
+  /* Mobile nav dropdown */
   body[data-theme="default"] .nav {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.125rem;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-light);
+    box-shadow: var(--shadow-lg);
   }
 
-  body[data-theme="default"] .nav-link {
-    font-size: 0.8125rem;
-    padding: 0.375rem 0.625rem;
+  body[data-theme="default"] .nav .nav-link {
+    font-size: 0.9375rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  body[data-theme="default"] .nav .nav-link:last-child {
+    border-bottom: none;
+  }
+
+  body[data-theme="default"] .nav .nav-link:hover {
+    background: var(--bg-tertiary);
+  }
+
+  /* Hamburger button styling */
+  body[data-theme="default"] .hamburger-line {
+    background-color: var(--text-secondary);
+  }
+
+  body[data-theme="default"] .hamburger-menu:hover .hamburger-line {
+    background-color: var(--text-primary);
   }
 
   body[data-theme="default"] .hero {
