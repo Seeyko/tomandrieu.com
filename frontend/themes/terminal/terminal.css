@@ -1148,6 +1148,11 @@ body[data-theme="terminal"] :focus-visible {
     font-size: 0.85rem;
     padding: 1rem 1.25rem;
     border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 3rem;
+    box-sizing: border-box;
   }
 
   body[data-theme="terminal"] .nav .nav-link:last-child {

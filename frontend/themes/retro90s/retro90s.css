@@ -11,6 +11,7 @@
   --bg-90s-dark: #808080;
   --bg-90s-light: #DFDFDF;
   --bg-90s-white: #FFFFFF;
+  --bg-90s-blue: #000080;
 
   /* Pure RGB Colors - Maximum Saturation */
   --color-blue: #0000FF;
@@ -2036,6 +2037,11 @@ body[data-theme="retro90s"] ::-webkit-scrollbar-button:hover {
     font-size: 0.85rem;
     padding: 0.75rem 1rem;
     border-bottom: 1px solid var(--bevel-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 2.75rem;
+    box-sizing: border-box;
   }
 
   body[data-theme="retro90s"] .nav .nav-link:last-child {
