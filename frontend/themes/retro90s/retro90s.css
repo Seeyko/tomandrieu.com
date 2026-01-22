@@ -2009,14 +2009,14 @@ body[data-theme="retro90s"] ::-webkit-scrollbar-button:hover {
 @media (max-width: 768px) {
   body[data-theme="retro90s"] .header {
     flex-direction: row;
-    flex-wrap: wrap;
-    gap: 4px;
-    padding: 4px;
+    flex-wrap: nowrap;
+    gap: 0;
+    padding: 4px 8px;
   }
 
   body[data-theme="retro90s"] .header-brand {
-    width: 100%;
-    justify-content: center;
+    width: auto;
+    justify-content: flex-start;
     padding: 2px 4px;
   }
 
@@ -2024,16 +2024,46 @@ body[data-theme="retro90s"] ::-webkit-scrollbar-button:hover {
     display: none;
   }
 
+  /* Mobile nav dropdown */
   body[data-theme="retro90s"] .nav {
-    width: 100%;
-    justify-content: center;
-    padding: 0;
-    gap: 2px;
+    background: var(--bg-90s-white);
+    border-top: 2px solid;
+    border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+    box-shadow: 2px 2px 0 var(--bevel-darker);
   }
 
-  body[data-theme="retro90s"] .nav-link {
-    font-size: 0.7rem;
-    padding: 3px 8px;
+  body[data-theme="retro90s"] .nav .nav-link {
+    font-size: 0.85rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--bevel-dark);
+  }
+
+  body[data-theme="retro90s"] .nav .nav-link:last-child {
+    border-bottom: none;
+  }
+
+  body[data-theme="retro90s"] .nav .nav-link:hover {
+    background: var(--bg-90s-blue);
+    color: var(--bg-90s-white);
+  }
+
+  /* Hamburger button styling */
+  body[data-theme="retro90s"] .hamburger-menu {
+    background: var(--bg-90s);
+    border: 2px solid;
+    border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  }
+
+  body[data-theme="retro90s"] .hamburger-line {
+    background-color: var(--color-black);
+  }
+
+  body[data-theme="retro90s"] .hamburger-menu:hover {
+    background: var(--bg-90s-blue);
+  }
+
+  body[data-theme="retro90s"] .hamburger-menu:hover .hamburger-line {
+    background-color: var(--bg-90s-white);
   }
 
   body[data-theme="retro90s"] .hero {

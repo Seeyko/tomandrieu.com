@@ -1137,12 +1137,34 @@ body[data-theme="terminal"] :focus-visible {
     display: none;
   }
 
+  /* Mobile nav dropdown */
   body[data-theme="terminal"] .nav {
-    gap: var(--spacing-sm);
+    background: rgba(10, 10, 10, 0.98);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(51, 255, 0, 0.1);
   }
 
-  body[data-theme="terminal"] .nav-link {
-    font-size: 0.65rem;
+  body[data-theme="terminal"] .nav .nav-link {
+    font-size: 0.85rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  body[data-theme="terminal"] .nav .nav-link:last-child {
+    border-bottom: none;
+  }
+
+  body[data-theme="terminal"] .nav .nav-link:hover {
+    background: rgba(51, 255, 0, 0.1);
+  }
+
+  /* Hamburger button styling */
+  body[data-theme="terminal"] .hamburger-line {
+    background-color: var(--primary);
+  }
+
+  body[data-theme="terminal"] .hamburger-menu:hover .hamburger-line {
+    box-shadow: var(--glow-primary);
   }
 
   body[data-theme="terminal"] .hero {
