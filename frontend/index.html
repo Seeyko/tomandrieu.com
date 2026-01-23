@@ -151,14 +151,16 @@
 
 <main id="main-content">
   <!-- Header -->
-  <header class="header">
+  <header class="header" role="banner">
     <div class="header-brand">
-      <span class="brand-prefix"></span>
-      <span class="brand-name" data-content="meta.name">TOM ANDRIEU</span>
-      <span class="brand-suffix"></span>
+      <a href="/" class="brand-link" aria-label="Tom Andrieu - Homepage">
+        <span class="brand-prefix"></span>
+        <span class="brand-name" data-content="meta.name">TOM ANDRIEU</span>
+        <span class="brand-suffix"></span>
+      </a>
     </div>
     <div class="header-right">
-      <nav class="nav" id="main-nav">
+      <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
         <a href="#projects" class="nav-link" data-section="01">
           <span class="nav-prefix"></span>
           <span class="nav-text" data-i18n="nav.projects">Projects</span>
