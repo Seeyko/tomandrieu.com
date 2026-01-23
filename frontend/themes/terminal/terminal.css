@@ -1139,6 +1139,7 @@ body[data-theme="terminal"] :focus-visible {
 
   /* Mobile nav dropdown */
   body[data-theme="terminal"] .nav {
+    gap: 0;
     background: rgba(10, 10, 10, 0.98);
     border-top: 1px solid var(--border);
     box-shadow: 0 4px 20px rgba(51, 255, 0, 0.1);
