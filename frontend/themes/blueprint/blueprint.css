@@ -1225,6 +1225,7 @@ body[data-theme="blueprint"] .footer-copyright {
 
   /* Mobile nav dropdown */
   body[data-theme="blueprint"] .nav {
+    gap: 0;
     background: rgba(0, 34, 68, 0.98);
     border-top: 1px solid var(--line-white-dim);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
