@@ -416,9 +416,10 @@ body.loading * {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Header controls container (theme + language on mobile) */
+/* Header controls container (theme + language switchers) */
 .header-controls {
-  display: none;
+  display: flex;
+  align-items: center;
 }
 
 /* ─── Base Responsive ─── */
@@ -450,6 +451,7 @@ body.loading * {
     left: 0;
     right: 0;
     flex-direction: column;
+    gap: 0;
     background: var(--color-bg-secondary, var(--color-bg, #f8f7f4));
     padding: 0;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -485,11 +487,7 @@ body.loading * {
     display: flex;
   }
 
-  /* Show header controls container on mobile */
-  .header-controls {
-    display: flex;
-    align-items: center;
-  }
+  /* Header controls - already visible via base styles */
 
   /* Move theme and language switchers into controls */
   .theme-switcher,
