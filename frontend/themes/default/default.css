@@ -96,10 +96,11 @@ body[data-theme="default"] .hero-title {
 /* ─── Header ─── */
 body[data-theme="default"] .header {
   padding: 0.875rem var(--spacing-lg);
-  background: rgba(248, 247, 244, 0.85);
+  background: rgba(248, 247, 244, 0.92);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
 body[data-theme="default"] .header-brand {
@@ -126,7 +127,7 @@ body[data-theme="default"] .nav {
 body[data-theme="default"] .nav-link {
   color: var(--text-secondary);
   font-size: 0.875rem;
-  font-weight: 450;
+  font-weight: 475;
   padding: 0.5rem 0.875rem;
   border-radius: var(--radius-sm);
   transition: color 0.2s var(--ease-out), background-color 0.2s var(--ease-out);
