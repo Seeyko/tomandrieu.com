@@ -235,7 +235,8 @@ body[data-theme="terminal"] .section-title.glitching::after {
 body[data-theme="terminal"] .header {
   padding: var(--spacing-xs) var(--spacing-md);
   background: var(--bg-terminal);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid #3a9a3a;
+  box-shadow: 0 1px 12px rgba(51, 255, 0, 0.15);
 }
 
 body[data-theme="terminal"] .header-brand {
@@ -283,11 +284,12 @@ body[data-theme="terminal"] .nav {
 }
 
 body[data-theme="terminal"] .nav-link {
-  color: var(--text-dim);
+  color: #30d800;
   font-size: 0.75rem;
   letter-spacing: 0.05em;
   padding: 0.3rem 0.5rem;
   border: 1px solid transparent;
+  text-shadow: 0 0 4px rgba(51, 255, 0, 0.35);
 }
 
 body[data-theme="terminal"] .nav-prefix::before {
