@@ -184,6 +184,7 @@
 #git-timeline-lanes {
     position: relative;
     order: 1; /* Place before axis in flex layout */
+    width: 100%;
 }
 
 .git-timeline-svg {
