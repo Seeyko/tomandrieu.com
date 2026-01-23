@@ -300,16 +300,6 @@ body[data-theme="terminal"] .article-title {
   margin-bottom: 2rem;
 }
 
-/* ─── Blog Header ─── */
-.blog-header {
-  background: transparent;
-}
-
-.blog-header .brand-link {
-  text-decoration: none;
-  color: inherit;
-}
-
 /* ─── Blog Footer ─── */
 .blog-footer {
   padding: 2rem;

@@ -24,6 +24,10 @@
     position: relative;
     padding: 4rem 0 2rem 0;
     overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 /* Section header with padding (like other sections) */
@@ -69,14 +73,20 @@
 .git-timeline-viewport {
     position: relative;
     width: 100%;
+    max-width: 100%;
     overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 .git-timeline-scroll {
+    width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
     scrollbar-width: thin;
     scrollbar-color: var(--git-trunk-color) transparent;
+    margin: 0;
+    padding: 0;
 }
 
 .git-timeline-scroll::-webkit-scrollbar {

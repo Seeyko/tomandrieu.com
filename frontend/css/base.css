@@ -103,6 +103,10 @@ section,
   padding-left: 0;
   padding-right: 0;
   max-width: 100%;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  box-sizing: border-box;
 }
 
 /* Mobile responsive padding for all sections */
@@ -142,6 +146,18 @@ section,
   align-items: center;
   z-index: 100;
   transition: all 0.3s ease;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
 }
 
 .header-right {

@@ -104,17 +104,17 @@
 <div id="theme-overlay" class="theme-overlay"></div>
 
 <main id="main-content">
-  <!-- Header -->
-  <header class="header blog-header">
+  <!-- Header (rendered by HeaderComponent) -->
+  <header class="header" role="banner">
     <div class="header-brand">
-      <a href="/" class="brand-link">
+      <a href="/" class="brand-link" aria-label="Go to homepage">
         <span class="brand-prefix"></span>
         <span class="brand-name" data-content="meta.name">TOM ANDRIEU</span>
         <span class="brand-suffix"></span>
       </a>
     </div>
     <div class="header-right">
-      <nav class="nav">
+      <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
         <a href="/#projects" class="nav-link" data-section="01">
           <span class="nav-prefix"></span>
           <span class="nav-text" data-i18n="nav.projects">Projects</span>
@@ -123,9 +123,9 @@
           <span class="nav-prefix"></span>
           <span class="nav-text" data-i18n="nav.about">About</span>
         </a>
-        <a href="/blog/" class="nav-link active" data-section="04">
+        <a href="/#timeline" class="nav-link" data-section="03">
           <span class="nav-prefix"></span>
-          <span class="nav-text" data-i18n="nav.blog">Blog</span>
+          <span class="nav-text" data-i18n="nav.history">History</span>
         </a>
         <a href="/#contact" class="nav-link" data-section="05">
           <span class="nav-prefix"></span>
@@ -133,6 +133,15 @@
         </a>
       </nav>
       <!-- Theme and language switchers will be inserted here by JS -->
+      <div class="header-controls" id="header-controls">
+        <!-- Theme switcher and language switcher moved here on mobile -->
+      </div>
+      <!-- Mobile hamburger menu button -->
+      <button class="hamburger-menu" id="hamburger-menu" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
     </div>
   </header>
 
@@ -207,6 +216,8 @@
 <script src="/js/core/utils.js"></script>
 <script src="/js/core/content-loader.js"></script>
 <script src="/js/core/card-renderer.js"></script>
+<script src="/js/core/effects/header-scroll.js"></script>
+<script src="/js/core/effects/mobile-menu.js"></script>
 <script src="/js/core/theme-init.js"></script>
 
 <!-- i18n / Language Manager -->

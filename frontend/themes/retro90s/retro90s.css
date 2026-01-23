@@ -179,6 +179,7 @@ body[data-theme="retro90s"] .header {
   background: linear-gradient(to right, var(--color-navy), var(--color-navy-light));
   border-bottom: 2px solid;
   border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   z-index: 1000;
 }
 
