@@ -58,8 +58,8 @@ const GitTimeline = (() => {
         const yearCount = endYear - startYear + 1;
 
         // Calculate width per year to fit everything in viewport
-        // Account for left padding plus safety margin for year labels and rounding
-        const totalPadding = CONFIG.padding.left + CONFIG.padding.right + 40;
+        // Account for left and right padding only
+        const totalPadding = CONFIG.padding.left + CONFIG.padding.right;
         const yearWidth = (availableWidth - totalPadding) / yearCount;
 
         // Minimum 60px per year for readability
@@ -734,8 +734,7 @@ const GitTimeline = (() => {
         // Render SVG graph first to get dimensions and trunkY
         const { totalWidth, totalHeight, trunkY } = renderSvg(lanesContainer, branches, laneCount);
 
-        // Set container dimensions
-        lanesContainer.style.width = `${totalWidth}px`;
+        // Set container height (width is handled by CSS width: 100%)
         lanesContainer.style.height = `${totalHeight}px`;
 
         // Render commit cards (with trunkY for positioning)
